@@ -1,7 +1,7 @@
 # Nesco Docs Gap Analysis
 
 *Date: 2026-02-26*
-*Sources: 9 CLI/TUI tools, 9 package managers, Starlight plugin ecosystem*
+*Sources: 9 CLI/TUI tools, 9 package managers, Starlight plugin ecosystem, docs best practices articles*
 
 ## Research Scope
 
@@ -10,6 +10,7 @@ Deep research across three categories to identify what nesco-docs is missing com
 1. **CLI/TUI tool docs** — Charm, Warp, Starship, lazygit, zoxide, ripgrep, bat, fzf, Atuin
 2. **Package manager docs** — Homebrew, Nix, asdf, mise, proto, volta, pipx, cargo, pnpm
 3. **Starlight plugin ecosystem** — Available plugins, component overrides, community extensions
+4. **Docs best practices articles** — Divio framework, Stripe/Vercel/Kubernetes patterns, SEO, accessibility
 
 ---
 
@@ -31,6 +32,8 @@ Deep research across three categories to identify what nesco-docs is missing com
 | Image zoom | `starlight-image-zoom` |
 | .editorconfig | Consistent formatting |
 | GitHub Pages deploy | SHA-pinned GitHub Actions workflow |
+| Table of Contents | Starlight built-in (sticky right sidebar) |
+| Sitemap | `@astrojs/sitemap` (Starlight built-in) |
 
 ---
 
@@ -77,6 +80,22 @@ These are directly relevant to nesco and should be addressed before or at v1 lau
 **Relevance:** Nesco's TUI is a key differentiator. Static screenshots don't capture the interactive experience. GIF recordings of the TUI in action would be powerful.
 
 **Action:** Record TUI demos using a tool like VHS (by Charm) or asciinema. Add to Getting Started and TUI pages.
+
+### "Edit on GitHub" links
+
+**Who does it:** MDN, Kubernetes, Go — all have "Edit this page" links on every page.
+
+**Relevance:** Starlight has built-in support via the `editLink` config. We just need to enable it. Low effort, high trust signal — shows docs are community-maintained and transparent.
+
+**Action:** Add `editLink` config to `astro.config.mjs` pointing to the nesco-docs GitHub repo.
+
+### Command hierarchy in CLI Reference
+
+**Who does it:** Git, GitHub CLI, Deno — mirror CLI structure in docs navigation. Each subcommand gets its own page with flags, options, and examples.
+
+**Relevance:** Nesco's CLI Reference is currently a single page. As the CLI grows, it should expand to: `nesco` (overview) → `nesco install` / `nesco browse` / `nesco convert` etc., each with its own page.
+
+**Action:** Content architecture decision for v1. Task-organized grouping (by user goal) likely fits best since nesco commands map to workflows (install, browse, convert, etc.).
 
 ---
 
@@ -145,6 +164,12 @@ Worth adding before v1 launch but not blockers.
 
 These aren't tooling gaps — they're patterns to keep in mind when writing actual content.
 
+### The Divio framework (reference model)
+
+The [Divio documentation system](https://docs.divio.com/documentation-system/) defines 4 content types: **Tutorials** (learning-oriented), **How-to Guides** (task-oriented), **Reference** (information-oriented), **Explanation** (understanding-oriented). Kubernetes, Go, and Terraform all follow this. Each page should serve ONE purpose — don't mix tutorials with reference.
+
+Our IA maps to this naturally: Getting Started = Tutorials, Creating Content = How-to Guides, CLI Reference = Reference, Core Concepts = Explanation. Keep this alignment intentional.
+
 ### 1. Separate tutorials from reference
 
 Users in "learning mode" vs. "lookup mode" need different things. Our IA already does this (Getting Started vs. CLI Reference). Keep it.
@@ -169,6 +194,12 @@ Three proven approaches:
 - **Task-organized** (asdf) — groups by what users want to do
 
 Nesco should pick one. Task-organized likely fits best since nesco commands map to user goals (install, browse, convert, etc.).
+
+### 6. Migration / "switching from" guides
+
+Supabase has explicit "Migrate from Firebase" and "Migrate from Auth0" guides. For nesco, a "Switching from rulesync" guide would reduce onboarding friction for the most likely audience — people who already use the main alternative.
+
+**Action:** Write as part of the "Why nesco?" / comparison content at v1.
 
 ---
 
@@ -214,3 +245,4 @@ Nesco should pick one. Task-organized likely fits best since nesco commands map 
 - **CLI/TUI tools surveyed:** Charm (charm.sh), Warp (warp.dev), Starship (starship.rs), lazygit, zoxide, ripgrep, bat, fzf, Atuin
 - **Package managers surveyed:** Homebrew, Nix, asdf, mise, proto, volta, pipx, cargo, pnpm
 - **Starlight resources:** Official plugin showcase, awesome-starlight lists (riderx, trueberryless-org), npm registry
+- **Best practices references:** Divio documentation system, Stripe docs, Vercel/Next.js docs, Kubernetes docs, MDN, Supabase docs, Prisma docs
