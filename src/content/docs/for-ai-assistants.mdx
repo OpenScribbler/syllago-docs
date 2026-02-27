@@ -1,0 +1,38 @@
+---
+title: For AI assistants
+description: Machine-readable documentation for AI coding assistants and LLMs to learn about nesco.
+---
+
+Nesco supports the [llms.txt](https://llmstxt.org/) standard — a convention that makes documentation
+machine-readable for Large Language Models.
+
+## Available resources
+
+These files are generated automatically from the same source as this documentation site.
+
+| Resource | Description | Best for |
+|----------|-------------|----------|
+| [llms.txt](/nesco-docs/llms.txt) | Index of available documentation sets | Discovery |
+| [llms-small.txt](/nesco-docs/llms-small.txt) | Condensed documentation | Quick context, smaller models |
+| [llms-full.txt](/nesco-docs/llms-full.txt) | Complete documentation | Comprehensive understanding |
+
+## How to use these
+
+Feed these resources to your AI coding assistant when you need help working with nesco.
+
+**Paste into a chat:**
+Copy the content of `llms-full.txt` into Claude, ChatGPT, or any LLM chat, then ask your question.
+
+**Use with CLI tools:**
+```bash
+# Feed nesco docs to Claude Code
+curl -s https://openscribbler.github.io/nesco-docs/llms-full.txt | pbcopy
+
+# Use with any tool that accepts URLs
+# Many AI tools can fetch URLs directly
+```
+
+**Context window tips:**
+- Use `llms-small.txt` when you just need an overview or are working with smaller context windows
+- Use `llms-full.txt` when you need detailed information about specific features
+- The **Copy page** button (top-right of any page) copies individual page content for focused questions

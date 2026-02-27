@@ -1,0 +1,32 @@
+extends: conditional
+message: "Spell out '%s' upon its first appearance."
+level: suggestion
+scope: ~heading & ~text.frontmatter
+ignorecase: false
+first: '\b([A-Z]{3,5})(?!''s\b|s\b)\b'
+second: '(?:\b[A-Z][a-z]+ )+\(([A-Z]{3,5})\)|(?:\[[^\]]*\])'
+exceptions:
+  - API
+  - CLI
+  - CSS
+  - DNS
+  - FAQ
+  - HTML
+  - HTTP
+  - HTTPS
+  - JSON
+  - JSONC
+  - JWT
+  - LLM
+  - MCP
+  - MDX
+  - OIDC
+  - REST
+  - SDK
+  - SSH
+  - SSL
+  - TLS
+  - TOML
+  - TUI
+  - URL
+  - YAML

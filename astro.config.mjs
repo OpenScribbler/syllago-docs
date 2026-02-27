@@ -2,70 +2,56 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightThemeFlexoki from 'starlight-theme-flexoki';
+import starlightLinksValidator from 'starlight-links-validator';
+import starlightLlmsTxt from 'starlight-llms-txt';
+import astroD2 from 'astro-d2';
+import { sidebar } from './sidebar.ts';
+import { execSync } from 'child_process';
+
+// Auto-enable D2 when installed, skip gracefully when not
+function shouldGenerateD2() {
+  if (process.env.CI === 'true') {
+    return true;
+  }
+  try {
+    execSync('d2 --version', { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+const integrations = [
+  starlight({
+    title: 'nesco',
+    description: 'The package manager for AI coding tool content',
+    plugins: [
+      starlightThemeFlexoki(),
+      starlightLinksValidator({
+        errorOnLocalLinks: false,
+      }),
+      starlightLlmsTxt(),
+    ],
+    social: [
+      { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/nesco' },
+    ],
+    sidebar,
+    components: {
+      PageTitle: './src/components/overrides/PageTitle.astro',
+    },
+  }),
+];
+
+if (shouldGenerateD2()) {
+  integrations.push(
+    astroD2({
+      skipGeneration: false,
+    })
+  );
+}
 
 export default defineConfig({
   site: 'https://openscribbler.github.io',
   base: '/nesco-docs',
-  integrations: [
-    starlight({
-      title: 'nesco',
-      description: 'The package manager for AI coding tool content',
-      plugins: [starlightThemeFlexoki()],
-      social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/nesco' },
-      ],
-      sidebar: [
-        {
-          label: 'Getting Started',
-          items: [
-            { label: 'Installation', slug: 'getting-started/installation' },
-            { label: 'Quick Start', slug: 'getting-started/quick-start' },
-            { label: 'Core Concepts', slug: 'getting-started/core-concepts' },
-          ],
-        },
-        {
-          label: 'Using Nesco',
-          items: [
-            { label: 'The TUI', slug: 'using-nesco/tui' },
-            { label: 'CLI Reference', slug: 'using-nesco/cli-reference' },
-            {
-              label: 'Supported Providers',
-              items: [
-                { label: 'Overview', slug: 'using-nesco/providers' },
-                { label: 'Claude Code', slug: 'using-nesco/providers/claude-code' },
-                { label: 'Cursor', slug: 'using-nesco/providers/cursor' },
-                { label: 'Windsurf', slug: 'using-nesco/providers/windsurf' },
-                { label: 'Copilot', slug: 'using-nesco/providers/copilot' },
-                { label: 'Cline', slug: 'using-nesco/providers/cline' },
-                { label: 'Roo Code', slug: 'using-nesco/providers/roo-code' },
-                { label: 'Kiro', slug: 'using-nesco/providers/kiro' },
-                { label: 'Zed', slug: 'using-nesco/providers/zed' },
-                { label: 'Gemini CLI', slug: 'using-nesco/providers/gemini-cli' },
-                { label: 'OpenCode', slug: 'using-nesco/providers/opencode' },
-                { label: 'Codex', slug: 'using-nesco/providers/codex' },
-              ],
-            },
-            { label: 'Content Types', slug: 'using-nesco/content-types' },
-          ],
-        },
-        {
-          label: 'Creating Content',
-          items: [
-            { label: 'Authoring Guide', slug: 'creating-content/authoring-guide' },
-            { label: '.nesco.yaml Format', slug: 'creating-content/nesco-yaml' },
-            { label: 'Registries', slug: 'creating-content/registries' },
-            { label: 'Format Conversion', slug: 'creating-content/format-conversion' },
-          ],
-        },
-        {
-          label: 'Advanced',
-          items: [
-            { label: 'Sandbox', slug: 'advanced/sandbox' },
-            { label: 'Team Setup', slug: 'advanced/team-setup' },
-            { label: 'Troubleshooting', slug: 'advanced/troubleshooting' },
-          ],
-        },
-      ],
-    }),
-  ],
+  integrations,
 });

@@ -1,0 +1,13 @@
+# EditorConfig: https://editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Formatting for all files
+[*.{md,mdx,js,jsx,ts,tsx,css,scss,html,json,yml,yaml}]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true

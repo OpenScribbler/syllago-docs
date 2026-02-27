@@ -1,0 +1,15 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: warning
+scope: ~heading
+ignorecase: false
+action:
+  name: replace
+swap:
+  "(?:e-mail|E-mail)": email
+  "(?:ok|Okay)": OK|okay
+  "file name": filename
+  "open-source": open source
+  "in order to": to
+  "(?:config|conf) file": configuration file
+  "config files": configuration files
