@@ -4,6 +4,8 @@ import starlight from '@astrojs/starlight';
 import starlightThemeFlexoki from 'starlight-theme-flexoki';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightLlmsTxt from 'starlight-llms-txt';
+import starlightHeadingBadges from 'starlight-heading-badges';
+import starlightImageZoom from 'starlight-image-zoom';
 import astroD2 from 'astro-d2';
 import { sidebar } from './sidebar.ts';
 import { execSync } from 'child_process';
@@ -31,6 +33,8 @@ const integrations = [
         errorOnLocalLinks: false,
       }),
       starlightLlmsTxt(),
+      starlightHeadingBadges(),
+      starlightImageZoom(),
     ],
     social: [
       { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/nesco' },
