@@ -164,9 +164,9 @@ Worth adding before v1 launch but not blockers.
 
 These aren't tooling gaps — they're patterns to keep in mind when writing actual content.
 
-### The Divio framework (reference model)
+### Diataxis framework (reference model)
 
-The [Divio documentation system](https://docs.divio.com/documentation-system/) defines 4 content types: **Tutorials** (learning-oriented), **How-to Guides** (task-oriented), **Reference** (information-oriented), **Explanation** (understanding-oriented). Kubernetes, Go, and Terraform all follow this. Each page should serve ONE purpose — don't mix tutorials with reference.
+The [Diataxis framework](https://diataxis.fr/) defines 4 content types along two axes (practical/theoretical, learning/working): **Tutorials** (learning-oriented), **How-to Guides** (task-oriented), **Reference** (information-oriented), **Explanation** (understanding-oriented). Each page should serve ONE purpose — don't mix tutorials with reference.
 
 Our IA maps to this naturally: Getting Started = Tutorials, Creating Content = How-to Guides, CLI Reference = Reference, Core Concepts = Explanation. Keep this alignment intentional.
 
@@ -245,4 +245,4 @@ Supabase has explicit "Migrate from Firebase" and "Migrate from Auth0" guides. F
 - **CLI/TUI tools surveyed:** Charm (charm.sh), Warp (warp.dev), Starship (starship.rs), lazygit, zoxide, ripgrep, bat, fzf, Atuin
 - **Package managers surveyed:** Homebrew, Nix, asdf, mise, proto, volta, pipx, cargo, pnpm
 - **Starlight resources:** Official plugin showcase, awesome-starlight lists (riderx, trueberryless-org), npm registry
-- **Best practices references:** Divio documentation system, Stripe docs, Vercel/Next.js docs, Kubernetes docs, MDN, Supabase docs, Prisma docs
+- **Best practices references:** Diataxis framework, Stripe docs, Vercel/Next.js docs, Kubernetes docs, MDN, Supabase docs, Prisma docs
