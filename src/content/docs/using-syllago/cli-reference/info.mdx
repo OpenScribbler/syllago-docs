@@ -1,0 +1,26 @@
+---
+title: "syllago info"
+description: "Show syllago capabilities"
+---
+
+Machine-readable capability manifest. Useful for agents discovering syllago's features.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`formats`](/syllago-docs/using-syllago/cli-reference/info-formats/) | List supported file formats |
+| [`providers`](/syllago-docs/using-syllago/cli-reference/info-providers/) | List all known providers |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/info_cmd.go)</small>

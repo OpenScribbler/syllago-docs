@@ -1,0 +1,34 @@
+---
+title: "syllago loadout"
+description: "Apply, create, and manage loadouts"
+---
+
+Loadouts bundle a curated set of syllago content — rules, hooks, skills,
+agents, MCP servers — into a single shareable configuration.
+
+Use "syllago loadout apply" to try or apply a loadout.
+Use "syllago loadout create" to build a new loadout interactively.
+Use "syllago loadout remove" to revert an active loadout.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`apply`](/syllago-docs/using-syllago/cli-reference/loadout-apply/) | Apply a loadout |
+| [`create`](/syllago-docs/using-syllago/cli-reference/loadout-create/) | Interactively create a new loadout |
+| [`list`](/syllago-docs/using-syllago/cli-reference/loadout-list/) | List available loadouts |
+| [`remove`](/syllago-docs/using-syllago/cli-reference/loadout-remove/) | Remove the active loadout and restore original configuration |
+| [`status`](/syllago-docs/using-syllago/cli-reference/loadout-status/) | Show active loadout status |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/loadout_cmd.go)</small>

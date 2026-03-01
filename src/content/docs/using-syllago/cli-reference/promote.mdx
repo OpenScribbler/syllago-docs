@@ -1,0 +1,32 @@
+---
+title: "syllago promote"
+description: "Promote content to shared or registry"
+---
+
+Promote local content for sharing with others.
+
+Use "to-registry" to contribute content to a git registry via a PR workflow.
+The command creates a branch in the registry clone, copies the content, commits,
+pushes, and optionally opens a PR if the gh CLI is installed.
+
+Example:
+  syllago promote to-registry syllago-tools skills/my-skill
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/) | Contribute content to a registry via PR |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/promote_cmd.go)</small>

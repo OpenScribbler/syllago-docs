@@ -7,18 +7,18 @@ Tasks analyzed: 11
 
 | Writing Task | Blocked By | Reason |
 |-------------|------------|--------|
-| romanesco-jcsx: Make build integration | romanesco-0o2k: Go script | Can't integrate what doesn't exist yet |
-| romanesco-nogj: CI freshness check | romanesco-0o2k: Go script | CI checks the Go script's output |
-| romanesco-nl2g: Release artifact | romanesco-0o2k: Go script | Release publishes the Go script's output |
-| romanesco-305j: Sync script | romanesco-3zjp: Content collection, romanesco-nl2g: Release artifact | Needs schema to validate against, needs artifact location to fetch from |
-| romanesco-oslo: Page template | romanesco-3zjp: Content collection | Template renders collection entries |
-| romanesco-vt5d: Index page | romanesco-oslo: Template, romanesco-305j: Sync script | Index page uses the same rendering pipeline |
-| romanesco-a058: Sidebar update | romanesco-oslo: Template | Sidebar needs to know final page paths |
+| romasyllago-jcsx: Make build integration | romasyllago-0o2k: Go script | Can't integrate what doesn't exist yet |
+| romasyllago-nogj: CI freshness check | romasyllago-0o2k: Go script | CI checks the Go script's output |
+| romasyllago-nl2g: Release artifact | romasyllago-0o2k: Go script | Release publishes the Go script's output |
+| romasyllago-305j: Sync script | romasyllago-3zjp: Content collection, romasyllago-nl2g: Release artifact | Needs schema to validate against, needs artifact location to fetch from |
+| romasyllago-oslo: Page template | romasyllago-3zjp: Content collection | Template renders collection entries |
+| romasyllago-vt5d: Index page | romasyllago-oslo: Template, romasyllago-305j: Sync script | Index page uses the same rendering pipeline |
+| romasyllago-a058: Sidebar update | romasyllago-oslo: Template | Sidebar needs to know final page paths |
 
-## Task 1: Go script to generate commands.json (romanesco-0o2k)
+## Task 1: Go script to generate commands.json (romasyllago-0o2k)
 
 - [x] Content deps: None - can start immediately. This is the foundation task.
-- [x] Source availability: All sources accessible (cli/cmd/nesco/*.go, Cobra doc package)
+- [x] Source availability: All sources accessible (cli/cmd/syllago/*.go, Cobra doc package)
 - [x] Framework compliance: N/A (infrastructure, not documentation content)
 - [x] Cross-page conflicts: None
 - [x] Success criteria: Running the script produces valid JSON matching the CommandManifest schema with all ~30 commands included
@@ -26,7 +26,7 @@ Tasks analyzed: 11
 **Actions taken:**
 - None required — this is the root of the dependency tree
 
-## Task 2: Make build integration (romanesco-jcsx)
+## Task 2: Make build integration (romasyllago-jcsx)
 
 - [x] Content deps: Depends on Task 1 (Go script must exist)
 - [x] Source availability: Makefile accessible
@@ -35,9 +35,9 @@ Tasks analyzed: 11
 - [x] Success criteria: `make build` regenerates commands.json alongside the binary
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-jcsx romanesco-0o2k`
+- Added dependency: `bd dep add romasyllago-jcsx romasyllago-0o2k`
 
-## Task 3: CI freshness check (romanesco-nogj)
+## Task 3: CI freshness check (romasyllago-nogj)
 
 - [x] Content deps: Depends on Task 1 (Go script must exist)
 - [x] Source availability: ci.yml accessible
@@ -46,9 +46,9 @@ Tasks analyzed: 11
 - [x] Success criteria: CI fails when commands.json is stale, passes when fresh
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-nogj romanesco-0o2k`
+- Added dependency: `bd dep add romasyllago-nogj romasyllago-0o2k`
 
-## Task 4: Release workflow artifact (romanesco-nl2g)
+## Task 4: Release workflow artifact (romasyllago-nl2g)
 
 - [x] Content deps: Depends on Task 1 (Go script must exist)
 - [x] Source availability: release.yml accessible
@@ -57,9 +57,9 @@ Tasks analyzed: 11
 - [x] Success criteria: commands.json appears as a release artifact on GitHub releases
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-nl2g romanesco-0o2k`
+- Added dependency: `bd dep add romasyllago-nl2g romasyllago-0o2k`
 
-## Task 5: Content collection with Zod schema (romanesco-3zjp)
+## Task 5: Content collection with Zod schema (romasyllago-3zjp)
 
 - [x] Content deps: None - can start immediately (parallel with Task 1)
 - [x] Source availability: Architecture doc schema accessible, Astro docs available
@@ -68,9 +68,9 @@ Tasks analyzed: 11
 - [x] Success criteria: Zod schema validates commands.json entries correctly, content collection configured in Astro
 
 **Actions taken:**
-- None required — can start in parallel with nesco-repo work
+- None required — can start in parallel with syllago-repo work
 
-## Task 6: Sync script (romanesco-305j)
+## Task 6: Sync script (romasyllago-305j)
 
 - [x] Content deps: Depends on Task 5 (schema) and Task 4 (release artifact exists to fetch)
 - [x] Source availability: Aembit pattern accessible as reference
@@ -79,10 +79,10 @@ Tasks analyzed: 11
 - [x] Success criteria: Script fetches commands.json from GitHub release and generates valid MDX files in the content collection
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-305j romanesco-3zjp`
-- Added dependency: `bd dep add romanesco-305j romanesco-nl2g`
+- Added dependency: `bd dep add romasyllago-305j romasyllago-3zjp`
+- Added dependency: `bd dep add romasyllago-305j romasyllago-nl2g`
 
-## Task 7: Per-command page template (romanesco-oslo)
+## Task 7: Per-command page template (romasyllago-oslo)
 
 - [x] Content deps: Depends on Task 5 (content collection must exist)
 - [x] Source availability: All sources accessible
@@ -91,9 +91,9 @@ Tasks analyzed: 11
 - [x] Success criteria: Template renders all command page sections correctly from collection data
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-oslo romanesco-3zjp`
+- Added dependency: `bd dep add romasyllago-oslo romasyllago-3zjp`
 
-## Task 8: CLI Reference index page (romanesco-vt5d)
+## Task 8: CLI Reference index page (romasyllago-vt5d)
 
 - [x] Content deps: Depends on Tasks 6-7 (pipeline must work to know which commands exist)
 - [x] Source availability: All sources accessible
@@ -102,10 +102,10 @@ Tasks analyzed: 11
 - [x] Success criteria: Index page shows all commands grouped by workflow, links work to individual pages
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-vt5d romanesco-oslo`
-- Added dependency: `bd dep add romanesco-vt5d romanesco-305j`
+- Added dependency: `bd dep add romasyllago-vt5d romasyllago-oslo`
+- Added dependency: `bd dep add romasyllago-vt5d romasyllago-305j`
 
-## Task 9: Populate Cobra Example fields (romanesco-g35v)
+## Task 9: Populate Cobra Example fields (romasyllago-g35v)
 
 - [x] Content deps: None - can start immediately (parallel with all infrastructure). Task 1 needs the Go script, but examples are written in the command files themselves.
 - [x] Source availability: All command Go files accessible
@@ -116,7 +116,7 @@ Tasks analyzed: 11
 **Actions taken:**
 - None required — can start in parallel with infrastructure work
 
-## Task 10: editLink config (romanesco-b69c)
+## Task 10: editLink config (romasyllago-b69c)
 
 - [x] Content deps: None - can start immediately
 - [x] Source availability: astro.config.mjs accessible
@@ -127,7 +127,7 @@ Tasks analyzed: 11
 **Actions taken:**
 - None required — fully independent task
 
-## Task 11: Update sidebar.ts (romanesco-a058)
+## Task 11: Update sidebar.ts (romasyllago-a058)
 
 - [x] Content deps: Depends on Task 7 (need to know final page paths from template)
 - [x] Source availability: sidebar.ts accessible
@@ -136,14 +136,14 @@ Tasks analyzed: 11
 - [x] Success criteria: Sidebar shows alphabetical command listing with proper nesting
 
 **Actions taken:**
-- Added dependency: `bd dep add romanesco-a058 romanesco-oslo`
+- Added dependency: `bd dep add romasyllago-a058 romasyllago-oslo`
 
 ## Shared Content Decisions
 
 | Content | Decision | Used By |
 |---------|----------|---------|
 | Global Options table | Rendered from commands.json inheritedFlags — same on every page | All 31 command pages |
-| Source link format | GitHub permalink pattern: `cli/cmd/nesco/{file}.go` | All command pages |
+| Source link format | GitHub permalink pattern: `cli/cmd/syllago/{file}.go` | All command pages |
 | Example format | Single code block, comment-per-example | All command pages (from Cobra Example field) |
 
 ## Wayfinding Plan
@@ -155,7 +155,7 @@ Tasks analyzed: 11
 | Individual command pages | Context links | Relevant guides (Getting Started, etc.) | Hand-authored in MDX |
 | Getting Started / Quick Start | "Full options" links | Key command pages (import, export) | From tutorials to reference |
 | How-to guides | Flag reference links | Specific command pages | "For all options, see..." |
-| Provider pages | Export reference | nesco export page | How to export to that provider |
+| Provider pages | Export reference | syllago export page | How to export to that provider |
 
 ## Summary
 

@@ -5,7 +5,7 @@
 
 ## Overview
 
-The CLI reference section of nesco-docs uses a **per-command page structure** with auto-generated content from nesco's Cobra command tree, augmented by hand-authored MDX for editorial content.
+The CLI reference section of syllago-docs uses a **per-command page structure** with auto-generated content from syllago's Cobra command tree, augmented by hand-authored MDX for editorial content.
 
 ## Design Decisions
 
@@ -18,7 +18,7 @@ The CLI reference section of nesco-docs uses a **per-command page structure** wi
 ### Data pipeline
 
 ```
-nesco repo (Go)                        nesco-docs repo (Astro)
+syllago repo (Go)                        syllago-docs repo (Astro)
 ─────────────────                      ────────────────────────
 Cobra command tree                     Sync script fetches commands.json
        │                               from latest GitHub release
@@ -33,11 +33,11 @@ Cobra command tree                     Sync script fetches commands.json
   (fails if stale)
 ```
 
-- **Source of truth:** nesco's Go source (Cobra command definitions)
+- **Source of truth:** syllago's Go source (Cobra command definitions)
 - **Export format:** `commands.json` — structured JSON manifest of all commands
 - **Generation:** Automatic during `make build`, published as a GitHub release artifact alongside binaries
 - **Drift prevention:** CI step regenerates JSON and fails if output differs from committed version
-- **Docs consumption:** Adapted from the Aembit `GithubFetchContent` pattern — prebuild sync script fetches `commands.json` from the latest nesco release and generates content collection entries
+- **Docs consumption:** Adapted from the Aembit `GithubFetchContent` pattern — prebuild sync script fetches `commands.json` from the latest syllago release and generates content collection entries
 
 ### Content split
 
@@ -60,22 +60,22 @@ Cobra command tree                     Sync script fetches commands.json
 
 ### Versioning
 - **No docs version number.** Continuous deployment — push to main = live.
-- Docs always reflect the latest released nesco version.
+- Docs always reflect the latest released syllago version.
 - Editorial improvements (typo fixes, new guides) publish immediately.
-- Version-specific docs (starlight-versions plugin) deferred until nesco has multiple active major versions.
+- Version-specific docs (starlight-versions plugin) deferred until syllago has multiple active major versions.
 
 ### Examples format
 All examples for a command live in a single code block with brief comment descriptions:
 
 ```bash
 # Export a skill to Claude Code
-nesco export my-skill --to claude-code
+syllago export my-skill --to claude-code
 
 # Export all skills matching a pattern
-nesco export "testing-*" --to cursor
+syllago export "testing-*" --to cursor
 
 # Export to a specific project directory
-nesco export my-skill --to claude-code --dir ~/projects/myapp
+syllago export my-skill --to claude-code --dir ~/projects/myapp
 ```
 
 Examples are authored in Cobra's `Example` field in Go source and included in the JSON manifest.
@@ -89,7 +89,7 @@ Examples are authored in Cobra's `Example` field in Go source and included in th
 ### Formatting reference model
 - **Content depth and sections:** GitHub CLI (`gh`) — synopsis, description, options, inherited options, aliases, examples, see also
 - **Presentation:** mise — clean code blocks, concise layout
-- **Design:** nesco-docs' own Starlight/Flexoki theme (no changes)
+- **Design:** syllago-docs' own Starlight/Flexoki theme (no changes)
 
 ---
 
@@ -101,7 +101,7 @@ Examples are authored in Cobra's `Example` field in Go source and included in th
 interface CommandManifest {
   version: string          // manifest schema version
   generatedAt: string      // ISO timestamp
-  nescoVersion: string     // nesco version that generated this
+  syllagoVersion: string     // syllago version that generated this
   commands: CommandEntry[]
 }
 
@@ -113,7 +113,7 @@ interface CommandEntry {
   parent: string | null     // null for top-level, "registry" for subcommands
 
   // Core reference
-  synopsis: string          // "nesco export <name> --to <provider> [flags]"
+  synopsis: string          // "syllago export <name> --to <provider> [flags]"
   description: string       // Short description (Cobra Short)
   longDescription: string | null  // Extended description (Cobra Long)
   aliases: string[]         // ["e"] if any
@@ -130,7 +130,7 @@ interface CommandEntry {
   examples: string | null   // Raw example block with comments
 
   // Metadata
-  source: string            // "cli/cmd/nesco/export.go"
+  source: string            // "cli/cmd/syllago/export.go"
 }
 
 interface Flag {
@@ -145,21 +145,21 @@ interface Flag {
 
 ### Astro content collection
 
-The content collection schema in nesco-docs mirrors the `CommandEntry` interface above, defined via Astro's `defineCollection()` with Zod validation.
+The content collection schema in syllago-docs mirrors the `CommandEntry` interface above, defined via Astro's `defineCollection()` with Zod validation.
 
 ---
 
 ## Implementation Tasks
 
-1. **nesco repo:** Write Go script to walk Cobra command tree and output `commands.json`
-2. **nesco repo:** Add `commands.json` generation to `make build` target
-3. **nesco repo:** Add CI freshness check for `commands.json`
-4. **nesco repo:** Add `commands.json` to release workflow as an artifact
-5. **nesco-docs repo:** Create `commands` content collection with Zod schema
-6. **nesco-docs repo:** Write sync script to fetch `commands.json` and generate MDX entries
-7. **nesco-docs repo:** Create command page template (renders auto-generated + hand-authored content)
-8. **nesco-docs repo:** Create CLI reference index page with grouped layout
-9. **nesco-docs repo:** Add `editLink` config to `astro.config.mjs`
+1. **syllago repo:** Write Go script to walk Cobra command tree and output `commands.json`
+2. **syllago repo:** Add `commands.json` generation to `make build` target
+3. **syllago repo:** Add CI freshness check for `commands.json`
+4. **syllago repo:** Add `commands.json` to release workflow as an artifact
+5. **syllago-docs repo:** Create `commands` content collection with Zod schema
+6. **syllago-docs repo:** Write sync script to fetch `commands.json` and generate MDX entries
+7. **syllago-docs repo:** Create command page template (renders auto-generated + hand-authored content)
+8. **syllago-docs repo:** Create CLI reference index page with grouped layout
+9. **syllago-docs repo:** Add `editLink` config to `astro.config.mjs`
 10. **Both repos:** Populate Cobra `Example` fields with comment-formatted examples
 
 ## Research references

@@ -12,7 +12,7 @@
     "attempts": 1,
     "lastGaps": [],
     "passed": true,
-    "notes": "Validator flagged all 7 actions as missing coverage. Expected result — project scoped to CLI Reference only (Use action). Other actions covered by other nesco-docs sections."
+    "notes": "Validator flagged all 7 actions as missing coverage. Expected result — project scoped to CLI Reference only (Use action). Other actions covered by other syllago-docs sections."
   },
   "beads": {
     "created": true,

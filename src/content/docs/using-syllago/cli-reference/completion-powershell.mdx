@@ -1,0 +1,50 @@
+---
+title: "syllago completion powershell"
+description: "Generate the autocompletion script for powershell"
+---
+
+## Synopsis
+
+```
+syllago completion powershell [flags]
+```
+
+## Description
+
+Generate the autocompletion script for powershell.
+
+To load completions in your current shell session:
+
+```bash
+syllago completion powershell | Out-String | Invoke-Expression
+```
+
+To load completions for every new session, add the output of the above command
+to your powershell profile.
+
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--no-descriptions` | `bool` | — | No | disable completion descriptions |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago completion](/syllago-docs/using-syllago/cli-reference/completion/)
+- [syllago completion bash](/syllago-docs/using-syllago/cli-reference/completion-bash/)
+- [syllago completion fish](/syllago-docs/using-syllago/cli-reference/completion-fish/)
+- [syllago completion zsh](/syllago-docs/using-syllago/cli-reference/completion-zsh/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/completion_cmd.go)</small>

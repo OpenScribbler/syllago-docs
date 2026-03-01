@@ -1,0 +1,27 @@
+---
+title: "syllago config"
+description: "View and edit syllago configuration"
+---
+
+Manage provider selection and preferences in .syllago/config.json.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`add`](/syllago-docs/using-syllago/cli-reference/config-add/) | Add a provider to the configuration |
+| [`list`](/syllago-docs/using-syllago/cli-reference/config-list/) | List current configuration |
+| [`remove`](/syllago-docs/using-syllago/cli-reference/config-remove/) | Remove a provider from the configuration |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/config_cmd.go)</small>

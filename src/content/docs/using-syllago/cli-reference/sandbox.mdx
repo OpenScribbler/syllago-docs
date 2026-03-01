@@ -1,0 +1,39 @@
+---
+title: "syllago sandbox"
+description: "Run and manage AI CLI tools in bubblewrap sandboxes"
+---
+
+Sandbox wraps AI CLI tools in bubblewrap to restrict filesystem access,
+network egress, and environment variables.
+
+Linux only: requires bubblewrap &gt;= 0.4.0 and socat &gt;= 1.7.0.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`allow-domain`](/syllago-docs/using-syllago/cli-reference/sandbox-allow-domain/) | Add a domain to the sandbox allowlist |
+| [`allow-env`](/syllago-docs/using-syllago/cli-reference/sandbox-allow-env/) | Add an env var to the sandbox allowlist |
+| [`allow-port`](/syllago-docs/using-syllago/cli-reference/sandbox-allow-port/) | Add a localhost port to the sandbox allowlist |
+| [`check`](/syllago-docs/using-syllago/cli-reference/sandbox-check/) | Verify bubblewrap, socat, and optionally a provider |
+| [`deny-domain`](/syllago-docs/using-syllago/cli-reference/sandbox-deny-domain/) | Remove a domain from the sandbox allowlist |
+| [`deny-env`](/syllago-docs/using-syllago/cli-reference/sandbox-deny-env/) | Remove an env var from the sandbox allowlist |
+| [`deny-port`](/syllago-docs/using-syllago/cli-reference/sandbox-deny-port/) | Remove a localhost port from the sandbox allowlist |
+| [`domains`](/syllago-docs/using-syllago/cli-reference/sandbox-domains/) | List allowed domains |
+| [`env`](/syllago-docs/using-syllago/cli-reference/sandbox-env/) | Add an env var to the sandbox allowlist |
+| [`info`](/syllago-docs/using-syllago/cli-reference/sandbox-info/) | Show effective sandbox configuration |
+| [`ports`](/syllago-docs/using-syllago/cli-reference/sandbox-ports/) | List allowed localhost ports |
+| [`run`](/syllago-docs/using-syllago/cli-reference/sandbox-run/) | Run a provider in a sandbox |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/sandbox_cmd.go)</small>

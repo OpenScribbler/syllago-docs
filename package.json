@@ -1,10 +1,12 @@
 {
-  "name": "nesco-docs",
+  "name": "syllago-docs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "sync": "bun scripts/sync-commands.ts",
+    "prebuild": "bun scripts/sync-commands.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

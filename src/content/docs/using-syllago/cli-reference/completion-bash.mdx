@@ -1,0 +1,66 @@
+---
+title: "syllago completion bash"
+description: "Generate the autocompletion script for bash"
+---
+
+## Synopsis
+
+```
+syllago completion bash
+```
+
+## Description
+
+Generate the autocompletion script for the bash shell.
+
+This script depends on the 'bash-completion' package.
+If it is not installed already, you can install it via your OS's package manager.
+
+To load completions in your current shell session:
+
+```bash
+source <(syllago completion bash)
+```
+
+To load completions for every new session, execute once:
+
+#### Linux:
+
+```bash
+syllago completion bash > /etc/bash_completion.d/syllago
+```
+
+#### macOS:
+
+```bash
+syllago completion bash > $(brew --prefix)/etc/bash_completion.d/syllago
+```
+
+You will need to start a new shell for this setup to take effect.
+
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--no-descriptions` | `bool` | — | No | disable completion descriptions |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago completion](/syllago-docs/using-syllago/cli-reference/completion/)
+- [syllago completion fish](/syllago-docs/using-syllago/cli-reference/completion-fish/)
+- [syllago completion powershell](/syllago-docs/using-syllago/cli-reference/completion-powershell/)
+- [syllago completion zsh](/syllago-docs/using-syllago/cli-reference/completion-zsh/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/completion_cmd.go)</small>

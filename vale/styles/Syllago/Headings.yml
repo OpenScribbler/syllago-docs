@@ -1,0 +1,36 @@
+extends: capitalization
+message: "'%s' should use sentence-style capitalization."
+level: warning
+scope: heading
+match: $sentence
+indicators:
+  - ":"
+exceptions:
+  - AI
+  - API
+  - CLI
+  - D2
+  - GitHub
+  - JSON
+  - JSONC
+  - LLM
+  - MCP
+  - MDX
+  - Syllago
+  - OAuth
+  - TUI
+  - TOML
+  - YAML
+  - Claude Code
+  - Copilot
+  - Codex
+  - Cline
+  - Cursor
+  - Gemini CLI
+  - Kiro
+  - Markdown
+  - OpenCode
+  - Roo Code
+  - TypeScript
+  - Windsurf
+  - Zed

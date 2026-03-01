@@ -1,0 +1,34 @@
+---
+title: "syllago init"
+description: "Initialize syllago for this project"
+---
+
+## Synopsis
+
+```
+syllago init [flags]
+```
+
+## Description
+
+Detects AI coding tools in use, creates .syllago/config.json with provider selection.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--force` | `bool` | — | No | Overwrite existing config |
+| `-y`, `--yes` | `bool` | — | No | Skip interactive confirmation |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/init.go)</small>

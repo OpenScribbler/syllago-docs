@@ -1,0 +1,48 @@
+---
+title: "syllago sync-and-export"
+description: "Sync registries then export content to a provider"
+---
+
+## Synopsis
+
+```
+syllago sync-and-export [flags]
+```
+
+## Description
+
+Convenience command that syncs all registries then exports.
+
+Equivalent to running:
+  syllago registry sync && syllago export --to &lt;provider&gt;
+
+This is useful in CI/CD or automation where you want a single command
+to ensure registries are up-to-date before exporting.
+
+Examples:
+  syllago sync-and-export --to cursor
+  syllago sync-and-export --to all --type skills
+  syllago sync-and-export --to kiro --source registry
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--llm-hooks` | `string` | `skip` | No | How to handle LLM-evaluated hooks: skip (drop with warning) or generate (create wrapper scripts) |
+| `--name` | `string` | — | No | Filter by item name (substring match) |
+| `--source` | `string` | `local` | No | Which items to export: local (default), shared, registry, builtin, all |
+| `--to` | `string` | — | Yes | Provider slug to export to, or "all" for every provider (required) |
+| `--type` | `string` | — | No | Filter to a specific content type (e.g., skills, rules) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/sync-and-export.go)</small>

@@ -10,7 +10,9 @@ import astroD2 from 'astro-d2';
 import { sidebar } from './sidebar.ts';
 import { execSync } from 'child_process';
 
-// Auto-enable D2 when installed, skip gracefully when not
+// Smart D2 detection — auto-enable when D2 is available.
+// CI always has D2 (installed by .github/scripts/install-d2.sh).
+// Locally, detect via d2 --version and warn if D2 diagrams exist but D2 isn't installed.
 function shouldGenerateD2() {
   if (process.env.CI === 'true') {
     return true;
@@ -19,13 +21,21 @@ function shouldGenerateD2() {
     execSync('d2 --version', { stdio: 'ignore' });
     return true;
   } catch {
+    try {
+      execSync('grep -r "```d2" src/content/docs --include="*.md" --include="*.mdx"', { stdio: 'ignore' });
+      console.warn('\n  D2 diagrams found but D2 not installed.');
+      console.warn('  Install D2 to enable diagram generation:');
+      console.warn('  https://github.com/terrastruct/d2/blob/master/docs/INSTALL.md\n');
+    } catch {
+      // No D2 diagrams found — nothing to warn about
+    }
     return false;
   }
 }
 
 const integrations = [
   starlight({
-    title: 'nesco',
+    title: 'syllago',
     description: 'The package manager for AI coding tool content',
     plugins: [
       starlightThemeFlexoki(),
@@ -37,9 +47,12 @@ const integrations = [
       starlightImageZoom(),
     ],
     social: [
-      { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/nesco' },
+      { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/syllago' },
     ],
     sidebar,
+    editLink: {
+      baseUrl: 'https://github.com/OpenScribbler/syllago-docs/edit/main/',
+    },
     components: {
       PageTitle: './src/components/overrides/PageTitle.astro',
     },
@@ -56,6 +69,6 @@ if (shouldGenerateD2()) {
 
 export default defineConfig({
   site: 'https://openscribbler.github.io',
-  base: '/nesco-docs',
+  base: '/syllago-docs',
   integrations,
 });

@@ -1,6 +1,6 @@
 # CLI Reference Architecture — Content Plan
 
-**Goal:** Build the CLI Reference section of nesco-docs with per-command pages auto-generated from nesco's Cobra command tree.
+**Goal:** Build the CLI Reference section of syllago-docs with per-command pages auto-generated from syllago's Cobra command tree.
 
 **IA Design:** [docs/plans/2026-02-28-cli-reference-architecture-ia-design.md](./2026-02-28-cli-reference-architecture-ia-design.md)
 
@@ -63,7 +63,7 @@ These tasks produce the actual pages users see.
 
 ### Page: CLI Reference Index
 
-**File Path:** `src/content/docs/using-nesco/cli-reference/index.mdx`
+**File Path:** `src/content/docs/using-syllago/cli-reference/index.mdx`
 
 **Actions:**
 - Primary: Use (discovery — "what commands exist?")
@@ -99,7 +99,7 @@ These tasks produce the actual pages users see.
 
 **Applies to:** All leaf commands — completion, export, import, info, init, update, version, config add, config list, config remove, registry add, registry items, registry list, registry remove, registry sync, sandbox run, sandbox check, sandbox info, sandbox allow-domain, sandbox deny-domain, sandbox domains, sandbox allow-env, sandbox deny-env, sandbox env, sandbox allow-port, sandbox deny-port, sandbox ports
 
-**File Path Pattern:** `src/content/docs/using-nesco/cli-reference/[slug].mdx` or `src/content/docs/using-nesco/cli-reference/[parent]/[slug].mdx`
+**File Path Pattern:** `src/content/docs/using-syllago/cli-reference/[slug].mdx` or `src/content/docs/using-syllago/cli-reference/[parent]/[slug].mdx`
 
 **Actions:**
 - Primary: Use (lookup — syntax, flags, examples)
@@ -107,7 +107,7 @@ These tasks produce the actual pages users see.
 **Type:** Reference
 
 **Sections:** (rendered from template + commands.json data)
-1. Page title — full command path (e.g., `nesco sandbox allow-domain`)
+1. Page title — full command path (e.g., `syllago sandbox allow-domain`)
 2. Intro paragraph — from Cobra Long or Short description
 3. Synopsis — usage syntax in code block
 4. Options — flag table (name, type, default, description)
@@ -133,9 +133,9 @@ These tasks produce the actual pages users see.
 
 ### Page Template: Parent Command Index Pages (4 pages)
 
-**Applies to:** config, registry, sandbox, nesco (root)
+**Applies to:** config, registry, sandbox, syllago (root)
 
-**File Path Pattern:** `src/content/docs/using-nesco/cli-reference/[parent]/index.mdx`
+**File Path Pattern:** `src/content/docs/using-syllago/cli-reference/[parent]/index.mdx`
 
 **Actions:**
 - Primary: Use (navigation — "what subcommands are available?")
@@ -143,7 +143,7 @@ These tasks produce the actual pages users see.
 **Type:** Reference
 
 **Sections:**
-1. Page title — parent command name (e.g., `nesco registry`)
+1. Page title — parent command name (e.g., `syllago registry`)
 2. Intro paragraph — from Cobra Long description
 3. Available Subcommands table — name, description, link
 4. Parent-level flags (if any)
@@ -170,7 +170,7 @@ These tasks produce the actual pages users see.
 
 **Source Material:**
 - [x] Architecture doc: `docs/cli-reference-architecture.md` (schema definition)
-- [x] Cobra source: `cli/cmd/nesco/*.go` (command definitions)
+- [x] Cobra source: `cli/cmd/syllago/*.go` (command definitions)
 - [x] Cobra doc package: `github.com/spf13/cobra/doc` (reference for tree walking)
 
 **Output:** `commands.json` file in the repo root or `cli/` directory
@@ -226,7 +226,7 @@ These tasks produce the actual pages users see.
 
 ### Task 6: Write sync script to fetch commands.json and generate MDX
 
-**What:** Prebuild script (adapted from Aembit's `sync-github-content.ts` pattern) that fetches `commands.json` from the latest nesco GitHub release and generates MDX files in the content collection directory.
+**What:** Prebuild script (adapted from Aembit's `sync-github-content.ts` pattern) that fetches `commands.json` from the latest syllago GitHub release and generates MDX files in the content collection directory.
 
 **Source Material:**
 - [x] Aembit pattern: `aembit_docs_astro/aembit-docs/scripts/sync-github-content.ts`
@@ -256,10 +256,10 @@ These tasks produce the actual pages users see.
 
 ### Task 9: Populate Cobra Example fields
 
-**What:** For each nesco command, add a well-formatted `Example` string in the Cobra command definition. Each example block uses single code block with comment-per-example format.
+**What:** For each syllago command, add a well-formatted `Example` string in the Cobra command definition. Each example block uses single code block with comment-per-example format.
 
 **Source Material:**
-- [x] Cobra command files: `cli/cmd/nesco/*.go`
+- [x] Cobra command files: `cli/cmd/syllago/*.go`
 - [ ] Real-world usage patterns (need to define good examples for each command)
 
 **Effort:** Medium (authoring examples for ~30 commands)
@@ -268,7 +268,7 @@ These tasks produce the actual pages users see.
 
 ### Task 10: Add editLink config to astro.config.mjs
 
-**What:** Enable Starlight's built-in `editLink` config pointing to the nesco-docs GitHub repo.
+**What:** Enable Starlight's built-in `editLink` config pointing to the syllago-docs GitHub repo.
 
 **Source Material:**
 - [x] Starlight editLink docs
@@ -297,7 +297,7 @@ These tasks produce the actual pages users see.
 - [x] IA design doc: docs/plans/2026-02-28-cli-reference-architecture-ia-design.md
 
 ### Code Analysis Required
-- [x] Cobra command files: cli/cmd/nesco/*.go (all command definitions)
+- [x] Cobra command files: cli/cmd/syllago/*.go (all command definitions)
 - [x] Cobra doc package: github.com/spf13/cobra/doc (tree walking API)
 
 ### External References

@@ -1,0 +1,42 @@
+---
+title: "syllago registry"
+description: "Manage git-based content registries"
+---
+
+Add, remove, list, and sync git repositories as content registries.
+
+Registries are read-only git repos containing shared content (skills, rules,
+hooks, MCP configs, etc.). Use "registry sync" to pull updates, and
+"registry items" to browse what's available.
+
+To use registry content, browse it in the TUI ("syllago") or export it
+directly with "syllago export --to &lt;provider&gt;".
+
+Workflow:
+  syllago registry add &lt;url&gt;           Add a new registry
+  syllago registry sync                Pull latest from all registries
+  syllago registry items               Browse available content
+  syllago registry items --type skills Show only skills across registries
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`add`](/syllago-docs/using-syllago/cli-reference/registry-add/) | Add a git registry |
+| [`items`](/syllago-docs/using-syllago/cli-reference/registry-items/) | Browse content available in registries |
+| [`list`](/syllago-docs/using-syllago/cli-reference/registry-list/) | List registered registries |
+| [`remove`](/syllago-docs/using-syllago/cli-reference/registry-remove/) | Remove a registry and delete its local clone |
+| [`sync`](/syllago-docs/using-syllago/cli-reference/registry-sync/) | Pull latest content from one or all registries |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/registry_cmd.go)</small>

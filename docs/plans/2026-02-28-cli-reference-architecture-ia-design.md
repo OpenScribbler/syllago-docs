@@ -1,6 +1,6 @@
 # CLI Reference Architecture — Information Architecture Design
 
-**Goal:** Design the CLI Reference section of nesco-docs as a per-command page structure with auto-generated content from nesco's Cobra command tree.
+**Goal:** Design the CLI Reference section of syllago-docs as a per-command page structure with auto-generated content from syllago's Cobra command tree.
 
 **Decision Date:** 2026-02-28
 
@@ -8,9 +8,9 @@
 
 ## Executive Summary
 
-The CLI Reference section is pure Reference documentation (Diataxis). It serves one primary action: **Use** (lookup — syntax, flags, defaults, examples), with limited **Troubleshoot** coverage for validated, obvious issues only. Conceptual content, onboarding, and tutorials live elsewhere in nesco-docs.
+The CLI Reference section is pure Reference documentation (Diataxis). It serves one primary action: **Use** (lookup — syntax, flags, defaults, examples), with limited **Troubleshoot** coverage for validated, obvious issues only. Conceptual content, onboarding, and tutorials live elsewhere in syllago-docs.
 
-The section uses a dual-navigation model: a workflow-grouped index page for discovery, and an alphabetical sidebar for direct lookup. Every command and subcommand gets its own page. Content is auto-generated from nesco's Cobra command tree via a JSON manifest, with hand-authored editorial additions in MDX.
+The section uses a dual-navigation model: a workflow-grouped index page for discovery, and an alphabetical sidebar for direct lookup. Every command and subcommand gets its own page. Content is auto-generated from syllago's Cobra command tree via a JSON manifest, with hand-authored editorial additions in MDX.
 
 ---
 
@@ -23,7 +23,7 @@ The section uses a dual-navigation model: a workflow-grouped index page for disc
 | End users | P1 | Look up command syntax, flags, examples for day-to-day use |
 | Content creators | P1 | Reference for publishing workflows (import, export, registry commands) |
 | Registry maintainers | P2 | Reference for registry management commands |
-| New evaluators | P2 | Scan available commands to understand nesco's scope |
+| New evaluators | P2 | Scan available commands to understand syllago's scope |
 
 ### Action Mapping
 
@@ -116,7 +116,7 @@ CLI Reference
 
 Every command page follows the same layout:
 
-1. **Title** — Full command path (e.g., `nesco sandbox allow-domain`)
+1. **Title** — Full command path (e.g., `syllago sandbox allow-domain`)
 2. **Intro paragraph** — Description text (no separate heading)
 3. **Synopsis** — Usage syntax in code block
 4. **Options** — Table: flag, type, default, description
@@ -129,15 +129,15 @@ Every command page follows the same layout:
 ### Example Page
 
 ```markdown
-# nesco export
+# syllago export
 
-Export copies content from your local nesco store to a provider's
-configuration directory. Nesco handles format conversion automatically.
+Export copies content from your local syllago store to a provider's
+configuration directory. Syllago handles format conversion automatically.
 
 ## Synopsis
 
 \`\`\`
-nesco export <name> --to <provider> [flags]
+syllago export <name> --to <provider> [flags]
 \`\`\`
 
 ## Options
@@ -159,28 +159,28 @@ nesco export <name> --to <provider> [flags]
 
 ## Aliases
 
-`nesco e`
+`syllago e`
 
 ## Examples
 
 \`\`\`bash
 # Export a skill to Claude Code
-nesco export my-skill --to claude-code
+syllago export my-skill --to claude-code
 
 # Preview what would be exported
-nesco export my-skill --to cursor --dry-run
+syllago export my-skill --to cursor --dry-run
 
 # Export to a specific directory
-nesco export my-skill --to claude-code --dir ~/projects/app
+syllago export my-skill --to claude-code --dir ~/projects/app
 \`\`\`
 
 ## See Also
 
-- [nesco import](/cli-reference/import) — Bring content in
-- [nesco registry items](/cli-reference/registry/items) — Browse content
+- [syllago import](/cli-reference/import) — Bring content in
+- [syllago registry items](/cli-reference/registry/items) — Browse content
 
 ---
-*Source: [cli/cmd/nesco/export.go](https://github.com/OpenScribbler/nesco/blob/main/cli/cmd/nesco/export.go)*
+*Source: [cli/cmd/syllago/export.go](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/export.go)*
 ```
 
 ### Parent Command Pages (Index Pages)
@@ -195,13 +195,13 @@ Parent commands (config, registry, sandbox) get index pages that:
 
 ## Data Pipeline
 
-Content is auto-generated from nesco's Cobra command tree:
+Content is auto-generated from syllago's Cobra command tree:
 
 1. **Go script** walks Cobra command tree, outputs `commands.json`
 2. **`make build`** auto-regenerates the manifest
 3. **CI** verifies freshness (fails if stale)
 4. **Release workflow** publishes `commands.json` as a release artifact
-5. **nesco-docs prebuild** fetches `commands.json` from latest release
+5. **syllago-docs prebuild** fetches `commands.json` from latest release
 6. **Sync script** generates content collection MDX files
 7. **Hand-authored MDX** can wrap/extend auto-generated content
 
@@ -237,7 +237,7 @@ See `docs/cli-reference-architecture.md` for the full `commands.json` schema (Co
 
 - **Content depth:** GitHub CLI (`gh`) model — comprehensive per-command pages
 - **Presentation:** mise model — clean code blocks, concise layout
-- **Design:** nesco-docs Starlight/Flexoki theme (no changes)
+- **Design:** syllago-docs Starlight/Flexoki theme (no changes)
 - **Examples:** Single code block per command, brief comment above each example
 - **Flag tables:** Consistent columns: Flag, Type, Default, Description
 

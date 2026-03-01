@@ -1,0 +1,47 @@
+---
+title: "syllago loadout apply"
+description: "Apply a loadout"
+---
+
+## Synopsis
+
+```
+syllago loadout apply [name] [flags]
+```
+
+## Description
+
+Apply a loadout to configure the current project for Claude Code.
+
+Default mode (no flags): preview what would happen without making changes.
+--try: apply temporarily; reverts automatically when the session ends.
+--keep: apply permanently; run "syllago loadout remove" to undo.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--keep` | `bool` | — | No | Apply permanently |
+| `--preview` | `bool` | — | No | Dry run: show planned actions without applying |
+| `--try` | `bool` | — | No | Apply temporarily; auto-revert on session end |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago loadout](/syllago-docs/using-syllago/cli-reference/loadout/)
+- [syllago loadout create](/syllago-docs/using-syllago/cli-reference/loadout-create/)
+- [syllago loadout list](/syllago-docs/using-syllago/cli-reference/loadout-list/)
+- [syllago loadout remove](/syllago-docs/using-syllago/cli-reference/loadout-remove/)
+- [syllago loadout status](/syllago-docs/using-syllago/cli-reference/loadout-status/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/loadout_apply.go)</small>

@@ -21,11 +21,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-      - name: Build with Astro
-        uses: withastro/action@15aa0a5a1e067940253e3b259413ab2ae882a740 # v5
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44e0eca948eb6282f2b76 # v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Cache D2 binary
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        id: d2-cache
         with:
-          path: .
-          node-version: 20
+          path: /usr/local/bin/d2
+          key: d2-v0.7.1-linux-amd64
+
+      - name: Install D2
+        run: .github/scripts/install-d2.sh
+
+      - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: dist
 
   deploy:
     name: Deploy

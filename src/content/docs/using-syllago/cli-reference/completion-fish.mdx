@@ -1,0 +1,55 @@
+---
+title: "syllago completion fish"
+description: "Generate the autocompletion script for fish"
+---
+
+## Synopsis
+
+```
+syllago completion fish [flags]
+```
+
+## Description
+
+Generate the autocompletion script for the fish shell.
+
+To load completions in your current shell session:
+
+```bash
+syllago completion fish | source
+```
+
+To load completions for every new session, execute once:
+
+```bash
+syllago completion fish > ~/.config/fish/completions/syllago.fish
+```
+
+You will need to start a new shell for this setup to take effect.
+
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--no-descriptions` | `bool` | — | No | disable completion descriptions |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago completion](/syllago-docs/using-syllago/cli-reference/completion/)
+- [syllago completion bash](/syllago-docs/using-syllago/cli-reference/completion-bash/)
+- [syllago completion powershell](/syllago-docs/using-syllago/cli-reference/completion-powershell/)
+- [syllago completion zsh](/syllago-docs/using-syllago/cli-reference/completion-zsh/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/completion_cmd.go)</small>

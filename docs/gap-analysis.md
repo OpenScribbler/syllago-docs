@@ -1,11 +1,11 @@
-# Nesco Docs Gap Analysis
+# Syllago Docs Gap Analysis
 
 *Date: 2026-02-26*
 *Sources: 9 CLI/TUI tools, 9 package managers, Starlight plugin ecosystem, docs best practices articles*
 
 ## Research Scope
 
-Deep research across three categories to identify what nesco-docs is missing compared to best-in-class documentation sites:
+Deep research across three categories to identify what syllago-docs is missing compared to best-in-class documentation sites:
 
 1. **CLI/TUI tool docs** — Charm, Warp, Starship, lazygit, zoxide, ripgrep, bat, fzf, Atuin
 2. **Package manager docs** — Homebrew, Nix, asdf, mise, proto, volta, pipx, cargo, pnpm
@@ -39,7 +39,7 @@ Deep research across three categories to identify what nesco-docs is missing com
 
 ## Gaps — Tier 1: High Impact
 
-These are directly relevant to nesco and should be addressed before or at v1 launch.
+These are directly relevant to syllago and should be addressed before or at v1 launch.
 
 ### Copy-to-clipboard on code blocks
 
@@ -61,7 +61,7 @@ These are directly relevant to nesco and should be addressed before or at v1 lau
 
 **Who does it:** Homebrew (28 questions), pnpm (hard links FAQ), Nix (concepts section).
 
-**Relevance:** First-encounter questions like "why nesco vs rulesync?" and "what happens to my files if I stop using nesco?" need a home. FAQs serve dual purpose: answer actual questions AND teach concepts that don't fit elsewhere.
+**Relevance:** First-encounter questions like "why syllago vs rulesync?" and "what happens to my files if I stop using syllago?" need a home. FAQs serve dual purpose: answer actual questions AND teach concepts that don't fit elsewhere.
 
 **Action:** Add a FAQ page to the sidebar (Getting Started section). Write content at v1.
 
@@ -69,15 +69,15 @@ These are directly relevant to nesco and should be addressed before or at v1 lau
 
 **Who does it:** pipx has explicit "Comparison to Other Tools". Most others frame it implicitly on the homepage.
 
-**Relevance:** Nesco needs an honest "why nesco?" page. Not a feature matrix that claims everything is better — an honest comparison with rulesync and the broader landscape.
+**Relevance:** Syllago needs an honest "why syllago?" page. Not a feature matrix that claims everything is better — an honest comparison with rulesync and the broader landscape.
 
-**Action:** Add a "Why nesco?" or comparison page. Write content at v1.
+**Action:** Add a "Why syllago?" or comparison page. Write content at v1.
 
 ### Terminal demo / animated GIFs
 
 **Who does it:** Charm (animated GIFs for every component), Atuin (embedded terminal emulator demo).
 
-**Relevance:** Nesco's TUI is a key differentiator. Static screenshots don't capture the interactive experience. GIF recordings of the TUI in action would be powerful.
+**Relevance:** Syllago's TUI is a key differentiator. Static screenshots don't capture the interactive experience. GIF recordings of the TUI in action would be powerful.
 
 **Action:** Record TUI demos using a tool like VHS (by Charm) or asciinema. Add to Getting Started and TUI pages.
 
@@ -87,15 +87,15 @@ These are directly relevant to nesco and should be addressed before or at v1 lau
 
 **Relevance:** Starlight has built-in support via the `editLink` config. We just need to enable it. Low effort, high trust signal — shows docs are community-maintained and transparent.
 
-**Action:** Add `editLink` config to `astro.config.mjs` pointing to the nesco-docs GitHub repo.
+**Action:** Add `editLink` config to `astro.config.mjs` pointing to the syllago-docs GitHub repo.
 
 ### Command hierarchy in CLI Reference
 
 **Who does it:** Git, GitHub CLI, Deno — mirror CLI structure in docs navigation. Each subcommand gets its own page with flags, options, and examples.
 
-**Relevance:** Nesco's CLI Reference is currently a single page. As the CLI grows, it should expand to: `nesco` (overview) → `nesco install` / `nesco browse` / `nesco convert` etc., each with its own page.
+**Relevance:** Syllago's CLI Reference is currently a single page. As the CLI grows, it should expand to: `syllago` (overview) → `syllago install` / `syllago browse` / `syllago convert` etc., each with its own page.
 
-**Action:** Content architecture decision for v1. Task-organized grouping (by user goal) likely fits best since nesco commands map to workflows (install, browse, convert, etc.).
+**Action:** Content architecture decision for v1. Task-organized grouping (by user goal) likely fits best since syllago commands map to workflows (install, browse, convert, etc.).
 
 ---
 
@@ -107,7 +107,7 @@ Worth adding before v1 launch but not blockers.
 
 **Plugin:** `expressive-code-collapsible` (3 stars, recent).
 
-**Relevance:** `.nesco.yaml` examples and config file schemas will be long. Auto-collapse improves readability. Not needed until we have that content.
+**Relevance:** `.syllago.yaml` examples and config file schemas will be long. Auto-collapse improves readability. Not needed until we have that content.
 
 **Action:** Install when writing config reference content.
 
@@ -133,7 +133,7 @@ Worth adding before v1 launch but not blockers.
 
 **Who does it:** Homebrew explicitly separates Users / Contributors / Plugin Creators.
 
-**Relevance:** Nesco has three audiences: Users, Content Creators, Registry Maintainers. Our sidebar already separates "Using Nesco" from "Creating Content" — this is good. Could be more explicit.
+**Relevance:** Syllago has three audiences: Users, Content Creators, Registry Maintainers. Our sidebar already separates "Using Syllago" from "Creating Content" — this is good. Could be more explicit.
 
 **Action:** Ensure sidebar labels and page intros clearly signal who each section is for.
 
@@ -151,7 +151,7 @@ Worth adding before v1 launch but not blockers.
 
 | Gap | What Others Do | Notes |
 |-----|---------------|-------|
-| Interactive playground | jq has `play.jqlang.org` | A "try nesco" browser sandbox would be cool but too much work for v1 |
+| Interactive playground | jq has `play.jqlang.org` | A "try syllago" browser sandbox would be cool but too much work for v1 |
 | i18n / multilingual | Starship supports 15+ languages | Not relevant for v1 audience size |
 | Giscus comments | GitHub-backed page comments | Community feedback on docs — post-launch when there's a community |
 | Social cards / OG images | Auto-generated preview images | Nice for launch marketing and social sharing |
@@ -180,11 +180,11 @@ Users in "learning mode" vs. "lookup mode" need different things. Our IA already
 
 ### 3. Plugin/provider creation in its own section
 
-Don't overwhelm users with content creator docs. Our separation (Using Nesco vs. Creating Content) is good.
+Don't overwhelm users with content creator docs. Our separation (Using Syllago vs. Creating Content) is good.
 
 ### 4. Progressive configuration
 
-Basic config in Quick Start, full `.nesco.yaml` spec in Reference. Every successful tool (asdf, mise, cargo) does this. Don't front-load complexity.
+Basic config in Quick Start, full `.syllago.yaml` spec in Reference. Every successful tool (asdf, mise, cargo) does this. Don't front-load complexity.
 
 ### 5. Command reference format
 
@@ -193,13 +193,13 @@ Three proven approaches:
 - **Linked CLI tree** (mise) — helps navigate subcommands
 - **Task-organized** (asdf) — groups by what users want to do
 
-Nesco should pick one. Task-organized likely fits best since nesco commands map to user goals (install, browse, convert, etc.).
+Syllago should pick one. Task-organized likely fits best since syllago commands map to user goals (install, browse, convert, etc.).
 
 ### 6. Migration / "switching from" guides
 
-Supabase has explicit "Migrate from Firebase" and "Migrate from Auth0" guides. For nesco, a "Switching from rulesync" guide would reduce onboarding friction for the most likely audience — people who already use the main alternative.
+Supabase has explicit "Migrate from Firebase" and "Migrate from Auth0" guides. For syllago, a "Switching from rulesync" guide would reduce onboarding friction for the most likely audience — people who already use the main alternative.
 
-**Action:** Write as part of the "Why nesco?" / comparison content at v1.
+**Action:** Write as part of the "Why syllago?" / comparison content at v1.
 
 ---
 
