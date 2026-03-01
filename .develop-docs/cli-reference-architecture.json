@@ -1,0 +1,26 @@
+{
+  "project": "cli-reference-architecture",
+  "started": "2026-02-28T00:00:00Z",
+  "updated": "2026-02-28T09:30:00Z",
+  "currentStage": "execute",
+  "completed": ["brainstorm", "plan", "validate", "create-beads"],
+  "artifacts": {
+    "ia": "docs/plans/2026-02-28-cli-reference-architecture-ia-design.md",
+    "contentPlan": "docs/plans/2026-02-28-cli-reference-architecture-content-plan.md"
+  },
+  "validation": {
+    "attempts": 1,
+    "lastGaps": [],
+    "passed": true,
+    "notes": "Validator flagged all 7 actions as missing coverage. Expected result — project scoped to CLI Reference only (Use action). Other actions covered by other nesco-docs sections."
+  },
+  "beads": {
+    "created": true,
+    "prefix": "CLI Ref",
+    "taskCount": 11
+  },
+  "frameworks": {
+    "actions": ["Use", "Troubleshoot"],
+    "docTypes": ["Reference"]
+  }
+}
