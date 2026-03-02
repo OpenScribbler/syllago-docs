@@ -42,7 +42,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Cache D2 binary
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v4
         id: d2-cache
         with:
           path: /usr/local/bin/d2
