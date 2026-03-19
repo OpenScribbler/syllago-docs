@@ -11,29 +11,26 @@ syllago import [flags]
 
 ## Description
 
-Discovers content from a provider and imports it into local/.
+Discovers content from a provider and imports it into your library.
 
 Syllago handles format conversion automatically. Once imported, content can be
-exported to any supported provider with "syllago export --to &lt;provider&gt;".
+installed to any supported provider with "syllago install --to &lt;provider&gt;".
 
-Examples:
-  syllago import --from claude-code                  Import all content from Claude Code
-  syllago import --from claude-code --type skills    Import only skills
-  syllago import --from cursor --name my-rule        Import a specific rule by name
-  syllago import --from claude-code --preview        Preview what would be imported (read-only)
-  syllago import --from claude-code --dry-run        Show what would be written without writing
-
-After import, use "syllago export" to install content into other providers,
+After import, use "syllago install" to activate content in other providers,
 or browse in the TUI with "syllago".
 
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
+| `--base-dir` | `string` | — | No | Override base directory for content discovery |
 | `--dry-run` | `bool` | — | No | Show what would be written without actually writing |
+| `--exclude` | `stringArray` | — | No | Skip hooks by auto-derived name (hooks only) |
+| `--force` | `bool` | — | No | Overwrite existing items with the same name (hooks only) |
 | `--from` | `string` | — | Yes | Provider to import from (required) |
 | `--name` | `string` | — | No | Filter to items whose path contains this substring (case-insensitive) |
 | `--preview` | `bool` | — | No | Show discovery report without parsing |
+| `--scope` | `string` | `global` | No | Settings scope to read from: global, project, or all (hooks only) |
 | `--type` | `string` | — | No | Limit to a single content type (e.g., rules, hooks, mcp) |
 
 ## Global Options
@@ -44,6 +41,25 @@ or browse in the TUI with "syllago".
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Import all content from Claude Code
+  syllago import --from claude-code
+
+  # Import only skills
+  syllago import --from claude-code --type skills
+
+  # Import a specific rule by name
+  syllago import --from cursor --name my-rule
+
+  # Preview what would be imported
+  syllago import --from claude-code --preview
+
+  # Show what would be written without writing
+  syllago import --from claude-code --dry-run
+```
 
 ---
 

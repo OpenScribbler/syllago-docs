@@ -1,0 +1,57 @@
+---
+title: "syllago install"
+description: "Activate library content in a provider"
+---
+
+## Synopsis
+
+```
+syllago install [name] [flags]
+```
+
+## Description
+
+Install content from your library into a provider's location.
+
+By default uses a symlink so edits in your library are reflected immediately.
+Use --method copy to place a standalone copy instead.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--base-dir` | `string` | — | No | Override base directory for content installation |
+| `-n`, `--dry-run` | `bool` | — | No | Show what would happen without making changes |
+| `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
+| `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
+| `--to` | `string` | — | Yes | Provider to install into (required) |
+| `--type` | `string` | — | No | Filter to a specific content type |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Install a skill to Claude Code
+  syllago install my-skill --to claude-code
+
+  # Install with a standalone copy instead of symlink
+  syllago install my-skill --to cursor --method copy
+
+  # Install all skills to a provider
+  syllago install --to claude-code --type skills
+
+  # Preview what would happen
+  syllago install my-skill --to claude-code --dry-run
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/install.go)</small>

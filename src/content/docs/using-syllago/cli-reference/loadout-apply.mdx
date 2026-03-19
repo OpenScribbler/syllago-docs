@@ -21,8 +21,11 @@ Default mode (no flags): preview what would happen without making changes.
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
+| `--base-dir` | `string` | — | No | Override base directory for content installation |
 | `--keep` | `bool` | — | No | Apply permanently |
+| `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
 | `--preview` | `bool` | — | No | Dry run: show planned actions without applying |
+| `--to` | `string` | — | No | Target provider (overrides manifest provider; defaults to claude-code if unset) |
 | `--try` | `bool` | — | No | Apply temporarily; auto-revert on session end |
 
 ## Global Options
@@ -33,6 +36,22 @@ Default mode (no flags): preview what would happen without making changes.
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Preview what a loadout would do
+  syllago loadout apply my-loadout
+
+  # Try temporarily (auto-reverts on session end)
+  syllago loadout apply my-loadout --try
+
+  # Apply permanently
+  syllago loadout apply my-loadout --keep
+
+  # Apply to a specific provider
+  syllago loadout apply my-loadout --keep --to cursor
+```
 
 ## See Also
 

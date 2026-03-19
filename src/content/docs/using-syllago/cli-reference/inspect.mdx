@@ -17,11 +17,6 @@ Path formats:
   skills/my-skill                   Universal content (type/name)
   rules/claude-code/my-rule         Provider-specific (type/provider/name)
 
-Examples:
-  syllago inspect skills/my-skill
-  syllago inspect rules/claude-code/my-rule
-  syllago inspect --json skills/my-skill
-
 ## Global Options
 
 | Flag | Type | Default | Required | Description |
@@ -30,6 +25,19 @@ Examples:
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Inspect a universal skill
+  syllago inspect skills/my-skill
+
+  # Inspect a provider-specific rule
+  syllago inspect rules/claude-code/my-rule
+
+  # JSON output for scripting
+  syllago inspect --json skills/my-skill
+```
 
 ---
 

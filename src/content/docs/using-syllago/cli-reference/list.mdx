@@ -13,17 +13,13 @@ syllago list [flags]
 
 Show a quick inventory of all content without launching the TUI.
 
-By default, lists all content grouped by type. Use flags to filter:
-  syllago list                    All content, grouped by type
-  syllago list --source local     Only local items
-  syllago list --type skills      Only skills
-  syllago list --json             JSON output
+By default, lists all content grouped by type. Use flags to filter.
 
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `--source` | `string` | `all` | No | Filter by source: local, shared, registry, builtin, all |
+| `--source` | `string` | `all` | No | Filter by source: library, shared, registry, builtin, all |
 | `--type` | `string` | — | No | Filter to one content type (e.g., skills, rules) |
 
 ## Global Options
@@ -34,6 +30,22 @@ By default, lists all content grouped by type. Use flags to filter:
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # List all content grouped by type
+  syllago list
+
+  # Show only library items
+  syllago list --source library
+
+  # Show only skills
+  syllago list --type skills
+
+  # JSON output for scripting
+  syllago list --json
+```
 
 ---
 
