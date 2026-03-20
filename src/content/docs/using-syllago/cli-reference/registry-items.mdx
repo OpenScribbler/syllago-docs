@@ -14,7 +14,12 @@ syllago registry items [name] [flags]
 Lists content items from one or all registries.
 
 Use --type to filter by content type. To install registry content, use
-"syllago install --to &lt;provider&gt;" or browse in the TUI with "syllago".
+"syllago export --to &lt;provider&gt;" or browse in the TUI with "syllago".
+
+Examples:
+  syllago registry items                     List all items from all registries
+  syllago registry items my-rules            List items from a specific registry
+  syllago registry items --type skills       List only skills
 
 ## Options
 
@@ -31,24 +36,10 @@ Use --type to filter by content type. To install registry content, use
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
 
-## Examples
-
-```bash
-  # List all items from all registries
-  syllago registry items
-
-  # List items from a specific registry
-  syllago registry items my-rules
-
-  # Filter by content type
-  syllago registry items --type skills
-```
-
 ## See Also
 
 - [syllago registry](/syllago-docs/using-syllago/cli-reference/registry/)
 - [syllago registry add](/syllago-docs/using-syllago/cli-reference/registry-add/)
-- [syllago registry create](/syllago-docs/using-syllago/cli-reference/registry-create/)
 - [syllago registry list](/syllago-docs/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/syllago-docs/using-syllago/cli-reference/registry-remove/)
 - [syllago registry sync](/syllago-docs/using-syllago/cli-reference/registry-sync/)
