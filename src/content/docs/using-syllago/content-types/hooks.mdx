@@ -3,4 +3,52 @@ title: Hooks
 description: How syllago manages hooks across providers.
 ---
 
-Hooks documentation coming soon.
+Hooks are event-driven automation scripts triggered by AI tool lifecycle events. They let you run custom logic when specific events occur — before or after a tool call, on session start, on file change, and so on.
+
+Hooks are the most provider-specific content type syllago manages. Only **4 of 11** supported providers have a hook system: Claude Code, Gemini CLI, Copilot CLI, and Kiro.
+
+## Why Limited Support
+
+Most AI coding tools don't expose lifecycle events or offer a plugin/hook architecture. Hooks require the provider to support event-driven extensibility — intercepting tool calls, reacting to session events, or running logic at defined points in the AI's workflow. The majority of providers simply don't have this plumbing.
+
+| Provider | Hook Support |
+|---|---|
+| Claude Code | Yes |
+| Gemini CLI | Yes |
+| Copilot CLI | Yes |
+| Kiro | Yes |
+| Codex, Cursor, Windsurf, Zed, Cline, Roo Code, OpenCode | No |
+
+## Syllago Format
+
+When hooks are imported into your library, syllago stores them in a provider-neutral manifest (`.syllago.yaml`) alongside the hook content itself (typically JSON).
+
+```yaml
+id: 0e15bb54-3187-4673-9e2e-d1d44e40c951
+name: settings
+type: hooks
+source_provider: claude-code
+source_format: json
+source_type: provider
+has_source: true
+added_at: 2026-03-05T22:08:18Z
+added_by: 0.6.1
+```
+
+The hook content is stored as a JSON file (e.g., `hook.json`) defining the event trigger and handler. The exact structure of this JSON depends on which provider the hook was imported from.
+
+## Format Differences
+
+Hook formats vary significantly between providers because each tool designed its event system independently:
+
+- **Claude Code** — JSON-based hook definitions stored in settings. Hooks reference event names and shell commands or inline scripts.
+- **Gemini CLI** — Uses its own hook structure with different event naming and configuration conventions.
+- **Copilot CLI** — Supports hooks through its extensibility layer with a distinct format.
+- **Kiro** — JSON-based steering files that can include hook-like event triggers.
+
+Because of these differences, hook conversion between providers requires more adaptation than other content types. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for how syllago handles cross-provider translation.
+
+## See Also
+
+- [Content Types Overview](/syllago-docs/using-syllago/content-types/) — full provider compatibility matrix
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/) — how syllago converts between provider formats

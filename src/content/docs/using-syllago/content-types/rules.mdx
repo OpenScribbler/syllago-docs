@@ -1,6 +1,162 @@
 ---
 title: Rules
-description: How syllago manages rules across providers.
+description: How syllago manages rules — system prompts and custom instructions — across all providers.
 ---
 
-Rules documentation coming soon.
+Rules are system prompts and custom instructions that guide AI behavior. They define coding standards, project conventions, response styles, and any other behavioral guidance for the AI tool. Rules are the most universal content type — every provider supports them.
+
+## What Rules Do
+
+Rules tell the AI tool *how to behave*. Common uses:
+
+- Coding conventions (language preferences, formatting, patterns)
+- Project-specific context (architecture decisions, tech stack)
+- Response style (verbosity, tone, explanation depth)
+- Workflow instructions (testing requirements, review processes)
+
+## syllago Format
+
+Rules in your library are stored as a directory containing two files: a `.syllago.yaml` metadata file and a Markdown content file.
+
+**Metadata** (`.syllago.yaml`):
+
+```yaml
+id: d21d767c-1654-46a5-bc5c-d6aa8d5fbe2c
+name: typescript
+type: rules
+source_format: md
+source_type: provider
+added_at: 2026-03-11T19:23:53Z
+added_by: syllago
+```
+
+**Content** (`typescript.md`):
+
+```markdown
+---
+description: TypeScript coding conventions for this project
+globs: "**/*.ts"
+---
+
+Use strict TypeScript with explicit return types. Prefer functional
+patterns over classes. Write Vitest tests for all new functions.
+```
+
+The `source_format` field records the original format the rule was imported from. The `source_type` field indicates whether it came from a provider config or was created directly.
+
+## Provider Compatibility
+
+Rules are supported by all 11 providers:
+
+| Provider | Format | Extension | Notes |
+|---|---|---|---|
+| Claude Code | Markdown | `.md` | Placed in `.claude/rules/` |
+| Gemini CLI | Markdown | `.md` | Uses `.gemini/rules/` |
+| Copilot CLI | Markdown | `.md` | Uses `.github/copilot/rules/` |
+| Codex | Markdown | `.md` | Uses `.codex/rules/` |
+| Cursor | MDC | `.mdc` | Frontmatter mapped to metadata headers |
+| Windsurf | Markdown | `.md` | Uses `.windsurf/rules/` |
+| Zed | Markdown | `.md` | Uses `.zed/rules/` |
+| Cline | Markdown | `.md` | Uses `.cline/rules/` |
+| Roo Code | Markdown | `.md` | Uses `.roo/rules/` |
+| OpenCode | YAML | `.yaml` | Frontmatter stripped, converted to YAML structure |
+| Kiro | Markdown | `.md` | Uses `.kiro/rules/` |
+
+## Format Differences
+
+Most providers use plain Markdown, but two require conversion:
+
+### Cursor (MDC format)
+
+Cursor uses MDC (Markdown Component) format with `.mdc` extension. Syllago maps Markdown frontmatter fields to MDC metadata headers automatically.
+
+**syllago format** (Markdown with frontmatter):
+
+```markdown
+---
+description: TypeScript coding conventions
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+Use strict TypeScript with explicit return types.
+```
+
+**Cursor output** (`.mdc`):
+
+```
+---
+description: TypeScript coding conventions
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+Use strict TypeScript with explicit return types.
+```
+
+The structure looks similar, but the file extension and how the metadata is parsed differs. Cursor expects `.mdc` and interprets the header block as MDC metadata rather than YAML frontmatter.
+
+### OpenCode (YAML format)
+
+OpenCode stores rules as YAML files. Syllago strips the Markdown frontmatter and converts the content into OpenCode's YAML structure.
+
+**syllago format** (Markdown):
+
+```markdown
+---
+description: TypeScript coding conventions
+globs: "**/*.ts"
+---
+
+Use strict TypeScript with explicit return types.
+```
+
+**OpenCode output** (`.yaml`):
+
+```yaml
+name: typescript
+description: TypeScript coding conventions
+globs:
+  - "**/*.ts"
+content: |
+  Use strict TypeScript with explicit return types.
+```
+
+## Working with Rules
+
+### Creating a rule
+
+```bash
+syllago create rules my-rule --provider claude-code
+```
+
+This scaffolds a new rule directory under `local/` with template files and `.syllago.yaml` metadata.
+
+### Importing from a provider
+
+```bash
+syllago add --from claude-code
+```
+
+This scans the provider's config directory and imports any rules into your syllago library in the provider-neutral format.
+
+### Installing to a provider
+
+Rules install to the target provider's rules directory, converting format automatically:
+
+```bash
+syllago install my-rule --to cursor
+```
+
+### Inspecting a rule
+
+```bash
+syllago inspect rules/claude-code/my-rule
+```
+
+Shows the full metadata and content for pre-install auditing.
+
+## Further Reading
+
+- [Content Types Overview](/syllago-docs/using-syllago/content-types/) — provider compatibility matrix and other content types
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/) — how syllago converts between provider formats

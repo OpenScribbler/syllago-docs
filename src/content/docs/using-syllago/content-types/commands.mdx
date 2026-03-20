@@ -1,6 +1,87 @@
 ---
 title: Commands
-description: How syllago manages commands across providers.
+description: How syllago manages custom slash commands across providers.
 ---
 
-Commands documentation coming soon.
+Commands are custom slash commands that extend an AI tool's command palette. They let you define reusable prompts or workflows that users invoke with a slash prefix (e.g., `/fix-typo`).
+
+## Provider Support
+
+Commands are supported by 5 of 11 providers:
+
+| Provider | Format | Notes |
+|---|---|---|
+| Claude Code | Markdown | Command files in `.claude/commands/` |
+| Gemini CLI | Markdown | Command files in `.gemini/commands/` |
+| Copilot CLI | Markdown | Command definitions in provider config |
+| Codex | TOML | Structured format with variables and instructions sections |
+| OpenCode | YAML | Command definitions in provider config |
+
+## Syllago Format
+
+Commands are stored in your library using syllago's provider-neutral format. The metadata file (`.syllago.yaml`) describes the content, and a separate source file holds the command definition.
+
+### Catalog Entry
+
+```yaml
+id: 6c0ce509-7960-490f-9100-4d5009d6261c
+name: fix_typo
+type: commands
+source_format: toml
+source_type: provider
+has_source: true
+added_at: 2026-03-11T19:23:53Z
+added_by: syllago
+```
+
+Key fields:
+
+- **type** -- always `commands` for this content type
+- **source_format** -- the format of the source file (`toml`, `md`, `yaml`)
+- **has_source** -- indicates the item includes a source file with the command definition
+
+### Command Source
+
+The source file contains the actual command definition. The format depends on where the command was imported from. Here is a TOML example (Codex-style):
+
+```toml
+description = "Fix a typo in a document."
+
+[variables]
+file_path = "{{FILE_PATH}}"
+file_content = "{{FILE_CONTENT}}"
+
+[instructions]
+preamble = "You are a documentation editor..."
+steps = [
+    "Read the file content carefully.",
+    "Find and fix the reported typo.",
+]
+```
+
+A Markdown-based command (Claude Code or Gemini CLI style) would instead be a `.md` file with the prompt content directly as prose, optionally with frontmatter for metadata.
+
+## Format Conversion
+
+When you export a command to a provider, syllago converts between formats automatically. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for details on how syllago handles cross-format translation.
+
+## Working with Commands
+
+```bash
+# Import a command from a provider
+syllago import /fix-typo --from claude-code
+
+# List commands in your library
+syllago list --type commands
+
+# Export a command to a different provider
+syllago export fix_typo --to gemini-cli
+
+# Inspect a command's metadata and source
+syllago inspect fix_typo
+```
+
+## See Also
+
+- [Content Types Overview](/syllago-docs/using-syllago/content-types/) -- compatibility matrix and all content types
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/) -- how syllago converts between provider formats

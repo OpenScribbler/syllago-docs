@@ -1,6 +1,89 @@
 ---
 title: Agents
-description: How syllago manages agents across providers.
+description: How syllago manages AI agent definitions and personas across providers.
 ---
 
-Agents documentation coming soon.
+Agents are named personas with specialized roles. An agent defines a description and a set of instructions that an AI coding tool can assume, letting you switch between focused behaviors -- an API design expert, a security reviewer, a documentation writer -- without rewriting prompts.
+
+Supported by **7 of 11 providers**: Claude Code, Gemini CLI, Copilot CLI, Codex, Roo Code, OpenCode, and Kiro.
+
+See the [Content Types overview](/syllago-docs/using-syllago/content-types/) for the full compatibility matrix.
+
+## Syllago Format
+
+Each agent in your library has a `.syllago.yaml` manifest and a Markdown source file.
+
+**Manifest** (`.syllago.yaml`):
+
+```yaml
+id: 4369aa21-9660-4511-a9bb-7cea37751529
+name: api-agent
+type: agents
+source_format: md
+source_type: provider
+added_at: 2026-03-13T00:13:24Z
+added_by: syllago
+```
+
+**Source file** (`api-agent.md`):
+
+```markdown
+---
+name: api-agent
+description: REST API design agent
+---
+
+Design RESTful endpoints with OpenAPI conventions.
+Follow resource naming best practices and use proper HTTP methods.
+Return consistent error shapes with appropriate status codes.
+```
+
+The Markdown body contains the agent's instructions -- what the AI should know and do when assuming this persona. The YAML frontmatter carries metadata (name, description) that providers use for display and selection.
+
+## Provider Format Differences
+
+Most providers use Markdown with YAML frontmatter, so agents install with minimal transformation. Two providers use different native formats:
+
+### Codex (TOML)
+
+Codex stores agent definitions in TOML. Syllago auto-converts between TOML and Markdown frontmatter on import and install:
+
+```toml
+[agent]
+name = "api-agent"
+description = "REST API design agent"
+
+[agent.instructions]
+content = """
+Design RESTful endpoints with OpenAPI conventions.
+Follow resource naming best practices and use proper HTTP methods.
+Return consistent error shapes with appropriate status codes.
+"""
+```
+
+When you import a Codex agent, syllago parses the TOML and stores it as standard Markdown with frontmatter. When you install to Codex, syllago converts back. No manual format handling needed.
+
+### Kiro (JSON)
+
+Kiro uses JSON-based steering files. Syllago embeds the Markdown content into Kiro's JSON structure automatically during install.
+
+## Workflow
+
+```bash
+# Import an agent from a provider
+syllago import api-agent --from claude-code
+
+# List agents in your library
+syllago list --type agents
+
+# Install to a different provider
+syllago install api-agent --to codex
+
+# Inspect the stored format
+syllago inspect api-agent
+```
+
+## Further Reading
+
+- [Content Types overview](/syllago-docs/using-syllago/content-types/) -- compatibility matrix and all content types
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/) -- how syllago converts between provider formats

@@ -3,4 +3,123 @@ title: Skills
 description: How syllago manages skills across providers.
 ---
 
-Skills documentation coming soon.
+Skills are multi-file workflow packages that teach the AI specific capabilities. Unlike [rules](/syllago-docs/using-syllago/content-types/rules/), which provide general behavioral guidance, skills encode structured procedures -- they include metadata (name, description, triggers) in frontmatter and detailed step-by-step instructions in the body.
+
+## Syllago Format
+
+Each skill in your library has a `.syllago.yaml` manifest and a Markdown content file with YAML frontmatter.
+
+### Manifest (.syllago.yaml)
+
+```yaml
+id: a1c7bba3-d8ed-4590-8338-b96895737bf2
+name: develop-docs
+type: skills
+source_format: md
+source_type: provider
+added_at: 2026-03-16T17:09:06Z
+added_by: syllago
+```
+
+The `type: skills` field identifies this content as a skill. The `source_format` records the original format so syllago can track provenance.
+
+### Content File
+
+Skill content is a Markdown file with YAML frontmatter containing metadata:
+
+```markdown
+---
+name: develop-docs
+description: Documentation design and planning workflow.
+---
+
+# DevelopDocs
+
+Orchestrates the complete documentation development lifecycle.
+
+## Steps
+
+1. Analyze the target audience and scope
+2. Create an outline with section headings
+3. Draft each section following the style guide
+4. Review for technical accuracy
+5. Format for the target platform
+```
+
+The frontmatter `name` and `description` fields are the skill's identity -- they determine how the AI discovers and activates the skill. The body contains the actual instructions.
+
+## Provider Compatibility
+
+Skills are supported by **4 of 11 providers**:
+
+| Provider | Format | Frontmatter |
+|---|---|---|
+| Claude Code | Markdown with YAML frontmatter | `name`, `description` in YAML block |
+| Gemini CLI | Markdown without frontmatter | Metadata embedded in body or omitted |
+| OpenCode | Markdown | Markdown-based skills |
+| Kiro | JSON steering files | Markdown content embedded in JSON string fields |
+
+## Format Differences
+
+### Frontmatter Handling
+
+The key conversion challenge for skills is frontmatter. Claude Code uses standard YAML frontmatter (`---` delimiters), but other providers handle metadata differently:
+
+- **Claude Code** stores `name` and `description` as YAML frontmatter. The AI reads these fields to understand when and how to apply the skill.
+- **Gemini CLI** does not use YAML frontmatter. When converting, syllago either embeds the metadata as a heading/description in the Markdown body or omits it if Gemini can infer the skill's purpose from context.
+- **Kiro** uses JSON-based steering files. Syllago wraps the Markdown content into JSON string fields and maps frontmatter keys to their JSON equivalents.
+- **OpenCode** uses Markdown-based skills with its own conventions for metadata.
+
+### Conversion Example
+
+Converting a skill from Claude Code format to Gemini CLI:
+
+```bash
+syllago convert develop-docs --to gemini-cli
+```
+
+The Claude Code source with frontmatter:
+
+```markdown
+---
+name: develop-docs
+description: Documentation design and planning workflow.
+---
+
+# DevelopDocs
+
+Orchestrates the complete documentation development lifecycle...
+```
+
+Becomes a Gemini CLI file without frontmatter, with metadata folded into the body:
+
+```markdown
+# DevelopDocs
+
+Documentation design and planning workflow.
+
+Orchestrates the complete documentation development lifecycle...
+```
+
+The `description` field is preserved as prose rather than lost, and tool name references in the body are automatically translated to Gemini's equivalents. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for the full conversion model.
+
+## Working with Skills
+
+```bash
+# Import a skill from your current provider
+syllago add --from claude-code
+
+# List all skills in your library
+syllago list --type skills
+
+# Install a skill to a specific provider
+syllago install develop-docs --to gemini-cli
+
+# Inspect a skill's metadata and content
+syllago inspect develop-docs
+```
+
+## See Also
+
+- [Content Types Overview](/syllago-docs/using-syllago/content-types/) -- compatibility matrix and all content types
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/) -- how syllago converts between provider formats
