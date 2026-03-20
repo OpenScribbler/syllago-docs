@@ -1,6 +1,34 @@
 ---
 title: Content Types
-description: Rules, skills, agents, commands, hooks, MCP, prompts, and apps — what each is and when to use it.
+description: Overview of syllago content types and provider compatibility.
 ---
 
-Content types documentation coming soon.
+Syllago manages several content types, each stored in a provider-neutral **syllago format**. When installed to a provider, syllago automatically converts to the provider's native format. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for details.
+
+## Provider Compatibility Matrix
+
+| Content Type | Claude Code | Gemini CLI | Copilot CLI | Codex | Cursor | Windsurf | Zed | Cline | Roo Code | OpenCode | Kiro |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Rules | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Skills | ✅ | ✅ | — | — | — | — | — | — | — | ✅ | ✅ |
+| Agents | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✅ | ✅ |
+| MCP Configs | ✅ | ✅ | ✅ | — | — | — | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Hooks | ✅ | ✅ | ✅ | — | — | — | — | — | — | — | ✅ |
+| Commands | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | ✅ | — |
+| Loadouts | ✅ | — | — | — | — | — | — | — | — | — | — |
+
+## Content Type Reference
+
+**[Rules](/syllago-docs/using-syllago/content-types/rules/)** — System prompts and custom instructions that guide AI behavior. Supported by every provider.
+
+**[Skills](/syllago-docs/using-syllago/content-types/skills/)** — Multi-file workflow packages that teach the AI specific capabilities.
+
+**[Agents](/syllago-docs/using-syllago/content-types/agents/)** — AI agent definitions and personas with specialized roles.
+
+**[MCP Configs](/syllago-docs/using-syllago/content-types/mcp-configs/)** — MCP server configurations for tool and resource access.
+
+**[Hooks](/syllago-docs/using-syllago/content-types/hooks/)** — Event-driven automation scripts triggered by AI tool lifecycle events.
+
+**[Commands](/syllago-docs/using-syllago/content-types/commands/)** — Custom slash commands that extend the AI tool's command palette.
+
+**[Loadouts](/syllago-docs/using-syllago/collections/loadouts/)** — Curated content bundles that apply as a unit. Loadouts bundle other content types together so they can be installed and removed in one operation.

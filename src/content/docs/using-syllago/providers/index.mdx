@@ -1,6 +1,66 @@
 ---
-title: Supported Providers
-description: An overview of all 11 AI coding tool providers supported by syllago.
+title: Providers
+description: The 11 AI coding tools syllago integrates with, their supported content types, and how provider detection works.
 ---
 
-Provider comparison table and overview coming soon.
+A **provider** is an AI coding tool that syllago can read from and write to. Each provider has its own configuration format, file locations, and set of supported content types. syllago handles the differences so you can share configuration between them.
+
+## Checking available providers
+
+To see the full list of providers and what each one supports:
+
+```bash
+syllago info providers
+```
+
+## Content type support matrix
+
+Not every provider supports every content type. The matrix below shows what each provider can handle.
+
+| Provider | Slug | Rules | Skills | Agents | MCP | Hooks | Commands |
+|----------|------|:-----:|:------:|:------:|:---:|:-----:|:--------:|
+| [Claude Code](/syllago-docs/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Gemini CLI](/syllago-docs/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Copilot CLI](/syllago-docs/using-syllago/providers/copilot/) | `copilot-cli` | ✅ | — | ✅ | ✅ | ✅ | ✅ |
+| [Codex](/syllago-docs/using-syllago/providers/codex/) | `codex` | ✅ | — | ✅ | — | — | ✅ |
+| [Cursor](/syllago-docs/using-syllago/providers/cursor/) | `cursor` | ✅ | — | — | — | — | — |
+| [Windsurf](/syllago-docs/using-syllago/providers/windsurf/) | `windsurf` | ✅ | — | — | — | — | — |
+| [Zed](/syllago-docs/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — |
+| [Cline](/syllago-docs/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | — | — |
+| [Roo Code](/syllago-docs/using-syllago/providers/roo-code/) | `roo-code` | ✅ | — | ✅ | ✅ | — | — |
+| [OpenCode](/syllago-docs/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ |
+| [Kiro](/syllago-docs/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+
+Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
+
+## Auto-detection
+
+When you run `syllago init`, syllago scans your system for installed providers and configures itself to work with the ones it finds. You don't need to manually specify which providers you use.
+
+## The `--from` and `--to` flags
+
+When working with content, the `--from` flag tells syllago which provider to read from, and the `--to` flag tells it which provider to write to. Use the provider slug as the value:
+
+```bash
+# Add content from Cursor to your library
+syllago add --from cursor
+
+# Install a rule to Gemini CLI
+syllago install my-rule --to gemini-cli
+```
+
+If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for details.
+
+## Provider descriptions
+
+- **Claude Code** (`claude-code`) — Anthropic's CLI and IDE agent with full support for all content types.
+- **Gemini CLI** (`gemini-cli`) — Google's CLI agent with full support for all content types.
+- **Copilot CLI** (`copilot-cli`) — GitHub's CLI agent supporting rules, agents, MCP, hooks, and commands.
+- **Codex** (`codex`) — OpenAI's CLI agent supporting rules, agents, and commands.
+- **Cursor** (`cursor`) — AI-native code editor with rules support.
+- **Windsurf** (`windsurf`) — AI-native code editor with rules support.
+- **Zed** (`zed`) — High-performance editor with rules and MCP support.
+- **Cline** (`cline`) — VS Code extension with rules and MCP support.
+- **Roo Code** (`roo-code`) — VS Code extension supporting rules, agents, and MCP.
+- **OpenCode** (`opencode`) — Terminal-based AI coding tool supporting rules, skills, agents, MCP, and commands.
+- **Kiro** (`kiro`) — AWS's AI IDE supporting rules, skills, agents, MCP, and hooks.

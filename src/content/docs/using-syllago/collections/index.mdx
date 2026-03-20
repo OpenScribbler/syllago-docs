@@ -3,4 +3,50 @@ title: Collections
 description: How content is organized in syllago — your library, registries, and loadouts.
 ---
 
-Collections documentation coming soon.
+Syllago organizes content into three collection types, each serving a different role in your workflow. Your **library** holds content you own and manage directly. **Registries** connect you to shared content from teams or the community. **Loadouts** bundle content together so you can apply entire configurations at once.
+
+## Quick comparison
+
+| Aspect | Library | Registries | Loadouts |
+|--------|---------|------------|----------|
+| Location | `~/.syllago/content/` | Git repos (cloned locally) | Defined in config |
+| Access | Read-write | Read locally, contribute via PR | Apply/revert |
+| Purpose | Your personal content | Shared team/community content | Bundled configurations |
+| Key commands | `add`, `import`, `list` | `registry add/sync/items` | `loadout create/apply/remove` |
+
+## Library
+
+Your personal content store at `~/.syllago/content/`. This is where syllago manages the content you acquire from providers. You have full read-write access — add, edit, or remove content as needed.
+
+```bash
+syllago add --from <provider>
+syllago import --from <provider>
+syllago list
+```
+
+[Library deep-dive](/syllago-docs/using-syllago/collections/library/)
+
+## Registries
+
+Git-based repositories of shared content maintained by teams or the community. You consume registry content locally and can contribute back via pull request using `syllago promote to-registry`.
+
+```bash
+syllago registry add <url>
+syllago registry sync
+syllago registry items
+```
+
+[Registries deep-dive](/syllago-docs/using-syllago/collections/registries/)
+
+## Loadouts
+
+Bundled sets of content — rules, skills, agents, hooks, MCP configs — that apply as a unit. Loadouts let you switch between configurations quickly, either temporarily for testing or permanently.
+
+```bash
+syllago loadout create
+syllago loadout apply <name> --try    # temporary
+syllago loadout apply <name> --keep   # permanent
+syllago loadout remove <name>
+```
+
+[Loadouts deep-dive](/syllago-docs/using-syllago/collections/loadouts/)
