@@ -3,4 +3,57 @@ title: The TUI
 description: How to navigate the syllago terminal user interface.
 ---
 
-TUI documentation coming soon.
+Running `syllago` with no arguments launches the interactive terminal user interface (TUI). It gives you a visual way to browse and manage your library, registries, and providers without memorizing CLI commands.
+
+```sh
+syllago
+# or use the alias
+syl
+```
+
+## What you can do
+
+- Browse your library, registries, and providers in one place
+- Install and uninstall content to/from providers
+- Add content from providers
+- Search and filter content with live results
+- Inspect content details
+
+## Keyboard shortcuts
+
+### Navigation
+
+| Key | Action |
+|-----|--------|
+| Up/Down or j/k | Navigate lists and scroll |
+| PgUp/PgDn | Jump a full viewport |
+| Home/End | Jump to first/last item |
+| Enter | Open item / confirm action |
+| Esc | Go back one level |
+| Tab/Shift+Tab | Switch focus between sidebar and content |
+| Ctrl+N/Ctrl+P | Next/previous item in detail view |
+
+### Actions
+
+| Key | Action |
+|-----|--------|
+| / | Search (live filtering with match count) |
+| ? | Toggle keyboard shortcut help |
+| i | Install selected item |
+| u | Uninstall selected item |
+| a | Add content (context-specific) |
+| r | Remove item |
+| c | Copy content to clipboard |
+| H | Toggle hidden items |
+
+## Mouse support
+
+Click to select cards, items, tabs, breadcrumbs, and modal buttons. The scroll wheel works in all scrollable areas.
+
+## TUI vs CLI
+
+The TUI and CLI are equivalent — anything you can do in the TUI, you can do with [CLI commands](/syllago-docs/using-syllago/cli-reference/). The TUI is for interactive exploration; the CLI is for scripting and automation (`--json` output on all commands).
+
+## Accessibility
+
+For screen reader users, CLI commands with `--json` output are recommended. Colors can be disabled with `NO_COLOR=1` or `--no-color`.

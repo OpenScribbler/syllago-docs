@@ -1,6 +1,128 @@
 ---
 title: Registries
-description: How to create, publish, and consume syllago registries.
+description: Share and consume content through git-based registries.
 ---
 
-Registries documentation coming soon.
+Registries are git repositories that hold shared syllago content. Teams publish content to a registry, and consumers add, sync, and browse it locally. Unlike a read-only package feed, registries support contributing back — `syllago promote to-registry` opens a pull request against the registry repo.
+
+## How registries work
+
+When you add a registry, syllago clones the git repo locally. Syncing pulls the latest commits. Browsing lists the content available in the clone. Nothing is installed into your [library](/syllago-docs/using-syllago/collections/library/) until you explicitly install an item.
+
+```
+  Remote git repo         Local clone           Your library
+  ┌──────────────┐  add   ┌──────────┐ install  ┌──────────┐
+  │ registry.git │──────→ │ .syllago/ │────────→ │ content/ │
+  └──────────────┘  sync  └──────────┘          └──────────┘
+         ↑                      │
+         └──────────────────────┘
+           promote to-registry (PR)
+```
+
+## Adding a registry
+
+```bash
+syllago registry add https://github.com/your-org/syllago-registry.git
+```
+
+Options:
+
+- `--name` — override the registry name (defaults to name derived from the URL)
+- `--ref` — pin to a specific branch, tag, or commit (defaults to the repo's default branch)
+
+```bash
+# Pin to a release tag
+syllago registry add https://github.com/your-org/syllago-registry.git --ref v2.1
+
+# Custom local name
+syllago registry add https://github.com/your-org/syllago-registry.git --name team-rules
+```
+
+## Syncing
+
+Pull the latest content from one or all registries:
+
+```bash
+# Sync all registries
+syllago registry sync
+
+# Sync a specific registry
+syllago registry sync team-rules
+```
+
+Syncing only updates the local clone. It does not modify your library or any installed content. This keeps your workflow predictable — you choose when to pull updates into your library.
+
+## Browsing content
+
+List what a registry offers:
+
+```bash
+# All items across all registries
+syllago registry items
+
+# Items from a specific registry
+syllago registry items team-rules
+
+# Filter by content type
+syllago registry items --type rules
+```
+
+## Installing registry content
+
+Install content from a registry into your library using the same `install` command you use for any content:
+
+```bash
+syllago install <name> --to <provider>
+```
+
+Syllago resolves the item from your registered registries. Once installed, the content lives in your library and behaves like any other library content.
+
+## Managing registries
+
+```bash
+# List all registered registries
+syllago registry list
+
+# Remove a registry (deletes the local clone)
+syllago registry remove team-rules
+```
+
+## Contributing back
+
+Registries are not read-only. If you have content in your library that belongs in a shared registry, promote it:
+
+```bash
+syllago promote to-registry
+```
+
+This opens a pull request against the registry's git repo. The registry maintainers review and merge through their normal PR workflow — no special tooling required on their end.
+
+## Creating your own registry
+
+A registry is just a git repo with syllago's content structure. To create one:
+
+1. Create a new git repo
+2. Add syllago content (rules, skills, agents, hooks, MCP configs) following the standard directory layout
+3. Push to a git host (GitHub, GitLab, etc.)
+4. Share the URL — others add it with `syllago registry add`
+
+There is no special initialization step or registry-specific metadata. If syllago can read the content structure, it works as a registry.
+
+## Relationship to other collections
+
+| Collection | Role | Access model |
+|------------|------|-------------|
+| [Library](/syllago-docs/using-syllago/collections/library/) | Your personal content | Full read-write |
+| **Registries** | Shared team/community content | Consume locally, contribute via PR |
+| [Loadouts](/syllago-docs/using-syllago/collections/loadouts/) | Bundled configurations | Apply and revert as a unit |
+
+Registries feed your library. You browse what is available, install what you need, and the installed content becomes part of your library. Loadouts can then bundle library content into switchable configurations.
+
+## Command reference
+
+- [`syllago registry add`](/syllago-docs/using-syllago/cli-reference/registry-add/)
+- [`syllago registry sync`](/syllago-docs/using-syllago/cli-reference/registry-sync/)
+- [`syllago registry items`](/syllago-docs/using-syllago/cli-reference/registry-items/)
+- [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/)
+- [`syllago registry remove`](/syllago-docs/using-syllago/cli-reference/registry-remove/)
+- [`syllago promote to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/)

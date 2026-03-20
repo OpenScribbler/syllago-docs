@@ -1,6 +1,151 @@
 ---
 title: Library
-description: Your personal content library in syllago.
+description: Your personal content store — the read-write collection you own and manage directly.
 ---
 
-Library documentation coming soon.
+The library is your personal content store at `~/.syllago/content/`. Unlike [registries](/syllago-docs/using-syllago/collections/registries/) (shared, read-only locally) or [loadouts](/syllago-docs/using-syllago/collections/loadouts/) (bundled configurations), the library is fully read-write. You own this content and can add, edit, or remove it freely.
+
+## Directory structure
+
+Content is organized by type. Each item is a directory containing a `.syllago.yaml` metadata file and one or more content files.
+
+```
+~/.syllago/content/
+├── rules/
+│   ├── typescript/
+│   │   ├── .syllago.yaml
+│   │   └── typescript.md
+│   └── security/
+│       ├── .syllago.yaml
+│       └── security.md
+├── skills/
+│   └── develop-docs/
+│       ├── .syllago.yaml
+│       └── develop-docs.md
+├── agents/
+├── hooks/
+├── commands/
+└── loadouts/
+```
+
+The `.syllago.yaml` file stores metadata like the item's name, description, content type, and provider compatibility. The accompanying files hold the actual content that gets exported to providers.
+
+## Adding content
+
+There are three ways to get content into your library.
+
+### Import from a provider
+
+Pull content from an existing provider setup into syllago. This is the most common starting point — bring in what you already have.
+
+```bash
+# Import everything from a provider
+syllago import --from claude-code
+
+# Import only a specific content type
+syllago import --from claude-code --type skills
+
+# Import a specific item by name
+syllago import --from cursor --name my-rule
+
+# Preview what would be imported without changing anything
+syllago import --from claude-code --preview
+
+# Show what files would be written without actually writing
+syllago import --from claude-code --dry-run
+```
+
+Syllago handles format conversion automatically. A Cursor rule becomes a universal syllago item that can later be exported to Claude Code, Kiro, or any other supported provider.
+
+See [`syllago import`](/syllago-docs/using-syllago/cli-reference/import/) for full options.
+
+### Discover from a provider
+
+Interactively discover and add content from a provider.
+
+```bash
+syllago add --from <provider>
+```
+
+See [`syllago add`](/syllago-docs/using-syllago/cli-reference/) for details.
+
+### Create from scratch
+
+Scaffold a new content item with the correct directory structure and metadata template.
+
+```bash
+# Create a new skill
+syllago create skills my-new-skill
+
+# Create a provider-specific rule
+syllago create rules my-rule --provider claude-code
+```
+
+This creates the directory, `.syllago.yaml`, and a starter content file — ready for you to edit.
+
+See [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) for full options.
+
+## Browsing and inspecting content
+
+### List content
+
+```bash
+# Show all content grouped by type
+syllago list
+
+# Show only library content
+syllago list --source library
+
+# Filter by content type
+syllago list --type skills
+
+# JSON output for scripting
+syllago list --json
+```
+
+The `--source` flag accepts: `library`, `shared`, `registry`, `builtin`, or `all` (default).
+
+See [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) for full options.
+
+### Inspect an item
+
+View the full metadata and content details for any item.
+
+```bash
+# Inspect by type/name
+syllago inspect skills/my-skill
+
+# Provider-specific content uses type/provider/name
+syllago inspect rules/claude-code/my-rule
+```
+
+See [`syllago inspect`](/syllago-docs/using-syllago/cli-reference/inspect/) for full options.
+
+## Exporting to providers
+
+Once content is in your library, export it to any supported provider. Syllago converts between provider formats automatically.
+
+```bash
+# Export local content to Cursor
+syllago export --to cursor
+
+# Export only skills to Kiro
+syllago export --to kiro --type skills
+
+# Export everything to all known providers
+syllago export --to all
+```
+
+For project-scoped providers (Kiro, Cline, Zed), content is written to the current working directory's provider config.
+
+See [`syllago export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) for full options.
+
+## How it connects
+
+The library sits at the center of the syllago workflow:
+
+- **Providers** are the source and destination. Import from one, export to many.
+- **[Registries](/syllago-docs/using-syllago/collections/registries/)** are shared content you consume. Registry items appear alongside library items when you run `syllago list --source all`, but they live in separate cloned repos.
+- **[Loadouts](/syllago-docs/using-syllago/collections/loadouts/)** bundle library content into named configurations that can be applied or reverted as a unit.
+
+For an overview of how all three collections work together, see [Collections](/syllago-docs/using-syllago/collections/).

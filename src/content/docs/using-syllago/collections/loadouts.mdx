@@ -1,6 +1,83 @@
 ---
 title: Loadouts
-description: Bundle and apply curated sets of AI coding tool content.
+description: Bundle and apply curated sets of AI coding tool content as named configuration profiles.
 ---
 
-Loadouts documentation coming soon.
+Loadouts are bundled sets of content — rules, skills, agents, hooks, MCP configs — that apply as a unit. Think of them as named configuration profiles: instead of adding content piece by piece, you define a loadout once and apply everything in a single command.
+
+Loadouts currently emit configuration for **Claude Code** only. Additional provider emitters are planned.
+
+## How loadouts fit in
+
+Your [library](/syllago-docs/using-syllago/collections/library/) stores individual content items. [Registries](/syllago-docs/using-syllago/collections/registries/) share content across teams. Loadouts sit on top of both — they bundle content from your library into apply-as-a-unit configurations.
+
+```
+Library (individual items) --> Loadouts (bundled profiles) --> Provider config (Claude Code)
+```
+
+## Creating a loadout
+
+Use the interactive creator to define a new loadout:
+
+```bash
+syllago loadout create <name>
+```
+
+This walks you through selecting which content items to include. The result is a named loadout stored in your syllago configuration.
+
+## Applying a loadout
+
+The `apply` command has three modes controlled by flags:
+
+```bash
+# Preview what would change (default, no flags)
+syllago loadout apply <name>
+
+# Apply temporarily — auto-reverts when the session ends
+syllago loadout apply <name> --try
+
+# Apply permanently — persists until you explicitly remove it
+syllago loadout apply <name> --keep
+```
+
+To target a specific provider:
+
+```bash
+syllago loadout apply <name> --keep --to <provider>
+```
+
+The default (no flags) is a dry run — it shows what files would be created or modified without touching anything. This lets you inspect the effect before committing.
+
+### Temporary vs. permanent
+
+**`--try`** is designed for experimentation. Apply a loadout, test it during your coding session, and it automatically reverts when the session ends. Nothing to clean up.
+
+**`--keep`** writes the configuration to disk permanently. To undo it, use `syllago loadout remove`.
+
+## Managing loadouts
+
+```bash
+# List all available loadouts
+syllago loadout list
+
+# Check what's currently active
+syllago loadout status
+
+# Remove the active loadout and restore original configuration
+syllago loadout remove
+```
+
+## Use cases
+
+**Per-project configurations.** Define loadouts for different work contexts — a Python backend stack, a frontend stack, a security audit profile — and switch between them as needed.
+
+**Team onboarding.** New team members apply the team's standard loadout in one command instead of manually configuring rules, skills, and MCP servers.
+
+**Temporary experimentation.** Use `--try` to test a new set of rules or skills without risk. If it doesn't work out, it reverts automatically.
+
+## Related
+
+- [Collections overview](/syllago-docs/using-syllago/collections/) — how library, registries, and loadouts work together
+- [Library](/syllago-docs/using-syllago/collections/library/) — your personal content store
+- [Registries](/syllago-docs/using-syllago/collections/registries/) — shared team and community content
+- [CLI reference: loadout commands](/syllago-docs/using-syllago/cli-reference/loadout-apply/) — full flag and option details
