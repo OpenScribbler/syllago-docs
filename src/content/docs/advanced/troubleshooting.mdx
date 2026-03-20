@@ -1,6 +1,142 @@
 ---
 title: Troubleshooting
-description: Common issues and solutions.
+description: Common issues, debug tools, and where to get help with syllago.
 ---
 
-Troubleshooting documentation coming soon.
+## Debug Flags
+
+syllago provides several flags to help diagnose problems. These work with any command.
+
+| Flag | Description |
+|------|-------------|
+| `--verbose` / `-v` | Verbose output showing what syllago is doing step by step |
+| `--json` | Machine-readable JSON output for all commands |
+| `--no-color` | Disable color output (also available via `NO_COLOR=1` env var) |
+| `--dry-run` | Preview changes without writing (supported on select commands) |
+
+Combine flags for maximum visibility:
+
+```bash
+syllago import --verbose --dry-run
+```
+
+---
+
+## Common Issues
+
+### Provider not detected
+
+`syllago init` doesn't find your AI coding tool.
+
+**Symptoms:**
+- `syllago init` reports no providers found
+- Provider missing from `syllago list` output
+
+**Fix:**
+1. Verify the tool is installed and available in your `PATH`:
+   ```bash
+   which <tool-name>
+   ```
+2. If the tool is installed but not detected, add it manually:
+   ```bash
+   syllago config add <provider>
+   ```
+3. Run [`syllago info providers`](/syllago-docs/using-syllago/cli-reference/info-providers/) to see all supported providers.
+
+---
+
+### Content not appearing after import
+
+You ran `syllago import` but can't find the content.
+
+**Symptoms:**
+- Content missing from expected provider config
+- `syllago list` shows fewer items than expected
+
+**Fix:**
+1. Run [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) to verify what's actually imported.
+2. Check the `--source` filter — content may be in a different source (registry vs library):
+   ```bash
+   syllago list --source registry
+   syllago list --source library
+   ```
+3. Run `syllago list --verbose` for details on where each item came from.
+
+---
+
+### Format conversion issues
+
+A conversion between providers fails or produces unexpected results.
+
+**Symptoms:**
+- Error during `syllago import` or export
+- Content type mismatch warnings
+
+**Fix:**
+1. Check [`syllago info providers`](/syllago-docs/using-syllago/cli-reference/info-providers/) to see which content types each provider supports.
+2. Not all content types work with all providers. Verify your source and target are compatible.
+3. Check the [format conversion reference](/syllago-docs/using-syllago/format-conversion/) for the compatibility matrix.
+
+**Related error codes:**
+- [CONVERT_001](/syllago-docs/errors/convert-001/) — Conversion not supported
+- [EXPORT_001](/syllago-docs/errors/export-001/) — Export failed
+
+---
+
+### Registry sync failures
+
+`syllago registry sync` fails to pull updates.
+
+**Symptoms:**
+- Sync command errors out
+- Registry content is stale or missing
+
+**Fix:**
+1. Check network connectivity — registries are fetched over the network (typically git).
+2. Verify you have access to the registry repository.
+3. Run sync with verbose output for details:
+   ```bash
+   syllago registry sync --verbose
+   ```
+4. Check [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/) to confirm the registry URL is correct.
+
+**Related error codes:**
+- [REGISTRY_001](/syllago-docs/errors/registry-001/) — Registry not found
+- [REGISTRY_002](/syllago-docs/errors/registry-002/) — Registry sync failed
+
+---
+
+### Permission errors on install
+
+syllago can't write to the provider's configuration directory.
+
+**Symptoms:**
+- "Permission denied" errors during import or sync
+- Content fails to write to the target location
+
+**Fix:**
+1. Check file permissions on the provider's config directory.
+2. Ensure your user owns the directory, or has write access.
+3. On macOS/Linux:
+   ```bash
+   ls -la ~/.config/<provider>/
+   ```
+
+**Related error codes:**
+- [INSTALL_001](/syllago-docs/errors/install-001/) — Installation failed
+
+---
+
+## Error Codes
+
+Every syllago error includes a code like `CONVERT_001` or `REGISTRY_002`. Each code has a dedicated page with explanations, common causes, and fixes.
+
+See the full [error codes reference](/syllago-docs/errors/) for the complete list.
+
+---
+
+## Getting Help
+
+- **Inline docs:** Run `syllago --help` or `syllago <command> --help` for usage information on any command.
+- **CLI reference:** Browse the full [CLI reference](/syllago-docs/using-syllago/cli-reference/) for detailed documentation.
+- **GitHub issues:** Report bugs or ask questions at [github.com/OpenScribbler/syllago/issues](https://github.com/OpenScribbler/syllago/issues).

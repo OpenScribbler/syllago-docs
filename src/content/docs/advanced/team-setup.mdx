@@ -1,6 +1,162 @@
 ---
 title: Team Setup
-description: Using syllago registries for team standardization.
+description: Share and standardize AI coding tool configurations across your team with syllago.
 ---
 
-Team setup documentation coming soon.
+Teams use syllago to maintain consistent AI coding tool configurations — shared rules, skills, agents, and provider settings — without manual setup on each developer's machine. The core workflow centers on registries for distribution, loadouts for onboarding, and project-level config for per-repo settings.
+
+## Team registry
+
+A [registry](/syllago-docs/using-syllago/collections/registries/) is a git repo that holds shared syllago content. This is the primary mechanism for distributing team standards.
+
+### Setting up a team registry
+
+1. Create a git repo (GitHub, GitLab, etc.)
+2. Add syllago content — rules, skills, agents, hooks, MCP configs — following the standard directory layout
+3. Push to your git host
+4. Share the URL with your team
+
+There is no special initialization or registry-specific metadata. Any git repo with syllago's content structure works as a registry.
+
+### Team members subscribe
+
+Each team member adds the registry once:
+
+```bash
+syllago registry add https://github.com/your-org/syllago-registry.git
+```
+
+To pin everyone to a stable release:
+
+```bash
+syllago registry add https://github.com/your-org/syllago-registry.git --ref v1.0
+```
+
+### Staying up to date
+
+Sync periodically to pull the latest content:
+
+```bash
+syllago registry sync
+```
+
+Syncing updates the local clone only — it does not modify anyone's library or installed content. Team members choose when to pull updates into their own setup, keeping the workflow predictable.
+
+## Contributing back
+
+Registries are not read-only. When a team member creates content that belongs in the shared registry, they contribute it via PR:
+
+```bash
+syllago promote to-registry your-registry skills/useful-skill
+```
+
+This creates a branch in the registry clone, copies the content, commits, pushes, and opens a pull request if the `gh` CLI is installed. The registry maintainer reviews and merges through the normal PR workflow — no special tooling required on their end.
+
+This means team standards can evolve from the bottom up. Individual developers experiment locally, and the best content gets promoted to the shared registry for everyone.
+
+## Loadouts for onboarding
+
+A [loadout](/syllago-docs/using-syllago/collections/loadouts/) bundles multiple content items into a single apply-as-a-unit configuration. For team onboarding, this turns a multi-step manual setup into one command.
+
+### Creating a team loadout
+
+A team lead or maintainer creates the loadout:
+
+```bash
+syllago loadout create team-standards
+```
+
+The interactive creator walks through selecting which content items to include — team rules, shared skills, standard MCP configs, etc.
+
+### New member onboarding
+
+A new team member's setup becomes:
+
+```bash
+# 1. Add the team registry
+syllago registry add https://github.com/your-org/syllago-registry.git
+
+# 2. Sync to pull content
+syllago registry sync
+
+# 3. Apply the team loadout
+syllago loadout apply team-standards --keep
+```
+
+The `--keep` flag writes the configuration permanently. Three commands replace what would otherwise be a checklist of individual content installations and provider configurations.
+
+### Verifying the setup
+
+After applying, team members can confirm what is active:
+
+```bash
+syllago loadout status
+```
+
+## Project-level config
+
+Running `syllago init` in a project root creates `.syllago/config.json` with project-specific provider settings:
+
+```bash
+cd your-project
+syllago init
+```
+
+Syllago detects which AI coding tools are in use and writes the config accordingly. Commit `.syllago/config.json` to the repo so all team members share the same provider settings without manual configuration.
+
+This is separate from registry content. The registry holds the **what** (rules, skills, agents). The project config holds the **where** (which providers to target for this repo).
+
+## CI/CD integration
+
+Use `syllago export` in CI pipelines to automate content distribution. The `--json` flag produces machine-readable output suitable for scripting:
+
+```bash
+syllago export --to claude-code --json
+```
+
+Examples of CI use cases:
+
+```bash
+# Export shared repo content to a specific provider
+syllago export --to cursor --source shared --json
+
+# Export everything to all providers
+syllago export --to all --source all --json
+
+# Export only rules
+syllago export --to claude-code --type rules --json
+```
+
+This lets you enforce that project repos always have up-to-date provider configurations — for example, regenerating provider config files on every PR merge or as part of a dev environment setup script.
+
+## Putting it together
+
+A typical team workflow combines all of these:
+
+```
+Team registry (git repo)
+  ├── Rules, skills, agents, hooks
+  ├── Team members sync periodically
+  └── Contributors promote content via PR
+
+Loadout (team-standards)
+  ├── Bundles registry content
+  └── New members apply in one command
+
+Project config (.syllago/config.json)
+  ├── Committed to each repo
+  └── Sets provider targets per project
+
+CI pipeline
+  └── Exports content on merge/deploy
+```
+
+The registry is the source of truth. Loadouts make it easy to apply. Project config ties it to specific repos. CI keeps everything in sync automatically.
+
+## Related
+
+- [Registries](/syllago-docs/using-syllago/collections/registries/) — full reference on adding, syncing, and browsing registries
+- [Loadouts](/syllago-docs/using-syllago/collections/loadouts/) — creating, applying, and managing loadouts
+- [`syllago init`](/syllago-docs/using-syllago/cli-reference/init/) — project initialization
+- [`syllago export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) — exporting content to providers
+- [`syllago promote to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/) — contributing content back to a registry

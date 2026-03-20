@@ -1,6 +1,175 @@
 ---
 title: Sandbox
-description: How to run AI coding tools in an isolated bubblewrap sandbox.
+description: Run AI CLI tools in bubblewrap isolation with filesystem, network, and environment variable filtering.
 ---
 
-Sandbox documentation coming soon.
+The sandbox runs AI CLI tools inside a [bubblewrap](https://github.com/containers/bubblewrap) (bwrap) container that restricts filesystem access, network egress, and environment variables. When an AI tool executes code — installing packages, running scripts, making API calls — the sandbox limits what that code can reach.
+
+Linux only. macOS and Windows are not supported.
+
+## What gets sandboxed
+
+The sandbox enforces three boundaries:
+
+**Filesystem.** The sandboxed process can only see your current working directory. The rest of the filesystem is hidden. This prevents AI-generated code from reading or modifying files outside the project.
+
+**Network.** Outbound connections are blocked by default. You explicitly allow specific domains (for API calls) and localhost ports (for local dev servers). Everything else is denied.
+
+**Environment variables.** Only env vars you explicitly allow are passed into the sandbox. API keys, tokens, and other secrets in your shell environment stay outside unless you opt them in.
+
+## Prerequisites
+
+Two system packages must be installed:
+
+- **bubblewrap** (`bwrap`) >= 0.4.0 — the container runtime
+- **socat** >= 1.7.0 — used for network proxying through the sandbox boundary
+
+Install them with your system package manager:
+
+```bash
+# Debian / Ubuntu
+sudo apt install bubblewrap socat
+
+# Fedora
+sudo dnf install bubblewrap socat
+
+# Arch
+sudo pacman -S bubblewrap socat
+```
+
+Verify everything is ready:
+
+```bash
+syllago sandbox check
+```
+
+To also verify that a specific provider works inside the sandbox:
+
+```bash
+syllago sandbox check claude-code
+```
+
+## Running a provider in the sandbox
+
+Once prerequisites are in place, run any provider inside the sandbox:
+
+```bash
+syllago sandbox run claude-code
+```
+
+This starts the provider with filesystem, network, and env var restrictions active. The provider works normally from the user's perspective, but its access is constrained to what you've allowed.
+
+### One-off overrides
+
+You can extend the sandbox for a single session without changing your saved configuration:
+
+```bash
+# Allow an extra domain for this session only
+syllago sandbox run claude-code --allow-domain api.example.com
+
+# Forward an extra env var into the sandbox
+syllago sandbox run claude-code --allow-env MY_API_KEY
+
+# Allow a localhost port (e.g., a local dev server)
+syllago sandbox run claude-code --allow-port 3000
+
+# Mount an additional path read-only
+syllago sandbox run claude-code --mount-ro /usr/share/dict
+
+# Block all network (no proxy at all)
+syllago sandbox run claude-code --no-network
+```
+
+These flags can be combined and repeated.
+
+## Configuring allowed access
+
+The sandbox maintains persistent allowlists for domains, ports, and env vars. These apply every time you run `sandbox run`.
+
+### Domains
+
+Domains control which hosts the sandboxed process can reach over the network.
+
+```bash
+# Allow a domain
+syllago sandbox allow-domain api.anthropic.com
+
+# Remove a domain
+syllago sandbox deny-domain api.anthropic.com
+
+# List all allowed domains
+syllago sandbox domains
+```
+
+### Localhost ports
+
+Ports control which localhost services are reachable from inside the sandbox. Useful for local dev servers, databases, or other services running on your machine.
+
+```bash
+# Allow a port
+syllago sandbox allow-port 8080
+
+# Remove a port
+syllago sandbox deny-port 8080
+
+# List all allowed ports
+syllago sandbox ports
+```
+
+### Environment variables
+
+Env vars control which shell variables are passed into the sandbox. By default, none are forwarded — the sandbox starts with a clean environment.
+
+```bash
+# Allow an env var
+syllago sandbox allow-env ANTHROPIC_API_KEY
+
+# Remove an env var
+syllago sandbox deny-env ANTHROPIC_API_KEY
+
+# List all allowed env vars
+syllago sandbox env
+```
+
+## Inspecting the configuration
+
+To see the effective sandbox configuration (all allowed domains, ports, and env vars):
+
+```bash
+syllago sandbox info
+```
+
+To see the configuration that would apply to a specific provider:
+
+```bash
+syllago sandbox info claude-code
+```
+
+## Typical setup
+
+A practical setup for using Claude Code in the sandbox:
+
+```bash
+# 1. Check prerequisites
+syllago sandbox check claude-code
+
+# 2. Allow the API endpoint
+syllago sandbox allow-domain api.anthropic.com
+
+# 3. Pass through the API key
+syllago sandbox allow-env ANTHROPIC_API_KEY
+
+# 4. Allow a local dev server if needed
+syllago sandbox allow-port 3000
+
+# 5. Run it
+syllago sandbox run claude-code
+```
+
+After initial setup, step 5 is the only one you repeat. The allowlists persist across sessions.
+
+## Related
+
+- [CLI reference: sandbox commands](/syllago-docs/using-syllago/cli-reference/sandbox/) — full flag and option details for all sandbox subcommands
+- [CLI reference: sandbox run](/syllago-docs/using-syllago/cli-reference/sandbox-run/) — all flags for `sandbox run`
+- [CLI reference: sandbox check](/syllago-docs/using-syllago/cli-reference/sandbox-check/) — prerequisite verification
