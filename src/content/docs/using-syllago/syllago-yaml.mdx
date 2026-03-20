@@ -1,6 +1,94 @@
 ---
 title: .syllago.yaml Format
-description: Complete reference for the .syllago.yaml frontmatter schema.
+description: Reference for the .syllago.yaml metadata file that accompanies every content item in your library.
 ---
 
-.syllago.yaml format reference coming soon.
+Every content item in your [library](/syllago-docs/using-syllago/collections/library/) has a `.syllago.yaml` file in its directory. This file tracks the item's identity, provenance, and [type](/syllago-docs/using-syllago/content-types/) — syllago uses it to manage, inspect, and export content.
+
+You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/syllago-docs/using-syllago/cli-reference/create/), [`import`](/syllago-docs/using-syllago/cli-reference/import/), or sync content.
+
+## Field Reference
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string (UUID) | Yes | Unique identifier for this content item. |
+| `name` | string | Yes | Human-readable name. Used in CLI output and directory naming. |
+| `type` | string | Yes | Content type: `rules`, `skills`, `agents`, `hooks`, `commands`, or `loadouts`. |
+| `source_format` | string | Conditional | Original file format (`md`, `json`, `toml`). Present for imported/synced content. |
+| `source_type` | string | Conditional | How the content was acquired: `provider` or `created`. Present for imported/synced content. |
+| `source_provider` | string | Conditional | Which provider the content came from (e.g., `claude-code`). Only present when `source_type` is `provider`. |
+| `source_hash` | string | Conditional | SHA-256 hash of the original content, prefixed with `sha256:`. Used for change detection. |
+| `has_source` | boolean | Conditional | Whether the original source file is preserved alongside the converted content. |
+| `source` | string | Conditional | Alternate source descriptor. Used instead of `source_type`/`source_format` for locally created items (value: `created`). |
+| `added_at` | string (ISO 8601) | Yes | Timestamp when the item was added to the library. |
+| `added_by` | string | Yes | Who or what added the item — `syllago`, a version number like `0.6.1`, or a person's name. |
+
+**Conditional fields** appear based on how the content was acquired. Imported content has `source_format`, `source_type`, and usually `source_hash`. Locally created content uses `source: created` instead.
+
+## Examples
+
+### Rules (imported from a provider)
+
+```yaml
+id: 671fbd47-ce51-4d2b-8b4c-dc04fa4764d7
+name: typescript
+type: rules
+source_format: md
+source_type: provider
+source_hash: sha256:9fa5fdb87b29dac26eb947717d8a0e0b39d8dc2268393f682f061097c0410206
+added_at: 2026-03-16T17:09:06Z
+added_by: syllago
+```
+
+Standard pattern for content pulled from a provider. The `source_hash` lets syllago detect when the upstream content has changed.
+
+### Hooks (imported with source file preserved)
+
+```yaml
+id: 0e15bb54-3187-4673-9e2e-d1d44e40c951
+name: settings
+type: hooks
+source_provider: claude-code
+source_format: json
+source_type: provider
+has_source: true
+added_at: 2026-03-05T22:08:18Z
+added_by: 0.6.1
+```
+
+When `has_source` is `true`, the original file (here, a JSON file) is stored in the item's directory alongside any converted versions. The `source_provider` field records which provider it came from.
+
+### Loadouts (locally created)
+
+```yaml
+id: 3b9656ca-ce37-4146-aed6-5f67244688df
+name: testing
+type: loadouts
+source: created
+added_at: 2026-03-12T17:16:18Z
+added_by: Holden Hewett
+```
+
+Content created with [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) uses `source: created` instead of the `source_type`/`source_format`/`source_hash` fields. The `added_by` field records the user who created it.
+
+## Directory Layout
+
+Each content item lives in its own directory within the library. The `.syllago.yaml` file sits alongside the actual content files:
+
+```
+library/
+  rules/
+    typescript/
+      .syllago.yaml
+      typescript.md
+  hooks/
+    settings/
+      .syllago.yaml
+      settings.json
+  loadouts/
+    testing/
+      .syllago.yaml
+      testing.yaml
+```
+
+The directory name matches the `name` field in `.syllago.yaml`. Content files use whatever format is appropriate for their [type](/syllago-docs/using-syllago/content-types/).

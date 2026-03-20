@@ -1,6 +1,53 @@
 ---
 title: Zed
-description: Using syllago with Zed.
+description: How syllago works with Zed.
 ---
 
-Zed provider documentation coming soon.
+A high-performance editor with a built-in AI assistant, supporting rules and MCP configurations.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `zed` |
+| **Supported content types** | Rules, MCP Configs |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | No |
+| MCP Configs | Yes |
+| Hooks | No |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.zed/rules/` | Markdown (`.md`) |
+| MCP Configs | `.zed/settings.json` | JSON |
+
+## Format Notes
+
+Zed uses a different JSON key for MCP server definitions. Where most providers use `mcpServers`, Zed uses `context_servers`. Syllago handles this key mapping automatically when adding from or installing to Zed — no manual adjustment is needed.
+
+Rules are stored as standard Markdown files in `.zed/rules/` with no special formatting requirements.
+
+## Working with Zed
+
+```bash
+# Add content from Zed
+syllago add --from zed
+
+# Install content to Zed
+syllago install my-rule --to zed
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

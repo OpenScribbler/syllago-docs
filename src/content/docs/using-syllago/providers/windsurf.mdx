@@ -1,6 +1,50 @@
 ---
 title: Windsurf
-description: Using syllago with Windsurf.
+description: How syllago works with Windsurf.
 ---
 
-Windsurf provider documentation coming soon.
+An AI-native code editor that stores rules as plain Markdown files.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `windsurf` |
+| **Supported content types** | Rules |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | No |
+| MCP Configs | No |
+| Hooks | No |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.windsurf/rules/` | Markdown (`.md`) |
+
+## Format Notes
+
+Windsurf uses standard Markdown for its rule files with no special formatting requirements. No format conversion is needed when moving rules between syllago and Windsurf.
+
+## Working with Windsurf
+
+```bash
+# Add content from Windsurf
+syllago add --from windsurf
+
+# Install content to Windsurf
+syllago install my-rule --to windsurf
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

@@ -1,6 +1,51 @@
 ---
 title: Cline
-description: Using syllago with Cline.
+description: How syllago works with Cline.
 ---
 
-Cline provider documentation coming soon.
+A VS Code extension for AI-assisted coding with support for rules and MCP configurations.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `cline` |
+| **Supported content types** | Rules, MCP Configs |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | No |
+| MCP Configs | Yes |
+| Hooks | No |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.cline/` | Markdown (`.md`) |
+| MCP Configs | `.cline/` | JSON |
+
+## Format Notes
+
+Cline uses standard Markdown for rules and JSON for MCP server configurations. No special format conversion is required for either content type.
+
+## Working with Cline
+
+```bash
+# Add content from Cline
+syllago add --from cline
+
+# Install content to Cline
+syllago install my-rule --to cline
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

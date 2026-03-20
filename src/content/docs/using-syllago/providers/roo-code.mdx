@@ -1,6 +1,52 @@
 ---
 title: Roo Code
-description: Using syllago with Roo Code.
+description: How syllago works with Roo Code.
 ---
 
-Roo Code provider documentation coming soon.
+A VS Code extension with support for rules, agents, and MCP configurations.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `roo-code` |
+| **Supported content types** | Rules, Agents, MCP Configs |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | No |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.roo/` | Markdown (`.md`) |
+| Agents | `.roo/` | Markdown (`.md`) |
+| MCP Configs | `.roo/` | JSON |
+
+## Format Notes
+
+Roo Code uses standard Markdown for rules and agents, and JSON for MCP server configurations. No special format conversion is required.
+
+## Working with Roo Code
+
+```bash
+# Add content from Roo Code
+syllago add --from roo-code
+
+# Install content to Roo Code
+syllago install my-rule --to roo-code
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

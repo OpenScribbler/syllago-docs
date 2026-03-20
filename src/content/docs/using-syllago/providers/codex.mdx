@@ -1,6 +1,52 @@
 ---
 title: Codex
-description: Using syllago with Codex.
+description: How syllago works with Codex.
 ---
 
-Codex provider documentation coming soon.
+OpenAI's CLI agent with support for rules, agents, and commands.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `codex` |
+| **Supported content types** | Rules, Agents, Commands |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | Yes |
+| MCP Configs | No |
+| Hooks | No |
+| Commands | Yes |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.codex/` | Markdown (`.md`) |
+| Agents | `.codex/` | TOML |
+| Commands | `.codex/` | Markdown (`.md`) |
+
+## Format Notes
+
+Codex uses TOML format for agent definitions rather than Markdown or JSON. Syllago automatically converts between its internal format and TOML when adding from or installing agents to Codex. Rules and commands use standard Markdown with no special conversion needed.
+
+## Working with Codex
+
+```bash
+# Add content from Codex
+syllago add --from codex
+
+# Install content to Codex
+syllago install my-rule --to codex
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

@@ -1,6 +1,58 @@
 ---
 title: Claude Code
-description: Using syllago with Claude Code.
+description: How syllago works with Claude Code.
 ---
 
-Claude Code provider documentation coming soon.
+Anthropic's CLI and IDE agent, with the broadest content type support of any provider.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `claude-code` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands, Loadouts |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | Yes |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | Yes |
+| Commands | Yes |
+| Loadouts | Yes |
+
+## File Format and Location
+
+Claude Code stores content across several directories within the project root:
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.claude/rules/` | Markdown (`.md`) |
+| Skills | `.claude/skills/` | Markdown (`.md`) |
+| Agents | `.claude/agents/` | Markdown (`.md`) |
+| MCP Configs | `.claude/settings.json` | JSON |
+| Hooks | `.claude/settings.json` | JSON |
+| Commands | `.claude/commands/` | Markdown (`.md`) |
+| Loadouts | `.claude/settings.json` | JSON |
+
+## Format Notes
+
+Claude Code uses plain Markdown for most content types, making its files straightforward to read and edit manually. MCP configurations, hooks, and loadouts are stored as JSON within `settings.json`. Claude Code supports all seven content types that syllago tracks, so no conversion or feature gaps apply when working with this provider.
+
+## Working with Claude Code
+
+```bash
+# Add content from Claude Code
+syllago add --from claude-code
+
+# Install content to Claude Code
+syllago install my-rule --to claude-code
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

@@ -1,6 +1,54 @@
 ---
 title: Kiro
-description: Using syllago with Kiro.
+description: How syllago works with Kiro.
 ---
 
-Kiro provider documentation coming soon.
+AWS's AI IDE with support for rules, skills, agents, MCP configs, and hooks.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `kiro` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | Yes |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | Yes |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.kiro/` | JSON |
+| Skills | `.kiro/` | JSON |
+| Agents | `.kiro/` | JSON |
+| MCP Configs | `.kiro/` | JSON |
+| Hooks | `.kiro/` | JSON |
+
+## Format Notes
+
+Kiro uses JSON-based "steering" files for all content types. Markdown content is embedded within JSON string fields rather than stored as standalone `.md` files. Syllago handles the conversion between standard Markdown and Kiro's JSON-embedded format automatically when adding from or installing to this provider.
+
+## Working with Kiro
+
+```bash
+# Add content from Kiro
+syllago add --from kiro
+
+# Install content to Kiro
+syllago install my-rule --to kiro
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

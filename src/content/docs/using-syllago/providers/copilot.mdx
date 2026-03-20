@@ -1,6 +1,54 @@
 ---
 title: GitHub Copilot
-description: Using syllago with GitHub Copilot.
+description: How syllago works with GitHub Copilot.
 ---
 
-GitHub Copilot provider documentation coming soon.
+GitHub's CLI agent with support for rules, agents, MCP configs, hooks, and commands.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `copilot-cli` |
+| **Supported content types** | Rules, Agents, MCP Configs, Hooks, Commands |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | Yes |
+| Commands | Yes |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.github/copilot/` | Markdown (`.md`) |
+| Agents | `.github/copilot/` | Markdown (`.md`) |
+| MCP Configs | `.github/copilot/` | JSON |
+| Hooks | `.github/copilot/` | JSON |
+| Commands | `.github/copilot/` | Markdown (`.md`) |
+
+## Format Notes
+
+Copilot uses Markdown for text-based content and JSON for structured configurations like MCP servers and hooks. Its directory layout under `.github/copilot/` keeps all AI configuration alongside other GitHub project settings.
+
+## Working with GitHub Copilot
+
+```bash
+# Add content from Copilot
+syllago add --from copilot-cli
+
+# Install content to Copilot
+syllago install my-rule --to copilot-cli
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

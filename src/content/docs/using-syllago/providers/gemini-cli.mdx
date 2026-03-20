@@ -1,6 +1,55 @@
 ---
 title: Gemini CLI
-description: Using syllago with Gemini CLI.
+description: How syllago works with Gemini CLI.
 ---
 
-Gemini CLI provider documentation coming soon.
+Google's CLI agent with broad content type support across six of seven categories.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `gemini-cli` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | Yes |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | Yes |
+| Commands | Yes |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.gemini/` | Markdown (`.md`) |
+| Skills | `.gemini/` | Markdown (`.md`) |
+| Agents | `.gemini/` | Markdown (`.md`) |
+| MCP Configs | `.gemini/` | JSON |
+| Hooks | `.gemini/` | JSON |
+| Commands | `.gemini/` | Markdown (`.md`) |
+
+## Format Notes
+
+Gemini CLI uses Markdown for text-based content types. Unlike some providers, skill files do not use YAML frontmatter — metadata is embedded differently within the Markdown content. Syllago accounts for this when converting skills to and from Gemini CLI format.
+
+## Working with Gemini CLI
+
+```bash
+# Add content from Gemini CLI
+syllago add --from gemini-cli
+
+# Install content to Gemini CLI
+syllago install my-rule --to gemini-cli
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

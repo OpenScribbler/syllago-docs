@@ -1,6 +1,54 @@
 ---
 title: OpenCode
-description: Using syllago with OpenCode.
+description: How syllago works with OpenCode.
 ---
 
-OpenCode provider documentation coming soon.
+A terminal-based AI coding tool that uses YAML for rule configuration.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `opencode` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Commands |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | Yes |
+| Agents | Yes |
+| MCP Configs | Yes |
+| Hooks | No |
+| Commands | Yes |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.opencode/` | YAML |
+| Skills | `.opencode/` | Markdown (`.md`) |
+| Agents | `.opencode/` | Markdown (`.md`) |
+| MCP Configs | `.opencode/` | JSON |
+| Commands | `.opencode/` | Markdown (`.md`) |
+
+## Format Notes
+
+OpenCode stores rules in YAML format rather than Markdown. Syllago automatically converts between Markdown and YAML when adding from or installing to OpenCode. Other content types (skills, agents, commands) use standard Markdown.
+
+## Working with OpenCode
+
+```bash
+# Add content from OpenCode
+syllago add --from opencode
+
+# Install content to OpenCode
+syllago install my-rule --to opencode
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

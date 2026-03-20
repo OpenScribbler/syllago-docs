@@ -1,6 +1,62 @@
 ---
 title: Cursor
-description: Using syllago with Cursor.
+description: How syllago works with Cursor.
 ---
 
-Cursor provider documentation coming soon.
+An AI-native code editor that uses MDC (Markdown Component) format for its rule files.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `cursor` |
+| **Supported content types** | Rules |
+
+## Supported Content Types
+
+| Content Type | Supported |
+|-------------|-----------|
+| Rules | Yes |
+| Skills | No |
+| Agents | No |
+| MCP Configs | No |
+| Hooks | No |
+| Commands | No |
+| Loadouts | No |
+
+## File Format and Location
+
+| Content Type | Location | Format |
+|-------------|----------|--------|
+| Rules | `.cursor/rules/` | MDC (`.mdc`) |
+
+## Format Notes
+
+Cursor uses MDC (Markdown Component) format rather than plain Markdown. MDC files have a metadata header block delimited by `---` that contains fields like `description`, `globs`, and `alwaysApply`. Syllago automatically converts between standard Markdown and MDC format when adding from or installing to Cursor.
+
+Example MDC structure:
+
+```
+---
+description: Rule description here
+globs: "**/*.ts"
+alwaysApply: false
+---
+
+Rule content in Markdown.
+```
+
+## Working with Cursor
+
+```bash
+# Add content from Cursor
+syllago add --from cursor
+
+# Install content to Cursor
+syllago install my-rule --to cursor
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)
