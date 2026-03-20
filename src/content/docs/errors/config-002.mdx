@@ -1,0 +1,28 @@
+---
+title: "CONFIG_002 - Configuration Not Found"
+description: "syllago couldn't find a configuration file."
+---
+
+## What This Means
+
+syllago expected to find a configuration file but it doesn't exist. You may not be in a syllago project, or the project wasn't initialized.
+
+## Common Causes
+
+- Not in a syllago project directory
+- The `.syllago/` directory is missing
+- The project was never initialized with `syllago init`
+
+## How to Fix
+
+1. Run `syllago init` to create the configuration in the current directory.
+2. Verify you're in the correct directory -- one that contains a `.syllago/` folder.
+3. If you're looking for the global configuration, check that it was created with `syllago init --global`.
+
+## Example Output
+
+```
+Error [CONFIG_002]: Configuration not found
+Suggestion: Run 'syllago init' to create the configuration.
+Docs: https://openscribbler.github.io/syllago-docs/errors/config-002/
+```

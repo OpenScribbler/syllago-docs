@@ -1,0 +1,27 @@
+---
+title: "IMPORT_002 - Import Conflict"
+description: "The imported content conflicts with existing content in your library."
+---
+
+## What This Means
+
+The content you're importing has the same name as an item already in your library. syllago won't overwrite existing content without explicit resolution.
+
+## Common Causes
+
+- An item with the same name already exists in your library
+- Re-importing content that was previously added
+
+## How to Fix
+
+1. **In the TUI:** Use the conflict resolution screen that appears automatically -- it lets you skip, overwrite, or rename the conflicting item.
+2. **From the CLI:** Remove the existing item first with `syllago remove <item>`, then re-import.
+3. If you want to keep both, rename one of the items before importing.
+
+## Example Output
+
+```
+Error [IMPORT_002]: Import conflict
+Suggestion: Use the TUI conflict resolution screen, or remove the existing item first.
+Docs: https://openscribbler.github.io/syllago-docs/errors/import-002/
+```

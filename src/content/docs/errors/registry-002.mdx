@@ -1,0 +1,28 @@
+---
+title: "REGISTRY_002 - Registry Not Found"
+description: "The specified registry doesn't exist in your configuration."
+---
+
+## What This Means
+
+syllago looked for a registry by the name you provided but couldn't find it in your configuration.
+
+## Common Causes
+
+- Typo in the registry name
+- The registry was previously removed
+- You're in a different project directory than expected
+
+## How to Fix
+
+1. Run `syllago registry list` to see all configured registries and their names.
+2. Double-check for typos in the registry name.
+3. Verify you're in the correct project directory.
+
+## Example Output
+
+```
+Error [REGISTRY_002]: Registry not found
+Suggestion: Run 'syllago registry list' to see configured registries.
+Docs: https://openscribbler.github.io/syllago-docs/errors/registry-002/
+```

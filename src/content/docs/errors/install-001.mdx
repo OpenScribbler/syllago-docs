@@ -1,0 +1,29 @@
+---
+title: "INSTALL_001 - Install Path Not Writable"
+description: "syllago can't write to the provider's content directory."
+---
+
+## What This Means
+
+syllago tried to install content to a provider's directory but doesn't have write permission. The target directory either doesn't exist or has restrictive permissions.
+
+## Common Causes
+
+- Permission issues on the target directory
+- The target directory doesn't exist yet
+- The filesystem is mounted as read-only
+
+## How to Fix
+
+1. Check permissions on the target directory shown in the error output.
+2. Create the directory if it doesn't exist: `mkdir -p /path/to/directory`.
+3. Fix permissions if needed: `chmod u+w /path/to/directory`.
+4. Run `syllago info providers` to see the expected paths for each provider.
+
+## Example Output
+
+```
+Error [INSTALL_001]: Install path not writable
+Suggestion: Check permissions on the target directory and create it if missing.
+Docs: https://openscribbler.github.io/syllago-docs/errors/install-001/
+```

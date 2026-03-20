@@ -56,6 +56,10 @@ export const sidebar: SidebarItem[] = [
     ],
   },
   {
+    label: 'Error Codes',
+    autogenerate: { directory: 'errors' },
+  },
+  {
     label: 'For AI assistants',
     slug: 'for-ai-assistants',
   },

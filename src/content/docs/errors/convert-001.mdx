@@ -1,0 +1,27 @@
+---
+title: "CONVERT_001 - Conversion Not Supported"
+description: "The requested format conversion isn't available."
+---
+
+## What This Means
+
+syllago can't convert the content to the requested target format. There's no conversion path available for this content type and provider combination.
+
+## Common Causes
+
+- The content type isn't supported by the target provider
+- No conversion path exists between the source and target formats
+
+## How to Fix
+
+1. Check the [format conversion compatibility matrix](/syllago-docs/creating-content/format-conversion/) to see which conversions are supported.
+2. Try a different target provider that supports the content type.
+3. Run `syllago info providers` to see provider capabilities.
+
+## Example Output
+
+```
+Error [CONVERT_001]: Conversion not supported
+Suggestion: Check the conversion compatibility matrix. Not all content types work with all providers.
+Docs: https://openscribbler.github.io/syllago-docs/errors/convert-001/
+```

@@ -1,0 +1,29 @@
+---
+title: "CONVERT_002 - Conversion Parse Failed"
+description: "syllago couldn't parse the source content for conversion."
+---
+
+## What This Means
+
+syllago attempted to read and parse the source content file but encountered a format error. The file's structure doesn't match what the converter expects.
+
+## Common Causes
+
+- Malformed source file
+- Invalid frontmatter (broken YAML or TOML syntax)
+- File encoding issues (e.g., non-UTF-8 encoding)
+
+## How to Fix
+
+1. Validate the source file format -- check for unclosed quotes, bad indentation, or invalid syntax in the frontmatter.
+2. Ensure the file uses UTF-8 encoding.
+3. If the file has YAML frontmatter, validate it with a YAML linter.
+4. If the file has TOML frontmatter, validate it with a TOML linter.
+
+## Example Output
+
+```
+Error [CONVERT_002]: Conversion parse failed
+Suggestion: Validate the source file format. Check for YAML/TOML syntax errors in frontmatter.
+Docs: https://openscribbler.github.io/syllago-docs/errors/convert-002/
+```

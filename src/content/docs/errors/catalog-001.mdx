@@ -1,0 +1,28 @@
+---
+title: "CATALOG_001 - No Catalog Found"
+description: "syllago couldn't find a content catalog to scan."
+---
+
+## What This Means
+
+syllago couldn't find a content catalog to scan. This typically means you're not inside a syllago project or the expected directory structure is missing.
+
+## Common Causes
+
+- Not in a syllago project directory
+- Missing `.syllago/` directory
+- No global library has been initialized
+
+## How to Fix
+
+1. Run `syllago init` to initialize a new project in the current directory.
+2. Verify you're in the correct directory -- the one containing your `.syllago/` folder.
+3. If you expected a global library, check that it was previously created with `syllago init --global`.
+
+## Example Output
+
+```
+Error [CATALOG_001]: No catalog found
+Suggestion: Run 'syllago init' to initialize a project, or check your working directory.
+Docs: https://openscribbler.github.io/syllago-docs/errors/catalog-001/
+```

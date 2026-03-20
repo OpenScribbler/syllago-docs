@@ -1,0 +1,28 @@
+---
+title: "CATALOG_002 - Catalog Scan Failed"
+description: "The catalog scanner encountered an error reading content files."
+---
+
+## What This Means
+
+The catalog scanner encountered an error while reading content files. Something in your project's content directory is malformed or inaccessible.
+
+## Common Causes
+
+- Corrupted `.syllago.yaml` file
+- Invalid YAML syntax in a content definition
+- File permission issues preventing read access
+
+## How to Fix
+
+1. Check file permissions on your `.syllago/` directory and its contents.
+2. Validate YAML syntax in your `.syllago.yaml` and any content definition files.
+3. Run with `--verbose` to see which specific file caused the scan failure.
+
+## Example Output
+
+```
+Error [CATALOG_002]: Catalog scan failed
+Suggestion: Check file permissions and YAML syntax. Run with --verbose for details.
+Docs: https://openscribbler.github.io/syllago-docs/errors/catalog-002/
+```

@@ -1,0 +1,27 @@
+---
+title: "PROVIDER_002 - Provider Not Detected"
+description: "The provider is known but wasn't found on your system."
+---
+
+## What This Means
+
+syllago recognizes the provider but couldn't detect it on your system. The provider's expected configuration directories or files aren't present at the default locations.
+
+## Common Causes
+
+- The provider (e.g., Cursor, Windsurf) is not installed on your machine
+- The provider is installed at a non-default location
+
+## How to Fix
+
+1. Install the provider if it isn't already on your system.
+2. If the provider is installed at a custom path, configure it with `syllago config paths set <provider> --base-dir /path`.
+3. Run `syllago info providers` to see detection status for all providers.
+
+## Example Output
+
+```
+Error [PROVIDER_002]: Provider not detected
+Suggestion: Install the provider, or set a custom path with 'syllago config paths set'.
+Docs: https://openscribbler.github.io/syllago-docs/errors/provider-002/
+```

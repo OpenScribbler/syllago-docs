@@ -1,0 +1,27 @@
+---
+title: "PROVIDER_001 - Provider Not Found"
+description: "The specified provider slug doesn't match any known provider."
+---
+
+## What This Means
+
+syllago doesn't recognize the provider name you specified. Provider names must use the exact slug format, not the display name.
+
+## Common Causes
+
+- Typo in the provider name
+- Using the display name instead of the slug (e.g., `Claude Code` instead of `claude-code`)
+- Using an outdated or incorrect provider identifier
+
+## How to Fix
+
+1. Run `syllago info providers` to see the full list of valid provider slugs.
+2. Use the slug format: lowercase with hyphens (e.g., `claude-code`, `gemini-cli`, `windsurf`).
+
+## Example Output
+
+```
+Error [PROVIDER_001]: Provider not found
+Suggestion: Run 'syllago info providers' to see valid provider slugs.
+Docs: https://openscribbler.github.io/syllago-docs/errors/provider-001/
+```

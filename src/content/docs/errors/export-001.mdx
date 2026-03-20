@@ -1,0 +1,27 @@
+---
+title: "EXPORT_001 - Export Not Supported"
+description: "The export operation isn't supported for this content type or provider."
+---
+
+## What This Means
+
+syllago can't export this content type to the specified target provider. The provider doesn't support the content type, or no export path is available.
+
+## Common Causes
+
+- The target provider doesn't support the content type (e.g., exporting hooks to a provider without a hook system)
+- The content type is provider-specific and can't be exported (e.g., commands are Claude Code only)
+
+## How to Fix
+
+1. Check the [format conversion compatibility matrix](/syllago-docs/creating-content/format-conversion/) to see what's supported.
+2. Run `syllago info providers` to see provider capabilities.
+3. Try a different target provider that supports the content type.
+
+## Example Output
+
+```
+Error [EXPORT_001]: Export not supported
+Suggestion: Check provider support matrix with 'syllago info providers'.
+Docs: https://openscribbler.github.io/syllago-docs/errors/export-001/
+```

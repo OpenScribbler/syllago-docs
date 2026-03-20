@@ -1,0 +1,28 @@
+---
+title: "INSTALL_002 - Item Not Found for Install"
+description: "The content item you're trying to install doesn't exist in the library."
+---
+
+## What This Means
+
+syllago couldn't find the content item you specified in your library. The item either doesn't exist or hasn't been added yet.
+
+## Common Causes
+
+- Typo in the item name
+- The item hasn't been added to your library yet
+- The item was previously removed
+
+## How to Fix
+
+1. Run `syllago list` to see all available items in your library.
+2. If the item isn't listed, use `syllago add` to import content from a registry or URL first.
+3. Double-check the item name for typos.
+
+## Example Output
+
+```
+Error [INSTALL_002]: Item not found for install
+Suggestion: Run 'syllago list' to see available items. Use 'syllago add' to import content first.
+Docs: https://openscribbler.github.io/syllago-docs/errors/install-002/
+```

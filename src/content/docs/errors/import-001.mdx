@@ -1,0 +1,28 @@
+---
+title: "IMPORT_001 - Import Clone Failed"
+description: "syllago couldn't clone content from a git URL during import."
+---
+
+## What This Means
+
+syllago tried to clone content from a git URL as part of an import operation, but the clone failed.
+
+## Common Causes
+
+- Invalid or inaccessible git URL
+- Network connectivity issues
+- Authentication required for a private repository
+
+## How to Fix
+
+1. Verify the URL is correct and accessible -- try opening it in a browser or cloning it manually with `git clone`.
+2. Check your network connection.
+3. For private repos, ensure your git credentials (SSH keys or access tokens) are configured.
+
+## Example Output
+
+```
+Error [IMPORT_001]: Import clone failed
+Suggestion: Verify the URL is accessible. Check network and git credentials.
+Docs: https://openscribbler.github.io/syllago-docs/errors/import-001/
+```

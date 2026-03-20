@@ -1,0 +1,28 @@
+---
+title: "CONFIG_001 - Invalid Configuration"
+description: "The configuration file contains invalid data."
+---
+
+## What This Means
+
+syllago found a configuration file but its contents are invalid. The file likely has syntax errors or unexpected values.
+
+## Common Causes
+
+- Manual edits introduced JSON syntax errors
+- Corrupted configuration file
+- Incompatible configuration format from a different version
+
+## How to Fix
+
+1. Check `.syllago/config.json` for JSON syntax errors -- look for missing commas, unclosed brackets, or trailing commas.
+2. Use a JSON validator to pinpoint the exact error location.
+3. If the file is badly corrupted, delete it and re-run `syllago init` to create a fresh configuration.
+
+## Example Output
+
+```
+Error [CONFIG_001]: Invalid configuration
+Suggestion: Check .syllago/config.json for JSON syntax errors, or delete and re-run 'syllago init'.
+Docs: https://openscribbler.github.io/syllago-docs/errors/config-001/
+```
