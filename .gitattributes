@@ -1,2 +1,5 @@
 # Enforce LF line endings for shell scripts (prevents CRLF breakage in CI)
 *.sh text eol=lf
+
+# Use bd merge for beads JSONL files
+.beads/issues.jsonl merge=beads
