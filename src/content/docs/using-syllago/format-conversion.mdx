@@ -5,15 +5,15 @@ description: How syllago converts content between AI coding tool formats.
 
 ## How Conversion Works
 
-Syllago uses a hub-and-spoke model with Claude Code as the canonical format. All conversions go through it:
+Syllago uses a hub-and-spoke model. Content in your library is stored in syllago format — a provider-neutral representation that syllago converts to and from each provider's native format:
 
 ```
-Source Provider -> Canonical (Claude Code) -> Target Provider
+Source Provider -> syllago format -> Target Provider
 ```
 
 When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to windsurf`, syllago:
 
-1. Reads the content from your library (already in canonical format)
+1. Reads the content from your library (already in syllago format)
 2. Converts to the target provider's format
 3. Translates tool names, metadata, and frontmatter automatically
 
