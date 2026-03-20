@@ -1,6 +1,147 @@
 ---
 title: Installation
-description: How to install syllago on your system.
+description: Install syllago on Linux, macOS, or Windows.
 ---
 
-Installation instructions coming soon.
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## System Requirements
+
+| Requirement | Details |
+|---|---|
+| **OS** | Linux, macOS, Windows (WSL or msys/mingw/cygwin) |
+| **Architecture** | x86_64 (amd64) or arm64 |
+| **Go** | 1.25+ (only for `go install` or building from source) |
+
+## Install Script (Recommended)
+
+Downloads the latest release binary and verifies its SHA-256 checksum. Works on Linux, macOS, and Windows.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/OpenScribbler/syllago/main/install.sh | sh
+```
+
+Installs to `~/.local/bin` by default. To override the install directory:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/OpenScribbler/syllago/main/install.sh | INSTALL_DIR=/usr/local/bin sh
+```
+
+The install script creates a `syl` alias symlink automatically, so you can use either `syllago` or `syl` to run commands.
+
+{/* ## Homebrew
+
+Coming soon.
+
+```bash
+brew install openscribbler/tap/syllago
+``` */}
+
+## Go Install
+
+```bash
+go install github.com/OpenScribbler/syllago/cli/cmd/syllago@latest
+```
+
+Requires Go 1.25+.
+
+## From Source
+
+Requires Go 1.25+.
+
+```bash
+git clone https://github.com/OpenScribbler/syllago.git
+cd syllago
+make build
+```
+
+## Verify Installation
+
+```bash
+syllago version
+```
+
+## Self-Update
+
+```bash
+syllago update
+```
+
+Updates syllago to the latest release.
+
+## Shell Completions
+
+syllago generates completions for bash, zsh, fish, and PowerShell.
+
+<Tabs>
+<TabItem label="Bash">
+
+Current session:
+
+```bash
+source <(syllago completion bash)
+```
+
+Permanent (Linux):
+
+```bash
+syllago completion bash > /etc/bash_completion.d/syllago
+```
+
+Permanent (macOS):
+
+```bash
+syllago completion bash > $(brew --prefix)/etc/bash_completion.d/syllago
+```
+
+</TabItem>
+<TabItem label="Zsh">
+
+Current session:
+
+```bash
+source <(syllago completion zsh)
+```
+
+Permanent (Linux):
+
+```bash
+syllago completion zsh > "${fpath[1]}/_syllago"
+```
+
+Permanent (macOS):
+
+```bash
+syllago completion zsh > $(brew --prefix)/share/zsh/site-functions/_syllago
+```
+
+</TabItem>
+<TabItem label="Fish">
+
+Current session:
+
+```bash
+syllago completion fish | source
+```
+
+Permanent:
+
+```bash
+syllago completion fish > ~/.config/fish/completions/syllago.fish
+```
+
+</TabItem>
+<TabItem label="PowerShell">
+
+Current session:
+
+```powershell
+syllago completion powershell | Out-String | Invoke-Expression
+```
+
+</TabItem>
+</Tabs>
+
+## Next Steps
+
+Head to the [Quick Start](/syllago-docs/getting-started/quick-start/) to start managing your AI coding tool content.
