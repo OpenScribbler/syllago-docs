@@ -1,6 +1,132 @@
 ---
 title: Quick Start
-description: Get up and running with syllago in minutes.
+description: Get up and running with syllago in under five minutes.
 ---
 
-Quick start guide coming soon.
+This guide covers two paths to get started with syllago:
+
+1. **Import from your existing tools** — pull in rules, skills, or context you already have configured in an AI coding tool
+2. **Browse a registry** — discover and install shared content from a team or community registry
+
+Both paths start with `syllago init`.
+
+## Import from your existing tools
+
+If you already have AI coding tools configured (Claude Code rules, Cursor rules, etc.), syllago can discover that content and bring it into your library.
+
+### Initialize syllago
+
+```bash
+syllago init
+```
+
+This detects AI coding tools (providers) on your machine and creates your config at `.syllago/config.json`. Follow the interactive prompts, or pass `--yes` to accept defaults.
+
+### Discover available content
+
+```bash
+syllago add --from claude-code
+```
+
+Without a positional argument, `add` runs in **discovery mode** — it shows what content the provider has available without importing anything.
+
+### Add content to your library
+
+Once you know what's there, add it:
+
+```bash
+# Add all rules from a provider
+syllago add rules --from claude-code
+
+# Add a specific item
+syllago add rules/security --from claude-code
+```
+
+Content is copied into your library (`~/.syllago/content/`), where syllago manages it independently of the original provider.
+
+> **Tip:** `syllago import --from claude-code` is an alternative that supports `--preview` and `--dry-run` flags for more control. Use `--type` and `--name` to filter what gets imported.
+
+### See what you have
+
+```bash
+syllago list
+```
+
+Output is grouped by type (rules, skills, agents, etc.). Use `--source` to filter by origin and `--type` to filter by content type.
+
+### Install to another provider
+
+```bash
+syllago install my-rule --to cursor
+```
+
+This installs the item from your library into Cursor's expected location, converting the format automatically. By default, syllago uses a **symlink** so changes stay in sync. Pass `--method copy` if you need a standalone file.
+
+```bash
+# Preview what would happen without writing anything
+syllago install my-rule --to cursor --dry-run
+```
+
+That's it — you've moved content from one AI coding tool to another with format conversion handled for you.
+
+## Browse a registry
+
+Registries are git-based repos of shared content. Use them to pull in team standards, community collections, or curated configurations.
+
+### Initialize syllago
+
+Skip this if you already ran it above.
+
+```bash
+syllago init
+```
+
+### Add a registry
+
+```bash
+syllago registry add https://github.com/team/ai-configs.git
+```
+
+You can optionally pass `--name` to give it a short alias, or `--ref` to pin a specific branch or tag.
+
+### Sync registry content
+
+```bash
+syllago registry sync
+```
+
+This pulls the latest content from all registered registries. To sync a specific one, pass its name: `syllago registry sync my-registry`.
+
+### Browse available items
+
+```bash
+syllago registry items
+```
+
+Filter by type to narrow results:
+
+```bash
+syllago registry items --type skills
+```
+
+### Install from the registry
+
+```bash
+syllago install some-skill --to claude-code
+```
+
+Same `install` command as before — syllago resolves the item from your registries, converts the format for the target provider, and symlinks it into place.
+
+### Or use the TUI
+
+Launch the interactive terminal UI to browse and install content visually:
+
+```bash
+syllago
+```
+
+Running `syllago` with no arguments opens the TUI, where you can explore your library, registries, and providers in one place.
+
+## Next steps
+
+Now that you have content flowing between tools, learn how the pieces fit together in [Core Concepts](/syllago-docs/getting-started/core-concepts/).
