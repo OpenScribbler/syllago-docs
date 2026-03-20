@@ -17,7 +17,27 @@ export const sidebar: SidebarItem[] = [
         label: 'CLI Reference',
         autogenerate: { directory: 'using-syllago/cli-reference' },
       },
-      { label: 'Loadouts', slug: 'using-syllago/loadouts' },
+      {
+        label: 'Content Types',
+        items: [
+          { label: 'Overview', slug: 'using-syllago/content-types' },
+          { label: 'Rules', slug: 'using-syllago/content-types/rules' },
+          { label: 'Skills', slug: 'using-syllago/content-types/skills' },
+          { label: 'Agents', slug: 'using-syllago/content-types/agents' },
+          { label: 'MCP Configs', slug: 'using-syllago/content-types/mcp-configs' },
+          { label: 'Hooks', slug: 'using-syllago/content-types/hooks' },
+          { label: 'Commands', slug: 'using-syllago/content-types/commands' },
+        ],
+      },
+      {
+        label: 'Collections',
+        items: [
+          { label: 'Overview', slug: 'using-syllago/collections' },
+          { label: 'Library', slug: 'using-syllago/collections/library' },
+          { label: 'Registries', slug: 'using-syllago/collections/registries' },
+          { label: 'Loadouts', slug: 'using-syllago/collections/loadouts' },
+        ],
+      },
       {
         label: 'Supported Providers',
         items: [
@@ -35,16 +55,8 @@ export const sidebar: SidebarItem[] = [
           { label: 'Codex', slug: 'using-syllago/providers/codex' },
         ],
       },
-      { label: 'Content Types', slug: 'using-syllago/content-types' },
-    ],
-  },
-  {
-    label: 'Creating Content',
-    items: [
-      { label: 'Authoring Guide', slug: 'creating-content/authoring-guide' },
-      { label: '.syllago.yaml Format', slug: 'creating-content/syllago-yaml' },
-      { label: 'Registries', slug: 'creating-content/registries' },
-      { label: 'Format Conversion', slug: 'creating-content/format-conversion' },
+      { label: '.syllago.yaml Format', slug: 'using-syllago/syllago-yaml' },
+      { label: 'Format Conversion', slug: 'using-syllago/format-conversion' },
     ],
   },
   {
