@@ -1,0 +1,378 @@
+---
+const base = '/syllago-docs';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>syllago — The package manager for AI coding tool content</title>
+    <meta
+      name="description"
+      content="Convert, sync, and manage your AI tool configs across Claude Code, Cursor, Windsurf, Copilot, and 7 more providers."
+    />
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
+    <style>
+      /* ── Flexoki Palette ── */
+      :root {
+        --bg: #fffcf0;
+        --bg-secondary: #f2f0e5;
+        --text: #100f0f;
+        --text-muted: #6f6e69;
+        --accent: #1a4f8c;
+        --accent-hover: #205ea6;
+        --green: #536907;
+        --border: #e6e4d9;
+        --shadow: rgba(16, 15, 15, 0.08);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #100f0f;
+          --bg-secondary: #1c1b1a;
+          --text: #cecdc3;
+          --text-muted: #878580;
+          --accent: #66a0c8;
+          --accent-hover: #8bb8d9;
+          --green: #a0af54;
+          --border: #343331;
+          --shadow: rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      /* ── Reset & Base ── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent-hover);
+      }
+
+      /* ── Header ── */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .header-logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.02em;
+      }
+
+      .logo-syll {
+        color: #5abdac;
+      }
+
+      @media (prefers-color-scheme: light) {
+        .logo-syll {
+          color: #2f968d;
+        }
+      }
+
+      .header-nav {
+        display: flex;
+        gap: 1.5rem;
+        list-style: none;
+      }
+
+      .header-nav a {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .header-nav a:hover {
+        color: var(--text);
+      }
+
+      /* ── Hero ── */
+      .hero {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 2rem;
+        text-align: center;
+      }
+
+      .hero-tagline {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: var(--text-muted);
+        max-width: 580px;
+        margin: 0 auto 2rem;
+      }
+
+      /* ── Terminal GIF ── */
+      .terminal-wrap {
+        max-width: 900px;
+        margin: 0 auto 2.5rem;
+      }
+
+      .terminal-wrap img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 8px 32px var(--shadow);
+      }
+
+      /* ── CTAs ── */
+      .ctas {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.65rem 1.5rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: background 0.15s, color 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--accent-hover);
+        color: #fff;
+      }
+
+      .btn-secondary {
+        background: var(--bg-secondary);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-secondary:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+      }
+
+      /* ── Features ── */
+      .features {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+
+      .feature h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ── Provider Grid ── */
+      .providers {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 3rem;
+        text-align: center;
+      }
+
+      .providers h2 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+      }
+
+      .provider-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 0.35rem 0.85rem;
+        border-radius: 99px;
+        font-size: 0.82rem;
+        font-weight: 500;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      /* ── Footer CTA ── */
+      .footer-cta {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 4rem;
+        text-align: center;
+        border-top: 1px solid var(--border);
+      }
+
+      .footer-cta h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-cta p {
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 768px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .hero {
+          padding: 2rem 1.25rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <a href={base + '/'} class="header-logo"><span class="logo-syll">syll</span>ago</a>
+      <nav>
+        <ul class="header-nav">
+          <li><a href={base + '/getting-started/installation/'}>Docs</a></li>
+          <li>
+            <a href="https://github.com/OpenScribbler/syllago">GitHub</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-tagline">
+        Because AI coding tools can't agree on anything.
+      </h1>
+      <p class="hero-subtitle">
+        Syllago converts, syncs, and manages your AI tool configs across all of
+        them.
+      </p>
+
+      <div class="terminal-wrap">
+        <img
+          src={base + '/hero-tui.gif'}
+          alt="syllago TUI showing content browsing, agent detail view, and file preview"
+          loading="eager"
+        />
+      </div>
+
+      <div class="ctas">
+        <a href={base + '/getting-started/installation/'} class="btn btn-primary"
+          >Get Started &rarr;</a
+        >
+        <a
+          href="https://github.com/OpenScribbler/syllago"
+          class="btn btn-secondary">View on GitHub</a
+        >
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+      <div class="features-grid">
+        <div class="feature">
+          <h3>11 providers, one workflow</h3>
+          <p>
+            One command configures Claude Code, Cursor, Windsurf, Copilot, and 7
+            more. No manual copying between formats.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Automatic format conversion</h3>
+          <p>
+            Write content once. Syllago translates it to each provider's native
+            format — intent carries forward, nothing is lost.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Team registries</h3>
+          <p>
+            Publish your org's standards to a git registry. Everyone installs
+            the same content from the same source.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Provider Grid -->
+    <section class="providers">
+      <h2>Works with your tools</h2>
+      <div class="provider-pills">
+        <span class="pill">Claude Code</span>
+        <span class="pill">Cursor</span>
+        <span class="pill">Windsurf</span>
+        <span class="pill">Copilot CLI</span>
+        <span class="pill">Gemini CLI</span>
+        <span class="pill">Cline</span>
+        <span class="pill">Roo Code</span>
+        <span class="pill">Codex</span>
+        <span class="pill">Zed</span>
+        <span class="pill">OpenCode</span>
+        <span class="pill">Kiro</span>
+      </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta">
+      <h2>Ready to get started?</h2>
+      <p>Install syllago and unify your AI tool configs in under 5 minutes.</p>
+      <div class="ctas">
+        <a href={base + '/getting-started/installation/'} class="btn btn-primary"
+          >Read the Docs &rarr;</a
+        >
+        <a
+          href="https://github.com/OpenScribbler/syllago"
+          class="btn btn-secondary">View on GitHub</a
+        >
+      </div>
+    </section>
+  </body>
+</html>

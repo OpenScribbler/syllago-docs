@@ -1,35 +1,13 @@
 ---
-title: syllago
-description: The package manager for AI coding tool content. Install rules, skills, agents, and more across 11 AI coding tool providers.
-template: splash
-hero:
-  tagline: The package manager for AI coding tool content.
-  actions:
-    - text: Get Started
-      link: /syllago-docs/getting-started/installation/
-      icon: right-arrow
-      variant: primary
-    - text: View on GitHub
-      link: https://github.com/OpenScribbler/syllago
-      icon: external
-      variant: minimal
+title: Welcome to syllago
+description: The package manager for AI coding tool content.
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
-
-## Why syllago?
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 <CardGrid>
-  <Card title="11 providers, one workflow" icon="puzzle">
-    Install rules, skills, agents, and more to Claude Code, Cursor, Windsurf, Copilot, and 7 others — all from a single command.
-  </Card>
-  <Card title="Automatic format conversion" icon="translate">
-    Write content once. Syllago handles the translation to each provider's format. Intent carries forward — nothing is lost.
-  </Card>
-  <Card title="Team registries" icon="group">
-    Publish your org's standards to a git registry. Everyone on the team installs the same content from the same source.
-  </Card>
-  <Card title="No lock-in" icon="open-book">
-    Content you author works across providers. Switch tools, keep your content. Syllago manages the format differences.
-  </Card>
+  <LinkCard title="Installation" href="/syllago-docs/getting-started/installation/" description="Install syllago and set up your first project." />
+  <LinkCard title="Quick Start" href="/syllago-docs/getting-started/quick-start/" description="Get up and running in under 5 minutes." />
+  <LinkCard title="CLI Reference" href="/syllago-docs/using-syllago/cli-reference/" description="Full reference for every syllago command." />
+  <LinkCard title="Supported Providers" href="/syllago-docs/using-syllago/content-types/" description="See all 11 supported AI coding tools." />
 </CardGrid>
