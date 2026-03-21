@@ -1,49 +1,33 @@
-# Starlight Starter Kit: Basics
+# syllago-docs
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+Documentation site for [syllago](https://github.com/OpenScribbler/syllago) -- the package manager for AI coding tool content.
 
-```
-npm create astro@latest -- --template starlight
-```
+Built with [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/), themed with [Flexoki](https://stephango.com/flexoki).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Development
 
-## 🚀 Project Structure
-
-Inside of your Astro + Starlight project, you'll see the following folders and files:
-
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+npm install
+npm run dev        # local dev server at localhost:4321
+npm run build      # production build to ./dist/
+npm run preview    # preview the production build
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## CLI Reference Generation
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+CLI reference pages are auto-generated from syllago's `commands.json` release asset:
 
-Static assets, like favicons, can be placed in the `public/` directory.
+```bash
+bun scripts/sync-commands.ts                              # fetch from latest GitHub release
+bun scripts/sync-commands.ts --local path/to/commands.json # use a local file
+```
 
-## 🧞 Commands
+Do not edit files in `src/content/docs/using-syllago/cli-reference/` directly -- they will be overwritten on the next sync.
 
-All commands are run from the root of the project, from a terminal:
+## Deployment
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Deployed to GitHub Pages via GitHub Actions on push to `main`. The site is available at [openscribbler.github.io/syllago-docs](https://openscribbler.github.io/syllago-docs/).
 
-## 👀 Want to learn more?
+## License
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+Apache 2.0 -- see [LICENSE](LICENSE) for full text.
