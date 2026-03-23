@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "sync": "bun scripts/sync-commands.ts",
+    "sync": "bun scripts/sync-commands.ts && bun scripts/sync-errors.ts",
+    "sync:commands": "bun scripts/sync-commands.ts",
+    "sync:errors": "bun scripts/sync-errors.ts",
     "postinstall": "node scripts/patch-starlight-llms-txt.js",
-    "prebuild": "bun scripts/sync-commands.ts",
+    "prebuild": "bun scripts/sync-commands.ts && bun scripts/sync-errors.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

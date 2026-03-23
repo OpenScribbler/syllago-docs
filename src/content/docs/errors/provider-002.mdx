@@ -1,27 +1,29 @@
 ---
-title: "PROVIDER_002 - Provider Not Detected"
-description: "The provider is known but wasn't found on your system."
+title: "PROVIDER_002 — Provider Not Detected"
+description: "The specified provider was not detected on your system. Syllago looks for provider-specific configuration directories to determine which AI coding ..."
+sidebar:
+  label: "PROVIDER_002"
 ---
 
 ## What This Means
 
-syllago recognizes the provider but couldn't detect it on your system. The provider's expected configuration directories or files aren't present at the default locations.
+The specified provider was not detected on your system. Syllago looks for provider-specific configuration directories to determine which AI coding tools are installed.
 
 ## Common Causes
 
-- The provider (e.g., Cursor, Windsurf) is not installed on your machine
-- The provider is installed at a non-default location
+- The AI coding tool is not installed on this machine
+- The tool's configuration directory is missing or in a non-standard location
+- The tool was installed but hasn't been run yet (config directory created on first run)
 
 ## How to Fix
 
-1. Install the provider if it isn't already on your system.
-2. If the provider is installed at a custom path, configure it with `syllago config paths set <provider> --base-dir /path`.
-3. Run `syllago info providers` to see detection status for all providers.
+1. Install the AI coding tool if you haven't already.
+2. Run the tool at least once so it creates its configuration directory.
+3. Check if the provider's config directory exists in the expected location (e.g., `~/.claude/` for Claude Code).
 
 ## Example Output
 
 ```
-Error [PROVIDER_002]: Provider not detected
-Suggestion: Install the provider, or set a custom path with 'syllago config paths set'.
-Docs: https://openscribbler.github.io/syllago-docs/errors/provider-002/
+Error PROVIDER_002: provider "claude-code" not detected
+  Suggestion: install Claude Code or verify its config directory exists
 ```

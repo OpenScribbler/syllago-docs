@@ -1,28 +1,28 @@
 ---
-title: "CATALOG_001 - No Catalog Found"
-description: "syllago couldn't find a content catalog to scan."
+title: "CATALOG_001 — Catalog Not Found"
+description: "Syllago could not find a repository or library to work with. The catalog requires a `.syllago` directory to discover and manage content."
+sidebar:
+  label: "CATALOG_001"
 ---
 
 ## What This Means
 
-syllago couldn't find a content catalog to scan. This typically means you're not inside a syllago project or the expected directory structure is missing.
+Syllago could not find a repository or library to work with. The catalog requires a `.syllago` directory to discover and manage content.
 
 ## Common Causes
 
-- Not in a syllago project directory
-- Missing `.syllago/` directory
-- No global library has been initialized
+- Running a syllago command outside of a project directory
+- The `.syllago` directory is missing or was deleted
+- You haven't initialized syllago in this project yet
 
 ## How to Fix
 
-1. Run `syllago init` to initialize a new project in the current directory.
-2. Verify you're in the correct directory -- the one containing your `.syllago/` folder.
-3. If you expected a global library, check that it was previously created with `syllago init --global`.
+1. Navigate to your project directory and run `syllago init` to create a new syllago repository.
+2. If you already have a syllago project, make sure you're running commands from within that directory (or a subdirectory of it).
 
 ## Example Output
 
 ```
-Error [CATALOG_001]: No catalog found
-Suggestion: Run 'syllago init' to initialize a project, or check your working directory.
-Docs: https://openscribbler.github.io/syllago-docs/errors/catalog-001/
+Error CATALOG_001: no syllago repository found
+  Suggestion: run 'syllago init' to create one, or navigate to an existing syllago project
 ```

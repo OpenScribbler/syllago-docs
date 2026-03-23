@@ -1,27 +1,33 @@
 ---
-title: "CONVERT_001 - Conversion Not Supported"
-description: "The requested format conversion isn't available."
+title: "CONVERT_001 — Convert Not Supported"
+description: "The content type you are trying to convert does not support conversion between the specified providers."
+sidebar:
+  label: "CONVERT_001"
 ---
 
 ## What This Means
 
-syllago can't convert the content to the requested target format. There's no conversion path available for this content type and provider combination.
+The content type you are trying to convert does not support conversion between the specified providers.
 
 ## Common Causes
 
-- The content type isn't supported by the target provider
-- No conversion path exists between the source and target formats
+- The content type is provider-specific and has no equivalent in the target provider
+- The conversion path between the source and target providers is not implemented
+- The content type does not have a canonical format defined
 
 ## How to Fix
 
-1. Check the [format conversion compatibility matrix](/syllago-docs/using-syllago/format-conversion/) to see which conversions are supported.
-2. Try a different target provider that supports the content type.
-3. Run `syllago info providers` to see provider capabilities.
+Check which conversion paths are supported:
+
+```
+syllago info formats
+```
+
+If the content type cannot be converted, you may need to manually recreate it for the target provider.
 
 ## Example Output
 
 ```
-Error [CONVERT_001]: Conversion not supported
-Suggestion: Check the conversion compatibility matrix. Not all content types work with all providers.
-Docs: https://openscribbler.github.io/syllago-docs/errors/convert-001/
+Error CONVERT_001: conversion not supported for content type "commands" (claude-code → gemini)
+  Suggestion: check 'syllago info formats' for supported conversion paths
 ```

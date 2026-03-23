@@ -1,27 +1,29 @@
 ---
-title: "REGISTRY_003 - Registry Not Allowed"
-description: "The registry operation was blocked by policy."
+title: "REGISTRY_003 — Registry Not Allowed"
+description: "The registry URL you tried to use is blocked by the `allowedRegistries` policy in your configuration. This is a security control that restricts whi..."
+sidebar:
+  label: "REGISTRY_003"
 ---
 
 ## What This Means
 
-syllago blocked the registry operation because the registry URL is not on the allowed domain list. This is a security feature that prevents cloning from untrusted sources.
+The registry URL you tried to use is blocked by the `allowedRegistries` policy in your configuration. This is a security control that restricts which registries can be used.
 
 ## Common Causes
 
-- The registry URL's domain is not in the sandbox domain allowlist
-- A new registry was added without updating the domain policy
+- Your organization has configured an allowlist of approved registries
+- The registry URL doesn't match any entry in the `allowedRegistries` list
+- A workspace or global config restricts registry sources
 
 ## How to Fix
 
-1. Check the current domain allowlist with `syllago sandbox domains`.
-2. Add the registry's domain to the allowlist if you trust it.
-3. Verify the URL is correct -- a typo could point to an unrecognized domain.
+1. Check the allowed registries in your config: look for `allowedRegistries` in `.syllago/config.json`.
+2. If you believe this registry should be allowed, contact your administrator to update the policy.
+3. Use a registry that is already on the approved list.
 
 ## Example Output
 
 ```
-Error [REGISTRY_003]: Registry not allowed
-Suggestion: Check sandbox domain allowlist with 'syllago sandbox domains'.
-Docs: https://openscribbler.github.io/syllago-docs/errors/registry-003/
+Error REGISTRY_003: registry URL not in allowedRegistries
+  Suggestion: check your allowedRegistries policy or contact your admin
 ```

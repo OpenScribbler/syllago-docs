@@ -1,30 +1,32 @@
 ---
-title: "REGISTRY_001 - Registry Clone Failed"
-description: "syllago couldn't clone a git registry."
+title: "REGISTRY_001 — Registry Clone"
+description: "Syllago failed to clone a registry repository using git. The remote repository could not be fetched."
+sidebar:
+  label: "REGISTRY_001"
 ---
 
 ## What This Means
 
-syllago attempted to clone a git registry but the operation failed. This usually points to a network or authentication issue.
+Syllago failed to clone a registry repository using git. The remote repository could not be fetched.
 
 ## Common Causes
 
-- Invalid registry URL
 - Network connectivity issues
-- Private repository without proper credentials configured
-- Git is not installed on the system
+- Invalid or mistyped registry URL
+- Private repository without proper authentication configured
+- Git not installed or not in PATH
+- Remote server is down or unreachable
 
 ## How to Fix
 
-1. Verify the registry URL is correct and accessible in a browser.
+1. Verify the registry URL is correct and accessible: `git ls-remote <url>`
 2. Check your network connection.
-3. Ensure git is installed (`git --version`) and configured with the correct credentials.
-4. For private registries, confirm your SSH keys or access tokens are set up.
+3. For private registries, ensure your git credentials are configured (SSH key or token).
+4. Verify git is installed: `git --version`
 
 ## Example Output
 
 ```
-Error [REGISTRY_001]: Registry clone failed
-Suggestion: Verify the URL is correct and you have network access. Check git credentials for private repos.
-Docs: https://openscribbler.github.io/syllago-docs/errors/registry-001/
+Error REGISTRY_001: failed to clone registry
+  Suggestion: check the registry URL and your network connection
 ```

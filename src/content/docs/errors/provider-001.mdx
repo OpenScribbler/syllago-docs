@@ -1,27 +1,29 @@
 ---
-title: "PROVIDER_001 - Provider Not Found"
-description: "The specified provider slug doesn't match any known provider."
+title: "PROVIDER_001 — Provider Not Found"
+description: "The provider name you specified is not recognized by syllago. The slug does not match any supported AI coding tool provider."
+sidebar:
+  label: "PROVIDER_001"
 ---
 
 ## What This Means
 
-syllago doesn't recognize the provider name you specified. Provider names must use the exact slug format, not the display name.
+The provider name you specified is not recognized by syllago. The slug does not match any supported AI coding tool provider.
 
 ## Common Causes
 
 - Typo in the provider name
-- Using the display name instead of the slug (e.g., `Claude Code` instead of `claude-code`)
-- Using an outdated or incorrect provider identifier
+- Using the full tool name instead of the slug (e.g., "Claude Code" instead of "claude-code")
+- The provider is not yet supported by syllago
 
 ## How to Fix
 
-1. Run `syllago info providers` to see the full list of valid provider slugs.
-2. Use the slug format: lowercase with hyphens (e.g., `claude-code`, `gemini-cli`, `windsurf`).
+1. List supported providers: `syllago info providers`
+2. Use the exact provider slug shown in the list.
+3. Check for typos in the provider name you specified.
 
 ## Example Output
 
 ```
-Error [PROVIDER_001]: Provider not found
-Suggestion: Run 'syllago info providers' to see valid provider slugs.
-Docs: https://openscribbler.github.io/syllago-docs/errors/provider-001/
+Error PROVIDER_001: unknown provider "claudecode"
+  Suggestion: run 'syllago info providers' to see supported providers
 ```

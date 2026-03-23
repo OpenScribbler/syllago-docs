@@ -3,61 +3,128 @@ title: Error Codes
 description: Reference for all syllago error codes with explanations and fixes.
 ---
 
-When syllago encounters an error, it displays a structured error with a code, message, and suggestion. Each code links to its documentation page below.
+When syllago encounters an error, it displays a structured error with a code, message, and suggestion. Run `syllago explain <CODE>` for offline help, or click any code below for the full reference.
 
 ## Catalog Errors
 
-| Code | Description |
-|------|-------------|
-| [CATALOG_001](/syllago-docs/errors/catalog-001/) | No catalog found |
-| [CATALOG_002](/syllago-docs/errors/catalog-002/) | Catalog scan failed |
-
-## Registry Errors
-
-| Code | Description |
-|------|-------------|
-| [REGISTRY_001](/syllago-docs/errors/registry-001/) | Registry clone failed |
-| [REGISTRY_002](/syllago-docs/errors/registry-002/) | Registry not found |
-| [REGISTRY_003](/syllago-docs/errors/registry-003/) | Registry not allowed |
-
-## Provider Errors
-
-| Code | Description |
-|------|-------------|
-| [PROVIDER_001](/syllago-docs/errors/provider-001/) | Provider not found |
-| [PROVIDER_002](/syllago-docs/errors/provider-002/) | Provider not detected |
-
-## Install Errors
-
-| Code | Description |
-|------|-------------|
-| [INSTALL_001](/syllago-docs/errors/install-001/) | Install path not writable |
-| [INSTALL_002](/syllago-docs/errors/install-002/) | Item not found for install |
-| [INSTALL_003](/syllago-docs/errors/install-003/) | Invalid install method |
-
-## Convert Errors
-
-| Code | Description |
-|------|-------------|
-| [CONVERT_001](/syllago-docs/errors/convert-001/) | Conversion not supported |
-| [CONVERT_002](/syllago-docs/errors/convert-002/) | Conversion parse failed |
-
-## Import Errors
-
-| Code | Description |
-|------|-------------|
-| [IMPORT_001](/syllago-docs/errors/import-001/) | Import clone failed |
-| [IMPORT_002](/syllago-docs/errors/import-002/) | Import conflict |
-
-## Export Errors
-
-| Code | Description |
-|------|-------------|
-| [EXPORT_001](/syllago-docs/errors/export-001/) | Export not supported |
+| Code | Name | Description |
+|------|------|-------------|
+| [CATALOG_001](/syllago-docs/errors/catalog-001/) | Catalog Not Found | no syllago repo or library found |
+| [CATALOG_002](/syllago-docs/errors/catalog-002/) | Catalog Scan Failed | catalog scan returned an error |
 
 ## Config Errors
 
-| Code | Description |
-|------|-------------|
-| [CONFIG_001](/syllago-docs/errors/config-001/) | Invalid configuration |
-| [CONFIG_002](/syllago-docs/errors/config-002/) | Configuration not found |
+| Code | Name | Description |
+|------|------|-------------|
+| [CONFIG_001](/syllago-docs/errors/config-001/) | Config Invalid | configuration file is malformed |
+| [CONFIG_002](/syllago-docs/errors/config-002/) | Config Not Found | configuration file does not exist |
+| [CONFIG_003](/syllago-docs/errors/config-003/) | Config Path | invalid path override (not absolute, unknown type) |
+| [CONFIG_004](/syllago-docs/errors/config-004/) | Config Save | failed to save configuration |
+
+## Convert Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [CONVERT_001](/syllago-docs/errors/convert-001/) | Convert Not Supported | content type does not support conversion |
+| [CONVERT_002](/syllago-docs/errors/convert-002/) | Convert Parse Failed | parsing content for conversion failed |
+| [CONVERT_003](/syllago-docs/errors/convert-003/) | Convert Render Failed | rendering to target format failed |
+
+## Export Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [EXPORT_001](/syllago-docs/errors/export-001/) | Export Not Supported | export not supported for content type |
+| [EXPORT_002](/syllago-docs/errors/export-002/) | Export Failed | export operation failed |
+
+## Import Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [IMPORT_001](/syllago-docs/errors/import-001/) | Import Clone Failed | cloning import source failed |
+| [IMPORT_002](/syllago-docs/errors/import-002/) | Import Conflict | import conflicts with existing content |
+
+## Init Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [INIT_001](/syllago-docs/errors/init-001/) | Init Exists | project already initialized |
+
+## Input Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [INPUT_001](/syllago-docs/errors/input-001/) | Input Missing | required flag or argument not provided |
+| [INPUT_002](/syllago-docs/errors/input-002/) | Input Conflict | mutually exclusive flags used together |
+| [INPUT_003](/syllago-docs/errors/input-003/) | Input Invalid | flag value is invalid (wrong format, out of range) |
+| [INPUT_004](/syllago-docs/errors/input-004/) | Input Terminal | command requires interactive terminal |
+
+## Install Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [INSTALL_001](/syllago-docs/errors/install-001/) | Install Not Writable | install path not writable |
+| [INSTALL_002](/syllago-docs/errors/install-002/) | Install Item Not Found | item not found in library for install |
+| [INSTALL_003](/syllago-docs/errors/install-003/) | Install Method Invalid | invalid install method for content type |
+| [INSTALL_004](/syllago-docs/errors/install-004/) | Install Conflict | active loadout or other conflict prevents install |
+| [INSTALL_005](/syllago-docs/errors/install-005/) | Install Not Installed | item is not currently installed |
+
+## Item Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [ITEM_001](/syllago-docs/errors/item-001/) | Item Not Found | named item not found in library |
+| [ITEM_002](/syllago-docs/errors/item-002/) | Item Ambiguous | item name exists in multiple types |
+| [ITEM_003](/syllago-docs/errors/item-003/) | Item Type Unknown | unknown content type specified |
+
+## Loadout Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [LOADOUT_001](/syllago-docs/errors/loadout-001/) | Loadout Not Found | loadout not found in library or registry |
+| [LOADOUT_002](/syllago-docs/errors/loadout-002/) | Loadout Parse | loadout.yaml is malformed |
+| [LOADOUT_003](/syllago-docs/errors/loadout-003/) | Loadout Conflict | another loadout is already active |
+| [LOADOUT_004](/syllago-docs/errors/loadout-004/) | Loadout Provider | loadout references unknown provider |
+| [LOADOUT_005](/syllago-docs/errors/loadout-005/) | Loadout No Items | no items selected for loadout |
+
+## Privacy Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [PRIVACY_001](/syllago-docs/errors/privacy-001/) | Privacy Publish Blocked | private content cannot be published to public registry |
+| [PRIVACY_002](/syllago-docs/errors/privacy-002/) | Privacy Share Blocked | private content cannot be shared to public repo |
+| [PRIVACY_003](/syllago-docs/errors/privacy-003/) | Privacy Loadout Warn | loadout contains private items (warning) |
+
+## Promote Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [PROMOTE_001](/syllago-docs/errors/promote-001/) | Promote Dirty Tree | uncommitted changes in working tree |
+| [PROMOTE_002](/syllago-docs/errors/promote-002/) | Promote Validation | content validation failed before promote |
+| [PROMOTE_003](/syllago-docs/errors/promote-003/) | Promote Git Failed | git operation (branch, commit, push) failed |
+
+## Provider Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [PROVIDER_001](/syllago-docs/errors/provider-001/) | Provider Not Found | unknown provider slug |
+| [PROVIDER_002](/syllago-docs/errors/provider-002/) | Provider Not Detected | provider not detected on disk |
+
+## Registry Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [REGISTRY_001](/syllago-docs/errors/registry-001/) | Registry Clone | git clone of registry failed |
+| [REGISTRY_002](/syllago-docs/errors/registry-002/) | Registry Not Found | named registry not in config |
+| [REGISTRY_003](/syllago-docs/errors/registry-003/) | Registry Not Allowed | URL blocked by allowedRegistries policy |
+| [REGISTRY_004](/syllago-docs/errors/registry-004/) | Registry Invalid | invalid registry name or structure |
+| [REGISTRY_005](/syllago-docs/errors/registry-005/) | Registry Duplicate | registry with this name already exists |
+| [REGISTRY_006](/syllago-docs/errors/registry-006/) | Registry Not Cloned | registry exists in config but not cloned locally |
+| [REGISTRY_007](/syllago-docs/errors/registry-007/) | Registry Sync Failed | git pull failed during sync |
+| [REGISTRY_008](/syllago-docs/errors/registry-008/) | Registry Save Failed | could not save registry config changes |
+
+## System Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [SYSTEM_001](/syllago-docs/errors/system-001/) | System Homedir | cannot determine home directory |
+| [SYSTEM_002](/syllago-docs/errors/system-002/) | System IO | filesystem read/write/mkdir failure |
