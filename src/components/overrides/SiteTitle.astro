@@ -43,7 +43,8 @@ const { siteTitleHref } = Astro.locals.starlightRoute;
     transform: translateY(0);
   }
 
-  /* Override SVG's prefers-color-scheme with Starlight's data-theme */
+  /* Sync with Starlight's data-theme since inlined SVG's
+     prefers-color-scheme only sees OS preference */
   :root[data-theme='light'] .site-logo :global(.sf) { fill: #047857; }
   :root[data-theme='light'] .site-logo :global(.sd) { fill: #047857; opacity: 0.4; }
   :root[data-theme='light'] .site-logo :global(.lf) { fill: #6D28D9; }
