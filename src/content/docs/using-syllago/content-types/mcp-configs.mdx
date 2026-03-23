@@ -35,24 +35,44 @@ Each server entry supports:
 - **`command`** -- the executable to launch the MCP server
 - **`args`** -- command-line arguments passed to the server process
 - **`env`** -- environment variables available to the server at runtime
+- **`disabledTools`** -- list of tools to disable on this server (supported by Kiro, Windsurf, Roo Code)
+
+### disabledTools
+
+The `disabledTools` field lets you selectively disable specific tools from an MCP server:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "node",
+      "args": ["github-server.js"],
+      "disabledTools": ["create_issue", "delete_repo"]
+    }
+  }
+}
+```
+
+This field round-trips through Kiro, Windsurf, and Roo Code. Other providers drop it with a portability warning during conversion.
 
 ## Provider Support
 
-MCP configs are supported by 8 of 11 providers:
+MCP configs are supported by all 12 providers:
 
-| Provider | Supported |
-|---|---|
-| Claude Code | Yes |
-| Gemini CLI | Yes |
-| Copilot CLI | Yes |
-| Zed | Yes |
-| Cline | Yes |
-| Roo Code | Yes |
-| OpenCode | Yes |
-| Kiro | Yes |
-| Cursor | No |
-| Windsurf | No |
-| Codex | No |
+| Provider | Supported | Notes |
+|---|---|---|
+| Claude Code | Yes | `.claude.json`, `.mcp.json` |
+| Gemini CLI | Yes | `.gemini/settings.json` |
+| Cursor | Yes | `.cursor/mcp.json` |
+| Copilot CLI | Yes | `.copilot/mcp-config.json` |
+| Codex | Yes | JSON merge |
+| Kiro | Yes | `.kiro/settings/mcp.json` |
+| Windsurf | Yes | JSON merge |
+| Zed | Yes | Uses `context_servers` key |
+| Cline | Yes | VS Code globalStorage |
+| Roo Code | Yes | `.roo/mcp.json` |
+| OpenCode | Yes | `opencode.json` / `opencode.jsonc` |
+| Amp | Yes | `.amp/settings.json` |
 
 ## Format Differences
 

@@ -5,50 +5,92 @@ description: How syllago manages hooks across providers.
 
 Hooks are event-driven automation scripts triggered by AI tool lifecycle events. They let you run custom logic when specific events occur — before or after a tool call, on session start, on file change, and so on.
 
-Hooks are the most provider-specific content type syllago manages. Only **4 of 11** supported providers have a hook system: Claude Code, Gemini CLI, Copilot CLI, and Kiro.
+Supported by **8 of 12 providers**: Claude Code, Gemini CLI, Copilot CLI, Cursor, Windsurf, Codex, Cline, and Kiro.
 
-## Why Limited Support
+## Canonical Format
 
-Most AI coding tools don't expose lifecycle events or offer a plugin/hook architecture. Hooks require the provider to support event-driven extensibility — intercepting tool calls, reacting to session events, or running logic at defined points in the AI's workflow. The majority of providers simply don't have this plumbing.
+Syllago uses a provider-neutral canonical format for hooks, defined by the [Hook Interchange Format Specification](/syllago-docs/reference/hooks-v1/).
 
-| Provider | Hook Support |
+### Handler Types
+
+Hooks support four handler types:
+
+| Type | Description |
 |---|---|
-| Claude Code | Yes |
-| Gemini CLI | Yes |
-| Copilot CLI | Yes |
-| Kiro | Yes |
-| Codex, Cursor, Windsurf, Zed, Cline, Roo Code, OpenCode | No |
+| `command` | Shell command executed as a subprocess |
+| `http` | HTTP POST to a URL |
+| `prompt` | LLM-evaluated logic (not all providers support this) |
+| `agent` | Delegated to an agent subprocess |
 
-## Syllago Format
+### Event Names (Canonical)
 
-When hooks are imported into your library, syllago stores them in a provider-neutral manifest (`.syllago.yaml`) alongside the hook content itself (typically JSON).
+Hook events use provider-neutral names in the canonical format:
 
-```yaml
-id: 0e15bb54-3187-4673-9e2e-d1d44e40c951
-name: settings
-type: hooks
-source_provider: claude-code
-source_format: json
-source_type: provider
-has_source: true
-added_at: 2026-03-05T22:08:18Z
-added_by: 0.6.1
-```
+| Canonical Event | Claude Code | Gemini CLI |
+|---|---|---|
+| `before_tool_execute` | `PreToolUse` | `before_tool_call` |
+| `after_tool_execute` | `PostToolUse` | `after_tool_call` |
+| `before_prompt` | `UserPromptSubmit` | `before_send` |
+| `agent_stop` | `Stop` | `on_complete` |
+| `session_start` | `SessionStart` | `session_start` |
+| `session_end` | `SessionEnd` | `session_end` |
 
-The hook content is stored as a JSON file (e.g., `hook.json`) defining the event trigger and handler. The exact structure of this JSON depends on which provider the hook was imported from.
+Syllago translates event names automatically when converting between providers.
 
-## Format Differences
+### Matcher Types
 
-Hook formats vary significantly between providers because each tool designed its event system independently:
+Hooks use matchers to target specific tools or events:
 
-- **Claude Code** — JSON-based hook definitions stored in settings. Hooks reference event names and shell commands or inline scripts.
-- **Gemini CLI** — Uses its own hook structure with different event naming and configuration conventions.
-- **Copilot CLI** — Supports hooks through its extensibility layer with a distinct format.
-- **Kiro** — JSON-based steering files that can include hook-like event triggers.
+- **Bare string**: Tool vocabulary lookup (e.g., `"shell"`, `"file_read"`)
+- **Pattern object**: Regex on tool name (`{"pattern": "file_(read|write|edit)"}`)
+- **MCP object**: Server+tool targeting (`{"mcp": {"server": "github", "tool": "create_issue"}}`)
+- **Array**: OR logic across multiple matchers
 
-Because of these differences, hook conversion between providers requires more adaptation than other content types. See [Format Conversion](/syllago-docs/using-syllago/format-conversion/) for how syllago handles cross-provider translation.
+### Exit Code Contract
+
+| Code | Meaning |
+|---|---|
+| `0` | Success — parse JSON output |
+| `1` | Non-blocking warning |
+| `2` | Block action (only if `blocking: true`) |
+| Other | Treated as warning |
+
+## Provider Support
+
+| Provider | Hook Support | Notes |
+|---|---|---|
+| Claude Code | Full | Richest output contract, all event types |
+| Gemini CLI | Full | Unique events: `before_model`, `after_model`, `before_tool_selection` |
+| Copilot CLI | Full | Conservative safety design |
+| Cursor | Yes | JSON merge into `.cursor/settings.json` |
+| Windsurf | Yes | JSON merge |
+| Codex | Yes | JSON hooks in `.codex/hooks.json` |
+| Cline | Yes | File-based executables in `.clinerules/hooks/` |
+| Kiro | Yes | Embedded in agent JSON files |
+| Zed, Roo Code, OpenCode, Amp | No | — |
+
+## Hook Security
+
+Syllago includes a **hook security scanner** that detects dangerous patterns when converting hooks:
+
+| Risk Level | Patterns Detected |
+|---|---|
+| **HIGH** | `curl`, `rm -rf`, piped execution, network commands |
+| **MEDIUM** | Broad matchers, wildcard patterns |
+| **LOW** | System paths, environment variable access |
+
+Security warnings appear in `syllago convert` and `syllago install` output.
+
+## Portability Warnings
+
+When converting hooks between providers, syllago surfaces warnings for:
+
+- **Unsupported events**: e.g., Gemini's `before_model` has no Claude Code equivalent
+- **Capability mismatches**: e.g., `updated_input` (input rewriting) not supported by target
+- **Degradation applied**: hooks that use the `block`, `warn`, or `exclude` degradation strategy
 
 ## See Also
 
+- [Hook Interchange Format Specification](/syllago-docs/reference/hooks-v1/) — full canonical format specification
 - [Content Types Overview](/syllago-docs/using-syllago/content-types/) — full provider compatibility matrix
 - [Format Conversion](/syllago-docs/using-syllago/format-conversion/) — how syllago converts between provider formats

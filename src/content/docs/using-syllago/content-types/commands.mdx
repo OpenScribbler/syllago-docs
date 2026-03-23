@@ -7,15 +7,24 @@ Commands are custom slash commands that extend an AI tool's command palette. The
 
 ## Provider Support
 
-Commands are supported by 5 of 11 providers:
+Commands are supported by 7 of 12 providers:
 
 | Provider | Format | Notes |
 |---|---|---|
 | Claude Code | Markdown | Command files in `.claude/commands/` |
 | Gemini CLI | Markdown | Command files in `.gemini/commands/` |
-| Copilot CLI | Markdown | Command definitions in provider config |
-| Codex | TOML | Structured format with variables and instructions sections |
-| OpenCode | YAML | Command definitions in provider config |
+| Cursor | Markdown | Command files in `.cursor/commands/` |
+| Copilot CLI | Markdown | Command files in `.copilot/commands/` |
+| Codex | Markdown | Command files in `.codex/commands/` |
+| OpenCode | Markdown | Command files in `.opencode/commands/` |
+
+## Canonical Fields
+
+Commands support the following metadata:
+
+| Field | Description | Provider Support |
+|---|---|---|
+| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as behavioral notes |
 
 ## Syllago Format
 
@@ -68,14 +77,14 @@ When you export a command to a provider, syllago converts between formats automa
 ## Working with Commands
 
 ```bash
-# Import a command from a provider
-syllago import /fix-typo --from claude-code
+# Add a command from a provider
+syllago add commands/fix-typo --from claude-code
 
 # List commands in your library
 syllago list --type commands
 
-# Export a command to a different provider
-syllago export fix_typo --to gemini-cli
+# Install a command to a different provider
+syllago install fix_typo --to gemini-cli
 
 # Inspect a command's metadata and source
 syllago inspect fix_typo

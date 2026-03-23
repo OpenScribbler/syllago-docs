@@ -46,21 +46,22 @@ The `source_format` field records the original format the rule was imported from
 
 ## Provider Compatibility
 
-Rules are supported by all 11 providers:
+Rules are supported by all 12 providers:
 
 | Provider | Format | Extension | Notes |
 |---|---|---|---|
-| Claude Code | Markdown | `.md` | Placed in `.claude/rules/` |
-| Gemini CLI | Markdown | `.md` | Uses `.gemini/rules/` |
-| Copilot CLI | Markdown | `.md` | Uses `.github/copilot/rules/` |
-| Codex | Markdown | `.md` | Uses `.codex/rules/` |
-| Cursor | MDC | `.mdc` | Frontmatter mapped to metadata headers |
-| Windsurf | Markdown | `.md` | Uses `.windsurf/rules/` |
-| Zed | Markdown | `.md` | Uses `.zed/rules/` |
-| Cline | Markdown | `.md` | Uses `.cline/rules/` |
-| Roo Code | Markdown | `.md` | Uses `.roo/rules/` |
-| OpenCode | YAML | `.yaml` | Frontmatter stripped, converted to YAML structure |
-| Kiro | Markdown | `.md` | Uses `.kiro/rules/` |
+| Claude Code | Markdown | `.md` | `CLAUDE.md` or `.claude/rules/` |
+| Gemini CLI | Markdown | `.md` | `GEMINI.md` |
+| Copilot CLI | Markdown | `.md` | `.github/copilot-instructions.md` or `AGENTS.md` |
+| Codex | Markdown | `.md` | `AGENTS.md` |
+| Cursor | MDC | `.mdc` | `.cursor/rules/` or `.cursorrules` |
+| Windsurf | Markdown | `.md` | `.windsurfrules` or `.windsurf/rules/` |
+| Zed | Markdown | `.md` | `.rules`, `.cursorrules`, or `CLAUDE.md` |
+| Cline | Markdown | `.md` | `.clinerules/` |
+| Roo Code | Markdown | `.md` | `.roo/rules/` with mode-specific subdirectories |
+| OpenCode | Markdown | `.md` | `AGENTS.md` or `CLAUDE.md` |
+| Kiro | Markdown | `.md` | `.kiro/steering/` |
+| Amp | Markdown | `.md` | `AGENTS.md` |
 
 ## Format Differences
 

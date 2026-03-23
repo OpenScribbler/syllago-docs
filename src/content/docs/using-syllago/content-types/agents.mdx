@@ -5,7 +5,32 @@ description: How syllago manages AI agent definitions and personas across provid
 
 Agents are named personas with specialized roles. An agent defines a description and a set of instructions that an AI coding tool can assume, letting you switch between focused behaviors -- an API design expert, a security reviewer, a documentation writer -- without rewriting prompts.
 
-Supported by **7 of 11 providers**: Claude Code, Gemini CLI, Copilot CLI, Codex, Roo Code, OpenCode, and Kiro.
+Supported by **10 of 12 providers**: Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, Roo Code, OpenCode, Kiro, and via AGENTS.md fallback in several others.
+
+## Canonical Fields
+
+Agents support the following metadata fields:
+
+| Field | Description | Provider Support |
+|---|---|---|
+| `name` | Agent name (required) | All providers |
+| `description` | What the agent does (required) | All providers |
+| `permissionMode` | Permission level (5 values) | Claude Code (all 5); others as prose |
+| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as prose |
+
+### Permission Modes
+
+The `permissionMode` field supports five values:
+
+| Value | Meaning |
+|---|---|
+| `default` | Normal permission checking |
+| `acceptEdits` | Auto-accept file edits |
+| `plan` | Plan-only mode (no execution) |
+| `dontAsk` | Skip permission prompts |
+| `bypassPermissions` | Full bypass (use with caution) |
+
+Claude Code supports all five modes natively. Other providers embed non-native modes as behavioral prose notes.
 
 See the [Content Types overview](/syllago-docs/using-syllago/content-types/) for the full compatibility matrix.
 
@@ -70,8 +95,8 @@ Kiro uses JSON-based steering files. Syllago embeds the Markdown content into Ki
 ## Workflow
 
 ```bash
-# Import an agent from a provider
-syllago import api-agent --from claude-code
+# Add an agent from a provider
+syllago add agents/api-agent --from claude-code
 
 # List agents in your library
 syllago list --type agents

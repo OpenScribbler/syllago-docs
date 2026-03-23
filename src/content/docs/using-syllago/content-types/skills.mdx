@@ -48,16 +48,38 @@ Orchestrates the complete documentation development lifecycle.
 
 The frontmatter `name` and `description` fields are the skill's identity -- they determine how the AI discovers and activates the skill. The body contains the actual instructions.
 
+## Canonical Fields
+
+Skills support the following metadata fields in YAML frontmatter:
+
+| Field | Description | Provider Support |
+|---|---|---|
+| `name` | Skill name (required) | All providers |
+| `description` | What the skill does (required) | All providers |
+| `license` | License identifier (Agent Skills spec) | Claude Code, Cursor |
+| `compatibility` | Tool/version constraints | Claude Code, Cursor |
+| `metadata` | Arbitrary key-value pairs | Claude Code, Cursor |
+| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as prose |
+| `hooks` | Skill-scoped event hooks | Claude Code (native); others warn |
+
 ## Provider Compatibility
 
-Skills are supported by **4 of 11 providers**:
+Skills are supported by **10 of 12 providers**:
 
-| Provider | Format | Frontmatter |
+| Provider | Format | Notes |
 |---|---|---|
-| Claude Code | Markdown with YAML frontmatter | `name`, `description` in YAML block |
-| Gemini CLI | Markdown without frontmatter | Metadata embedded in body or omitted |
-| OpenCode | Markdown | Markdown-based skills |
-| Kiro | JSON steering files | Markdown content embedded in JSON string fields |
+| Claude Code | Markdown + YAML frontmatter | Full field support including effort, hooks |
+| Gemini CLI | Markdown | Metadata embedded in body |
+| Cursor | Markdown | Full field support |
+| Copilot CLI | Markdown | Skills in `.github/skills/` |
+| Codex | Markdown | Skills in `.agents/skills/` |
+| Kiro | Markdown steering files | Skills in `.kiro/steering/` |
+| Windsurf | Markdown | Skills in `.windsurf/skills/` |
+| OpenCode | Markdown | Skills in `.opencode/skills/` |
+| Roo Code | Markdown | Skills in `.roo/skills/` |
+| Amp | Markdown | Skills in `.agents/skills/` |
+
+Zed and Cline do not support skills.
 
 ## Format Differences
 
