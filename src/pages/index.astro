@@ -278,36 +278,79 @@ const base = '/syllago-docs';
         line-height: 1.5;
       }
 
-      /* ── Provider Grid ── */
+      /* ── Provider Carousel ── */
       .providers {
         max-width: 960px;
         margin: 0 auto;
         padding: 2rem 1.5rem 3rem;
         text-align: center;
+        overflow: hidden;
       }
 
       .providers h2 {
         font-size: 1.25rem;
         font-weight: 700;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
       }
 
-      .provider-pills {
+      .carousel-track {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        justify-content: center;
+        width: max-content;
+        animation: scroll 40s linear infinite;
       }
 
-      .pill {
-        display: inline-block;
-        padding: 0.35rem 0.85rem;
-        border-radius: 99px;
-        font-size: 0.82rem;
+      .carousel-track:hover {
+        animation-play-state: paused;
+      }
+
+      .carousel-slide {
+        display: flex;
+        gap: 2.5rem;
+        padding-right: 2.5rem;
+      }
+
+      .provider-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+
+      .provider-logo:hover {
+        opacity: 1;
+      }
+
+      .provider-logo img {
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+
+      .provider-logo span {
+        font-size: 0.7rem;
         font-weight: 500;
-        background: var(--bg-secondary);
-        border: 1px solid var(--border);
-        color: var(--text);
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      /* Theme-aware logo swap */
+      .provider-logo .logo-light { display: block; }
+      .provider-logo .logo-dark { display: none; }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) .provider-logo .logo-light { display: none; }
+        :root:not([data-theme='light']) .provider-logo .logo-dark { display: block; }
+      }
+      :root[data-theme='dark'] .provider-logo .logo-light { display: none; }
+      :root[data-theme='dark'] .provider-logo .logo-dark { display: block; }
+      :root[data-theme='light'] .provider-logo .logo-light { display: block; }
+      :root[data-theme='light'] .provider-logo .logo-dark { display: none; }
+
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
       }
 
       /* ── Deep-dive sections ── */
@@ -489,22 +532,87 @@ const base = '/syllago-docs';
       </div>
     </section>
 
-    <!-- Provider Grid -->
+    <!-- Provider Carousel -->
     <section class="providers">
       <h2>Works with your tools</h2>
-      <div class="provider-pills">
-        <span class="pill">Claude Code</span>
-        <span class="pill">Cursor</span>
-        <span class="pill">Windsurf</span>
-        <span class="pill">Copilot CLI</span>
-        <span class="pill">Gemini CLI</span>
-        <span class="pill">Cline</span>
-        <span class="pill">Roo Code</span>
-        <span class="pill">Codex</span>
-        <span class="pill">Zed</span>
-        <span class="pill">OpenCode</span>
-        <span class="pill">Kiro</span>
-        <span class="pill">Amp</span>
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <div class="provider-logo" title="Claude Code">
+            <img class="logo-dark" src={`${base}/provider-logos/claude-white-icon.svg`} alt="Claude Code" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/claude-black-icon.svg`} alt="Claude Code" width="32" height="32" loading="lazy" />
+            <span>Claude Code</span>
+          </div>
+          <div class="provider-logo" title="Cursor">
+            <img class="logo-dark" src={`${base}/provider-logos/cursor-white-icon.svg`} alt="Cursor" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/cursor-black-icon.svg`} alt="Cursor" width="32" height="32" loading="lazy" />
+            <span>Cursor</span>
+          </div>
+          <div class="provider-logo" title="Windsurf">
+            <img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="Windsurf" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="Windsurf" width="32" height="32" loading="lazy" />
+            <span>Windsurf</span>
+          </div>
+          <div class="provider-logo" title="Copilot CLI">
+            <img class="logo-dark" src={`${base}/provider-logos/copilot-white-icon.svg`} alt="Copilot CLI" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/copilot-black-icon.svg`} alt="Copilot CLI" width="32" height="32" loading="lazy" />
+            <span>Copilot CLI</span>
+          </div>
+          <div class="provider-logo" title="Gemini CLI">
+            <img class="logo-dark" src={`${base}/provider-logos/gemini-white-icon.svg`} alt="Gemini CLI" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/gemini-black-icon.svg`} alt="Gemini CLI" width="32" height="32" loading="lazy" />
+            <span>Gemini CLI</span>
+          </div>
+          <div class="provider-logo" title="Codex">
+            <img class="logo-dark" src={`${base}/provider-logos/codex-white-icon.svg`} alt="Codex" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/codex-black-icon.svg`} alt="Codex" width="32" height="32" loading="lazy" />
+            <span>Codex</span>
+          </div>
+          <div class="provider-logo" title="Cline">
+            <img class="logo-dark" src={`${base}/provider-logos/cline-white-icon.svg`} alt="Cline" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/cline-black-icon.svg`} alt="Cline" width="32" height="32" loading="lazy" />
+            <span>Cline</span>
+          </div>
+          <div class="provider-logo" title="Roo Code">
+            <img class="logo-dark" src={`${base}/provider-logos/roocode-white-icon.svg`} alt="Roo Code" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/roocode-black-icon.svg`} alt="Roo Code" width="32" height="32" loading="lazy" />
+            <span>Roo Code</span>
+          </div>
+          <div class="provider-logo" title="Zed">
+            <img class="logo-dark" src={`${base}/provider-logos/zed-white-icon.svg`} alt="Zed" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/zed-black-icon.svg`} alt="Zed" width="32" height="32" loading="lazy" />
+            <span>Zed</span>
+          </div>
+          <div class="provider-logo" title="OpenCode">
+            <img class="logo-dark" src={`${base}/provider-logos/opencode-white-icon.svg`} alt="OpenCode" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/opencode-black-icon.svg`} alt="OpenCode" width="32" height="32" loading="lazy" />
+            <span>OpenCode</span>
+          </div>
+          <div class="provider-logo" title="Kiro">
+            <img class="logo-dark" src={`${base}/provider-logos/kiro-white-icon.svg`} alt="Kiro" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/kiro-black-icon.svg`} alt="Kiro" width="32" height="32" loading="lazy" />
+            <span>Kiro</span>
+          </div>
+          <div class="provider-logo" title="Amp">
+            <img class="logo-dark" src={`${base}/provider-logos/amp-white-icon.svg`} alt="Amp" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/amp-black-icon.svg`} alt="Amp" width="32" height="32" loading="lazy" />
+            <span>Amp</span>
+          </div>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="carousel-slide" aria-hidden="true">
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/claude-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/claude-black-icon.svg`} alt="" width="32" height="32" /><span>Claude Code</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/cursor-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/cursor-black-icon.svg`} alt="" width="32" height="32" /><span>Cursor</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="" width="32" height="32" /><span>Windsurf</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/copilot-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/copilot-black-icon.svg`} alt="" width="32" height="32" /><span>Copilot CLI</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/gemini-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/gemini-black-icon.svg`} alt="" width="32" height="32" /><span>Gemini CLI</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/codex-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/codex-black-icon.svg`} alt="" width="32" height="32" /><span>Codex</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/cline-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/cline-black-icon.svg`} alt="" width="32" height="32" /><span>Cline</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/roocode-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/roocode-black-icon.svg`} alt="" width="32" height="32" /><span>Roo Code</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/zed-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/zed-black-icon.svg`} alt="" width="32" height="32" /><span>Zed</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/opencode-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/opencode-black-icon.svg`} alt="" width="32" height="32" /><span>OpenCode</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/kiro-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/kiro-black-icon.svg`} alt="" width="32" height="32" /><span>Kiro</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/amp-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/amp-black-icon.svg`} alt="" width="32" height="32" /><span>Amp</span></div>
+        </div>
       </div>
     </section>
 
