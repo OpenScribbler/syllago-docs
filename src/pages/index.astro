@@ -29,8 +29,8 @@ const base = '/syllago-docs';
         --bg-secondary: #f2f0e5;
         --text: #100f0f;
         --text-muted: #6f6e69;
-        --accent: #1a4f8c;
-        --accent-hover: #205ea6;
+        --accent: #047857;
+        --accent-hover: #059669;
         --green: #536907;
         --border: #e6e4d9;
         --shadow: rgba(16, 15, 15, 0.08);
@@ -43,8 +43,8 @@ const base = '/syllago-docs';
           --bg-secondary: #1c1b1a;
           --text: #cecdc3;
           --text-muted: #878580;
-          --accent: #66a0c8;
-          --accent-hover: #8bb8d9;
+          --accent: #6EE7B7;
+          --accent-hover: #A7F3D0;
           --green: #a0af54;
           --border: #343331;
           --shadow: rgba(0, 0, 0, 0.3);
@@ -55,8 +55,8 @@ const base = '/syllago-docs';
         --bg-secondary: #1c1b1a;
         --text: #cecdc3;
         --text-muted: #878580;
-        --accent: #66a0c8;
-        --accent-hover: #8bb8d9;
+        --accent: #6EE7B7;
+        --accent-hover: #A7F3D0;
         --green: #a0af54;
         --border: #343331;
         --shadow: rgba(0, 0, 0, 0.3);
@@ -231,6 +231,16 @@ const base = '/syllago-docs';
       .btn-primary:hover {
         background: var(--accent-hover);
         color: #fff;
+      }
+      :root[data-theme='dark'] .btn-primary,
+      :root[data-theme='dark'] .btn-primary:hover {
+        color: #100f0f;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) .btn-primary,
+        :root:not([data-theme='light']) .btn-primary:hover {
+          color: #100f0f;
+        }
       }
 
       .btn-secondary {
