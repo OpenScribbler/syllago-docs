@@ -12,7 +12,7 @@ Syllago organizes content into three collection types, each serving a different 
 | Location | `~/.syllago/content/` | Git repos (cloned locally) | Defined in config |
 | Access | Read-write | Read locally, contribute via PR | Apply/revert |
 | Purpose | Your personal content | Shared team/community content | Bundled configurations |
-| Key commands | `add`, `import`, `list` | `registry add/sync/items` | `loadout create/apply/remove` |
+| Key commands | `add`, `install`, `list` | `registry add/sync/items` | `loadout create/apply/remove` |
 
 ## Library
 
@@ -20,15 +20,15 @@ Your personal content store at `~/.syllago/content/`. This is where syllago mana
 
 ```bash
 syllago add --from <provider>
-syllago import --from <provider>
 syllago list
+syllago install <name> --to <provider>
 ```
 
 [Library deep-dive](/syllago-docs/using-syllago/collections/library/)
 
 ## Registries
 
-Git-based repositories of shared content maintained by teams or the community. You consume registry content locally and can contribute back via pull request using `syllago promote to-registry`.
+Git-based repositories of shared content maintained by teams or the community. You consume registry content locally and can contribute back via pull request using `syllago publish`.
 
 ```bash
 syllago registry add <url>

@@ -47,12 +47,18 @@ Syncing updates the local clone only — it does not modify anyone's library or 
 Registries are not read-only. When a team member creates content that belongs in the shared registry, they contribute it via PR:
 
 ```bash
-syllago promote to-registry your-registry skills/useful-skill
+syllago publish useful-skill --registry your-registry
 ```
 
 This creates a branch in the registry clone, copies the content, commits, pushes, and opens a pull request if the `gh` CLI is installed. The registry maintainer reviews and merges through the normal PR workflow — no special tooling required on their end.
 
-This means team standards can evolve from the bottom up. Individual developers experiment locally, and the best content gets promoted to the shared registry for everyone.
+For sharing directly with a team repo (without a registry), use `syllago share`:
+
+```bash
+syllago share useful-skill
+```
+
+This means team standards can evolve from the bottom up. Individual developers experiment locally, and the best content gets published to the shared registry for everyone.
 
 ## Loadouts for onboarding
 
@@ -108,23 +114,23 @@ This is separate from registry content. The registry holds the **what** (rules, 
 
 ## CI/CD integration
 
-Use `syllago export` in CI pipelines to automate content distribution. The `--json` flag produces machine-readable output suitable for scripting:
+Use `syllago sync-and-export` or `syllago install` in CI pipelines to automate content distribution. The `--json` flag produces machine-readable output suitable for scripting:
 
 ```bash
-syllago export --to claude-code --json
+syllago install --to claude-code --json
 ```
 
 Examples of CI use cases:
 
 ```bash
-# Export shared repo content to a specific provider
-syllago export --to cursor --source shared --json
+# Install all skills to a specific provider
+syllago install --to cursor --type skills --json
 
-# Export everything to all providers
-syllago export --to all --source all --json
+# Sync registries and install in one step
+syllago sync-and-export --to claude-code --json
 
-# Export only rules
-syllago export --to claude-code --type rules --json
+# Install only rules
+syllago install --to claude-code --type rules --json
 ```
 
 This lets you enforce that project repos always have up-to-date provider configurations — for example, regenerating provider config files on every PR merge or as part of a dev environment setup script.
@@ -158,5 +164,6 @@ The registry is the source of truth. Loadouts make it easy to apply. Project con
 - [Registries](/syllago-docs/using-syllago/collections/registries/) — full reference on adding, syncing, and browsing registries
 - [Loadouts](/syllago-docs/using-syllago/collections/loadouts/) — creating, applying, and managing loadouts
 - [`syllago init`](/syllago-docs/using-syllago/cli-reference/init/) — project initialization
-- [`syllago export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) — exporting content to providers
-- [`syllago promote to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/) — contributing content back to a registry
+- [`syllago install`](/syllago-docs/using-syllago/cli-reference/install/) — installing content to providers
+- [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) — contributing content to a registry
+- [`syllago share`](/syllago-docs/using-syllago/cli-reference/share/) — contributing content to a team repo

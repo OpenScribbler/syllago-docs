@@ -17,7 +17,7 @@ syllago provides several flags to help diagnose problems. These work with any co
 Combine flags for maximum visibility:
 
 ```bash
-syllago import --verbose --dry-run
+syllago add --from claude-code --dry-run
 ```
 
 ---
@@ -45,9 +45,9 @@ syllago import --verbose --dry-run
 
 ---
 
-### Content not appearing after import
+### Content not appearing after add
 
-You ran `syllago import` but can't find the content.
+You ran `syllago add` but can't find the content.
 
 **Symptoms:**
 - Content missing from expected provider config
@@ -69,7 +69,7 @@ You ran `syllago import` but can't find the content.
 A conversion between providers fails or produces unexpected results.
 
 **Symptoms:**
-- Error during `syllago import` or export
+- Error during `syllago add`, `syllago install`, or `syllago convert`
 - Content type mismatch warnings
 
 **Fix:**

@@ -39,35 +39,25 @@ There are three ways to get content into your library.
 Pull content from an existing provider setup into syllago. This is the most common starting point — bring in what you already have.
 
 ```bash
-# Import everything from a provider
-syllago import --from claude-code
+# Discover what a provider has
+syllago add --from claude-code
 
-# Import only a specific content type
-syllago import --from claude-code --type skills
+# Add only a specific content type
+syllago add skills --from claude-code
 
-# Import a specific item by name
-syllago import --from cursor --name my-rule
+# Add a specific item by name
+syllago add rules/my-rule --from cursor
 
-# Preview what would be imported without changing anything
-syllago import --from claude-code --preview
+# Preview what would be written without actually writing
+syllago add --from claude-code --dry-run
 
-# Show what files would be written without actually writing
-syllago import --from claude-code --dry-run
+# Add everything
+syllago add --all --from claude-code
 ```
 
-Syllago handles format conversion automatically. A Cursor rule becomes a universal syllago item that can later be exported to Claude Code, Kiro, or any other supported provider.
+Syllago handles format conversion automatically. A Cursor rule becomes a universal syllago item that can later be installed to Claude Code, Kiro, or any other supported provider.
 
-See [`syllago import`](/syllago-docs/using-syllago/cli-reference/import/) for full options.
-
-### Discover from a provider
-
-Interactively discover and add content from a provider.
-
-```bash
-syllago add --from <provider>
-```
-
-See [`syllago add`](/syllago-docs/using-syllago/cli-reference/) for details.
+See [`syllago add`](/syllago-docs/using-syllago/cli-reference/add/) for full options.
 
 ### Create from scratch
 
@@ -123,22 +113,19 @@ See [`syllago inspect`](/syllago-docs/using-syllago/cli-reference/inspect/) for 
 
 ## Exporting to providers
 
-Once content is in your library, export it to any supported provider. Syllago converts between provider formats automatically.
+Once content is in your library, install it to any supported provider. Syllago converts between provider formats automatically.
 
 ```bash
-# Export local content to Cursor
-syllago export --to cursor
+# Install a specific item to Cursor
+syllago install my-rule --to cursor
 
-# Export only skills to Kiro
-syllago export --to kiro --type skills
-
-# Export everything to all known providers
-syllago export --to all
+# Install all skills to Kiro
+syllago install --to kiro --type skills
 ```
 
 For project-scoped providers (Kiro, Cline, Zed), content is written to the current working directory's provider config.
 
-See [`syllago export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) for full options.
+See [`syllago install`](/syllago-docs/using-syllago/cli-reference/install/) for full options.
 
 ## How it connects
 
