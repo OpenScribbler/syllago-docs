@@ -18,7 +18,7 @@
 #   - Sets a clean prompt
 #   - Avoids needing VHS Hide/Show (broken in v0.10.0)
 
-Output public/hero-demo.gif
+Output public/hero-tui.gif
 Set Theme "Catppuccin Mocha"
 Set FontSize 17
 Set Width 960
