@@ -1,4 +1,5 @@
 ---
+import logoSvg from '../assets/logo.svg?raw';
 const base = '/syllago-docs';
 ---
 
@@ -77,20 +78,28 @@ const base = '/syllago-docs';
       }
 
       .header-logo {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--text);
-        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
       }
 
-      .logo-syll {
-        color: #5abdac;
+      .header-logo-svg {
+        display: flex;
+        height: 1.75rem;
+        transition: transform 0.15s ease;
       }
 
-      @media (prefers-color-scheme: light) {
-        .logo-syll {
-          color: #2f968d;
-        }
+      .header-logo-svg :global(svg) {
+        height: 100%;
+        width: auto;
+      }
+
+      .header-logo:hover .header-logo-svg {
+        transform: translateY(-2px);
+      }
+
+      .header-logo:active .header-logo-svg {
+        transform: translateY(0);
       }
 
       .header-nav {
@@ -275,7 +284,9 @@ const base = '/syllago-docs';
   <body>
     <!-- Header -->
     <header class="header">
-      <a href={base + '/'} class="header-logo"><span class="logo-syll">syll</span>ago</a>
+      <a href={base + '/'} class="header-logo" aria-label="syllago home">
+        <span class="header-logo-svg" set:html={logoSvg} />
+      </a>
       <nav>
         <ul class="header-nav">
           <li><a href={base + '/getting-started/installation/'}>Docs</a></li>
