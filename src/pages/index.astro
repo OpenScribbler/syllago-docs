@@ -115,11 +115,11 @@ const base = '/syllago-docs';
       }
 
       .header-logo:hover .header-logo-svg {
-        transform: translateY(-2px);
+        transform: translateX(2px);
       }
 
       .header-logo:active .header-logo-svg {
-        transform: translateY(0);
+        transform: translateX(0);
       }
 
       .header-nav {
@@ -310,24 +310,73 @@ const base = '/syllago-docs';
         color: var(--text);
       }
 
-      /* ── Footer CTA ── */
-      .footer-cta {
+      /* ── Deep-dive sections ── */
+      .deep-dive {
         max-width: 960px;
         margin: 0 auto;
-        padding: 3rem 1.5rem 4rem;
-        text-align: center;
-        border-top: 1px solid var(--border);
+        padding: 1rem 1.5rem 4rem;
       }
 
-      .footer-cta h2 {
-        font-size: 1.5rem;
+      .dd-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        padding: 2.5rem 0;
+      }
+
+      .dd-row-reverse {
+        direction: rtl;
+      }
+
+      .dd-row-reverse > * {
+        direction: ltr;
+      }
+
+      .dd-text h2 {
+        font-size: 1.35rem;
         font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .dd-text p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.6;
         margin-bottom: 0.5rem;
       }
 
-      .footer-cta p {
+      .dd-audience {
+        font-size: 0.8rem !important;
+        font-style: italic;
+        margin-top: 0.75rem !important;
+        color: var(--accent) !important;
+      }
+
+      .dd-code pre {
+        margin: 0;
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        overflow-x: auto;
+        font-size: 0.82rem;
+        line-height: 1.7;
+      }
+
+      .dd-code code {
+        font-family: ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, monospace;
+        color: var(--text);
+      }
+
+      .dd-comment {
         color: var(--text-muted);
-        margin-bottom: 1.5rem;
+      }
+
+      .dd-divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
       }
 
       /* ── Responsive ── */
@@ -339,6 +388,15 @@ const base = '/syllago-docs';
 
         .hero {
           padding: 2rem 1.25rem 1.5rem;
+        }
+
+        .dd-row {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .dd-row-reverse {
+          direction: ltr;
         }
       }
     </style>
@@ -450,18 +508,103 @@ const base = '/syllago-docs';
       </div>
     </section>
 
-    <!-- Footer CTA -->
-    <section class="footer-cta">
-      <h2>Ready to get started?</h2>
-      <p>Install syllago and unify your AI tool configs in under 5 minutes.</p>
-      <div class="ctas">
-        <a href={base + '/getting-started/installation/'} class="btn btn-primary"
-          >Read the Docs &rarr;</a
-        >
-        <a
-          href="https://github.com/OpenScribbler/syllago"
-          class="btn btn-secondary">View on GitHub</a
-        >
+    <!-- Deep-dive sections -->
+    <section class="deep-dive">
+      <div class="dd-row">
+        <div class="dd-text">
+          <h2>One config, every tool</h2>
+          <p>
+            Set up your rules, skills, and agents once. Syllago converts them to
+            each provider's native format automatically — a Claude Code skill becomes a
+            Kiro steering file, a Cursor rule becomes a Windsurf rule.
+          </p>
+          <p class="dd-audience">For developers exploring AI coding tools.</p>
+        </div>
+        <div class="dd-code">
+          <pre><code><span class="dd-comment"># Pull your existing config into syllago</span>
+syllago add rules --from claude-code
+
+<span class="dd-comment"># Install to any other provider</span>
+syllago install my-rule --to cursor
+syllago install my-rule --to windsurf
+syllago install my-rule --to gemini-cli</code></pre>
+        </div>
+      </div>
+
+      <hr class="dd-divider" />
+
+      <div class="dd-row dd-row-reverse">
+        <div class="dd-text">
+          <h2>Share without friction</h2>
+          <p>
+            Convert content for ad-hoc sharing, or publish to a git registry
+            that anyone can subscribe to. Syllago surfaces portability
+            warnings so you know exactly what translates and what doesn't.
+          </p>
+          <p class="dd-audience">For developers who create and share AI tool content.</p>
+        </div>
+        <div class="dd-code">
+          <pre><code><span class="dd-comment"># Convert for sharing (stdout)</span>
+syllago convert my-skill --to cursor
+
+<span class="dd-comment"># Publish to a team registry (opens PR)</span>
+syllago publish my-skill --registry team-standards
+
+<span class="dd-comment"># Check what works where</span>
+syllago compat my-skill</code></pre>
+        </div>
+      </div>
+
+      <hr class="dd-divider" />
+
+      <div class="dd-row">
+        <div class="dd-text">
+          <h2>Standards your team actually uses</h2>
+          <p>
+            Maintain your org's AI standards in a git registry. Developers
+            sync and install with one command. Private content stays private —
+            syllago's privacy gate prevents accidental leakage to public registries.
+          </p>
+          <p class="dd-audience">For team leads and IT administrators.</p>
+        </div>
+        <div class="dd-code">
+          <pre><code><span class="dd-comment"># Add your team's registry</span>
+syllago registry add https://github.com/org/ai-standards.git
+
+<span class="dd-comment"># Sync and install — one command in CI</span>
+syllago sync-and-export --to claude-code
+
+<span class="dd-comment"># Scaffold a new registry for your team</span>
+syllago registry create --new team-rules</code></pre>
+        </div>
+      </div>
+
+      <hr class="dd-divider" />
+
+      <div class="dd-row dd-row-reverse">
+        <div class="dd-text">
+          <h2>One click and go</h2>
+          <p>
+            Loadouts bundle rules, skills, agents, hooks, and MCP configs into
+            a single apply-as-a-unit configuration. Switch between your Python
+            stack, frontend review setup, or security audit kit instantly.
+            Revert cleanly when you're done.
+          </p>
+          <p class="dd-audience">For everyone.</p>
+        </div>
+        <div class="dd-code">
+          <pre><code><span class="dd-comment"># Create a loadout from your current setup</span>
+syllago loadout create my-python-stack
+
+<span class="dd-comment"># Apply it — one command, everything configured</span>
+syllago loadout apply my-python-stack
+
+<span class="dd-comment"># Switch contexts instantly</span>
+syllago loadout apply frontend-review
+
+<span class="dd-comment"># Done? Revert cleanly</span>
+syllago loadout remove</code></pre>
+        </div>
       </div>
     </section>
     <script is:inline>
