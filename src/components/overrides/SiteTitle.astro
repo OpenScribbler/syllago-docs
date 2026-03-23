@@ -45,13 +45,9 @@ const { siteTitleHref } = Astro.locals.starlightRoute;
 
   /* Sync with Starlight's data-theme since inlined SVG's
      prefers-color-scheme only sees OS preference */
-  :root[data-theme='light'] .site-logo :global(.sf) { fill: #047857; }
-  :root[data-theme='light'] .site-logo :global(.sd) { fill: #047857; opacity: 0.4; }
-  :root[data-theme='light'] .site-logo :global(.lf) { fill: #6D28D9; }
-  :root[data-theme='light'] .site-logo :global(.ld) { fill: #6D28D9; opacity: 0.4; }
-
-  :root[data-theme='dark'] .site-logo :global(.sf) { fill: #6EE7B7; }
-  :root[data-theme='dark'] .site-logo :global(.sd) { fill: #6EE7B7; opacity: 0.4; }
-  :root[data-theme='dark'] .site-logo :global(.lf) { fill: #C4B5FD; }
-  :root[data-theme='dark'] .site-logo :global(.ld) { fill: #C4B5FD; opacity: 0.4; }
+  /* Always use the mint/light purple — override SVG's prefers-color-scheme */
+  .site-logo :global(.sf) { fill: #6EE7B7 !important; }
+  .site-logo :global(.sd) { fill: #6EE7B7 !important; opacity: 0.4; }
+  .site-logo :global(.lf) { fill: #C4B5FD !important; }
+  .site-logo :global(.ld) { fill: #C4B5FD !important; opacity: 0.4; }
 </style>
