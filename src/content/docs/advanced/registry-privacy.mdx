@@ -1,0 +1,94 @@
+---
+title: Registry Privacy
+description: How syllago prevents accidental leakage of content from private registries to public destinations.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Syllago includes a privacy gate system to prevent accidental leakage of content from private registries to public destinations. This is a soft gate — it prevents mistakes, not intentional circumvention.
+
+## How It Works
+
+The privacy gate operates in four layers:
+
+### 1. Detection
+
+When you add a registry, syllago determines its visibility:
+
+- **API probes**: Checks GitHub, GitLab, or Bitbucket APIs for the repository's privacy status
+- **Manifest field**: An optional `visibility` field in `registry.yaml` provides explicit control
+- **Default**: Unknown visibility defaults to **private** (safe default)
+
+### 2. Tainting
+
+Content imported from private registries receives permanent metadata:
+
+```yaml
+source_registry: my-private-registry
+source_visibility: private
+```
+
+These fields persist through the content's entire lifecycle in your library. They are not removed by editing, re-importing from a different path, or any other library operation.
+
+### 3. Enforcement (Four Gates)
+
+| Gate | Command | Behavior |
+|------|---------|----------|
+| G1 | `syllago publish` | **Blocks** publishing tainted content to public registries |
+| G2 | `syllago share` | **Blocks** sharing tainted content to public repos |
+| G3 | `syllago loadout create` | **Warns** when loadout contains private items |
+| G4 | `syllago loadout publish` | **Blocks** publishing loadouts with private items to public registries |
+
+The `sync-and-export` command also warns when installing private-tainted content.
+
+### 4. Scope
+
+<Aside type="caution" title="Soft Gate">
+The privacy gate prevents accidental leakage through syllago commands. It does **not** prevent:
+- Direct filesystem operations (copy/paste)
+- Direct git commands
+- Content modification after export
+
+There is no override flag by design. To remove the taint, re-add the content from a public source.
+</Aside>
+
+## Removing Taint
+
+The only way to remove privacy taint is to re-add the content from a public source:
+
+```bash
+# Remove the tainted version
+syllago remove my-private-skill
+
+# Re-add from a public registry or provider
+syllago add skills/my-skill --from claude-code
+```
+
+## Team Workflows
+
+### Private team registry
+
+If your team uses a private registry for internal content:
+
+1. Content added from the private registry is automatically tainted
+2. Team members can freely install tainted content to their providers
+3. Tainted content cannot be accidentally published to public registries
+4. To share content publicly, create it fresh or re-add from a public source
+
+### Mixed public/private
+
+If you use both public and private registries:
+
+```bash
+# Check which registries are private
+syllago registry list
+
+# Inspect an item's taint status
+syllago inspect my-skill --json | jq '.source_visibility'
+```
+
+## See Also
+
+- [Registries](/syllago-docs/using-syllago/collections/registries/) — managing git-based registries
+- [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) — contributing to registries
+- [Team Setup](/syllago-docs/advanced/team-setup/) — configuring syllago for team use

@@ -1,0 +1,268 @@
+---
+title: Hook Interchange Format Specification
+description: "Provider-neutral interchange format for AI coding tool hooks (v1.0.0-draft)"
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="note" title="Draft Specification">
+This is a draft specification (v1.0.0-draft). It has not been finalized and is subject to change.
+</Aside>
+
+**Version:** 1.0.0-draft | **License:** CC-BY-4.0
+
+This specification defines a provider-neutral interchange format for AI coding tool hooks. It enables hook authors to write lifecycle hooks once and deploy them across multiple AI coding tool providers through a canonical representation, capability model, and conversion pipeline.
+
+For a user-friendly overview, see [Hooks content type](/syllago-docs/using-syllago/content-types/hooks/). This page is the full technical specification.
+
+---
+
+{/* The full spec content follows, adapted from the source repo */}
+
+## 1. Introduction
+
+AI coding tools provide hook systems that let developers run custom logic at lifecycle points: before a tool executes, when a session starts, after the agent stops. These hooks enforce policy, audit actions, inject context, and customize behavior.
+
+Every provider's hook system is different. Event names, JSON schemas, output contracts, matcher syntax, timeout units, and configuration file layouts vary across providers. A hook written for one tool cannot run on another without manual adaptation.
+
+This specification defines a **canonical hook format** that serves as an interchange representation between providers. It does not replace any provider's native format. Instead, it provides a neutral hub through which hooks are converted: decode from a source provider's format into canonical, then encode from canonical into a target provider's format.
+
+### What This Spec Defines
+
+- A canonical JSON format for hook manifests
+- An exit code contract for hook processes
+- A canonical output schema for structured hook responses
+- A typed matcher system for tool filtering
+- A registry of canonical event names with provider mappings
+- A capability model describing optional features with provider support matrices
+- A tool vocabulary mapping canonical tool names to provider-native names
+- Degradation strategies for handling capability gaps during conversion
+- Conformance levels for implementations
+
+---
+
+## 2. Canonical Format
+
+### Top-Level Structure
+
+```json
+{
+  "spec": "hooks/1.0",
+  "hooks": [
+    {
+      "event": "before_tool_execute",
+      "matcher": "shell",
+      "handler": {
+        "type": "command",
+        "command": "./safety-check.sh",
+        "timeout": 10
+      },
+      "blocking": true
+    }
+  ]
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `spec` | string | Yes | Must be `"hooks/1.0"` |
+| `hooks` | array | Yes | Non-empty array of hook definitions |
+
+### Hook Definition
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `event` | string | Yes | Canonical event name (see Event Registry) |
+| `matcher` | string, object, or array | No | Tool matcher expression (see Matcher Types) |
+| `handler` | object | Yes | Handler definition |
+| `blocking` | boolean | No | Whether this hook can prevent the triggering action. Default: `false` |
+| `degradation` | object | No | Per-capability fallback strategies |
+| `provider_data` | object | No | Opaque provider-specific data, keyed by provider slug |
+
+### Handler Definition
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | string | Yes | `"command"`, `"http"`, `"prompt"`, or `"agent"` |
+| `command` | string | Conditional | Shell command (required when type is `"command"`) |
+| `platform` | object | No | Per-OS command overrides: `windows`, `linux`, `osx` |
+| `cwd` | string | No | Working directory relative to project root |
+| `env` | object | No | Environment variables for the hook process |
+| `timeout` | number | No | Max execution time in seconds (default: 30) |
+| `async` | boolean | No | Fire-and-forget execution. Default: `false` |
+
+---
+
+## 3. Exit Code Contract
+
+| Exit Code | Name | Behavior |
+|-----------|------|----------|
+| 0 | Success | Action proceeds. Stdout parsed as JSON if present |
+| 1 | Hook Error | Non-blocking warning. Action proceeds |
+| 2 | Block | Action prevented (only when `blocking: true`) |
+| Other | Hook Error | Same as exit code 1 |
+
+---
+
+## 4. Canonical Output Schema
+
+When a hook exits 0 with JSON on stdout:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `decision` | string | `"allow"`, `"deny"`, or `"ask"` |
+| `reason` | string | Human-readable explanation |
+| `continue` | boolean | Whether agent continues its loop (default: `true`) |
+| `context` | string | Context injected into agent conversation |
+
+Advanced fields (capability-specific):
+- `updated_input` — modified tool arguments (requires `input_rewrite` capability)
+- `suppress_output` — suppress tool output display (requires `structured_output`)
+- `system_message` — inject system prompt message (requires `structured_output`)
+
+---
+
+## 5. Matcher Types
+
+### Bare String
+
+Tool vocabulary lookup:
+
+```json
+"matcher": "shell"
+```
+
+### Pattern Object
+
+Regex on tool name:
+
+```json
+"matcher": {"pattern": "file_(read|write|edit)"}
+```
+
+### MCP Object
+
+Target MCP server/tool:
+
+```json
+"matcher": {"mcp": {"server": "github", "tool": "create_issue"}}
+```
+
+### Array (OR)
+
+Match any element:
+
+```json
+"matcher": ["shell", "file_write", {"mcp": {"server": "github"}}]
+```
+
+---
+
+## 6. Event Registry
+
+### Core Events
+
+| Event | Description | Blocking Semantic |
+|-------|-------------|-------------------|
+| `before_tool_execute` | Before any tool runs | Can prevent tool execution |
+| `after_tool_execute` | After tool completes | Observational only |
+| `session_start` | Session begins/resumes | Observational; may inject context |
+| `session_end` | Session terminates | Observational |
+| `before_prompt` | After user input, before agent | Can modify/reject input |
+| `agent_stop` | Agent main loop ends | Can trigger retry |
+
+### Extended Events
+
+`before_compact`, `notification`, `error_occurred`, `subagent_start`, `subagent_stop`, `permission_request`
+
+### Provider-Exclusive Events
+
+| Event | Origin Provider |
+|-------|----------------|
+| `before_model`, `after_model`, `before_tool_selection` | Gemini CLI |
+| `config_change` | Claude Code |
+| `file_created`, `file_saved`, `file_deleted` | Kiro |
+| `before_task`, `after_task` | Kiro |
+
+### Event Name Mapping
+
+| Canonical | claude-code | gemini-cli | cursor | copilot-cli | kiro |
+|-----------|-------------|------------|--------|-------------|------|
+| `before_tool_execute` | PreToolUse | BeforeTool | beforeShellExecution | preToolUse | preToolUse |
+| `after_tool_execute` | PostToolUse | AfterTool | afterFileEdit | postToolUse | postToolUse |
+| `before_prompt` | UserPromptSubmit | BeforeAgent | beforeSubmitPrompt | userPromptSubmitted | userPromptSubmit |
+| `agent_stop` | Stop | AfterAgent | stop | — | stop |
+
+---
+
+## 7. Tool Vocabulary
+
+| Canonical | claude-code | gemini-cli | cursor | copilot-cli | kiro |
+|-----------|-------------|------------|--------|-------------|------|
+| `shell` | Bash | run_shell_command | run_terminal_cmd | bash | execute_bash |
+| `file_read` | Read | read_file | read_file | view | fs_read |
+| `file_write` | Write | write_file | edit_file | create | fs_write |
+| `file_edit` | Edit | replace | edit_file | edit | fs_write |
+| `search` | Grep | grep_search | grep_search | grep | grep |
+| `find` | Glob | glob | file_search | glob | glob |
+| `web_search` | WebSearch | google_web_search | web_search | — | web_search |
+| `web_fetch` | WebFetch | web_fetch | — | web_fetch | web_fetch |
+| `agent` | Agent | — | — | task | use_subagent |
+
+---
+
+## 8. Capability Registry
+
+| Capability | Description | Default Degradation |
+|------------|-------------|-------------------|
+| `structured_output` | JSON output with rich fields | `warn` |
+| `input_rewrite` | Modify tool arguments (safety-critical) | `block` |
+| `llm_evaluated` | LLM logic, not deterministic script | `exclude` |
+| `http_handler` | HTTP POST handler | `warn` |
+| `async_execution` | Fire-and-forget | `warn` |
+| `platform_commands` | OS-specific overrides | `warn` |
+| `custom_env` | Environment variables | `warn` |
+| `configurable_cwd` | Working directory | `warn` |
+
+---
+
+## 9. Degradation Strategies
+
+| Strategy | Behavior |
+|----------|----------|
+| `block` | Converted hook blocks action entirely instead of running with reduced functionality |
+| `warn` | Hook runs with reduced functionality; warning emitted |
+| `exclude` | Hook excluded from target provider's configuration |
+
+Authors specify per-capability strategies in the `degradation` field. Absent strategies use safe defaults from the capability registry.
+
+---
+
+## 10. Conversion Pipeline
+
+1. **Decode** — Source adapter reads provider-native config → canonical manifest
+2. **Validate** — Check capabilities against target provider, apply degradation
+3. **Encode** — Target adapter writes canonical → provider-native config
+4. **Verify** — Re-decode output to check structural fidelity
+
+---
+
+## 11. Conformance Levels
+
+| Level | Requirements |
+|-------|-------------|
+| **Core** | Parse/produce manifests, core events, exit codes, bare string matchers, event+tool translation |
+| **Extended** | + All matcher types, output schema, capability inference, degradation, extended events |
+| **Full** | + Provider data round-trip, verification, all capabilities, provider-exclusive events |
+
+---
+
+## Appendix: Provider Strengths
+
+- **Claude Code** — Richest output contract, four handler types, 25+ events
+- **Gemini CLI** — Unique LLM-interaction hooks (`before_model`, `after_model`)
+- **Kiro** — File system lifecycle hooks, spec task integration
+- **Cursor** — Pre-read file access control
+- **Windsurf** — Enterprise deployment infrastructure
+- **OpenCode** — Programmatic TypeScript/JavaScript extensibility
+- **Copilot CLI** — Conservative safety design, repository-bound hooks
