@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "sync": "bun scripts/sync-commands.ts",
+    "postinstall": "node scripts/patch-starlight-llms-txt.js",
     "prebuild": "bun scripts/sync-commands.ts",
     "build": "astro build",
     "preview": "astro preview",
