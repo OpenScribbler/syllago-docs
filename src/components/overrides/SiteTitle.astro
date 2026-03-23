@@ -1,15 +1,16 @@
 ---
 /**
- * Override Starlight's SiteTitle to render "syll" in Flexoki cyan
- * and "ago" in the default text-accent color.
+ * Override Starlight's SiteTitle to use the pixel-art SVG logo.
+ * Inlined so CSS can reference Starlight's data-theme attribute
+ * for correct light/dark color switching.
+ * Subtle lift on hover to indicate clickability.
  */
+import logoSvg from '../../assets/logo.svg?raw';
 const { siteTitleHref } = Astro.locals.starlightRoute;
 ---
 
-<a href={siteTitleHref} class="site-title sl-flex">
-  <span translate="no">
-    <span class="logo-syll">syll</span><span class="logo-ago">ago</span>
-  </span>
+<a href={siteTitleHref} class="site-title sl-flex" aria-label="syllago home">
+  <span class="site-logo" set:html={logoSvg} />
 </a>
 
 <style>
@@ -17,24 +18,39 @@ const { siteTitleHref } = Astro.locals.starlightRoute;
     .site-title {
       align-items: center;
       gap: var(--sl-nav-gap);
-      font-size: var(--sl-text-h4);
-      font-weight: 600;
       text-decoration: none;
       white-space: nowrap;
       min-width: 0;
     }
-    span {
-      overflow: hidden;
-    }
   }
 
-  .site-title {
-    color: var(--sl-color-text);
+  .site-logo {
+    display: flex;
+    height: 1.75rem;
+    transition: transform 0.15s ease;
   }
-  .logo-syll {
-    color: var(--color-cyan-300);
+
+  .site-logo :global(svg) {
+    height: 100%;
+    width: auto;
   }
-  :root[data-theme='light'] .logo-syll {
-    color: var(--color-cyan-500);
+
+  .site-title:hover .site-logo {
+    transform: translateY(-2px);
   }
+
+  .site-title:active .site-logo {
+    transform: translateY(0);
+  }
+
+  /* Override SVG's prefers-color-scheme with Starlight's data-theme */
+  :root[data-theme='light'] .site-logo :global(.sf) { fill: #047857; }
+  :root[data-theme='light'] .site-logo :global(.sd) { fill: #047857; opacity: 0.4; }
+  :root[data-theme='light'] .site-logo :global(.lf) { fill: #6D28D9; }
+  :root[data-theme='light'] .site-logo :global(.ld) { fill: #6D28D9; opacity: 0.4; }
+
+  :root[data-theme='dark'] .site-logo :global(.sf) { fill: #6EE7B7; }
+  :root[data-theme='dark'] .site-logo :global(.sd) { fill: #6EE7B7; opacity: 0.4; }
+  :root[data-theme='dark'] .site-logo :global(.lf) { fill: #C4B5FD; }
+  :root[data-theme='dark'] .site-logo :global(.ld) { fill: #C4B5FD; opacity: 0.4; }
 </style>
