@@ -3,7 +3,7 @@ title: Registries
 description: Share and consume content through git-based registries.
 ---
 
-Registries are git repositories that hold shared syllago content. Teams publish content to a registry, and consumers add, sync, and browse it locally. Unlike a read-only package feed, registries support contributing back — `syllago promote to-registry` opens a pull request against the registry repo.
+Registries are git repositories that hold shared syllago content. Teams publish content to a registry, and consumers add, sync, and browse it locally. Unlike a read-only package feed, registries support contributing back — `syllago publish` opens a pull request against the registry repo.
 
 ## How registries work
 
@@ -16,7 +16,7 @@ When you add a registry, syllago clones the git repo locally. Syncing pulls the 
   └──────────────┘  sync  └──────────┘          └──────────┘
          ↑                      │
          └──────────────────────┘
-           promote to-registry (PR)
+           publish (PR)
 ```
 
 ## Adding a registry
@@ -89,24 +89,42 @@ syllago registry remove team-rules
 
 ## Contributing back
 
-Registries are not read-only. If you have content in your library that belongs in a shared registry, promote it:
+Registries are not read-only. If you have content in your library that belongs in a shared registry, publish it:
 
 ```bash
-syllago promote to-registry
+syllago publish my-skill --registry team-rules
 ```
 
 This opens a pull request against the registry's git repo. The registry maintainers review and merge through their normal PR workflow — no special tooling required on their end.
 
+For team repos (non-registry), use `syllago share` instead:
+
+```bash
+syllago share my-skill
+```
+
+## Privacy gate
+
+Content from private registries is automatically tainted with source metadata. Syllago blocks publishing tainted content to public registries to prevent accidental leakage. See [Registry Privacy](/syllago-docs/advanced/registry-privacy/) for details.
+
 ## Creating your own registry
 
-A registry is just a git repo with syllago's content structure. To create one:
+You can scaffold a new registry with `syllago registry create`:
+
+```bash
+# Scaffold an empty registry
+syllago registry create --new my-rules --description "Team coding standards"
+
+# Index existing provider-native content in a repo
+syllago registry create --from-native
+```
+
+Or create one manually — a registry is just a git repo with syllago's content structure:
 
 1. Create a new git repo
-2. Add syllago content (rules, skills, agents, hooks, MCP configs) following the standard directory layout
+2. Add syllago content following the standard directory layout
 3. Push to a git host (GitHub, GitLab, etc.)
 4. Share the URL — others add it with `syllago registry add`
-
-There is no special initialization step or registry-specific metadata. If syllago can read the content structure, it works as a registry.
 
 ## Relationship to other collections
 
@@ -125,4 +143,6 @@ Registries feed your library. You browse what is available, install what you nee
 - [`syllago registry items`](/syllago-docs/using-syllago/cli-reference/registry-items/)
 - [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/)
 - [`syllago registry remove`](/syllago-docs/using-syllago/cli-reference/registry-remove/)
-- [`syllago promote to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/)
+- [`syllago registry create`](/syllago-docs/using-syllago/cli-reference/registry-create/)
+- [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/)
+- [`syllago share`](/syllago-docs/using-syllago/cli-reference/share/)

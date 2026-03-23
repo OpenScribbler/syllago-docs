@@ -21,12 +21,12 @@ When you run `syllago install my-skill --to cursor` or `syllago convert my-rule 
 
 | Content Type | Coverage | Notes |
 |---|---|---|
-| Rules | All 11 providers | Format varies (Markdown, MDC, YAML) but content fully preserved |
-| Skills | All 11 providers | Metadata rendering varies by provider capability |
-| Agents | All 11 providers | Codex uses TOML format, Kiro uses JSON (auto-converted) |
-| MCP configs | 8 providers | Zed uses `context_servers` key (handled automatically) |
-| Hooks | 4 providers | Claude Code, Gemini CLI, Copilot CLI, Kiro. Other providers lack hook systems |
-| Commands | Claude Code only | Provider-specific feature |
+| Rules | All 12 providers | Format varies (Markdown, MDC) but content fully preserved |
+| Skills | 10 providers | Metadata rendering varies by provider capability |
+| Agents | 10 providers | Codex uses TOML format, Kiro uses Markdown with YAML frontmatter (auto-converted) |
+| MCP configs | All 12 providers | Zed uses `context_servers` key (handled automatically) |
+| Hooks | 8 providers | Claude Code, Gemini CLI, Copilot CLI, Cursor, Windsurf, Codex, Cline, Kiro |
+| Commands | 7 providers | Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode |
 | Loadouts | Claude Code (v1) | Additional provider emitters planned |
 
 ## Provider-Specific Format Notes
@@ -38,7 +38,10 @@ Rules are converted to MDC (Markdown Component) format with `.mdc` extension. Fr
 Agent definitions use TOML format. Syllago auto-converts between TOML and Markdown frontmatter.
 
 ### Kiro
-Uses JSON-based steering files. Markdown content is embedded in JSON string fields.
+Agent definitions use Markdown with YAML frontmatter (14 fields). Also supports a JSON CLI agent format with embedded MCP servers and lifecycle hooks. Rules and skills are Markdown steering files.
+
+### Amp
+Rules use `AGENTS.md` format with globs array frontmatter. MCP configs use a provider-specific JSON key.
 
 ### Zed
 MCP server configs use the `context_servers` key instead of `mcpServers`. Syllago handles this mapping automatically.
@@ -53,14 +56,61 @@ Rules use YAML format. Syllago strips Markdown frontmatter and converts to OpenC
 - **Tool names** -- automatically translated (e.g., Claude Code's `Read` becomes Gemini's `read_file`)
 - **Frontmatter** -- converted to provider-appropriate format (YAML, TOML, JSON, or embedded as prose)
 
-When metadata can't be represented in the target format, it's either embedded as a comment or note in the content body, or reported as a warning during conversion.
+When metadata can't be represented in the target format, it's either embedded as a comment or note in the content body, or reported as a **portability warning** during conversion.
+
+## Portability Warnings
+
+Both `syllago convert` and `syllago install` surface warnings when content uses features unsupported by the target provider. Warnings appear inline in text mode and in the `warnings` array in JSON mode.
+
+Common warnings include:
+- Unsupported hook events (e.g., Gemini's `before_model` has no Claude Code equivalent)
+- Missing capability support (e.g., `input_rewrite` not available on target)
+- Fields dropped during conversion (e.g., `disabledTools` on MCP servers)
+
+## Canonical Tool Names
+
+The canonical format uses provider-neutral tool names:
+
+| Canonical | Claude Code | Gemini CLI | Cursor |
+|-----------|-------------|------------|--------|
+| `file_read` | Read | read_file | read_file |
+| `file_write` | Write | write_file | edit_file |
+| `file_edit` | Edit | replace | edit_file |
+| `shell` | Bash | run_shell_command | run_terminal_cmd |
+| `search` | Grep | grep_search | grep_search |
+| `find` | Glob | glob | file_search |
+| `web_fetch` | WebFetch | web_fetch | — |
+| `agent` | Agent | — | — |
+
+Translation happens automatically during conversion. You never need to manually adjust tool names.
 
 ## Using the Convert Command
 
 ```bash
-# Convert a specific item
+# Convert a specific item to stdout
 syllago convert my-skill --to gemini-cli
 
-# See what would be converted (dry run output)
-syllago convert my-rule --to windsurf --json
+# Save to a file
+syllago convert my-rule --to windsurf --output ./windsurf-rule.md
+
+# JSON output with portability warnings
+syllago convert my-skill --to cursor --json
+
+# Check compatibility across all providers
+syllago compat my-skill
 ```
+
+## Hook Conversion
+
+For hooks specifically, syllago uses the [Hook Interchange Format](/syllago-docs/reference/hooks-v1/) as the canonical representation. This handles:
+
+- Event name translation between providers
+- Matcher type conversion (tool vocabulary, regex, MCP targeting)
+- Timeout unit normalization (seconds canonical, auto-converts to/from milliseconds)
+- Capability degradation (block, warn, or exclude based on target support)
+
+## See Also
+
+- [Content Types](/syllago-docs/using-syllago/content-types/) — what each content type supports
+- [Hook Interchange Format](/syllago-docs/reference/hooks-v1/) — full hook conversion specification
+- [`syllago compat`](/syllago-docs/using-syllago/cli-reference/compat/) — check provider compatibility
