@@ -1,0 +1,69 @@
+---
+title: "syllago compat"
+description: "Show provider compatibility matrix for a content item"
+---
+
+## Synopsis
+
+```
+syllago compat <name>
+```
+
+## Description
+
+Analyzes a library item and shows which providers support it, what warnings
+arise during conversion, and which providers cannot handle the content type
+at all.
+
+For each provider, syllago attempts the full canonicalize-then-render pipeline
+and reports the result.
+
+Examples:
+```sh
+# Show compatibility for a skill
+syllago compat my-skill
+
+# JSON output for scripting
+syllago compat my-skill --json
+```
+
+## Text Output
+
+The command prints a table with three columns:
+
+| Provider | Supported | Warnings |
+|----------|-----------|----------|
+| claude-code | ✓ | |
+| cursor | ✓ | Skill hook metadata not supported |
+| zed | ✗ | Skills not supported |
+
+## JSON Output
+
+```json
+{
+  "name": "my-skill",
+  "type": "Skills",
+  "entries": [
+    { "provider": "cursor", "supported": true, "warnings": [] },
+    { "provider": "zed", "supported": false, "warnings": ["Skills not supported"] }
+  ]
+}
+```
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [`syllago convert`](/syllago-docs/using-syllago/cli-reference/convert/) — Convert content to a specific provider format
+- [`syllago install`](/syllago-docs/using-syllago/cli-reference/install/) — Install content to a provider
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/compat_cmd.go)</small>

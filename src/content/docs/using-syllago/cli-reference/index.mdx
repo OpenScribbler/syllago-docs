@@ -3,21 +3,40 @@ title: CLI Reference
 description: Complete reference for all syllago commands and flags.
 ---
 
-Auto-generated from syllago 0.6.1 on 2026-03-01.
-
-### Core Commands
+### Core Workflow
 
 | Command | Description |
 |---------|-------------|
-| [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) | Scaffold a new content item in local/ |
-| [`syllago export`](/syllago-docs/using-syllago/cli-reference/export/) | Export content to a provider's install location |
-| [`syllago import`](/syllago-docs/using-syllago/cli-reference/import/) | Bring content into syllago from a provider, path, or git URL |
-| [`syllago init`](/syllago-docs/using-syllago/cli-reference/init/) | Initialize syllago for this project |
+| [`syllago add`](/syllago-docs/using-syllago/cli-reference/add/) | Add content to your library from a provider |
+| [`syllago install`](/syllago-docs/using-syllago/cli-reference/install/) | Activate library content in a provider |
+| [`syllago convert`](/syllago-docs/using-syllago/cli-reference/convert/) | Convert library content to a provider format |
+| [`syllago uninstall`](/syllago-docs/using-syllago/cli-reference/uninstall/) | Deactivate content from a provider |
+| [`syllago remove`](/syllago-docs/using-syllago/cli-reference/remove/) | Remove content from your library and uninstall from providers |
+
+### Sharing & Publishing
+
+| Command | Description |
+|---------|-------------|
+| [`syllago share`](/syllago-docs/using-syllago/cli-reference/share/) | Contribute library content to a team repo |
+| [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) | Contribute library content to a registry |
+
+### Content Management
+
+| Command | Description |
+|---------|-------------|
+| [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) | Scaffold a new content item |
 | [`syllago inspect`](/syllago-docs/using-syllago/cli-reference/inspect/) | Show details about a content item |
-| [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) | List content items in the catalog |
-| [`syllago sync-and-export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) | Sync registries then export content to a provider |
+| [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) | List content items in the library |
+| [`syllago compat`](/syllago-docs/using-syllago/cli-reference/compat/) | Show provider compatibility matrix for a content item |
+
+### Setup & Configuration
+
+| Command | Description |
+|---------|-------------|
+| [`syllago init`](/syllago-docs/using-syllago/cli-reference/init/) | Initialize syllago for this project |
 | [`syllago update`](/syllago-docs/using-syllago/cli-reference/update/) | Update syllago to the latest release |
 | [`syllago version`](/syllago-docs/using-syllago/cli-reference/version/) | Print syllago version |
+| [`syllago sync-and-export`](/syllago-docs/using-syllago/cli-reference/sync-and-export/) | Sync registries then install content to a provider |
 
 ### [`syllago completion`](/syllago-docs/using-syllago/cli-reference/completion/)
 
@@ -39,6 +58,7 @@ View and edit syllago configuration
 | [`syllago config add`](/syllago-docs/using-syllago/cli-reference/config-add/) | Add a provider to the configuration |
 | [`syllago config list`](/syllago-docs/using-syllago/cli-reference/config-list/) | List current configuration |
 | [`syllago config remove`](/syllago-docs/using-syllago/cli-reference/config-remove/) | Remove a provider from the configuration |
+| [`syllago config paths`](/syllago-docs/using-syllago/cli-reference/config-paths/) | Manage custom provider path overrides |
 
 ### [`syllago info`](/syllago-docs/using-syllago/cli-reference/info/)
 
@@ -61,14 +81,6 @@ Apply, create, and manage loadouts
 | [`syllago loadout remove`](/syllago-docs/using-syllago/cli-reference/loadout-remove/) | Remove the active loadout and restore original configuration |
 | [`syllago loadout status`](/syllago-docs/using-syllago/cli-reference/loadout-status/) | Show active loadout status |
 
-### [`syllago promote`](/syllago-docs/using-syllago/cli-reference/promote/)
-
-Promote content to shared or registry
-
-| Command | Description |
-|---------|-------------|
-| [`syllago promote to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/) | Contribute content to a registry via PR |
-
 ### [`syllago registry`](/syllago-docs/using-syllago/cli-reference/registry/)
 
 Manage git-based content registries
@@ -76,6 +88,7 @@ Manage git-based content registries
 | Command | Description |
 |---------|-------------|
 | [`syllago registry add`](/syllago-docs/using-syllago/cli-reference/registry-add/) | Add a git registry |
+| [`syllago registry create`](/syllago-docs/using-syllago/cli-reference/registry-create/) | Create a new registry |
 | [`syllago registry items`](/syllago-docs/using-syllago/cli-reference/registry-items/) | Browse content available in registries |
 | [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/) | List registered registries |
 | [`syllago registry remove`](/syllago-docs/using-syllago/cli-reference/registry-remove/) | Remove a registry and delete its local clone |

@@ -1,32 +1,27 @@
 ---
-title: "syllago promote"
-description: "Promote content to shared or registry"
+title: "syllago promote (deprecated)"
+description: "This command has been split into 'syllago share' and 'syllago publish'"
 ---
 
-Promote local content for sharing with others.
+import { Aside } from '@astrojs/starlight/components';
 
-Use "to-registry" to contribute content to a git registry via a PR workflow.
-The command creates a branch in the registry clone, copies the content, commits,
-pushes, and optionally opens a PR if the gh CLI is installed.
+<Aside type="caution" title="Deprecated">
+`syllago promote` has been replaced by two commands:
+- [`syllago share`](/syllago-docs/using-syllago/cli-reference/share/) — Contribute to a team repo
+- [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) — Contribute to a registry
+</Aside>
 
-Example:
-  syllago promote to-registry syllago-tools skills/my-skill
+The `promote` command has been split:
 
-## Subcommands
+```sh
+# Old (deprecated)
+syllago promote to-registry my-registry skills/my-skill
 
-| Command | Description |
-|---------|-------------|
-| [`to-registry`](/syllago-docs/using-syllago/cli-reference/promote-to-registry/) | Contribute content to a registry via PR |
+# New — share with your team
+syllago share my-skill
 
-## Global Options
+# New — publish to a registry
+syllago publish my-skill --registry my-registry
+```
 
-| Flag | Type | Default | Required | Description |
-|------|------|---------|----------|-------------|
-| `--json` | `bool` | — | No | Output in JSON format |
-| `--no-color` | `bool` | — | No | Disable color output |
-| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
-| `-v`, `--verbose` | `bool` | — | No | Verbose output |
-
----
-
-<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/promote_cmd.go)</small>
+See [`syllago share`](/syllago-docs/using-syllago/cli-reference/share/) and [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) for full documentation.

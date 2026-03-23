@@ -1,0 +1,64 @@
+---
+title: "syllago uninstall"
+description: "Deactivate content from a provider"
+---
+
+## Synopsis
+
+```
+syllago uninstall <name> [--from <provider>]
+```
+
+## Description
+
+Removes installed content from a provider's location.
+
+- For symlinked content: removes the symlink.
+- For copied content: removes the copied file or directory.
+- For hooks/MCP: reverses the JSON merge from the provider's settings file.
+
+The content remains in your library (`~/.syllago/content/`) and can be
+reinstalled at any time with `syllago install`.
+
+Examples:
+```sh
+# Uninstall from a specific provider
+syllago uninstall my-skill --from claude-code
+
+# Uninstall from all providers
+syllago uninstall my-agent
+
+# Skip confirmation prompt
+syllago uninstall my-rule --from cursor --force
+
+# Preview what would happen
+syllago uninstall my-skill --dry-run
+```
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--from` | `string` | — | No | Provider to uninstall from (omit to uninstall from all) |
+| `-f`, `--force` | `bool` | — | No | Skip confirmation prompt |
+| `-n`, `--dry-run` | `bool` | — | No | Show what would happen without making changes |
+| `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
+| `--type` | `string` | — | No | Disambiguate when name exists in multiple types |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [`syllago install`](/syllago-docs/using-syllago/cli-reference/install/) — Activate library content in a provider
+- [`syllago remove`](/syllago-docs/using-syllago/cli-reference/remove/) — Remove from library entirely
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/uninstall_cmd.go)</small>

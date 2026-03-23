@@ -1,0 +1,31 @@
+---
+title: "syllago config paths"
+description: "Manage custom provider path overrides"
+---
+
+Configure custom base directories or per-type path overrides for providers.
+Overrides are stored in the global config (`~/.syllago/config.json`) since
+paths are machine-specific.
+
+Examples:
+```sh
+syllago config paths show
+syllago config paths set claude-code --base-dir ~/custom/claude
+syllago config paths clear claude-code
+```
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`syllago config paths show`](/syllago-docs/using-syllago/cli-reference/config-paths-show/) | Show configured path overrides |
+| [`syllago config paths set`](/syllago-docs/using-syllago/cli-reference/config-paths-set/) | Set a path override for a provider |
+| [`syllago config paths clear`](/syllago-docs/using-syllago/cli-reference/config-paths-clear/) | Clear path overrides for a provider |
+
+## See Also
+
+- [`syllago config`](/syllago-docs/using-syllago/cli-reference/config/) — View and edit syllago configuration
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/config_paths.go)</small>

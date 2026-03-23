@@ -1,0 +1,39 @@
+---
+title: "syllago config paths set"
+description: "Set a path override for a provider"
+---
+
+## Synopsis
+
+```
+syllago config paths set <provider> --base-dir <path>
+```
+
+## Description
+
+Sets a custom base directory for a provider. This is useful when a provider
+is installed at a non-default location.
+
+Examples:
+```sh
+# Set a custom base directory for Claude Code
+syllago config paths set claude-code --base-dir ~/custom/claude
+
+# Set a custom base for Cursor
+syllago config paths set cursor --base-dir /opt/cursor
+```
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--base-dir` | `string` | — | Yes | Custom base directory path |
+
+## See Also
+
+- [`syllago config paths`](/syllago-docs/using-syllago/cli-reference/config-paths/) — Manage provider path overrides
+- [`syllago config paths clear`](/syllago-docs/using-syllago/cli-reference/config-paths-clear/) — Remove overrides
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/config_paths.go)</small>

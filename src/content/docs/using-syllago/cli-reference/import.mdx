@@ -1,50 +1,22 @@
 ---
-title: "syllago import"
-description: "Bring content into syllago from a provider, path, or git URL"
+title: "syllago import (deprecated)"
+description: "This command has been renamed to 'syllago add'"
 ---
 
-## Synopsis
+import { Aside } from '@astrojs/starlight/components';
 
+<Aside type="caution" title="Deprecated">
+`syllago import` has been renamed to [`syllago add`](/syllago-docs/using-syllago/cli-reference/add/).
+</Aside>
+
+The `import` command has been replaced by `add`. Use:
+
+```sh
+# Old (deprecated)
+syllago import --from claude-code
+
+# New
+syllago add --from claude-code
 ```
-syllago import [flags]
-```
 
-## Description
-
-Discovers content from a provider and imports it into local/.
-
-Syllago handles format conversion automatically. Once imported, content can be
-exported to any supported provider with "syllago export --to &lt;provider&gt;".
-
-Examples:
-  syllago import --from claude-code                  Import all content from Claude Code
-  syllago import --from claude-code --type skills    Import only skills
-  syllago import --from cursor --name my-rule        Import a specific rule by name
-  syllago import --from claude-code --preview        Preview what would be imported (read-only)
-  syllago import --from claude-code --dry-run        Show what would be written without writing
-
-After import, use "syllago export" to install content into other providers,
-or browse in the TUI with "syllago".
-
-## Options
-
-| Flag | Type | Default | Required | Description |
-|------|------|---------|----------|-------------|
-| `--dry-run` | `bool` | — | No | Show what would be written without actually writing |
-| `--from` | `string` | — | Yes | Provider to import from (required) |
-| `--name` | `string` | — | No | Filter to items whose path contains this substring (case-insensitive) |
-| `--preview` | `bool` | — | No | Show discovery report without parsing |
-| `--type` | `string` | — | No | Limit to a single content type (e.g., rules, hooks, mcp) |
-
-## Global Options
-
-| Flag | Type | Default | Required | Description |
-|------|------|---------|----------|-------------|
-| `--json` | `bool` | — | No | Output in JSON format |
-| `--no-color` | `bool` | — | No | Disable color output |
-| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
-| `-v`, `--verbose` | `bool` | — | No | Verbose output |
-
----
-
-<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/import.go)</small>
+See [`syllago add`](/syllago-docs/using-syllago/cli-reference/add/) for full documentation.

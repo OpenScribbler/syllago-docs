@@ -1,0 +1,53 @@
+---
+title: "syllago share"
+description: "Contribute library content to a team repo"
+---
+
+## Synopsis
+
+```
+syllago share <name>
+```
+
+## Description
+
+Copies a library item to your team repo, stages the change, and
+optionally creates a branch and PR.
+
+Run this command from inside a syllago team repo directory.
+
+Examples:
+```sh
+# Share a skill to the team repo
+syllago share my-skill
+
+# Disambiguate by type
+syllago share my-rule --type rules
+
+# Non-interactive mode (stage only, no git prompts)
+syllago share my-skill --no-input
+```
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--type` | `string` | — | No | Disambiguate when name exists in multiple types |
+| `--no-input` | `bool` | — | No | Skip interactive git prompts, stage only |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [`syllago publish`](/syllago-docs/using-syllago/cli-reference/publish/) — Contribute to a registry instead of a team repo
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/share_cmd.go)</small>
