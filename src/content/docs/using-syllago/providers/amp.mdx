@@ -1,0 +1,65 @@
+---
+title: Amp
+description: How syllago works with Amp.
+---
+
+Amp is an AI coding assistant that uses `AGENTS.md` for its rule files.
+
+## Provider Details
+
+| Detail | Value |
+|--------|-------|
+| **Slug** | `amp` |
+| **Config directory** | `~/.config/amp` |
+| **Supported content types** | Rules, Skills, MCP Configs |
+
+## Supported Content Types
+
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Agents | No | — |
+| Hooks | No | — |
+| Commands | No | — |
+
+## File Format and Location
+
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `AGENTS.md` | `~/.config/amp/AGENTS.md` | Markdown |
+| Skills | `.agents/skills/` | `~/.config/agents/skills/` | Markdown |
+| MCP Configs | `.amp/settings.json` | — | JSON |
+
+## Discovery Paths
+
+When adding content from Amp, syllago looks in these locations:
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `AGENTS.md` |
+| Skills | `.agents/skills/`, `.claude/skills/` (compatibility fallback) |
+| MCP Configs | `.amp/settings.json` |
+
+## Detection
+
+Syllago detects Amp by checking for the `~/.config/amp` directory.
+
+## Working with Amp
+
+```bash
+# Add content from Amp
+syllago add --from amp
+
+# Install content to Amp
+syllago install my-rule --to amp
+
+# Check compatibility with Amp
+syllago compat my-skill
+```
+
+## See Also
+
+- [Providers Overview](/syllago-docs/using-syllago/providers/)
+- [Format Conversion](/syllago-docs/using-syllago/format-conversion/)

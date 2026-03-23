@@ -10,32 +10,42 @@ A high-performance editor with a built-in AI assistant, supporting rules and MCP
 | Detail | Value |
 |--------|-------|
 | **Slug** | `zed` |
+| **Config directory** | `~/.config/zed` |
 | **Supported content types** | Rules, MCP Configs |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | No |
-| MCP Configs | Yes |
-| Hooks | No |
-| Commands | No |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Skills | No | — |
+| Agents | No | — |
+| Hooks | No | — |
+| Commands | No | — |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.zed/rules/` | Markdown (`.md`) |
-| MCP Configs | `.zed/settings.json` | JSON |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.rules` | — | Markdown |
+| MCP Configs | — | `~/.config/zed/settings.json` | JSON |
+
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.rules`, `.cursorrules`, `CLAUDE.md` |
 
 ## Format Notes
 
-Zed uses a different JSON key for MCP server definitions. Where most providers use `mcpServers`, Zed uses `context_servers`. Syllago handles this key mapping automatically when adding from or installing to Zed — no manual adjustment is needed.
+Zed uses a different JSON key for MCP server definitions. Where most providers use `mcpServers`, Zed uses `context_servers`. Syllago handles this key mapping automatically.
 
-Rules are stored as standard Markdown files in `.zed/rules/` with no special formatting requirements.
+Zed discovers rules from three file formats: `.rules`, `.cursorrules`, and `CLAUDE.md`.
+
+## Detection
+
+Syllago detects Zed by checking for the `~/.config/zed` directory or the `zed` command in PATH.
 
 ## Working with Zed
 

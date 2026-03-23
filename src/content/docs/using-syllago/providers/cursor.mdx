@@ -3,36 +3,54 @@ title: Cursor
 description: How syllago works with Cursor.
 ---
 
-An AI-native code editor that uses MDC (Markdown Component) format for its rule files.
+An AI-native code editor with broad content type support. Cursor uses MDC (Markdown Component) format for rule files.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `cursor` |
-| **Supported content types** | Rules |
+| **Config directory** | `~/.cursor` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | No |
-| MCP Configs | No |
-| Hooks | No |
-| Commands | No |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | JSON merge |
+| Commands | Yes | Symlink |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.cursor/rules/` | MDC (`.mdc`) |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.cursor/rules/` | `~/.cursor/` | MDC (`.mdc`) |
+| Skills | `.cursor/skills/` | `~/.cursor/skills/` | Markdown |
+| Agents | `.cursor/agents/`, `AGENTS.md` | `~/.cursor/agents/` | Markdown |
+| MCP Configs | `.cursor/mcp.json` | — | JSON |
+| Hooks | `.cursor/settings.json` | — | JSON |
+| Commands | `.cursor/commands/` | `~/.cursor/commands/` | Markdown |
+
+## Discovery Paths
+
+When adding content from Cursor, syllago looks in these locations:
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.cursor/rules/`, `.cursorrules` |
+| Skills | `.cursor/skills/` |
+| Agents | `.cursor/agents/`, `AGENTS.md` |
+| MCP Configs | `.cursor/mcp.json` |
+| Hooks | `.cursor/settings.json` |
+| Commands | `.cursor/commands/` |
 
 ## Format Notes
 
-Cursor uses MDC (Markdown Component) format rather than plain Markdown. MDC files have a metadata header block delimited by `---` that contains fields like `description`, `globs`, and `alwaysApply`. Syllago automatically converts between standard Markdown and MDC format when adding from or installing to Cursor.
+Cursor uses **MDC (Markdown Component)** format for rule files. MDC has a metadata header delimited by `---` containing fields like `description`, `globs`, and `alwaysApply`. Syllago converts between standard Markdown and MDC automatically.
 
 Example MDC structure:
 
@@ -46,6 +64,12 @@ alwaysApply: false
 Rule content in Markdown.
 ```
 
+Other content types (skills, agents, commands) use standard Markdown. MCP and hooks are stored as JSON.
+
+## Detection
+
+Syllago detects Cursor by checking for the `~/.cursor` directory.
+
 ## Working with Cursor
 
 ```bash
@@ -54,6 +78,9 @@ syllago add --from cursor
 
 # Install content to Cursor
 syllago install my-rule --to cursor
+
+# Check what converts cleanly to Cursor
+syllago compat my-skill
 ```
 
 ## See Also

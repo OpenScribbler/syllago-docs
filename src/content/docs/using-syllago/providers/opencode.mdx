@@ -3,40 +3,54 @@ title: OpenCode
 description: How syllago works with OpenCode.
 ---
 
-A terminal-based AI coding tool that uses YAML for rule configuration.
+A terminal-based AI coding tool supporting rules, skills, agents, MCP, and commands.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `opencode` |
+| **Config directory** | `~/.config/opencode` |
 | **Supported content types** | Rules, Skills, Agents, MCP Configs, Commands |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | Yes |
-| Agents | Yes |
-| MCP Configs | Yes |
-| Hooks | No |
-| Commands | Yes |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Commands | Yes | Symlink |
+| Hooks | No | — |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.opencode/` | YAML |
-| Skills | `.opencode/` | Markdown (`.md`) |
-| Agents | `.opencode/` | Markdown (`.md`) |
-| MCP Configs | `.opencode/` | JSON |
-| Commands | `.opencode/` | Markdown (`.md`) |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode/` | Markdown |
+| Skills | `.opencode/skills/` | `~/.config/opencode/skills/` | Markdown |
+| Agents | `.opencode/agents/` | `~/.config/opencode/agents/` | Markdown |
+| MCP Configs | `opencode.json`, `opencode.jsonc` | — | JSONC |
+| Commands | `.opencode/commands/` | `~/.config/opencode/commands/` | Markdown |
+
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `AGENTS.md`, `CLAUDE.md` |
+| Skills | `.opencode/skills/` |
+| Agents | `.opencode/agents/` |
+| MCP Configs | `opencode.json`, `opencode.jsonc` |
+| Commands | `.opencode/commands/` |
 
 ## Format Notes
 
-OpenCode stores rules in YAML format rather than Markdown. Syllago automatically converts between Markdown and YAML when adding from or installing to OpenCode. Other content types (skills, agents, commands) use standard Markdown.
+OpenCode uses **JSONC** (JSON with comments) for MCP configurations. Syllago handles the conversion automatically. Rules are discovered from both `AGENTS.md` and `CLAUDE.md` files.
+
+## Detection
+
+Syllago detects OpenCode by checking for the `~/.config/opencode/` directory or the `opencode` command in PATH.
 
 ## Working with OpenCode
 

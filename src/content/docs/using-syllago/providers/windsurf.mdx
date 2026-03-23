@@ -3,36 +3,46 @@ title: Windsurf
 description: How syllago works with Windsurf.
 ---
 
-An AI-native code editor that stores rules as plain Markdown files.
+An AI-native code editor from Codeium with support for rules, skills, hooks, and MCP configurations.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `windsurf` |
-| **Supported content types** | Rules |
+| **Config directory** | `~/.codeium/windsurf` |
+| **Supported content types** | Rules, Skills, Hooks, MCP Configs |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | No |
-| MCP Configs | No |
-| Hooks | No |
-| Commands | No |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Hooks | Yes | JSON merge |
+| MCP Configs | Yes | JSON merge |
+| Agents | No | — |
+| Commands | No | — |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.windsurf/rules/` | Markdown (`.md`) |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.windsurfrules`, `.windsurf/rules/` | `~/.codeium/windsurf/` | Markdown |
+| Skills | `.windsurf/skills/`, `.agents/skills/` | `~/.codeium/windsurf/skills/` | Markdown |
+| Hooks | — | — | JSON |
+| MCP Configs | — | — | JSON |
 
-## Format Notes
+## Discovery Paths
 
-Windsurf uses standard Markdown for its rule files with no special formatting requirements. No format conversion is needed when moving rules between syllago and Windsurf.
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.windsurfrules`, `.windsurf/rules/` |
+| Skills | `.windsurf/skills/`, `.agents/skills/` (fallback) |
+
+## Detection
+
+Syllago detects Windsurf by checking for the `~/.codeium/windsurf` directory.
 
 ## Working with Windsurf
 

@@ -1,50 +1,62 @@
 ---
-title: GitHub Copilot
-description: How syllago works with GitHub Copilot.
+title: Copilot CLI
+description: How syllago works with Copilot CLI.
 ---
 
-GitHub's CLI agent with support for rules, agents, MCP configs, hooks, and commands.
+GitHub's CLI agent supporting rules, skills, agents, MCP, hooks, and commands.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `copilot-cli` |
-| **Supported content types** | Rules, Agents, MCP Configs, Hooks, Commands |
+| **Config directory** | `~/.copilot` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | Yes |
-| MCP Configs | Yes |
-| Hooks | Yes |
-| Commands | Yes |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | JSON merge |
+| Commands | Yes | Symlink |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.github/copilot/` | Markdown (`.md`) |
-| Agents | `.github/copilot/` | Markdown (`.md`) |
-| MCP Configs | `.github/copilot/` | JSON |
-| Hooks | `.github/copilot/` | JSON |
-| Commands | `.github/copilot/` | Markdown (`.md`) |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.github/copilot-instructions.md`, `AGENTS.md` | `~/.copilot/` | Markdown |
+| Skills | `.github/skills/` | `~/.github/skills/` | Markdown |
+| Agents | `.copilot/agents/`, `.github/agents/` | `~/.github/agents/` | Markdown |
+| MCP Configs | `.copilot/mcp-config.json` | — | JSON |
+| Hooks | `.github/hooks/` | — | JSON |
+| Commands | `.copilot/commands/` | `~/.copilot/commands/` | Markdown |
 
-## Format Notes
+## Discovery Paths
 
-Copilot uses Markdown for text-based content and JSON for structured configurations like MCP servers and hooks. Its directory layout under `.github/copilot/` keeps all AI configuration alongside other GitHub project settings.
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.github/copilot-instructions.md`, `AGENTS.md` |
+| Skills | `.github/skills/` |
+| Agents | `.copilot/agents/`, `.github/agents/`, `.claude/agents/` (fallback) |
+| MCP Configs | `.copilot/mcp-config.json` |
+| Hooks | `.github/hooks/` |
+| Commands | `.copilot/commands/` |
 
-## Working with GitHub Copilot
+## Detection
+
+Syllago detects Copilot CLI by checking for the `~/.copilot` directory or the `gh` command in PATH.
+
+## Working with Copilot CLI
 
 ```bash
-# Add content from Copilot
+# Add content from Copilot CLI
 syllago add --from copilot-cli
 
-# Install content to Copilot
+# Install content to Copilot CLI
 syllago install my-rule --to copilot-cli
 ```
 

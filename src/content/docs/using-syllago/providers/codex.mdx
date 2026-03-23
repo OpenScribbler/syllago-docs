@@ -3,38 +3,54 @@ title: Codex
 description: How syllago works with Codex.
 ---
 
-OpenAI's CLI agent with support for rules, agents, and commands.
+OpenAI's CLI agent with support for rules, skills, agents, MCP, hooks, and commands.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `codex` |
-| **Supported content types** | Rules, Agents, Commands |
+| **Config directory** | `~/.codex` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | Yes |
-| MCP Configs | No |
-| Hooks | No |
-| Commands | Yes |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | File-based |
+| Commands | Yes | Symlink |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.codex/` | Markdown (`.md`) |
-| Agents | `.codex/` | TOML |
-| Commands | `.codex/` | Markdown (`.md`) |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `AGENTS.md` | `~/.codex/` | Markdown |
+| Skills | `.agents/skills/` | `~/.agents/skills/` | Markdown |
+| Agents | `.codex/agents/` | `~/.codex/` | TOML |
+| Hooks | `.codex/hooks.json` | `~/.codex/` | JSON |
+| Commands | `.codex/commands/` | `~/.codex/` | Markdown |
+
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `AGENTS.md` |
+| Skills | `.agents/skills/` |
+| Agents | `.codex/agents/` |
+| Hooks | `.codex/hooks.json` |
+| Commands | `.codex/commands/` |
 
 ## Format Notes
 
-Codex uses TOML format for agent definitions rather than Markdown or JSON. Syllago automatically converts between its internal format and TOML when adding from or installing agents to Codex. Rules and commands use standard Markdown with no special conversion needed.
+Codex uses **TOML** for agent configuration files, which is unique among providers. Syllago handles the conversion between TOML and other agent formats (Markdown, YAML) automatically. Rules and commands use standard Markdown.
+
+## Detection
+
+Syllago detects Codex by checking for the `~/.codex` directory or the `codex` command in PATH.
 
 ## Working with Codex
 
@@ -43,7 +59,7 @@ Codex uses TOML format for agent definitions rather than Markdown or JSON. Sylla
 syllago add --from codex
 
 # Install content to Codex
-syllago install my-rule --to codex
+syllago install my-skill --to codex
 ```
 
 ## See Also

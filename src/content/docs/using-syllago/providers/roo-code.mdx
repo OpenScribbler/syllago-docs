@@ -3,38 +3,51 @@ title: Roo Code
 description: How syllago works with Roo Code.
 ---
 
-A VS Code extension with support for rules, agents, and MCP configurations.
+A VS Code extension supporting rules, skills, agents, and MCP configurations.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `roo-code` |
-| **Supported content types** | Rules, Agents, MCP Configs |
+| **Config directory** | `~/.roo` |
+| **Supported content types** | Rules, Skills, Agents, MCP Configs |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | Yes |
-| MCP Configs | Yes |
-| Hooks | No |
-| Commands | No |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Hooks | No | — |
+| Commands | No | — |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.roo/` | Markdown (`.md`) |
-| Agents | `.roo/` | Markdown (`.md`) |
-| MCP Configs | `.roo/` | JSON |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.roo/rules/`, `.roorules` | `~/.roo/rules/` | Markdown |
+| Skills | `.roo/skills/`, `.agents/skills/` | `~/.roo/skills/` | Markdown |
+| Agents | `.roomodes`, `.roo/` | — | YAML |
+| MCP Configs | `.roo/mcp.json` | — | JSON |
+
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.roo/rules/`, `.roo/rules-code/`, `.roo/rules-architect/`, `.roo/rules-ask/`, `.roo/rules-debug/`, `.roo/rules-orchestrator/`, `.roorules`, `~/.roo/rules/` |
+| Skills | `.roo/skills/`, `.agents/skills/` (fallback) |
+| MCP Configs | `.roo/mcp.json` |
 
 ## Format Notes
 
-Roo Code uses standard Markdown for rules and agents, and JSON for MCP server configurations. No special format conversion is required.
+Roo Code uses **mode-specific rule directories** (e.g., `rules-code/`, `rules-architect/`), which syllago discovers automatically. Agent configurations use YAML format.
+
+## Detection
+
+Syllago detects Roo Code by checking for the `~/.roo` directory.
 
 ## Working with Roo Code
 
@@ -43,7 +56,7 @@ Roo Code uses standard Markdown for rules and agents, and JSON for MCP server co
 syllago add --from roo-code
 
 # Install content to Roo Code
-syllago install my-rule --to roo-code
+syllago install my-skill --to roo-code
 ```
 
 ## See Also

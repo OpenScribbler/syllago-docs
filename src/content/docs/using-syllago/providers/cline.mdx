@@ -3,37 +3,52 @@ title: Cline
 description: How syllago works with Cline.
 ---
 
-A VS Code extension for AI-assisted coding with support for rules and MCP configurations.
+A VS Code extension for AI-assisted coding with support for rules, hooks, and MCP configurations.
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `cline` |
-| **Supported content types** | Rules, MCP Configs |
+| **Config directory** | `.clinerules` |
+| **Supported content types** | Rules, Hooks, MCP Configs |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | No |
-| Agents | No |
-| MCP Configs | Yes |
-| Hooks | No |
-| Commands | No |
-| Loadouts | No |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Hooks | Yes | Symlink (file-based executables) |
+| MCP Configs | Yes | JSON merge |
+| Skills | No | — |
+| Agents | No | — |
+| Commands | No | — |
 
 ## File Format and Location
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.cline/` | Markdown (`.md`) |
-| MCP Configs | `.cline/` | JSON |
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `.clinerules/` | `~/Documents/Cline/Rules/` | Markdown |
+| Hooks | `.clinerules/hooks/` | — | Markdown |
+| MCP Configs | VS Code globalStorage | — | JSON |
+
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `.clinerules/`, `~/Documents/Cline/Rules/` |
+| Hooks | `.clinerules/hooks/` |
+| MCP Configs | VS Code globalStorage (platform-aware path) |
 
 ## Format Notes
 
-Cline uses standard Markdown for rules and JSON for MCP server configurations. No special format conversion is required for either content type.
+Cline's MCP configuration is stored in VS Code's `globalStorage` directory, which varies by platform. Syllago detects the correct path automatically.
+
+Hooks in Cline are file-based executables in the `.clinerules/hooks/` directory, unlike the JSON-based hooks used by most other providers.
+
+## Detection
+
+Syllago detects Cline by checking for the `~/Documents/Cline/Rules` directory.
 
 ## Working with Cline
 

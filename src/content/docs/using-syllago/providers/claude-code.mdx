@@ -10,37 +10,51 @@ Anthropic's CLI and IDE agent, with the broadest content type support of any pro
 | Detail | Value |
 |--------|-------|
 | **Slug** | `claude-code` |
+| **Config directory** | `~/.claude` |
 | **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands, Loadouts |
 
 ## Supported Content Types
 
-| Content Type | Supported |
-|-------------|-----------|
-| Rules | Yes |
-| Skills | Yes |
-| Agents | Yes |
-| MCP Configs | Yes |
-| Hooks | Yes |
-| Commands | Yes |
-| Loadouts | Yes |
+| Content Type | Supported | Install Method |
+|-------------|-----------|---------------|
+| Rules | Yes | Symlink |
+| Skills | Yes | Symlink |
+| Agents | Yes | Symlink |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | JSON merge |
+| Commands | Yes | Symlink |
+| Loadouts | Yes | JSON merge |
 
 ## File Format and Location
 
-Claude Code stores content across several directories within the project root:
+| Content Type | Project Location | Global Location | Format |
+|-------------|-----------------|----------------|--------|
+| Rules | `CLAUDE.md`, `.claude/rules/` | `~/.claude/rules/` | Markdown |
+| Skills | `.claude/skills/` | `~/.claude/skills/` | Markdown |
+| Agents | `.claude/agents/` | `~/.claude/agents/` | Markdown |
+| MCP Configs | `.claude.json`, `.mcp.json` | — | JSON |
+| Hooks | `.claude/settings.json` | — | JSON |
+| Commands | `.claude/commands/` | `~/.claude/commands/` | Markdown |
+| Loadouts | `.claude/settings.json` | — | JSON |
 
-| Content Type | Location | Format |
-|-------------|----------|--------|
-| Rules | `.claude/rules/` | Markdown (`.md`) |
-| Skills | `.claude/skills/` | Markdown (`.md`) |
-| Agents | `.claude/agents/` | Markdown (`.md`) |
-| MCP Configs | `.claude/settings.json` | JSON |
-| Hooks | `.claude/settings.json` | JSON |
-| Commands | `.claude/commands/` | Markdown (`.md`) |
-| Loadouts | `.claude/settings.json` | JSON |
+## Discovery Paths
+
+| Content Type | Discovery Paths |
+|-------------|----------------|
+| Rules | `CLAUDE.md`, `.claude/rules/` |
+| Skills | `.claude/skills/` |
+| Agents | `.claude/agents/` |
+| MCP Configs | `.claude.json`, `.mcp.json` |
+| Hooks | `.claude/settings.json` |
+| Commands | `.claude/commands/` |
 
 ## Format Notes
 
-Claude Code uses plain Markdown for most content types, making its files straightforward to read and edit manually. MCP configurations, hooks, and loadouts are stored as JSON within `settings.json`. Claude Code supports all seven content types that syllago tracks, so no conversion or feature gaps apply when working with this provider.
+Claude Code uses plain Markdown for most content types, making its files straightforward to read and edit manually. MCP configurations, hooks, and loadouts are stored as JSON within settings files. Claude Code supports all seven content types that syllago tracks, so no conversion or feature gaps apply when working with this provider.
+
+## Detection
+
+Syllago detects Claude Code by checking for the `~/.claude` directory.
 
 ## Working with Claude Code
 
