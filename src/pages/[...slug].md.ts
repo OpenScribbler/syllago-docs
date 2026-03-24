@@ -18,7 +18,13 @@ export const GET: APIRoute = async (context) => {
 	};
 	const title = entry.data.hero?.title || entry.data.title;
 	const description = entry.data.description;
-	const markdown = await entryToSimpleMarkdown(entry, context);
+	const raw = await entryToSimpleMarkdown(entry, context);
+	// Strip Starlight's heading anchor links that leak into markdown as
+	// [Section titled "..."](...) lines — these are sr-only in HTML but
+	// become visible boilerplate in the markdown output.
+	const markdown = raw
+		.replace(/\n\[Section titled \u201c[^\u201d]*\u201d\]\(#[^)]*\)\n/g, '\n')
+		.replace(/\n{3,}/g, '\n\n');
 
 	const sections = [`# ${title}`];
 	if (description) sections.push(`> ${description}`);
