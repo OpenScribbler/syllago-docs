@@ -1,18 +1,18 @@
 ---
-title: "syllago config"
-description: "View and edit syllago configuration"
+title: "syllago config paths"
+description: "Manage custom provider path overrides"
 ---
 
-Manage provider selection and preferences in .syllago/config.json.
+Configure custom base directories or per-type path overrides for providers.
+Overrides are stored in the global config (~/.syllago/config.json) since paths are machine-specific.
 
 ## Subcommands
 
 | Command | Description |
 |---------|-------------|
-| [`add`](/using-syllago/cli-reference/config-add/) | Add a provider to the configuration |
-| [`list`](/using-syllago/cli-reference/config-list/) | List current configuration |
-| [`paths`](/using-syllago/cli-reference/config-paths/) | Manage custom provider path overrides |
-| [`remove`](/using-syllago/cli-reference/config-remove/) | Remove a provider from the configuration |
+| [`clear`](/using-syllago/cli-reference/config-paths-clear/) | Clear path overrides for a provider |
+| [`set`](/using-syllago/cli-reference/config-paths-set/) | Set path overrides for a provider |
+| [`show`](/using-syllago/cli-reference/config-paths-show/) | Show configured path overrides |
 
 ## Global Options
 

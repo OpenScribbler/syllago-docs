@@ -1,20 +1,29 @@
 ---
-title: "syllago registry add"
-description: "Add a git registry"
+title: "syllago registry create"
+description: "Create a new registry"
 ---
 
 ## Synopsis
 
 ```
-syllago registry add <git-url> [flags]
+syllago registry create [flags]
 ```
+
+## Description
+
+Create a new registry in one of two modes:
+
+  --new &lt;name&gt;          Scaffold an empty registry directory structure
+  --from-native         Index provider-native content in the current repo
 
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `--name` | `string` | — | No | Override the registry name (default: derived from URL) |
-| `--ref` | `string` | — | No | Branch, tag, or commit to checkout (default: repo default branch) |
+| `--description` | `string` | — | No | Short description of the registry (used with --new) |
+| `--from-native` | `bool` | — | No | Index provider-native content in the current repo |
+| `--new` | `string` | — | No | Scaffold an empty registry directory with this name |
+| `--no-git` | `bool` | — | No | Skip git init and initial commit (used with --new) |
 
 ## Global Options
 
@@ -28,20 +37,20 @@ syllago registry add <git-url> [flags]
 ## Examples
 
 ```bash
-  # Add a registry by URL
-  syllago registry add https://github.com/team/rules.git
+  # Scaffold an empty registry
+  syllago registry create --new my-rules
 
-  # Add with a custom name
-  syllago registry add https://github.com/team/rules.git --name team-rules
+  # Scaffold with a description
+  syllago registry create --new my-rules --description "Team coding standards"
 
-  # Pin to a specific branch
-  syllago registry add https://github.com/team/rules.git --ref main
+  # Index existing provider-native content
+  syllago registry create --from-native
 ```
 
 ## See Also
 
 - [syllago registry](/using-syllago/cli-reference/registry/)
-- [syllago registry create](/using-syllago/cli-reference/registry-create/)
+- [syllago registry add](/using-syllago/cli-reference/registry-add/)
 - [syllago registry items](/using-syllago/cli-reference/registry-items/)
 - [syllago registry list](/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/using-syllago/cli-reference/registry-remove/)

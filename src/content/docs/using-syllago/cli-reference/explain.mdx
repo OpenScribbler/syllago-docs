@@ -1,24 +1,26 @@
 ---
-title: "syllago init"
-description: "Initialize syllago for this project"
+title: "syllago explain"
+description: "Show detailed documentation for an error code"
 ---
 
 ## Synopsis
 
 ```
-syllago init [flags]
+syllago explain CODE [flags]
 ```
 
 ## Description
 
-Detects AI coding tools in use, creates .syllago/config.json with provider selection.
+Display documentation for a syllago error code.
+
+Each error code has a detailed explanation including what it means,
+common causes, and how to fix it.
 
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `--force` | `bool` | — | No | Overwrite existing config |
-| `-y`, `--yes` | `bool` | — | No | Skip interactive confirmation |
+| `--list` | `bool` | — | No | list all available error codes |
 
 ## Global Options
 
@@ -32,16 +34,10 @@ Detects AI coding tools in use, creates .syllago/config.json with provider selec
 ## Examples
 
 ```bash
-  # Interactive setup
-  syllago init
-
-  # Skip confirmation prompts
-  syllago init --yes
-
-  # Overwrite existing config
-  syllago init --force
+  syllago explain CATALOG_001
+  syllago explain --list
 ```
 
 ---
 
-<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/init.go)</small>
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/explain.go)</small>
