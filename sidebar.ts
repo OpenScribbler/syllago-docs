@@ -61,6 +61,7 @@ export const sidebar: SidebarItem[] = [
   },
   {
     label: 'Advanced',
+    collapsed: true,
     items: [
       { label: 'Sandbox', slug: 'advanced/sandbox' },
       { label: 'Team Setup', slug: 'advanced/team-setup' },
@@ -69,6 +70,7 @@ export const sidebar: SidebarItem[] = [
   },
   {
     label: 'Error Codes',
+    collapsed: true,
     autogenerate: { directory: 'errors' },
   },
   {
