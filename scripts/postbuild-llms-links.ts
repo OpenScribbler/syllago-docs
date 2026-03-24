@@ -1,20 +1,24 @@
 #!/usr/bin/env bun
 /**
- * postbuild-llms-links.ts — Rewrites internal links in llms*.txt to use .md URLs.
+ * postbuild-llms-links.ts — Post-build fixups for afdocs compliance.
  *
- * The starlight-llms-txt plugin generates llms-full.txt and llms-small.txt with
- * internal links pointing to HTML pages (e.g., /syllago-docs/page/). The
- * Agent-Friendly Docs spec requires these to point to markdown alternatives
- * (e.g., /syllago-docs/page.md).
+ * 1. Rewrites internal links in llms-full.txt and llms-small.txt from
+ *    HTML URLs (/syllago-docs/page/) to markdown (/syllago-docs/page.md).
+ * 2. Creates .md copies of llms-full.txt and llms-small.txt so afdocs
+ *    can discover markdown alternatives for the llms.txt links.
+ * 3. Creates a sitemap.xml alias for sitemap-index.xml (Astro generates
+ *    sitemap-index.xml but tools look for sitemap.xml).
  *
  * Runs as a postbuild step after `astro build`.
  */
 
-import { readFileSync, writeFileSync, existsSync } from "fs";
+import { readFileSync, writeFileSync, copyFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 
 const DIST_DIR = join(dirname(import.meta.dir), "dist");
 const BASE = "/syllago-docs";
+
+// --- 1. Rewrite internal links in llms*.txt ---
 
 const files = ["llms-full.txt", "llms-small.txt"];
 
@@ -52,3 +56,27 @@ for (const file of files) {
 }
 
 console.log(`  Total: ${totalRewrites} internal links → .md URLs`);
+
+// --- 2. Create .md copies of llms doc sets ---
+// afdocs checks llms.txt links for markdown alternatives (.md URLs).
+// The llms-full.txt and llms-small.txt are already markdown content,
+// so we copy them with .md extensions.
+
+for (const file of files) {
+  const src = join(DIST_DIR, file);
+  const dest = join(DIST_DIR, file.replace(".txt", ".md"));
+  if (existsSync(src)) {
+    copyFileSync(src, dest);
+    console.log(`  Created ${file.replace(".txt", ".md")}`);
+  }
+}
+
+// --- 3. Create sitemap.xml alias ---
+// Astro generates sitemap-index.xml but many tools look for sitemap.xml.
+
+const sitemapIndex = join(DIST_DIR, "sitemap-index.xml");
+const sitemapAlias = join(DIST_DIR, "sitemap.xml");
+if (existsSync(sitemapIndex) && !existsSync(sitemapAlias)) {
+  copyFileSync(sitemapIndex, sitemapAlias);
+  console.log("  Created sitemap.xml alias");
+}
