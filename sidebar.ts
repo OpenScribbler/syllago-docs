@@ -20,6 +20,7 @@ export const sidebar: SidebarItem[] = [
       },
       {
         label: 'Content Types',
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'using-syllago/content-types' },
           { label: 'Rules', slug: 'using-syllago/content-types/rules' },
@@ -32,6 +33,7 @@ export const sidebar: SidebarItem[] = [
       },
       {
         label: 'Collections',
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'using-syllago/collections' },
           { label: 'Library', slug: 'using-syllago/collections/library' },
@@ -41,6 +43,7 @@ export const sidebar: SidebarItem[] = [
       },
       {
         label: 'Supported Providers',
+        collapsed: true,
         items: [
           { label: 'Overview', slug: 'using-syllago/providers' },
           { label: 'Claude Code', slug: 'using-syllago/providers/claude-code' },
