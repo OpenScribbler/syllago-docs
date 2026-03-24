@@ -65,6 +65,7 @@ const integrations = [
       baseUrl: 'https://github.com/OpenScribbler/syllago-docs/edit/main/',
     },
     components: {
+      Footer: './src/components/overrides/Footer.astro',
       PageTitle: './src/components/overrides/PageTitle.astro',
       SiteTitle: './src/components/overrides/SiteTitle.astro',
     },

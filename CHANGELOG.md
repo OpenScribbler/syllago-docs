@@ -11,7 +11,7 @@ All notable changes to the syllago documentation site.
 - Theme toggle on landing page header
 - Deep-dive content sections on landing page (replacing footer CTA)
 - Per-page `.md` source URLs via upgraded PageActions component
-- llms.txt `<link rel="alternate">` directive on all Starlight pages for agent discoverability
+- llms.txt `<link rel="alternate">` directive in `<head>` and visually hidden body link on all Starlight pages for agent discoverability
 - Postbuild script to rewrite internal links in llms-full.txt and llms-small.txt to `.md` URLs
 - Project CLAUDE.md with changelog-update rule
 
