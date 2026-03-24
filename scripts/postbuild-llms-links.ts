@@ -108,7 +108,7 @@ for (const file of files) {
       const url = titleToUrl.get(title.trim());
       if (!url) return match;
       injected++;
-      return `${full}Source: ${url}\n\n`;
+      return `${full}[Source](${url})\n\n`;
     }
   );
 
