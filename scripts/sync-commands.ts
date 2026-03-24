@@ -412,6 +412,56 @@ ${sections.join("\n\n")}
 }
 
 // ---------------------------------------------------------------------------
+// Sidebar generation
+// ---------------------------------------------------------------------------
+
+const SIDEBAR_OUTPUT = join(dirname(import.meta.dir), "src/generated/cli-sidebar.json");
+
+function generateSidebarItems(commands: CommandEntry[]): unknown[] {
+  // Build parent→children map
+  const parents = new Map<string, { slug: string; children: CommandEntry[] }>();
+  const standalone: CommandEntry[] = [];
+
+  for (const cmd of commands) {
+    if (cmd.parent !== null) continue;
+    if (cmd.subcommands.length > 0) {
+      parents.set(cmd.name, {
+        slug: cmd.slug,
+        children: commands.filter((c) => c.parent === cmd.name),
+      });
+    } else {
+      standalone.push(cmd);
+    }
+  }
+
+  const items: unknown[] = [];
+  const allTopLevel = [...standalone, ...commands.filter((c) => c.parent === null && c.subcommands.length > 0)]
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  for (const cmd of allTopLevel) {
+    const parent = parents.get(cmd.name);
+    if (parent) {
+      // Group with subcommands
+      const subItems = [
+        { label: cmd.name, slug: `using-syllago/cli-reference/${parent.slug}` },
+        ...parent.children
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((child) => {
+            // Strip parent prefix for label: "config add" → "add", "config paths clear" → "paths clear"
+            const label = child.name.slice(cmd.name.length + 1);
+            return { label, slug: `using-syllago/cli-reference/${child.slug}` };
+          }),
+      ];
+      items.push({ label: cmd.name, collapsed: true, items: subItems });
+    } else {
+      items.push({ label: cmd.name, slug: `using-syllago/cli-reference/${cmd.slug}` });
+    }
+  }
+
+  return items;
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -457,6 +507,12 @@ async function main() {
 
   console.log(`  Generated: ${count} command pages`);
   console.log(`  Total: ${count + 1} files in ${OUTPUT_DIR}`);
+
+  // Generate sidebar JSON
+  const sidebarItems = generateSidebarItems(manifest.commands);
+  mkdirSync(dirname(SIDEBAR_OUTPUT), { recursive: true });
+  writeFileSync(SIDEBAR_OUTPUT, JSON.stringify(sidebarItems, null, 2) + "\n");
+  console.log(`  Generated: cli-sidebar.json`);
 }
 
 main().catch((err) => {
