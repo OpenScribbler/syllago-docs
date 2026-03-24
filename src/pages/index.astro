@@ -423,6 +423,39 @@ const base = '';
         margin: 0;
       }
 
+      /* ── Footer ── */
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .footer-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .footer-links a {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--text);
+      }
+
       /* ── Responsive ── */
       @media (max-width: 768px) {
         .features-grid {
@@ -441,6 +474,11 @@ const base = '';
 
         .dd-row-reverse {
           direction: ltr;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          gap: 0.5rem;
         }
       }
     </style>
@@ -716,6 +754,19 @@ syllago loadout remove</code></pre>
         </div>
       </div>
     </section>
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="footer-copyright">&copy; 2026 OpenScribbler</span>
+        <nav class="footer-links">
+          <a href={base + '/getting-started/installation/'}>Docs</a>
+          <a href="https://github.com/OpenScribbler/syllago">GitHub</a>
+          <a href={base + '/llms.txt'}>llms.txt</a>
+          <a href="https://github.com/OpenScribbler/syllago/blob/main/LICENSE">Apache 2.0</a>
+        </nav>
+      </div>
+    </footer>
+
     <script is:inline>
       (function() {
         // Sync with Starlight's theme key so toggling here persists to docs pages
