@@ -8,7 +8,7 @@ const base = '';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>syllago — The package manager for AI coding tool content</title>
+    <title>syllago | The package manager for AI coding tool content</title>
     <meta
       name="description"
       content="Convert, sync, and manage your AI tool configs across Claude Code, Cursor, Windsurf, Copilot, and 7 more providers."
@@ -558,7 +558,7 @@ const base = '';
           <h3>Automatic format conversion</h3>
           <p>
             Write content once. Syllago translates it to each provider's native
-            format — intent carries forward, nothing is lost.
+            format. Intent carries forward, nothing is lost.
           </p>
         </div>
         <div class="feature">
@@ -662,7 +662,7 @@ const base = '';
           <h2>One config, every tool</h2>
           <p>
             Set up your rules, skills, and agents once. Syllago converts them to
-            each provider's native format automatically — a Claude Code skill becomes a
+            each provider's native format automatically: a Claude Code skill becomes a
             Kiro steering file, a Cursor rule becomes a Windsurf rule.
           </p>
           <p class="dd-audience">For developers exploring AI coding tools.</p>
@@ -709,7 +709,7 @@ syllago compat my-skill</code></pre>
           <h2>Standards your team actually uses</h2>
           <p>
             Maintain your org's AI standards in a git registry. Developers
-            sync and install with one command. Private content stays private —
+            sync and install with one command. Private content stays private:
             syllago's privacy gate prevents accidental leakage to public registries.
           </p>
           <p class="dd-audience">For team leads and IT administrators.</p>
@@ -718,7 +718,7 @@ syllago compat my-skill</code></pre>
           <pre><code><span class="dd-comment"># Add your team's registry</span>
 syllago registry add https://github.com/org/ai-standards.git
 
-<span class="dd-comment"># Sync and install — one command in CI</span>
+<span class="dd-comment"># Sync and install (one command in CI)</span>
 syllago sync-and-export --to claude-code
 
 <span class="dd-comment"># Scaffold a new registry for your team</span>
@@ -743,7 +743,7 @@ syllago registry create --new team-rules</code></pre>
           <pre><code><span class="dd-comment"># Create a loadout from your current setup</span>
 syllago loadout create my-python-stack
 
-<span class="dd-comment"># Apply it — one command, everything configured</span>
+<span class="dd-comment"># Apply it (one command, everything configured)</span>
 syllago loadout apply my-python-stack
 
 <span class="dd-comment"># Switch contexts instantly</span>
