@@ -20,7 +20,6 @@ All notable changes to the syllago documentation site.
 - Provider carousel dark mode — use actual fills instead of currentColor
 - Logo color consistency across themes (mint green + light purple)
 - Internal links in llms-full.txt now point to `.md` URLs instead of HTML pages
-- Root llms.txt links now point to `.md` aliases of llms-full.txt and llms-small.txt
 
 ### Changed
 - Regenerated CLI reference from latest commands.json
