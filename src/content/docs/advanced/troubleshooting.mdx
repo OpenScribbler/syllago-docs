@@ -41,7 +41,7 @@ syllago add --from claude-code --dry-run
    ```bash
    syllago config add <provider>
    ```
-3. Run [`syllago info providers`](/syllago-docs/using-syllago/cli-reference/info-providers/) to see all supported providers.
+3. Run [`syllago info providers`](/using-syllago/cli-reference/info-providers/) to see all supported providers.
 
 ---
 
@@ -54,7 +54,7 @@ You ran `syllago add` but can't find the content.
 - `syllago list` shows fewer items than expected
 
 **Fix:**
-1. Run [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) to verify what's actually imported.
+1. Run [`syllago list`](/using-syllago/cli-reference/list/) to verify what's actually imported.
 2. Check the `--source` filter — content may be in a different source (registry vs library):
    ```bash
    syllago list --source registry
@@ -73,13 +73,13 @@ A conversion between providers fails or produces unexpected results.
 - Content type mismatch warnings
 
 **Fix:**
-1. Check [`syllago info providers`](/syllago-docs/using-syllago/cli-reference/info-providers/) to see which content types each provider supports.
+1. Check [`syllago info providers`](/using-syllago/cli-reference/info-providers/) to see which content types each provider supports.
 2. Not all content types work with all providers. Verify your source and target are compatible.
-3. Check the [format conversion reference](/syllago-docs/using-syllago/format-conversion/) for the compatibility matrix.
+3. Check the [format conversion reference](/using-syllago/format-conversion/) for the compatibility matrix.
 
 **Related error codes:**
-- [CONVERT_001](/syllago-docs/errors/convert-001/) — Conversion not supported
-- [EXPORT_001](/syllago-docs/errors/export-001/) — Export failed
+- [CONVERT_001](/errors/convert-001/) — Conversion not supported
+- [EXPORT_001](/errors/export-001/) — Export failed
 
 ---
 
@@ -98,11 +98,11 @@ A conversion between providers fails or produces unexpected results.
    ```bash
    syllago registry sync --verbose
    ```
-4. Check [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/) to confirm the registry URL is correct.
+4. Check [`syllago registry list`](/using-syllago/cli-reference/registry-list/) to confirm the registry URL is correct.
 
 **Related error codes:**
-- [REGISTRY_001](/syllago-docs/errors/registry-001/) — Registry not found
-- [REGISTRY_002](/syllago-docs/errors/registry-002/) — Registry sync failed
+- [REGISTRY_001](/errors/registry-001/) — Registry not found
+- [REGISTRY_002](/errors/registry-002/) — Registry sync failed
 
 ---
 
@@ -123,7 +123,7 @@ syllago can't write to the provider's configuration directory.
    ```
 
 **Related error codes:**
-- [INSTALL_001](/syllago-docs/errors/install-001/) — Installation failed
+- [INSTALL_001](/errors/install-001/) — Installation failed
 
 ---
 
@@ -131,12 +131,12 @@ syllago can't write to the provider's configuration directory.
 
 Every syllago error includes a code like `CONVERT_001` or `REGISTRY_002`. Each code has a dedicated page with explanations, common causes, and fixes.
 
-See the full [error codes reference](/syllago-docs/errors/) for the complete list.
+See the full [error codes reference](/errors/) for the complete list.
 
 ---
 
 ## Getting Help
 
 - **Inline docs:** Run `syllago --help` or `syllago <command> --help` for usage information on any command.
-- **CLI reference:** Browse the full [CLI reference](/syllago-docs/using-syllago/cli-reference/) for detailed documentation.
+- **CLI reference:** Browse the full [CLI reference](/using-syllago/cli-reference/) for detailed documentation.
 - **GitHub issues:** Report bugs or ask questions at [github.com/OpenScribbler/syllago/issues](https://github.com/OpenScribbler/syllago/issues).

@@ -248,7 +248,7 @@ ${cmd.examples}
   if (cmd.seeAlso.length > 0) {
     const links = cmd.seeAlso.map((name) => {
       const slug = name.replace(/ /g, "-");
-      return `- [syllago ${name}](/syllago-docs/using-syllago/cli-reference/${slug}/)`;
+      return `- [syllago ${name}](/using-syllago/cli-reference/${slug}/)`;
     });
     sections.push(`## See Also
 
@@ -279,7 +279,7 @@ function generateParentPage(cmd: CommandEntry, allCommands: CommandEntry[]): str
       );
       const fullSlug = `${cmd.slug}-${subName}`;
       const desc = subCmd ? escapeForMdx(subCmd.description) : "";
-      return `| [\`${subName}\`](/syllago-docs/using-syllago/cli-reference/${fullSlug}/) | ${desc} |`;
+      return `| [\`${subName}\`](/using-syllago/cli-reference/${fullSlug}/) | ${desc} |`;
     });
 
     sections.push(`## Subcommands
@@ -386,11 +386,11 @@ function generateIndexPage(commands: CommandEntry[], manifest: CommandManifest):
   const sections = allGroups.map((group) => {
     const rows = group.items.map(
       (item) =>
-        `| [\`${item.name}\`](/syllago-docs/using-syllago/cli-reference/${item.slug}/) | ${escapeForMdx(item.description)} |`
+        `| [\`${item.name}\`](/using-syllago/cli-reference/${item.slug}/) | ${escapeForMdx(item.description)} |`
     );
 
     const heading = group.slug
-      ? `[\`syllago ${group.slug}\`](/syllago-docs/using-syllago/cli-reference/${group.slug}/)`
+      ? `[\`syllago ${group.slug}\`](/using-syllago/cli-reference/${group.slug}/)`
       : group.label;
 
     return `### ${heading}

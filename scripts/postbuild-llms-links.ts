@@ -3,7 +3,7 @@
  * postbuild-llms-links.ts — Post-build fixups for afdocs compliance.
  *
  * 1. Rewrites internal links in llms-full.txt and llms-small.txt from
- *    HTML URLs (/syllago-docs/page/) to markdown (/syllago-docs/page.md).
+ *    HTML URLs (/page/) to markdown (/page.md).
  * 2. Creates .md copies of llms-full.txt and llms-small.txt so afdocs
  *    can discover markdown alternatives for the llms.txt links.
  * 3. Creates a sitemap.xml alias for sitemap-index.xml (Astro generates
@@ -16,13 +16,13 @@ import { readFileSync, writeFileSync, copyFileSync, existsSync, readdirSync, sta
 import { join, dirname, relative } from "path";
 
 const DIST_DIR = join(dirname(import.meta.dir), "dist");
-const BASE = "/syllago-docs";
+const BASE = "";
 
 // --- 1. Rewrite internal links in llms*.txt ---
 
 const files = ["llms-full.txt", "llms-small.txt"];
 
-// Match markdown links like [text](/syllago-docs/path/to/page/)
+// Match markdown links like [text](/path/to/page/)
 // but NOT links to .txt files, anchors, or external URLs
 const linkPattern = new RegExp(
   `\\]\\(${BASE.replace("/", "\\/")}\/([^)]+?)\\/\\)`,
@@ -87,7 +87,7 @@ for (const mdFile of collectMdFiles(DIST_DIR)) {
   const firstLine = readFileSync(mdFile, "utf-8").split("\n")[0];
   if (!firstLine.startsWith("# ")) continue;
   const title = firstLine.slice(2).trim();
-  // Convert dist path to site URL: dist/path/to/page.md → /syllago-docs/path/to/page/
+  // Convert dist path to site URL: dist/path/to/page.md → /path/to/page/
   const rel = relative(DIST_DIR, mdFile).replace(/\.md$/, "");
   const url = rel === "index" ? `${BASE}/` : `${BASE}/${rel}/`;
   titleToUrl.set(title, url);

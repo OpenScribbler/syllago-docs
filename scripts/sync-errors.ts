@@ -229,7 +229,7 @@ function generateIndexPage(codeMap: Map<string, ErrorCodeInfo>): string {
   const sections = sorted.map((group) => {
     const rows = group.items.map(
       (item) =>
-        `| [${item.code}](/syllago-docs/errors/${item.slug}/) | ${item.humanName} | ${item.comment} |`
+        `| [${item.code}](/errors/${item.slug}/) | ${item.humanName} | ${item.comment} |`
     );
 
     return `## ${group.name} Errors

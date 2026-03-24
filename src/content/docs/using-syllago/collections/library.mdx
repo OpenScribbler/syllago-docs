@@ -3,7 +3,7 @@ title: Library
 description: Your personal content store — the read-write collection you own and manage directly.
 ---
 
-The library is your personal content store at `~/.syllago/content/`. Unlike [registries](/syllago-docs/using-syllago/collections/registries/) (shared, read-only locally) or [loadouts](/syllago-docs/using-syllago/collections/loadouts/) (bundled configurations), the library is fully read-write. You own this content and can add, edit, or remove it freely.
+The library is your personal content store at `~/.syllago/content/`. Unlike [registries](/using-syllago/collections/registries/) (shared, read-only locally) or [loadouts](/using-syllago/collections/loadouts/) (bundled configurations), the library is fully read-write. You own this content and can add, edit, or remove it freely.
 
 ## Directory structure
 
@@ -73,7 +73,7 @@ syllago create rules my-rule --provider claude-code
 
 This creates the directory, `.syllago.yaml`, and a starter content file — ready for you to edit.
 
-See [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) for full options.
+See [`syllago create`](/using-syllago/cli-reference/create/) for full options.
 
 ## Browsing and inspecting content
 
@@ -95,7 +95,7 @@ syllago list --json
 
 The `--source` flag accepts: `library`, `shared`, `registry`, `builtin`, or `all` (default).
 
-See [`syllago list`](/syllago-docs/using-syllago/cli-reference/list/) for full options.
+See [`syllago list`](/using-syllago/cli-reference/list/) for full options.
 
 ### Inspect an item
 
@@ -109,7 +109,7 @@ syllago inspect skills/my-skill
 syllago inspect rules/claude-code/my-rule
 ```
 
-See [`syllago inspect`](/syllago-docs/using-syllago/cli-reference/inspect/) for full options.
+See [`syllago inspect`](/using-syllago/cli-reference/inspect/) for full options.
 
 ## Exporting to providers
 
@@ -132,7 +132,7 @@ See `syllago install --help` for full options.
 The library sits at the center of the syllago workflow:
 
 - **Providers** are the source and destination. Import from one, export to many.
-- **[Registries](/syllago-docs/using-syllago/collections/registries/)** are shared content you consume. Registry items appear alongside library items when you run `syllago list --source all`, but they live in separate cloned repos.
-- **[Loadouts](/syllago-docs/using-syllago/collections/loadouts/)** bundle library content into named configurations that can be applied or reverted as a unit.
+- **[Registries](/using-syllago/collections/registries/)** are shared content you consume. Registry items appear alongside library items when you run `syllago list --source all`, but they live in separate cloned repos.
+- **[Loadouts](/using-syllago/collections/loadouts/)** bundle library content into named configurations that can be applied or reverted as a unit.
 
-For an overview of how all three collections work together, see [Collections](/syllago-docs/using-syllago/collections/).
+For an overview of how all three collections work together, see [Collections](/using-syllago/collections/).

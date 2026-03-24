@@ -26,7 +26,7 @@ Do not edit files in `src/content/docs/using-syllago/cli-reference/` directly --
 
 ## Deployment
 
-Deployed to GitHub Pages via GitHub Actions on push to `main`. The site is available at [openscribbler.github.io/syllago-docs](https://openscribbler.github.io/syllago-docs/).
+Deployed to GitHub Pages via GitHub Actions on push to `main`. The site is available at [syllago.dev](https://syllago.dev/).
 
 ## License
 

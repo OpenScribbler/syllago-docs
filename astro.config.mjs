@@ -57,7 +57,7 @@ const integrations = [
           rel: 'alternate',
           type: 'text/plain',
           title: 'LLM-friendly version',
-          href: '/syllago-docs/llms.txt',
+          href: '/llms.txt',
         },
       },
     ],
@@ -81,7 +81,6 @@ if (shouldGenerateD2()) {
 }
 
 export default defineConfig({
-  site: 'https://openscribbler.github.io',
-  base: '/syllago-docs',
+  site: 'https://syllago.dev',
   integrations,
 });

@@ -3,9 +3,9 @@ title: .syllago.yaml Format
 description: Reference for the .syllago.yaml metadata file that accompanies every content item in your library.
 ---
 
-Every content item in your [library](/syllago-docs/using-syllago/collections/library/) has a `.syllago.yaml` file in its directory. This file tracks the item's identity, provenance, and [type](/syllago-docs/using-syllago/content-types/) — syllago uses it to manage, inspect, and export content.
+Every content item in your [library](/using-syllago/collections/library/) has a `.syllago.yaml` file in its directory. This file tracks the item's identity, provenance, and [type](/using-syllago/content-types/) — syllago uses it to manage, inspect, and export content.
 
-You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/syllago-docs/using-syllago/cli-reference/create/), `add`, or sync content.
+You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/using-syllago/cli-reference/create/), `add`, or sync content.
 
 ## Field Reference
 
@@ -69,7 +69,7 @@ added_at: 2026-03-12T17:16:18Z
 added_by: Holden Hewett
 ```
 
-Content created with [`syllago create`](/syllago-docs/using-syllago/cli-reference/create/) uses `source: created` instead of the `source_type`/`source_format`/`source_hash` fields. The `added_by` field records the user who created it.
+Content created with [`syllago create`](/using-syllago/cli-reference/create/) uses `source: created` instead of the `source_type`/`source_format`/`source_hash` fields. The `added_by` field records the user who created it.
 
 ## Directory Layout
 
@@ -91,4 +91,4 @@ library/
       testing.yaml
 ```
 
-The directory name matches the `name` field in `.syllago.yaml`. Content files use whatever format is appropriate for their [type](/syllago-docs/using-syllago/content-types/).
+The directory name matches the `name` field in `.syllago.yaml`. Content files use whatever format is appropriate for their [type](/using-syllago/content-types/).

@@ -7,7 +7,7 @@ Registries are git repositories that hold shared syllago content. Teams publish 
 
 ## How registries work
 
-When you add a registry, syllago clones the git repo locally. Syncing pulls the latest commits. Browsing lists the content available in the clone. Nothing is installed into your [library](/syllago-docs/using-syllago/collections/library/) until you explicitly install an item.
+When you add a registry, syllago clones the git repo locally. Syncing pulls the latest commits. Browsing lists the content available in the clone. Nothing is installed into your [library](/using-syllago/collections/library/) until you explicitly install an item.
 
 ```
   Remote git repo         Local clone           Your library
@@ -105,7 +105,7 @@ syllago share my-skill
 
 ## Privacy gate
 
-Content from private registries is automatically tainted with source metadata. Syllago blocks publishing tainted content to public registries to prevent accidental leakage. See [Registry Privacy](/syllago-docs/advanced/registry-privacy/) for details.
+Content from private registries is automatically tainted with source metadata. Syllago blocks publishing tainted content to public registries to prevent accidental leakage. See [Registry Privacy](/advanced/registry-privacy/) for details.
 
 ## Creating your own registry
 
@@ -130,19 +130,19 @@ Or create one manually — a registry is just a git repo with syllago's content 
 
 | Collection | Role | Access model |
 |------------|------|-------------|
-| [Library](/syllago-docs/using-syllago/collections/library/) | Your personal content | Full read-write |
+| [Library](/using-syllago/collections/library/) | Your personal content | Full read-write |
 | **Registries** | Shared team/community content | Consume locally, contribute via PR |
-| [Loadouts](/syllago-docs/using-syllago/collections/loadouts/) | Bundled configurations | Apply and revert as a unit |
+| [Loadouts](/using-syllago/collections/loadouts/) | Bundled configurations | Apply and revert as a unit |
 
 Registries feed your library. You browse what is available, install what you need, and the installed content becomes part of your library. Loadouts can then bundle library content into switchable configurations.
 
 ## Command reference
 
-- [`syllago registry add`](/syllago-docs/using-syllago/cli-reference/registry-add/)
-- [`syllago registry sync`](/syllago-docs/using-syllago/cli-reference/registry-sync/)
-- [`syllago registry items`](/syllago-docs/using-syllago/cli-reference/registry-items/)
-- [`syllago registry list`](/syllago-docs/using-syllago/cli-reference/registry-list/)
-- [`syllago registry remove`](/syllago-docs/using-syllago/cli-reference/registry-remove/)
+- [`syllago registry add`](/using-syllago/cli-reference/registry-add/)
+- [`syllago registry sync`](/using-syllago/cli-reference/registry-sync/)
+- [`syllago registry items`](/using-syllago/cli-reference/registry-items/)
+- [`syllago registry list`](/using-syllago/cli-reference/registry-list/)
+- [`syllago registry remove`](/using-syllago/cli-reference/registry-remove/)
 - `syllago registry create`
 - `syllago publish`
 - `syllago share`
