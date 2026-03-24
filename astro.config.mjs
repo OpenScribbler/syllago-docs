@@ -67,6 +67,7 @@ const integrations = [
     components: {
       PageTitle: './src/components/overrides/PageTitle.astro',
       SiteTitle: './src/components/overrides/SiteTitle.astro',
+      SkipLink: './src/components/overrides/SkipLink.astro',
     },
   }),
 ];

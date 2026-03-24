@@ -3,7 +3,6 @@ import Default from "@astrojs/starlight/components/PageTitle.astro";
 import PageActions from "../PageActions.astro";
 ---
 
-<a href="/syllago-docs/llms.txt" class="llms-directive">llms.txt</a>
 <div class="page-title-row">
   <Default {...Astro.props} />
   <PageActions />
@@ -20,18 +19,6 @@ import PageActions from "../PageActions.astro";
   .page-title-row :global(h1) {
     flex: 1;
     min-width: 0;
-  }
-
-  .llms-directive {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 
   @media print {
