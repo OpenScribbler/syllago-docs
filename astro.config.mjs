@@ -50,6 +50,17 @@ const integrations = [
       { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/syllago' },
     ],
     sidebar,
+    head: [
+      {
+        tag: 'link',
+        attrs: {
+          rel: 'alternate',
+          type: 'text/plain',
+          title: 'LLM-friendly version',
+          href: '/syllago-docs/llms.txt',
+        },
+      },
+    ],
     editLink: {
       baseUrl: 'https://github.com/OpenScribbler/syllago-docs/edit/main/',
     },

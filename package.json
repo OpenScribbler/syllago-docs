@@ -11,6 +11,7 @@
     "postinstall": "node scripts/patch-starlight-llms-txt.js",
     "prebuild": "bun scripts/sync-commands.ts && bun scripts/sync-errors.ts",
     "build": "astro build",
+    "postbuild": "bun scripts/postbuild-llms-links.ts",
     "preview": "astro preview",
     "astro": "astro"
   },

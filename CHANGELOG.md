@@ -11,11 +11,15 @@ All notable changes to the syllago documentation site.
 - Theme toggle on landing page header
 - Deep-dive content sections on landing page (replacing footer CTA)
 - Per-page `.md` source URLs via upgraded PageActions component
+- llms.txt `<link rel="alternate">` directive on all Starlight pages for agent discoverability
+- Postbuild script to rewrite internal links in llms-full.txt and llms-small.txt to `.md` URLs
+- Project CLAUDE.md with changelog-update rule
 
 ### Fixed
 - Broken links to CLI commands not yet in commands.json release (`add`, `install`, `publish`, `share`, `compat`, `registry create`)
 - Provider carousel dark mode — use actual fills instead of currentColor
 - Logo color consistency across themes (mint green + light purple)
+- Internal links in llms-full.txt now point to `.md` URLs instead of HTML pages
 
 ### Changed
 - Regenerated CLI reference from latest commands.json
