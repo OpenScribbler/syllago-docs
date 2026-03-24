@@ -15,6 +15,7 @@ export const sidebar: SidebarItem[] = [
       { label: 'The TUI', slug: 'using-syllago/tui' },
       {
         label: 'CLI Reference',
+        collapsed: true,
         autogenerate: { directory: 'using-syllago/cli-reference' },
       },
       {
