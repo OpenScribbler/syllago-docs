@@ -3,6 +3,8 @@ title: Providers
 description: The AI coding tools syllago integrates with, their supported content types, and how provider detection works.
 ---
 
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
+
 A **provider** is an AI coding tool that syllago can read from and write to. Each provider has its own configuration format, file locations, and set of supported content types. syllago handles the differences so you can share configuration between them.
 
 ## Checking available providers
@@ -17,20 +19,20 @@ syllago info providers
 
 Not every provider supports every content type. The matrix below shows what each provider can handle.
 
-| Provider | Slug | Rules | Skills | Agents | MCP | Hooks | Commands |
-|----------|------|:-----:|:------:|:------:|:---:|:-----:|:--------:|
+| Provider | Slug | Rules | Skills | Agents | MCP Configs | Hooks | Commands |
+|----------|------|:---:|:---:|:---:|:---:|:---:|:---:|
 | [Claude Code](/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Cursor](/using-syllago/providers/cursor/) | `cursor` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Copilot CLI](/using-syllago/providers/copilot/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — |
 | [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | — |
-| [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ |
-| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | — |
-| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | ✅ | — |
-| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — |
+| [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — |
+| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | ✅ | — |
+| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | — |
+| [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ |
+| [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — |
 
 Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
 
@@ -62,17 +64,4 @@ syllago compat my-skill
 
 This shows a matrix of which providers can handle the item, with any conversion warnings.
 
-## Provider descriptions
-
-- **Claude Code** (`claude-code`) — Anthropic's CLI and IDE agent with full support for all content types including loadouts.
-- **Gemini CLI** (`gemini-cli`) — Google's CLI agent with full support for all six standard content types.
-- **Cursor** (`cursor`) — AI-native code editor supporting all six content types with MDC format for rules.
-- **Copilot CLI** (`copilot-cli`) — GitHub's CLI agent supporting all six content types.
-- **Codex** (`codex`) — OpenAI's CLI agent supporting all six content types with TOML agent format.
-- **Kiro** (`kiro`) — AWS's AI IDE supporting rules, skills, agents, MCP, and hooks with Markdown/YAML frontmatter agent format.
-- **Windsurf** (`windsurf`) — AI-native code editor supporting rules, skills, hooks, and MCP.
-- **OpenCode** (`opencode`) — Terminal-based AI coding tool supporting rules, skills, agents, MCP, and commands.
-- **Roo Code** (`roo-code`) — VS Code extension supporting rules, skills, agents, and MCP with mode-specific rule directories.
-- **Cline** (`cline`) — VS Code extension supporting rules, hooks (file-based), and MCP.
-- **Amp** (`amp`) — AI coding assistant supporting rules (AGENTS.md), skills, and MCP.
-- **Zed** (`zed`) — High-performance editor supporting rules and MCP with unique `context_servers` JSON key.
+*Generated from syllago dev on 2026-03-28.*

@@ -3,7 +3,7 @@ title: Copilot CLI
 description: How syllago works with Copilot CLI.
 ---
 
-GitHub's CLI agent supporting rules, skills, agents, MCP, hooks, and commands.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ GitHub's CLI agent supporting rules, skills, agents, MCP, hooks, and commands.
 |--------|-------|
 | **Slug** | `copilot-cli` |
 | **Config directory** | `~/.copilot` |
-| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
+| **Supported content types** | Agents, Commands, Hooks, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -23,32 +23,33 @@ GitHub's CLI agent supporting rules, skills, agents, MCP, hooks, and commands.
 | MCP Configs | Yes | JSON merge |
 | Hooks | Yes | JSON merge |
 | Commands | Yes | Symlink |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `.github/copilot-instructions.md`, `AGENTS.md` | `~/.copilot/` | Markdown |
-| Skills | `.github/skills/` | `~/.github/skills/` | Markdown |
-| Agents | `.copilot/agents/`, `.github/agents/` | `~/.github/agents/` | Markdown |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `.github/copilot-instructions.md`, `AGENTS.md` | `~/.copilot` | Markdown |
+| Skills | `.github/skills` | `~/.github/skills` | Markdown |
+| Agents | `.copilot/agents`, `.github/agents`, `.claude/agents` | `~/.github/agents` | Markdown |
 | MCP Configs | `.copilot/mcp-config.json` | — | JSON |
-| Hooks | `.github/hooks/` | — | JSON |
-| Commands | `.copilot/commands/` | `~/.copilot/commands/` | Markdown |
+| Hooks | `.github/hooks` | — | JSON |
+| Commands | `.copilot/commands` | `~/.copilot/commands` | Markdown |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
 | Rules | `.github/copilot-instructions.md`, `AGENTS.md` |
-| Skills | `.github/skills/` |
-| Agents | `.copilot/agents/`, `.github/agents/`, `.claude/agents/` (fallback) |
+| Skills | `.github/skills` |
+| Agents | `.copilot/agents`, `.github/agents`, `.claude/agents` |
 | MCP Configs | `.copilot/mcp-config.json` |
-| Hooks | `.github/hooks/` |
-| Commands | `.copilot/commands/` |
+| Hooks | `.github/hooks` |
+| Commands | `.copilot/commands` |
 
 ## Detection
 
-Syllago detects Copilot CLI by checking for the `~/.copilot` directory or the `gh` command in PATH.
+Syllago detects Copilot CLI by checking for the `~/.copilot` directory.
 
 ## Working with Copilot CLI
 
@@ -64,3 +65,5 @@ syllago install my-rule --to copilot-cli
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

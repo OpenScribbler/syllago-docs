@@ -3,7 +3,7 @@ title: OpenCode
 description: How syllago works with OpenCode.
 ---
 
-A terminal-based AI coding tool supporting rules, skills, agents, MCP, and commands.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ A terminal-based AI coding tool supporting rules, skills, agents, MCP, and comma
 |--------|-------|
 | **Slug** | `opencode` |
 | **Config directory** | `~/.config/opencode` |
-| **Supported content types** | Rules, Skills, Agents, MCP Configs, Commands |
+| **Supported content types** | Agents, Commands, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -21,36 +21,33 @@ A terminal-based AI coding tool supporting rules, skills, agents, MCP, and comma
 | Skills | Yes | Symlink |
 | Agents | Yes | Symlink |
 | MCP Configs | Yes | JSON merge |
-| Commands | Yes | Symlink |
 | Hooks | No | — |
+| Commands | Yes | Symlink |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode/` | Markdown |
-| Skills | `.opencode/skills/` | `~/.config/opencode/skills/` | Markdown |
-| Agents | `.opencode/agents/` | `~/.config/opencode/agents/` | Markdown |
-| MCP Configs | `opencode.json`, `opencode.jsonc` | — | JSONC |
-| Commands | `.opencode/commands/` | `~/.config/opencode/commands/` | Markdown |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode` | Markdown |
+| Skills | `.opencode/skills` | `~/.config/opencode/skills` | Markdown |
+| Agents | `.opencode/agents` | `~/.config/opencode/agents` | Markdown |
+| MCP Configs | `opencode.json`, `opencode.jsonc` | — | JSON with comments |
+| Commands | `.opencode/commands` | `~/.config/opencode/commands` | Markdown |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
 | Rules | `AGENTS.md`, `CLAUDE.md` |
-| Skills | `.opencode/skills/` |
-| Agents | `.opencode/agents/` |
+| Skills | `.opencode/skills` |
+| Agents | `.opencode/agents` |
 | MCP Configs | `opencode.json`, `opencode.jsonc` |
-| Commands | `.opencode/commands/` |
-
-## Format Notes
-
-OpenCode uses **JSONC** (JSON with comments) for MCP configurations. Syllago handles the conversion automatically. Rules are discovered from both `AGENTS.md` and `CLAUDE.md` files.
+| Commands | `.opencode/commands` |
 
 ## Detection
 
-Syllago detects OpenCode by checking for the `~/.config/opencode/` directory or the `opencode` command in PATH.
+Syllago detects OpenCode by checking for the `~/.config/opencode` directory.
 
 ## Working with OpenCode
 
@@ -66,3 +63,5 @@ syllago install my-rule --to opencode
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

@@ -3,7 +3,7 @@ title: Kiro
 description: How syllago works with Kiro.
 ---
 
-AWS's AI IDE with support for rules, skills, agents, MCP configs, and hooks.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,44 +11,39 @@ AWS's AI IDE with support for rules, skills, agents, MCP configs, and hooks.
 |--------|-------|
 | **Slug** | `kiro` |
 | **Config directory** | `~/.kiro` |
-| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks |
+| **Supported content types** | Agents, Hooks, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
 | Content Type | Supported | Install Method |
 |-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| Skills | Yes | Symlink |
+| Rules | Yes | Project scope |
+| Skills | Yes | Project scope |
 | Agents | Yes | Symlink |
 | MCP Configs | Yes | JSON merge |
 | Hooks | Yes | JSON merge |
 | Commands | No | — |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `.kiro/steering/` | — | Markdown |
-| Skills | `.kiro/steering/` | — | Markdown |
-| Agents | `.kiro/agents/` | `~/.kiro/agents/` | Markdown (YAML frontmatter) |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `.kiro/steering` | — | Markdown |
+| Skills | `.kiro/steering` | — | Markdown |
+| Agents | `.kiro/agents` | `~/.kiro/agents` | Markdown |
 | MCP Configs | `.kiro/settings/mcp.json` | — | JSON |
-| Hooks | `.kiro/agents/` (embedded) | — | JSON |
+| Hooks | `.kiro/agents` | — | JSON |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
-| Rules | `.kiro/steering/` |
-| Skills | `.kiro/steering/` |
-| Agents | `.kiro/agents/` |
+| Rules | `.kiro/steering` |
+| Skills | `.kiro/steering` |
+| Agents | `.kiro/agents` |
 | MCP Configs | `.kiro/settings/mcp.json` |
-| Hooks | `.kiro/agents/` |
-
-## Format Notes
-
-Kiro agents use **Markdown with YAML frontmatter** containing up to 14 fields. There is also a **JSON CLI agent format** with support for embedded MCP servers, per-tool settings, lifecycle hooks, and keyboard shortcuts.
-
-Rules and skills are stored as Markdown "steering" files in `.kiro/steering/`. Hooks are embedded within agent JSON files rather than stored separately.
+| Hooks | `.kiro/agents` |
 
 ## Detection
 
@@ -68,3 +63,5 @@ syllago install my-rule --to kiro
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*
