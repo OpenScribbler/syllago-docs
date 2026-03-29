@@ -69,6 +69,7 @@ export const sidebar: SidebarItem[] = [
     label: 'Reference',
     collapsed: true,
     items: [
+      { label: 'Compare Providers', slug: 'reference/compare-providers' },
       { label: 'Hook Event Matrix', slug: 'reference/hook-events' },
     ],
   },
