@@ -1,0 +1,13 @@
+term: Rules
+slug: rules
+definition: Persistent instructions given to an AI coding tool that shape its behavior across sessions. Rules are typically stored as Markdown files and applied automatically whenever the tool is active in a project.
+category: content-type
+aliases:
+  - system prompt rules
+  - coding rules
+  - AI rules
+link: /using-syllago/content-types/rules/
+related:
+  - skills
+  - agents
+  - system-prompt

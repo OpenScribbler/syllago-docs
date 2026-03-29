@@ -1,0 +1,6 @@
+term: Meta-Registry
+slug: meta-registry
+definition: A registry of registries — the top-level index that syllago consults to discover available registries. The official syllago meta-registry lists all known public registries.
+category: core
+related:
+  - registry

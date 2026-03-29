@@ -1,0 +1,8 @@
+term: Hook Handler
+slug: hook-handler
+definition: The script or command that executes when a hook event fires. The handler receives event context (such as which tool was called and its inputs) and signals its outcome to the AI tool via process exit code.
+category: ai-ecosystem
+related:
+  - hooks
+  - hook-event
+  - exit-code-contract

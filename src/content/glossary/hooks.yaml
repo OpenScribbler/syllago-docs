@@ -1,0 +1,9 @@
+term: Hooks
+slug: hooks
+definition: Scripts or commands triggered automatically by specific events in an AI coding tool's lifecycle. Hooks can intercept tool calls, validate outputs, enforce policies, or run side effects without user input.
+category: content-type
+link: /using-syllago/content-types/hooks/
+related:
+  - hook-event
+  - hook-handler
+  - lifecycle-event

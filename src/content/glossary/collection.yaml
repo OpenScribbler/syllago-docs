@@ -1,0 +1,9 @@
+term: Collection
+slug: collection
+definition: One of the three ways syllago organizes content — the library (local), registries (remote shared), and loadouts (bundled sets). Together they form the full content management model.
+category: core
+link: /using-syllago/collections/
+related:
+  - library
+  - registry
+  - loadout

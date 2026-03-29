@@ -1,0 +1,7 @@
+term: Roo Code
+slug: roo-code
+definition: A VS Code extension for agentic AI coding with multi-mode support. Syllago supports rules, skills, agents, MCP configs, and hooks for Roo Code.
+category: provider
+aliases:
+  - Roo
+link: /using-syllago/providers/roo-code/

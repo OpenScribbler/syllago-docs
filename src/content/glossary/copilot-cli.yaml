@@ -1,0 +1,7 @@
+term: Copilot CLI
+slug: copilot-cli
+definition: GitHub Copilot's command-line interface for AI-assisted development. Syllago supports rules, skills, MCP configs, hooks, and commands for Copilot CLI.
+category: provider
+aliases:
+  - GitHub Copilot CLI
+link: /using-syllago/providers/copilot-cli/

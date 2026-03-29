@@ -1,0 +1,4 @@
+term: Context Window
+slug: context-window
+definition: The maximum amount of text (measured in tokens) that an AI model can process in a single interaction. Content exceeding the context window is truncated or summarized, which can affect response quality in large codebases.
+category: ai-ecosystem

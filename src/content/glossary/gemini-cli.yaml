@@ -1,0 +1,7 @@
+term: Gemini CLI
+slug: gemini-cli
+definition: Google's open-source terminal-based AI coding tool. Supports rules, skills, agents, MCP configs, hooks, and commands in syllago.
+category: provider
+link: /using-syllago/providers/gemini-cli/
+related:
+  - claude-code

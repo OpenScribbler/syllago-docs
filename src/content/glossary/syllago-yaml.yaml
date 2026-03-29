@@ -1,0 +1,8 @@
+term: .syllago.yaml
+slug: syllago-yaml
+definition: The metadata file that accompanies every content item in the syllago library. It tracks the item's unique ID, type, provenance, and acquisition timestamp. Syllago generates and maintains this file automatically.
+category: core
+link: /using-syllago/syllago-yaml/
+related:
+  - source-hash
+  - library

@@ -1,0 +1,7 @@
+term: Claude Code
+slug: claude-code
+definition: Anthropic's CLI-based AI coding tool and syllago's most feature-complete provider. Supports all syllago content types including rules, skills, agents, MCP configs, hooks, commands, and loadouts.
+category: provider
+link: /using-syllago/providers/claude-code/
+related:
+  - gemini-cli

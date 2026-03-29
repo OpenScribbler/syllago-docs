@@ -1,0 +1,7 @@
+term: Tool Call
+slug: tool-call
+definition: A structured request from an AI model to invoke an external capability, such as reading a file, running a shell command, or querying an API. Tool calls are the primary mechanism by which AI coding tools interact with the development environment.
+category: ai-ecosystem
+related:
+  - hook-event
+  - matcher

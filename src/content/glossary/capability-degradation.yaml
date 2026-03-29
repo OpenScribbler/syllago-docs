@@ -1,0 +1,7 @@
+term: Capability Degradation
+slug: capability-degradation
+definition: The automatic adaptation of hook or content behavior when a target provider doesn't support all features of the source. Syllago can be configured to block, warn, or silently exclude unsupported capabilities during conversion.
+category: ai-ecosystem
+related:
+  - portability-warning
+  - format-conversion

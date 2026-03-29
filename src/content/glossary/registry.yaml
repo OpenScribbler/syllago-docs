@@ -1,0 +1,8 @@
+term: Registry
+slug: registry
+definition: A remote, git-based repository of published syllago content that users can browse, install from, and publish to. Registries enable sharing content across teams and the broader syllago community.
+category: core
+link: /using-syllago/collections/
+related:
+  - meta-registry
+  - library

@@ -1,0 +1,10 @@
+term: MDC
+slug: mdc
+definition: Markdown Component format — an extension of standard Markdown used by Cursor for rule files. MDC adds metadata headers to Markdown files and uses the .mdc file extension. Syllago converts standard Markdown frontmatter to MDC format automatically when targeting Cursor.
+category: format
+abbr: MDC
+aliases:
+  - Markdown Component
+related:
+  - frontmatter
+  - cursor

@@ -1,0 +1,5 @@
+term: Amp
+slug: amp
+definition: Sourcegraph's AI coding assistant. Uses AGENTS.md format for rules with a globs array in frontmatter, and a provider-specific JSON key for MCP configs. Syllago handles both mappings automatically.
+category: provider
+link: /using-syllago/providers/amp/

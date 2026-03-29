@@ -1,0 +1,10 @@
+term: Agentic Coding Tool
+slug: agentic-coding-tool
+definition: An AI-powered development tool capable of autonomously executing multi-step coding tasks — reading files, writing code, running commands, and iterating on results — with minimal user intervention.
+category: ai-ecosystem
+aliases:
+  - AI coding tool
+  - AI code agent
+  - AI coding assistant
+related:
+  - provider

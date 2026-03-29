@@ -1,0 +1,5 @@
+term: Kiro
+slug: kiro
+definition: Amazon's AI IDE with spec-driven development workflows. Agent definitions use Markdown with YAML frontmatter and also support a JSON CLI format with embedded MCP servers and lifecycle hooks.
+category: provider
+link: /using-syllago/providers/kiro/
