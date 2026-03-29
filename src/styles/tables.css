@@ -234,7 +234,7 @@
 	min-width: 10rem;
 }
 
-/* Section header rows */
+/* Section header rows — sticky left so they don't scroll away */
 .compare-table .section-header td {
 	background: var(--color-base-900);
 	font-weight: 700;
@@ -244,6 +244,9 @@
 	color: var(--sl-color-accent-high, var(--sl-color-text-accent));
 	padding: 0.75rem 1rem 0.375rem;
 	border-bottom: 1px solid var(--sl-color-gray-5);
+	position: sticky;
+	left: 0;
+	z-index: 2;
 }
 
 :root[data-theme='light'] .compare-table .section-header td {
@@ -281,7 +284,7 @@
 	flex-wrap: wrap;
 	gap: 0.5rem;
 	margin-bottom: 1rem;
-	align-items: center;
+	align-items: stretch;
 }
 
 .provider-select {
@@ -295,6 +298,9 @@
 	font-family: inherit;
 	cursor: pointer;
 	appearance: none;
+	box-sizing: border-box;
+	line-height: 1;
+	margin: 0;
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23888' stroke-width='1.5'%3E%3Cpath d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: right 0.5rem center;
@@ -319,6 +325,9 @@
 	font-size: 0.875rem;
 	font-family: inherit;
 	cursor: pointer;
+	box-sizing: border-box;
+	line-height: 1;
+	margin: 0;
 	transition: border-color 0.15s, color 0.15s;
 }
 
@@ -359,6 +368,11 @@
 .scroll-indicator-right {
 	right: 0;
 	background: linear-gradient(to right, transparent, var(--sl-color-bg));
+}
+
+.scroll-indicator-left {
+	left: 0;
+	background: linear-gradient(to left, transparent, var(--sl-color-bg));
 }
 
 .scroll-indicator.visible {
