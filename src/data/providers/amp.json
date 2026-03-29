@@ -1,0 +1,69 @@
+{
+  "id": "amp",
+  "name": "Amp",
+  "slug": "amp",
+  "configDir": ".config/amp",
+  "emitPath": "{project}/AGENTS.md",
+  "content": {
+    "agents": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.amp/settings.json"
+      ],
+      "configLocation": ".amp/settings.json",
+      "mcpTransports": [
+        "stdio",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/amp",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/AGENTS.md",
+        "{project}/AGENT.md",
+        "{project}/CLAUDE.md"
+      ],
+      "frontmatterFields": [
+        "globs"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/agents/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.agents/skills",
+        "{project}/.claude/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description"
+      ]
+    }
+  }
+}

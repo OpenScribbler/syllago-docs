@@ -1,13 +1,5 @@
 [
   {
-    "label": "add",
-    "slug": "using-syllago/cli-reference/add"
-  },
-  {
-    "label": "compat",
-    "slug": "using-syllago/cli-reference/compat"
-  },
-  {
     "label": "completion",
     "collapsed": true,
     "items": [
@@ -50,26 +42,22 @@
         "slug": "using-syllago/cli-reference/config-list"
       },
       {
-        "label": "paths",
-        "slug": "using-syllago/cli-reference/config-paths"
-      },
-      {
         "label": "remove",
         "slug": "using-syllago/cli-reference/config-remove"
       }
     ]
   },
   {
-    "label": "convert",
-    "slug": "using-syllago/cli-reference/convert"
-  },
-  {
     "label": "create",
     "slug": "using-syllago/cli-reference/create"
   },
   {
-    "label": "explain",
-    "slug": "using-syllago/cli-reference/explain"
+    "label": "export",
+    "slug": "using-syllago/cli-reference/export"
+  },
+  {
+    "label": "import",
+    "slug": "using-syllago/cli-reference/import"
   },
   {
     "label": "info",
@@ -96,10 +84,6 @@
   {
     "label": "inspect",
     "slug": "using-syllago/cli-reference/inspect"
-  },
-  {
-    "label": "install",
-    "slug": "using-syllago/cli-reference/install"
   },
   {
     "label": "list",
@@ -136,8 +120,18 @@
     ]
   },
   {
-    "label": "publish",
-    "slug": "using-syllago/cli-reference/publish"
+    "label": "promote",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "promote",
+        "slug": "using-syllago/cli-reference/promote"
+      },
+      {
+        "label": "to-registry",
+        "slug": "using-syllago/cli-reference/promote-to-registry"
+      }
+    ]
   },
   {
     "label": "registry",
@@ -150,10 +144,6 @@
       {
         "label": "add",
         "slug": "using-syllago/cli-reference/registry-add"
-      },
-      {
-        "label": "create",
-        "slug": "using-syllago/cli-reference/registry-create"
       },
       {
         "label": "items",
@@ -172,10 +162,6 @@
         "slug": "using-syllago/cli-reference/registry-sync"
       }
     ]
-  },
-  {
-    "label": "remove",
-    "slug": "using-syllago/cli-reference/remove"
   },
   {
     "label": "sandbox",
@@ -236,20 +222,8 @@
     ]
   },
   {
-    "label": "share",
-    "slug": "using-syllago/cli-reference/share"
-  },
-  {
     "label": "sync-and-export",
     "slug": "using-syllago/cli-reference/sync-and-export"
-  },
-  {
-    "label": "uninstall",
-    "slug": "using-syllago/cli-reference/uninstall"
-  },
-  {
-    "label": "update",
-    "slug": "using-syllago/cli-reference/update"
   },
   {
     "label": "update",

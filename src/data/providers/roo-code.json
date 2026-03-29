@@ -1,0 +1,81 @@
+{
+  "id": "roo-code",
+  "name": "Roo Code",
+  "slug": "roo-code",
+  "configDir": ".roo",
+  "emitPath": "{project}/.roo/rules",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "yaml",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "frontmatterFields": [
+        "slug",
+        "name",
+        "roleDefinition",
+        "whenToUse",
+        "customInstructions",
+        "groups"
+      ]
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.roo/mcp.json"
+      ],
+      "configLocation": ".roo/mcp.json",
+      "mcpTransports": [
+        "stdio",
+        "sse",
+        "streamable-http"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.roo/rules",
+        "{project}/.roo/rules-code",
+        "{project}/.roo/rules-architect",
+        "{project}/.roo/rules-ask",
+        "{project}/.roo/rules-debug",
+        "{project}/.roo/rules-orchestrator",
+        "{project}/.roorules",
+        "{home}/.roo/rules"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.roo/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.roo/skills",
+        "{project}/.agents/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description"
+      ]
+    }
+  }
+}

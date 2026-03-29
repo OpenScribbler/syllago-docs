@@ -1,0 +1,108 @@
+{
+  "id": "cline",
+  "name": "Cline",
+  "slug": "cline",
+  "configDir": ".clinerules",
+  "emitPath": "{project}/.clinerules",
+  "content": {
+    "agents": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.clinerules/hooks"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "PostToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "before_compact",
+          "nativeName": "PreCompact",
+          "category": "context"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "UserPromptSubmit",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "PreToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "TaskComplete",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "TaskStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "task_cancel",
+          "nativeName": "TaskCancel",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "task_resume",
+          "nativeName": "TaskResume",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".clinerules/hooks"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{home}/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json"
+      ],
+      "configLocation": "cline_mcp_settings.json",
+      "mcpTransports": [
+        "stdio",
+        "sse",
+        "streamable-http"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.clinerules",
+        "{home}/Documents/Cline/Rules"
+      ],
+      "frontmatterFields": [
+        "paths"
+      ]
+    },
+    "skills": {
+      "supported": false,
+      "symlinkSupport": false
+    }
+  }
+}

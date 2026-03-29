@@ -1,6 +1,6 @@
 ---
 title: Amp
-description: How syllago works with Amp.
+description: How syllago works with Amp — supported content types, file locations, hook events, MCP configuration, and format details.
 ---
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
@@ -12,6 +12,7 @@ description: How syllago works with Amp.
 | **Slug** | `amp` |
 | **Config directory** | `~/.config/amp` |
 | **Supported content types** | MCP Configs, Rules, Skills |
+| **Emit path** | `AGENTS.md` |
 
 ## Supported Content Types
 
@@ -33,13 +34,22 @@ description: How syllago works with Amp.
 | Skills | `.agents/skills`, `.claude/skills` | `~/.config/agents/skills` | Markdown |
 | MCP Configs | `.amp/settings.json` | — | JSON |
 
-## Discovery Paths
+## MCP Configuration
 
-| Content Type | Discovery Paths |
-|-------------|----------------|
-| Rules | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` |
-| Skills | `.agents/skills`, `.claude/skills` |
-| MCP Configs | `.amp/settings.json` |
+| Detail | Value |
+|--------|-------|
+| **Transports** | `stdio`, `sse` |
+| **Config file** | `.amp/settings.json` |
+
+
+## Rules Format
+
+| Detail | Value |
+|--------|-------|
+| **File format** | Markdown |
+| **Frontmatter fields** | `globs` |
+| **Primary file** | `AGENTS.md` |
+
 
 ## Detection
 
@@ -60,4 +70,4 @@ syllago install my-rule --to amp
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

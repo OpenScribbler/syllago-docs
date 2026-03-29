@@ -1,0 +1,94 @@
+{
+  "id": "opencode",
+  "name": "OpenCode",
+  "slug": "opencode",
+  "configDir": ".config/opencode",
+  "emitPath": "{project}/AGENTS.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/opencode/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.opencode/agents"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "tools",
+        "model",
+        "steps",
+        "color",
+        "temperature"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/opencode/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.opencode/commands"
+      ],
+      "frontmatterFields": [
+        "description",
+        "agent",
+        "model",
+        "subtask"
+      ]
+    },
+    "hooks": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "jsonc",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/opencode.json",
+        "{project}/opencode.jsonc"
+      ],
+      "configLocation": "opencode.json",
+      "mcpTransports": [
+        "stdio"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/opencode",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/AGENTS.md",
+        "{project}/CLAUDE.md"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/opencode/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.opencode/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata"
+      ]
+    }
+  }
+}

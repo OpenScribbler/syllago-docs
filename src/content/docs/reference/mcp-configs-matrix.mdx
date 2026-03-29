@@ -1,0 +1,81 @@
+---
+title: MCP Comparison
+description: Cross-provider comparison of MCP Configs support — formats, install methods, discovery paths, and frontmatter fields.
+---
+
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
+
+MCP (Model Context Protocol) configs define external tool servers. Every provider supports MCP, but they differ in config file location, format, and supported transports.
+
+## Format and Install Method
+
+How each provider stores and installs mcp configs.
+
+| Provider | Format | Install Method | Symlink |
+|----------|--------|---------------|:-------:|
+| [Claude Code](/using-syllago/providers/claude-code/) | JSON | JSON merge | No |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | JSON | JSON merge | No |
+| [Cursor](/using-syllago/providers/cursor/) | JSON | JSON merge | No |
+| [Windsurf](/using-syllago/providers/windsurf/) | JSON | JSON merge | No |
+| [Codex](/using-syllago/providers/codex/) | TOML | JSON merge | No |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | JSON | JSON merge | No |
+| [Zed](/using-syllago/providers/zed/) | JSON | JSON merge | No |
+| [Cline](/using-syllago/providers/cline/) | JSON | JSON merge | No |
+| [Roo Code](/using-syllago/providers/roo-code/) | JSON | JSON merge | No |
+| [OpenCode](/using-syllago/providers/opencode/) | JSON with comments | JSON merge | No |
+| [Kiro](/using-syllago/providers/kiro/) | JSON | JSON merge | No |
+| [Amp](/using-syllago/providers/amp/) | JSON | JSON merge | No |
+
+## Discovery Paths
+
+Where each provider looks for mcp configs files. Paths with `~/` are relative to the user's home directory; others are relative to the project root.
+
+| Provider | Discovery Paths | Global Install Path |
+|----------|----------------|-------------------|
+| [Claude Code](/using-syllago/providers/claude-code/) | `.claude.json`, `.mcp.json` | — |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/settings.json` | — |
+| [Cursor](/using-syllago/providers/cursor/) | `.cursor/mcp.json` | — |
+| [Windsurf](/using-syllago/providers/windsurf/) | — | — |
+| [Codex](/using-syllago/providers/codex/) | — | — |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/mcp-config.json` | — |
+| [Zed](/using-syllago/providers/zed/) | — | — |
+| [Cline](/using-syllago/providers/cline/) | `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` | — |
+| [Roo Code](/using-syllago/providers/roo-code/) | `.roo/mcp.json` | — |
+| [OpenCode](/using-syllago/providers/opencode/) | `opencode.json`, `opencode.jsonc` | — |
+| [Kiro](/using-syllago/providers/kiro/) | `.kiro/settings/mcp.json` | — |
+| [Amp](/using-syllago/providers/amp/) | `.amp/settings.json` | — |
+
+## Config Location
+
+| Provider | Config File |
+|----------|------------|
+| [Claude Code](/using-syllago/providers/claude-code/) | `.mcp.json` |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/settings.json` |
+| [Cursor](/using-syllago/providers/cursor/) | `.cursor/mcp.json` |
+| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/mcp_config.json` |
+| [Codex](/using-syllago/providers/codex/) | `.codex/config.toml` |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/mcp-config.json` |
+| [Zed](/using-syllago/providers/zed/) | `~/.config/zed/settings.json` |
+| [Cline](/using-syllago/providers/cline/) | `cline_mcp_settings.json` |
+| [Roo Code](/using-syllago/providers/roo-code/) | `.roo/mcp.json` |
+| [OpenCode](/using-syllago/providers/opencode/) | `opencode.json` |
+| [Kiro](/using-syllago/providers/kiro/) | `.kiro/settings/mcp.json` |
+| [Amp](/using-syllago/providers/amp/) | `.amp/settings.json` |
+
+## Transport Support
+
+Which MCP transports each provider supports for communicating with tool servers.
+
+| Transport | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp |
+|-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `sse` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ |
+| `stdio` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `streamable-http` | ✓ | — | ✓ | — | — | — | — | ✓ | ✓ | — | — | — |
+
+## See Also
+
+- [MCP Configs Content Type](/using-syllago/content-types/mcp-configs/)
+- [Providers Overview](/using-syllago/providers/)
+- [Compare Providers](/reference/compare-providers/)
+
+*Generated from syllago dev on 2026-03-29.*

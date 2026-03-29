@@ -9,15 +9,20 @@ Registries are read-only git repos containing shared content (skills, rules,
 hooks, MCP configs, etc.). Use "registry sync" to pull updates, and
 "registry items" to browse what's available.
 
-To use registry content, browse it in the TUI ("syllago") or install it
-directly with "syllago install --to &lt;provider&gt;".
+To use registry content, browse it in the TUI ("syllago") or export it
+directly with "syllago export --to &lt;provider&gt;".
+
+Workflow:
+  syllago registry add &lt;url&gt;           Add a new registry
+  syllago registry sync                Pull latest from all registries
+  syllago registry items               Browse available content
+  syllago registry items --type skills Show only skills across registries
 
 ## Subcommands
 
 | Command | Description |
 |---------|-------------|
 | [`add`](/using-syllago/cli-reference/registry-add/) | Add a git registry |
-| [`create`](/using-syllago/cli-reference/registry-create/) | Create a new registry |
 | [`items`](/using-syllago/cli-reference/registry-items/) | Browse content available in registries |
 | [`list`](/using-syllago/cli-reference/registry-list/) | List registered registries |
 | [`remove`](/using-syllago/cli-reference/registry-remove/) | Remove a registry and delete its local clone |

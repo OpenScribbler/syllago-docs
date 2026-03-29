@@ -1,0 +1,81 @@
+{
+  "id": "codex",
+  "name": "Codex",
+  "slug": "codex",
+  "configDir": ".codex",
+  "emitPath": "{project}/AGENTS.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "toml",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codex",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.codex/agents"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codex",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.codex/commands"
+      ],
+      "frontmatterFields": [
+        "description",
+        "argument-hint"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codex",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.codex/hooks.json"
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".codex/hooks.json"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "toml",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "configLocation": ".codex/config.toml",
+      "mcpTransports": [
+        "stdio"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codex",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/AGENTS.md"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.agents/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.agents/skills"
+      ]
+    }
+  }
+}

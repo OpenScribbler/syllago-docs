@@ -1,6 +1,6 @@
 ---
 title: Windsurf
-description: How syllago works with Windsurf.
+description: How syllago works with Windsurf — supported content types, file locations, hook events, MCP configuration, and format details.
 ---
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
@@ -12,6 +12,7 @@ description: How syllago works with Windsurf.
 | **Slug** | `windsurf` |
 | **Config directory** | `~/.codeium/windsurf` |
 | **Supported content types** | Hooks, MCP Configs, Rules, Skills |
+| **Emit path** | `.windsurf/rules` |
 
 ## Supported Content Types
 
@@ -34,12 +35,29 @@ description: How syllago works with Windsurf.
 | MCP Configs | — | — | JSON |
 | Hooks | — | — | JSON |
 
-## Discovery Paths
+## Hooks
 
-| Content Type | Discovery Paths |
-|-------------|----------------|
-| Rules | `.windsurfrules`, `.windsurf/rules` |
-| Skills | `.windsurf/skills`, `.agents/skills` |
+Windsurf supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from Windsurf is best-effort.
+
+Hooks are configured in `.windsurf/hooks.json`.
+
+
+## MCP Configuration
+
+| Detail | Value |
+|--------|-------|
+| **Transports** | `stdio`, `sse` |
+| **Config file** | `.windsurf/mcp_config.json` |
+
+
+## Rules Format
+
+| Detail | Value |
+|--------|-------|
+| **File format** | Markdown |
+| **Frontmatter fields** | `trigger`, `description`, `globs` |
+| **Primary file** | `.windsurf/rules` |
+
 
 ## Detection
 
@@ -60,4 +78,4 @@ syllago install my-rule --to windsurf
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

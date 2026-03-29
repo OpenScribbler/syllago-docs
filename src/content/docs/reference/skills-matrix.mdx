@@ -1,0 +1,74 @@
+---
+title: Skills Comparison
+description: Cross-provider comparison of Skills support — formats, install methods, discovery paths, and frontmatter fields.
+---
+
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
+
+Skills are reusable prompt-driven capabilities that can be invoked by name. Not every provider supports them — and those that do vary in what frontmatter fields they recognize.
+
+## Format and Install Method
+
+How each provider stores and installs skills.
+
+| Provider | Format | Install Method | Symlink |
+|----------|--------|---------------|:-------:|
+| [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
+| [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
+| [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
+| [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
+| [Roo Code](/using-syllago/providers/roo-code/) | Markdown | Symlink | Yes |
+| [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
+| [Kiro](/using-syllago/providers/kiro/) | Markdown | Project scope | Yes |
+| [Amp](/using-syllago/providers/amp/) | Markdown | Symlink | Yes |
+
+## Discovery Paths
+
+Where each provider looks for skills files. Paths with `~/` are relative to the user's home directory; others are relative to the project root.
+
+| Provider | Discovery Paths | Global Install Path |
+|----------|----------------|-------------------|
+| [Claude Code](/using-syllago/providers/claude-code/) | `.claude/skills` | `~/.claude/skills` |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/skills`, `.agents/skills` | `~/.gemini/skills` |
+| [Cursor](/using-syllago/providers/cursor/) | `.cursor/skills` | `~/.cursor/skills` |
+| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/skills`, `.agents/skills` | `~/.codeium/windsurf/skills` |
+| [Codex](/using-syllago/providers/codex/) | `.agents/skills` | `~/.agents/skills` |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.github/skills` | `~/.github/skills` |
+| [Roo Code](/using-syllago/providers/roo-code/) | `.roo/skills`, `.agents/skills` | `~/.roo/skills` |
+| [OpenCode](/using-syllago/providers/opencode/) | `.opencode/skills` | `~/.config/opencode/skills` |
+| [Kiro](/using-syllago/providers/kiro/) | `.kiro/steering` | — |
+| [Amp](/using-syllago/providers/amp/) | `.agents/skills`, `.claude/skills` | `~/.config/agents/skills` |
+
+## Frontmatter Fields
+
+Which frontmatter fields each provider recognizes in skills files. A checkmark means the provider parses and uses that field during conversion.
+
+| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Roo Code | OpenCode | Kiro | Amp |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | — | — | — | — | — | — |
+| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | — | — | ✓ | — | — | — | — |
+| `compatibility` | ✓ | — | ✓ | — | — | — | — | ✓ | ✓ | — |
+| `context` | ✓ | — | — | — | — | — | — | — | — | — |
+| `description` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `disable-model-invocation` | ✓ | — | ✓ | — | — | ✓ | — | — | — | — |
+| `disallowed-tools` | ✓ | — | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — | — |
+| `hooks` | ✓ | — | — | — | — | — | — | — | — | — |
+| `license` | ✓ | — | ✓ | — | — | ✓ | — | ✓ | ✓ | — |
+| `metadata` | ✓ | — | ✓ | — | — | — | — | ✓ | ✓ | — |
+| `model` | ✓ | — | — | — | — | — | — | — | — | — |
+| `name` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `user-invocable` | ✓ | — | — | — | — | ✓ | — | — | — | — |
+
+**Not supported by:** [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/).
+
+## See Also
+
+- [Skills Content Type](/using-syllago/content-types/skills/)
+- [Providers Overview](/using-syllago/providers/)
+- [Compare Providers](/reference/compare-providers/)
+
+*Generated from syllago dev on 2026-03-29.*

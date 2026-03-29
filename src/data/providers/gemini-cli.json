@@ -1,0 +1,157 @@
+{
+  "id": "gemini-cli",
+  "name": "Gemini CLI",
+  "slug": "gemini-cli",
+  "configDir": ".gemini",
+  "emitPath": "{project}/GEMINI.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.gemini/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.gemini/agents"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "tools",
+        "model",
+        "max_turns",
+        "temperature",
+        "timeout_mins",
+        "kind"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.gemini/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.gemini/commands"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "prompt"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.gemini/settings.json"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_model",
+          "nativeName": "AfterModel",
+          "category": "model"
+        },
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "AfterTool",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "AfterAgent",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_compact",
+          "nativeName": "PreCompress",
+          "category": "context"
+        },
+        {
+          "canonical": "before_model",
+          "nativeName": "BeforeModel",
+          "category": "model"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "BeforeAgent",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "BeforeTool",
+          "category": "tool"
+        },
+        {
+          "canonical": "before_tool_selection",
+          "nativeName": "BeforeToolSelection",
+          "category": "model"
+        },
+        {
+          "canonical": "notification",
+          "nativeName": "Notification",
+          "category": "output"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "SessionEnd",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "SessionStart",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".gemini/settings.json"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.gemini/settings.json"
+      ],
+      "configLocation": ".gemini/settings.json",
+      "mcpTransports": [
+        "stdio",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.gemini",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/GEMINI.md"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.gemini/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.gemini/skills",
+        "{project}/.agents/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description"
+      ]
+    }
+  }
+}

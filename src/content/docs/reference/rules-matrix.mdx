@@ -1,0 +1,70 @@
+---
+title: Rules Comparison
+description: Cross-provider comparison of Rules support — formats, install methods, discovery paths, and frontmatter fields.
+---
+
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
+
+Rules are the most universal content type — every provider supports them. But the format, frontmatter fields, and file locations vary. This matrix shows how rules work across providers so you know what converts cleanly and what gets adjusted.
+
+## Format and Install Method
+
+How each provider stores and installs rules.
+
+| Provider | Format | Install Method | Symlink |
+|----------|--------|---------------|:-------:|
+| [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
+| [Cursor](/using-syllago/providers/cursor/) | MDC (Markdown + frontmatter) | Symlink | Yes |
+| [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
+| [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
+| [Zed](/using-syllago/providers/zed/) | Markdown | Project scope | Yes |
+| [Cline](/using-syllago/providers/cline/) | Markdown | Project scope | Yes |
+| [Roo Code](/using-syllago/providers/roo-code/) | Markdown | Project scope | Yes |
+| [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
+| [Kiro](/using-syllago/providers/kiro/) | Markdown | Project scope | Yes |
+| [Amp](/using-syllago/providers/amp/) | Markdown | Symlink | Yes |
+
+## Discovery Paths
+
+Where each provider looks for rules files. Paths with `~/` are relative to the user's home directory; others are relative to the project root.
+
+| Provider | Discovery Paths | Global Install Path |
+|----------|----------------|-------------------|
+| [Claude Code](/using-syllago/providers/claude-code/) | `CLAUDE.md`, `.claude/rules` | `~/.claude/rules` |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `GEMINI.md` | `~/.gemini` |
+| [Cursor](/using-syllago/providers/cursor/) | `.cursor/rules`, `.cursorrules` | `~/.cursor` |
+| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurfrules`, `.windsurf/rules` | `~/.codeium/windsurf` |
+| [Codex](/using-syllago/providers/codex/) | `AGENTS.md` | `~/.codex` |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.github/copilot-instructions.md`, `AGENTS.md` | `~/.copilot` |
+| [Zed](/using-syllago/providers/zed/) | `.rules`, `.cursorrules`, `CLAUDE.md` | — |
+| [Cline](/using-syllago/providers/cline/) | `.clinerules`, `~/Documents/Cline/Rules` | — |
+| [Roo Code](/using-syllago/providers/roo-code/) | `.roo/rules`, `.roo/rules-code`, `.roo/rules-architect`, `.roo/rules-ask`, `.roo/rules-debug`, `.roo/rules-orchestrator`, `.roorules`, `~/.roo/rules` | — |
+| [OpenCode](/using-syllago/providers/opencode/) | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode` |
+| [Kiro](/using-syllago/providers/kiro/) | `.kiro/steering` | — |
+| [Amp](/using-syllago/providers/amp/) | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` | `~/.config/amp` |
+
+## Frontmatter Fields
+
+Which frontmatter fields each provider recognizes in rules files. A checkmark means the provider parses and uses that field during conversion.
+
+| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `alwaysApply` | — | — | ✓ | — | — | — | — | — | — | — | — | — |
+| `applyTo` | — | — | — | — | — | ✓ | — | — | — | — | — | — |
+| `description` | — | — | ✓ | ✓ | — | — | — | — | — | — | ✓ | — |
+| `fileMatchPattern` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
+| `globs` | — | — | ✓ | ✓ | — | — | — | — | — | — | — | ✓ |
+| `inclusion` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
+| `name` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
+| `paths` | ✓ | — | — | — | — | — | — | ✓ | — | — | — | — |
+| `trigger` | — | — | — | ✓ | — | — | — | — | — | — | — | — |
+
+## See Also
+
+- [Rules Content Type](/using-syllago/content-types/rules/)
+- [Providers Overview](/using-syllago/providers/)
+- [Compare Providers](/reference/compare-providers/)
+
+*Generated from syllago dev on 2026-03-29.*

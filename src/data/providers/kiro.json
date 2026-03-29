@@ -1,0 +1,128 @@
+{
+  "id": "kiro",
+  "name": "Kiro",
+  "slug": "kiro",
+  "configDir": ".kiro",
+  "emitPath": "{project}/.kiro/steering",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.kiro/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.kiro/agents"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "model",
+        "tools",
+        "allowedTools",
+        "toolAliases",
+        "toolsSettings",
+        "mcpServers",
+        "resources",
+        "includeMcpJson",
+        "includePowers",
+        "keyboardShortcut",
+        "welcomeMessage",
+        "hooks"
+      ]
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.kiro/agents"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "postToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "stop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "userPromptSubmit",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "preToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "agentSpawn",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".kiro/agents/"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.kiro/settings/mcp.json"
+      ],
+      "configLocation": ".kiro/settings/mcp.json",
+      "mcpTransports": [
+        "stdio",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.kiro/steering"
+      ],
+      "frontmatterFields": [
+        "inclusion",
+        "fileMatchPattern",
+        "name",
+        "description"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.kiro/steering"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata"
+      ]
+    }
+  }
+}

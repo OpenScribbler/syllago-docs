@@ -1,6 +1,6 @@
 ---
 title: Codex
-description: How syllago works with Codex.
+description: How syllago works with Codex — supported content types, file locations, hook events, MCP configuration, and format details.
 ---
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
@@ -12,6 +12,7 @@ description: How syllago works with Codex.
 | **Slug** | `codex` |
 | **Config directory** | `~/.codex` |
 | **Supported content types** | Agents, Commands, Hooks, MCP Configs, Rules, Skills |
+| **Emit path** | `AGENTS.md` |
 
 ## Supported Content Types
 
@@ -32,19 +33,24 @@ description: How syllago works with Codex.
 | Rules | `AGENTS.md` | `~/.codex` | Markdown |
 | Skills | `.agents/skills` | `~/.agents/skills` | Markdown |
 | Agents | `.codex/agents` | `~/.codex` | TOML |
-| MCP Configs | — | — | Markdown |
+| MCP Configs | — | — | TOML |
 | Hooks | `.codex/hooks.json` | `~/.codex` | JSON |
 | Commands | `.codex/commands` | `~/.codex` | Markdown |
 
-## Discovery Paths
+## Hooks
 
-| Content Type | Discovery Paths |
-|-------------|----------------|
-| Rules | `AGENTS.md` |
-| Skills | `.agents/skills` |
-| Agents | `.codex/agents` |
-| Hooks | `.codex/hooks.json` |
-| Commands | `.codex/commands` |
+Codex supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from Codex is best-effort.
+
+Hooks are configured in `.codex/hooks.json`.
+
+
+## MCP Configuration
+
+| Detail | Value |
+|--------|-------|
+| **Transports** | `stdio` |
+| **Config file** | `.codex/config.toml` |
+
 
 ## Detection
 
@@ -65,4 +71,4 @@ syllago install my-rule --to codex
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

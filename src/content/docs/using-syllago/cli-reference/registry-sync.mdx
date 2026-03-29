@@ -13,9 +13,13 @@ syllago registry sync [name]
 
 Runs git pull on registry clones to fetch the latest content.
 
-Sync updates the local clone only — it does not modify your library or
+Sync updates the local clone only — it does not modify your local/ or
 installed provider content. Use "syllago registry items" to see what changed,
-and "syllago install" to activate updated content.
+and "syllago export" to install updated content.
+
+Examples:
+  syllago registry sync              Sync all registries
+  syllago registry sync my-rules     Sync a specific registry
 
 ## Global Options
 
@@ -26,21 +30,10 @@ and "syllago install" to activate updated content.
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
 
-## Examples
-
-```bash
-  # Sync all registries
-  syllago registry sync
-
-  # Sync a specific registry
-  syllago registry sync my-rules
-```
-
 ## See Also
 
 - [syllago registry](/using-syllago/cli-reference/registry/)
 - [syllago registry add](/using-syllago/cli-reference/registry-add/)
-- [syllago registry create](/using-syllago/cli-reference/registry-create/)
 - [syllago registry items](/using-syllago/cli-reference/registry-items/)
 - [syllago registry list](/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/using-syllago/cli-reference/registry-remove/)

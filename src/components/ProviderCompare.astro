@@ -1,0 +1,552 @@
+---
+/**
+ * ProviderCompare.astro — Interactive side-by-side provider comparison.
+ *
+ * Embeds all provider data at build time. Vanilla JS handles dropdown
+ * selection and table rendering on the client. No framework needed.
+ *
+ * Props:
+ *   maxSlots: number — max providers to compare (default 3)
+ *   defaultSlugs: string[] — initial provider selection (default first 2)
+ */
+import { getCollection } from 'astro:content';
+
+interface Props {
+  maxSlots?: number;
+  defaultSlugs?: string[];
+}
+
+const { maxSlots = 3, defaultSlugs } = Astro.props;
+
+const providers = await getCollection('providers');
+const sorted = providers
+  .map(p => p.data)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+// Pick defaults: first two alphabetically if not specified.
+const defaults = defaultSlugs ?? sorted.slice(0, 2).map(p => p.slug);
+
+const CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands', 'loadouts'];
+const CT_DISPLAY: Record<string, string> = {
+  rules: 'Rules', skills: 'Skills', agents: 'Agents',
+  mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands', loadouts: 'Loadouts',
+};
+const FORMAT_DISPLAY: Record<string, string> = {
+  md: 'Markdown', mdc: 'MDC', json: 'JSON', jsonc: 'JSONC', yaml: 'YAML', toml: 'TOML',
+};
+const METHOD_DISPLAY: Record<string, string> = {
+  filesystem: 'Symlink', 'json-merge': 'JSON merge', 'project-scope': 'Project scope',
+};
+---
+
+<div
+  class="provider-compare"
+  data-max-slots={maxSlots}
+  data-defaults={JSON.stringify(defaults)}
+  data-providers={JSON.stringify(sorted)}
+>
+  <div class="compare-controls">
+    {defaults.map((slug, i) => (
+      <select class="provider-select" data-slot={i} aria-label={`Provider ${i + 1}`}>
+        <option value="">Select provider…</option>
+        {sorted.map(p => (
+          <option value={p.slug} selected={p.slug === slug}>{p.name}</option>
+        ))}
+      </select>
+    ))}
+    {defaults.length < maxSlots && (
+      <button class="add-provider-btn" type="button" aria-label="Add another provider to compare">
+        + Add
+      </button>
+    )}
+  </div>
+
+  <div class="compare-scroll-wrapper">
+    <div class="scroll-indicator scroll-indicator-right" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M8 4l6 6-6 6"/>
+      </svg>
+    </div>
+    <div class="compare-table-container">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th class="row-label-col">Feature</th>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              return <th class="provider-col" data-slug={slug}>{prov?.name ?? slug}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {/* Overview section */}
+          <tr class="section-header"><td colspan={defaults.length + 1}>General</td></tr>
+          <tr>
+            <td class="row-label">Config directory</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              return <td data-slug={slug}><code>~/{prov?.configDir}</code></td>;
+            })}
+          </tr>
+          <tr>
+            <td class="row-label">Emit path</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const emit = prov?.emitPath?.replace('{project}/', '') ?? '—';
+              return <td data-slug={slug}>{emit !== '—' ? <code>{emit}</code> : '—'}</td>;
+            })}
+          </tr>
+
+          {/* Content type support */}
+          <tr class="section-header"><td colspan={defaults.length + 1}>Content Type Support</td></tr>
+          {CONTENT_TYPES.map(ct => (
+            <tr>
+              <td class="row-label">{CT_DISPLAY[ct] ?? ct}</td>
+              {defaults.map((slug) => {
+                const prov = sorted.find(p => p.slug === slug);
+                const cap = prov?.content?.[ct];
+                if (!cap?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+                const fmt = FORMAT_DISPLAY[cap.fileFormat ?? ''] ?? cap.fileFormat ?? '';
+                const method = METHOD_DISPLAY[cap.installMethod ?? ''] ?? cap.installMethod ?? '';
+                const detail = [fmt, method].filter(Boolean).join(' · ');
+                return <td data-slug={slug} class="cell-yes">{detail || 'Yes'}</td>;
+              })}
+            </tr>
+          ))}
+
+          {/* Hooks detail */}
+          <tr class="section-header"><td colspan={defaults.length + 1}>Hooks</td></tr>
+          <tr>
+            <td class="row-label">Hook events</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const hooks = prov?.content?.hooks;
+              if (!hooks?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              const count = hooks.hookEvents?.length ?? 0;
+              return <td data-slug={slug}>{count > 0 ? `${count} events` : 'Pending'}</td>;
+            })}
+          </tr>
+          <tr>
+            <td class="row-label">Hook types</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const hooks = prov?.content?.hooks;
+              if (!hooks?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              const types = hooks.hookTypes ?? ['command'];
+              return <td data-slug={slug}>{types.map(t => <code>{t}</code>)}</td>;
+            })}
+          </tr>
+          <tr>
+            <td class="row-label">Hook config</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const hooks = prov?.content?.hooks;
+              if (!hooks?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              return <td data-slug={slug}>{hooks.configLocation ? <code>{hooks.configLocation}</code> : '—'}</td>;
+            })}
+          </tr>
+
+          {/* MCP detail */}
+          <tr class="section-header"><td colspan={defaults.length + 1}>MCP</td></tr>
+          <tr>
+            <td class="row-label">Transports</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const mcp = prov?.content?.mcp;
+              if (!mcp?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              const transports = mcp.mcpTransports ?? [];
+              return <td data-slug={slug}>{transports.length > 0 ? transports.join(', ') : '—'}</td>;
+            })}
+          </tr>
+          <tr>
+            <td class="row-label">MCP config file</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const mcp = prov?.content?.mcp;
+              if (!mcp?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              return <td data-slug={slug}>{mcp.configLocation ? <code>{mcp.configLocation}</code> : '—'}</td>;
+            })}
+          </tr>
+
+          {/* Rules detail */}
+          <tr class="section-header"><td colspan={defaults.length + 1}>Rules</td></tr>
+          <tr>
+            <td class="row-label">Format</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const rules = prov?.content?.rules;
+              if (!rules?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              return <td data-slug={slug}>{FORMAT_DISPLAY[rules.fileFormat ?? ''] ?? rules.fileFormat ?? '—'}</td>;
+            })}
+          </tr>
+          <tr>
+            <td class="row-label">Frontmatter fields</td>
+            {defaults.map((slug) => {
+              const prov = sorted.find(p => p.slug === slug);
+              const rules = prov?.content?.rules;
+              if (!rules?.supported) return <td data-slug={slug} class="cell-no">—</td>;
+              const fields = rules.frontmatterFields ?? [];
+              return <td data-slug={slug}>{fields.length > 0 ? fields.map(f => <code>{f}</code>) : 'None'}</td>;
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Component-specific styles only — table/scroll styles are in src/styles/tables.css */
+  .provider-compare {
+    margin: 1.5rem 0;
+  }
+
+  .compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+
+  .provider-select {
+    height: 2.25rem;
+    padding: 0 2rem 0 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-white);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23888' stroke-width='1.5'%3E%3Cpath d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+  }
+
+  .provider-select:hover {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  .provider-select:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .add-provider-btn {
+    height: 2.25rem;
+    padding: 0 0.75rem;
+    border: 1px dashed var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--sl-color-gray-3);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .add-provider-btn:hover {
+    border-color: var(--sl-color-gray-4);
+    color: var(--sl-color-white);
+  }
+
+  @media (max-width: 50rem) {
+    .provider-select {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+(function() {
+  function init() {
+    var root = document.querySelector('.provider-compare');
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = 'true';
+
+    var allProviders = JSON.parse(root.dataset.providers);
+
+    var maxSlots = parseInt(root.dataset.maxSlots) || 3;
+    var selected = JSON.parse(root.dataset.defaults);
+
+    var controls = root.querySelector('.compare-controls');
+    var container = root.querySelector('.compare-table-container');
+    var indicator = root.querySelector('.scroll-indicator-right');
+
+    var CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands', 'loadouts'];
+    var CT_DISPLAY = {
+      rules: 'Rules', skills: 'Skills', agents: 'Agents',
+      mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands', loadouts: 'Loadouts'
+    };
+    var FORMAT_DISPLAY = {
+      md: 'Markdown', mdc: 'MDC', json: 'JSON', jsonc: 'JSONC', yaml: 'YAML', toml: 'TOML'
+    };
+    var METHOD_DISPLAY = {
+      filesystem: 'Symlink', 'json-merge': 'JSON merge', 'project-scope': 'Project scope'
+    };
+
+    function getProvider(slug) {
+      for (var i = 0; i < allProviders.length; i++) {
+        if (allProviders[i].slug === slug) return allProviders[i];
+      }
+      return null;
+    }
+
+    // Safe DOM table builder — no innerHTML, builds elements directly.
+    function createEl(tag, className, text) {
+      var el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text !== undefined) el.textContent = text;
+      return el;
+    }
+
+    function createCode(text) {
+      var c = document.createElement('code');
+      c.textContent = text;
+      return c;
+    }
+
+    function createCell(text, className) {
+      var td = document.createElement('td');
+      if (className) td.className = className;
+      if (text !== undefined) td.textContent = text;
+      return td;
+    }
+
+    function createCodeCell(text) {
+      var td = document.createElement('td');
+      td.appendChild(createCode(text));
+      return td;
+    }
+
+    function createDashCell() {
+      return createCell('—', 'cell-no');
+    }
+
+    function checkScroll() {
+      if (!container || !indicator) return;
+      var hasOverflow = container.scrollWidth > container.clientWidth;
+      var atEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 2;
+      indicator.classList.toggle('visible', hasOverflow && !atEnd);
+    }
+
+    function buildSectionHeader(text, cols) {
+      var tr = document.createElement('tr');
+      tr.className = 'section-header';
+      var td = document.createElement('td');
+      td.setAttribute('colspan', cols);
+      td.textContent = text;
+      tr.appendChild(td);
+      return tr;
+    }
+
+    function buildRow(label, provs, cellFn) {
+      var tr = document.createElement('tr');
+      var labelTd = createCell(label, 'row-label');
+      tr.appendChild(labelTd);
+      provs.forEach(function(p) {
+        tr.appendChild(cellFn(p));
+      });
+      return tr;
+    }
+
+    function render() {
+      var provs = selected.map(getProvider).filter(Boolean);
+      if (provs.length === 0) return;
+
+      var cols = provs.length + 1;
+      var table = root.querySelector('.compare-table');
+
+      // Clear and rebuild table using DOM methods.
+      while (table.firstChild) table.removeChild(table.firstChild);
+
+      // Header
+      var thead = document.createElement('thead');
+      var headerRow = document.createElement('tr');
+      headerRow.appendChild(createEl('th', 'row-label-col', 'Feature'));
+      provs.forEach(function(p) {
+        headerRow.appendChild(createEl('th', 'provider-col', p.name));
+      });
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      var tbody = document.createElement('tbody');
+
+      // General section
+      tbody.appendChild(buildSectionHeader('General', cols));
+      tbody.appendChild(buildRow('Config directory', provs, function(p) {
+        return createCodeCell('~/' + p.configDir);
+      }));
+      tbody.appendChild(buildRow('Emit path', provs, function(p) {
+        var emit = p.emitPath ? p.emitPath.replace('{project}/', '') : null;
+        return emit ? createCodeCell(emit) : createCell('—');
+      }));
+
+      // Content type support
+      tbody.appendChild(buildSectionHeader('Content Type Support', cols));
+      CONTENT_TYPES.forEach(function(ct) {
+        tbody.appendChild(buildRow(CT_DISPLAY[ct] || ct, provs, function(p) {
+          var cap = p.content && p.content[ct];
+          if (!cap || !cap.supported) return createDashCell();
+          var fmt = FORMAT_DISPLAY[cap.fileFormat || ''] || cap.fileFormat || '';
+          var method = METHOD_DISPLAY[cap.installMethod || ''] || cap.installMethod || '';
+          var detail = [fmt, method].filter(Boolean).join(' \u00b7 ');
+          return createCell(detail || 'Yes', 'cell-yes');
+        }));
+      });
+
+      // Hooks
+      tbody.appendChild(buildSectionHeader('Hooks', cols));
+      tbody.appendChild(buildRow('Hook events', provs, function(p) {
+        var h = p.content && p.content.hooks;
+        if (!h || !h.supported) return createDashCell();
+        var count = (h.hookEvents || []).length;
+        return createCell(count > 0 ? count + ' events' : 'Pending');
+      }));
+      tbody.appendChild(buildRow('Hook types', provs, function(p) {
+        var h = p.content && p.content.hooks;
+        if (!h || !h.supported) return createDashCell();
+        var td = document.createElement('td');
+        (h.hookTypes || ['command']).forEach(function(t, i) {
+          if (i > 0) td.appendChild(document.createTextNode(' '));
+          td.appendChild(createCode(t));
+        });
+        return td;
+      }));
+      tbody.appendChild(buildRow('Hook config', provs, function(p) {
+        var h = p.content && p.content.hooks;
+        if (!h || !h.supported) return createDashCell();
+        return h.configLocation ? createCodeCell(h.configLocation) : createCell('—');
+      }));
+
+      // MCP
+      tbody.appendChild(buildSectionHeader('MCP', cols));
+      tbody.appendChild(buildRow('Transports', provs, function(p) {
+        var m = p.content && p.content.mcp;
+        if (!m || !m.supported) return createDashCell();
+        var t = m.mcpTransports || [];
+        return createCell(t.length > 0 ? t.join(', ') : '—');
+      }));
+      tbody.appendChild(buildRow('MCP config file', provs, function(p) {
+        var m = p.content && p.content.mcp;
+        if (!m || !m.supported) return createDashCell();
+        return m.configLocation ? createCodeCell(m.configLocation) : createCell('—');
+      }));
+
+      // Rules
+      tbody.appendChild(buildSectionHeader('Rules', cols));
+      tbody.appendChild(buildRow('Format', provs, function(p) {
+        var r = p.content && p.content.rules;
+        if (!r || !r.supported) return createDashCell();
+        return createCell(FORMAT_DISPLAY[r.fileFormat || ''] || r.fileFormat || '—');
+      }));
+      tbody.appendChild(buildRow('Frontmatter fields', provs, function(p) {
+        var r = p.content && p.content.rules;
+        if (!r || !r.supported) return createDashCell();
+        var fields = r.frontmatterFields || [];
+        if (fields.length === 0) return createCell('None');
+        var td = document.createElement('td');
+        fields.forEach(function(f, i) {
+          if (i > 0) td.appendChild(document.createTextNode(' '));
+          td.appendChild(createCode(f));
+        });
+        return td;
+      }));
+
+      table.appendChild(tbody);
+
+      requestAnimationFrame(checkScroll);
+    }
+
+    function updateControls() {
+      while (controls.firstChild) controls.removeChild(controls.firstChild);
+
+      selected.forEach(function(slug, i) {
+        var sel = document.createElement('select');
+        sel.className = 'provider-select';
+        sel.dataset.slot = i;
+        sel.setAttribute('aria-label', 'Provider ' + (i + 1));
+
+        var emptyOpt = document.createElement('option');
+        emptyOpt.value = '';
+        emptyOpt.textContent = 'Select provider\u2026';
+        sel.appendChild(emptyOpt);
+
+        allProviders.forEach(function(p) {
+          var opt = document.createElement('option');
+          opt.value = p.slug;
+          opt.textContent = p.name;
+          if (p.slug === slug) opt.selected = true;
+          sel.appendChild(opt);
+        });
+
+        sel.addEventListener('change', function() {
+          selected[i] = sel.value;
+          render();
+        });
+
+        controls.appendChild(sel);
+      });
+
+      if (selected.length < maxSlots) {
+        var btn = document.createElement('button');
+        btn.className = 'add-provider-btn';
+        btn.type = 'button';
+        btn.textContent = '+ Add';
+        btn.setAttribute('aria-label', 'Add another provider to compare');
+        btn.addEventListener('click', function() {
+          var used = {};
+          selected.forEach(function(s) { used[s] = true; });
+          var next = '';
+          for (var j = 0; j < allProviders.length; j++) {
+            if (!used[allProviders[j].slug]) { next = allProviders[j].slug; break; }
+          }
+          selected.push(next);
+          updateControls();
+          render();
+        });
+        controls.appendChild(btn);
+      }
+    }
+
+    // Scroll indicator
+    if (container) {
+      container.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', checkScroll);
+    }
+
+    // Attach change handlers to SSR-rendered selects.
+    var selects = controls.querySelectorAll('.provider-select');
+    selects.forEach(function(sel) {
+      sel.addEventListener('change', function() {
+        var idx = parseInt(sel.dataset.slot);
+        selected[idx] = sel.value;
+        render();
+      });
+    });
+
+    var addBtn = controls.querySelector('.add-provider-btn');
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
+        var used = {};
+        selected.forEach(function(s) { used[s] = true; });
+        var next = '';
+        for (var j = 0; j < allProviders.length; j++) {
+          if (!used[allProviders[j].slug]) { next = allProviders[j].slug; break; }
+        }
+        selected.push(next);
+        updateControls();
+        render();
+      });
+    }
+
+    checkScroll();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+})();
+</script>
