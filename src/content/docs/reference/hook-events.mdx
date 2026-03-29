@@ -15,17 +15,23 @@ Syllago maps each provider's native hook event names to **canonical events** —
 
 ## Collaboration
 
+Multi-agent coordination events. Fires when teammate agents become idle or available.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `teammate_idle` | `TeammateIdle` | — | — | — | — | — |
 
 ## Config
 
+Configuration file change detection. Fires when settings files are modified during a session.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `config_change` | `ConfigChange` | — | — | — | — | — |
 
 ## Context
+
+Events related to context management — compaction, instruction loading, and context window maintenance.
 
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
@@ -35,12 +41,16 @@ Syllago maps each provider's native hook event names to **canonical events** —
 
 ## Interaction
 
+User-facing prompts and dialogs. Fires when the agent asks questions or presents choices.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `elicitation` | `Elicitation` | — | — | — | — | — |
 | `elicitation_result` | `ElicitationResult` | — | — | — | — | — |
 
 ## Lifecycle
+
+Session and agent lifecycle boundaries — start, stop, errors, subagents, and task completion.
 
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
@@ -58,6 +68,8 @@ Syllago maps each provider's native hook event names to **canonical events** —
 
 ## Model
 
+Model invocation boundaries. Fires before/after LLM calls and tool selection decisions.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `after_model` | — | `AfterModel` | — | — | — | — |
@@ -66,17 +78,23 @@ Syllago maps each provider's native hook event names to **canonical events** —
 
 ## Output
 
+Events for agent output like notifications and status messages.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `notification` | `Notification` | `Notification` | — | — | — | — |
 
 ## Security
 
+Permission and authorization checkpoints. Fires when the agent requests elevated permissions.
+
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
 | `permission_request` | `PermissionRequest` | — | — | — | — | — |
 
 ## Tool
+
+Fired before and after tool/function calls. Use these to validate, log, or transform tool inputs and outputs.
 
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|
@@ -85,6 +103,8 @@ Syllago maps each provider's native hook event names to **canonical events** —
 | `before_tool_execute` | `PreToolUse` | `BeforeTool` | `PreToolUse` | `preToolUse` | `PreToolUse` | `preToolUse` |
 
 ## Workspace
+
+Git worktree creation and removal. Fires when the agent manages isolated working copies.
 
 | Canonical Event | Claude Code | Gemini CLI | Cursor | Copilot CLI | Cline | Kiro |
 |-----------------|---|---|---|---|---|---|

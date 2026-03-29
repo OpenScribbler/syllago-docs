@@ -71,6 +71,11 @@ export const sidebar: SidebarItem[] = [
     items: [
       { label: 'Compare Providers', slug: 'reference/compare-providers' },
       { label: 'Hook Event Matrix', slug: 'reference/hook-events' },
+      { label: 'Rules Matrix', slug: 'reference/rules-matrix' },
+      { label: 'Skills Matrix', slug: 'reference/skills-matrix' },
+      { label: 'Agents Matrix', slug: 'reference/agents-matrix' },
+      { label: 'MCP Matrix', slug: 'reference/mcp-configs-matrix' },
+      { label: 'Commands Matrix', slug: 'reference/commands-matrix' },
     ],
   },
   {

@@ -1,0 +1,64 @@
+---
+title: Commands Comparison
+description: Cross-provider comparison of Commands support — formats, install methods, discovery paths, and frontmatter fields.
+---
+
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
+
+Commands are user-invokable shortcuts (like slash commands). Only some providers support them, and frontmatter fields differ substantially.
+
+## Format and Install Method
+
+How each provider stores and installs commands.
+
+| Provider | Format | Install Method | Symlink |
+|----------|--------|---------------|:-------:|
+| [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
+| [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
+| [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
+| [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
+
+## Discovery Paths
+
+Where each provider looks for commands files. Paths with `~/` are relative to the user's home directory; others are relative to the project root.
+
+| Provider | Discovery Paths | Global Install Path |
+|----------|----------------|-------------------|
+| [Claude Code](/using-syllago/providers/claude-code/) | `.claude/commands` | `~/.claude/commands` |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/commands` | `~/.gemini/commands` |
+| [Cursor](/using-syllago/providers/cursor/) | `.cursor/commands` | `~/.cursor/commands` |
+| [Codex](/using-syllago/providers/codex/) | `.codex/commands` | `~/.codex` |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/commands` | `~/.copilot/commands` |
+| [OpenCode](/using-syllago/providers/opencode/) | `.opencode/commands` | `~/.config/opencode/commands` |
+
+## Frontmatter Fields
+
+Which frontmatter fields each provider recognizes in commands files. A checkmark means the provider parses and uses that field during conversion.
+
+| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | OpenCode |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | ✓ | ✓ |
+| `allowed-tools` | ✓ | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | ✓ | ✓ | — |
+| `context` | ✓ | — | — | — | — | — |
+| `description` | ✓ | ✓ | — | ✓ | ✓ | ✓ |
+| `disable-model-invocation` | ✓ | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — |
+| `model` | ✓ | — | — | — | ✓ | ✓ |
+| `name` | ✓ | ✓ | — | — | ✓ | — |
+| `prompt` | — | ✓ | — | — | — | — |
+| `subtask` | — | — | — | — | — | ✓ |
+| `tools` | — | — | — | — | ✓ | — |
+| `user-invocable` | ✓ | — | — | — | — | — |
+
+**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Roo Code](/using-syllago/providers/roo-code/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/).
+
+## See Also
+
+- [Commands Content Type](/using-syllago/content-types/commands/)
+- [Providers Overview](/using-syllago/providers/)
+- [Compare Providers](/reference/compare-providers/)
+
+*Generated from syllago dev on 2026-03-29.*

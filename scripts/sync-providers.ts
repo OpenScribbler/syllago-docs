@@ -111,6 +111,44 @@ const CATEGORY_DISPLAY: Record<string, string> = {
   model: "Model",
 };
 
+// Hook event category descriptions — shown below each category heading.
+const CATEGORY_CONTEXT: Record<string, string> = {
+  tool: "Fired before and after tool/function calls. Use these to validate, log, or transform tool inputs and outputs.",
+  lifecycle: "Session and agent lifecycle boundaries — start, stop, errors, subagents, and task completion.",
+  context: "Events related to context management — compaction, instruction loading, and context window maintenance.",
+  output: "Events for agent output like notifications and status messages.",
+  security: "Permission and authorization checkpoints. Fires when the agent requests elevated permissions.",
+  config: "Configuration file change detection. Fires when settings files are modified during a session.",
+  workspace: "Git worktree creation and removal. Fires when the agent manages isolated working copies.",
+  interaction: "User-facing prompts and dialogs. Fires when the agent asks questions or presents choices.",
+  collaboration: "Multi-agent coordination events. Fires when teammate agents become idle or available.",
+  model: "Model invocation boundaries. Fires before/after LLM calls and tool selection decisions.",
+};
+
+// Content type page descriptions.
+const CT_PAGE_DESCRIPTIONS: Record<string, { title: string; intro: string }> = {
+  rules: {
+    title: "Rules Comparison",
+    intro: "Rules are the most universal content type — every provider supports them. But the format, frontmatter fields, and file locations vary. This matrix shows how rules work across providers so you know what converts cleanly and what gets adjusted.",
+  },
+  skills: {
+    title: "Skills Comparison",
+    intro: "Skills are reusable prompt-driven capabilities that can be invoked by name. Not every provider supports them — and those that do vary in what frontmatter fields they recognize.",
+  },
+  agents: {
+    title: "Agents Comparison",
+    intro: "Agent definitions configure autonomous sub-processes with specific tools, models, and behaviors. Providers vary significantly in agent format and capability.",
+  },
+  mcp: {
+    title: "MCP Comparison",
+    intro: "MCP (Model Context Protocol) configs define external tool servers. Every provider supports MCP, but they differ in config file location, format, and supported transports.",
+  },
+  commands: {
+    title: "Commands Comparison",
+    intro: "Commands are user-invokable shortcuts (like slash commands). Only some providers support them, and frontmatter fields differ substantially.",
+  },
+};
+
 // ---------------------------------------------------------------------------
 // GitHub auth (same as sync-commands.ts)
 // ---------------------------------------------------------------------------
@@ -566,9 +604,13 @@ function generateHookEventMatrix(
   // Render one table per category.
   for (const cat of categories) {
     const catDisplay = CATEGORY_DISPLAY[cat] || cat || "Other";
+    const catContext = CATEGORY_CONTEXT[cat];
     const events = eventsByCategory.get(cat)!;
 
     lines.push(`## ${catDisplay}`, "");
+    if (catContext) {
+      lines.push(catContext, "");
+    }
     lines.push(`| Canonical Event | ${provCols.join(" | ")} |`);
     lines.push(`|-----------------|${provCols.map(() => "---").join("|")}|`);
 
@@ -621,6 +663,206 @@ function generateHookEventMatrix(
 }
 
 // ---------------------------------------------------------------------------
+// MDX generation — Content Type Matrix pages
+// ---------------------------------------------------------------------------
+
+function generateContentTypeMatrix(
+  contentType: string,
+  providers: ProviderCapEntry[],
+  manifest: ProviderManifest
+): string {
+  const pageInfo = CT_PAGE_DESCRIPTIONS[contentType];
+  if (!pageInfo) return "";
+
+  // Providers that support this content type.
+  const supported = providers.filter((p) => p.content[contentType]?.supported);
+  const unsupported = providers.filter((p) => !p.content[contentType]?.supported);
+
+  const provNames = supported.map((p) => p.name);
+  const provSlugs = supported.map((p) => p.slug);
+
+  const lines: string[] = [
+    "---",
+    `title: ${pageInfo.title}`,
+    `description: Cross-provider comparison of ${CT_DISPLAY[contentType] || contentType} support — formats, install methods, discovery paths, and frontmatter fields.`,
+    "---",
+    "",
+    "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
+    "",
+    pageInfo.intro,
+    "",
+  ];
+
+  // Overview table: format, install method, symlink support.
+  lines.push(
+    "## Format and Install Method",
+    "",
+    `How each provider stores and installs ${CT_DISPLAY[contentType]?.toLowerCase() || contentType}.`,
+    "",
+    `| Provider | Format | Install Method | Symlink |`,
+    `|----------|--------|---------------|:-------:|`
+  );
+
+  for (const prov of supported) {
+    const cap = prov.content[contentType]!;
+    const link = `[${prov.name}](/using-syllago/providers/${prov.slug}/)`;
+    const fmt = FORMAT_DISPLAY[cap.fileFormat || ""] || cap.fileFormat || "—";
+    const method = METHOD_DISPLAY[cap.installMethod || ""] || cap.installMethod || "—";
+    const symlink = cap.symlinkSupport ? "Yes" : "No";
+    lines.push(`| ${link} | ${fmt} | ${method} | ${symlink} |`);
+  }
+  lines.push("");
+
+  // Discovery paths table.
+  const hasDiscovery = supported.some(
+    (p) => p.content[contentType]?.discoveryPaths?.length
+  );
+
+  if (hasDiscovery) {
+    lines.push(
+      "## Discovery Paths",
+      "",
+      `Where each provider looks for ${CT_DISPLAY[contentType]?.toLowerCase() || contentType} files. Paths with \`~/\` are relative to the user's home directory; others are relative to the project root.`,
+      "",
+      `| Provider | Discovery Paths | Global Install Path |`,
+      `|----------|----------------|-------------------|`
+    );
+
+    for (const prov of supported) {
+      const cap = prov.content[contentType]!;
+      const link = `[${prov.name}](/using-syllago/providers/${prov.slug}/)`;
+      const discovery = cap.discoveryPaths?.length
+        ? cap.discoveryPaths
+            .map(
+              (p) =>
+                `\`${p.replace("{project}/", "").replace("{home}/", "~/")}\``
+            )
+            .join(", ")
+        : "—";
+      const global = cap.installPath
+        ? `\`${cap.installPath.replace("{home}/", "~/")}\``
+        : "—";
+      lines.push(`| ${link} | ${discovery} | ${global} |`);
+    }
+    lines.push("");
+  }
+
+  // Frontmatter fields matrix — only if any provider has fields.
+  const allFields = new Set<string>();
+  for (const prov of supported) {
+    const cap = prov.content[contentType];
+    for (const f of cap?.frontmatterFields ?? []) {
+      allFields.add(f);
+    }
+  }
+
+  if (allFields.size > 0) {
+    const sortedFields = [...allFields].sort();
+
+    lines.push(
+      "## Frontmatter Fields",
+      "",
+      `Which frontmatter fields each provider recognizes in ${CT_DISPLAY[contentType]?.toLowerCase() || contentType} files. A checkmark means the provider parses and uses that field during conversion.`,
+      "",
+      `| Field | ${provNames.join(" | ")} |`,
+      `|-------|${provNames.map(() => ":---:").join("|")}|`
+    );
+
+    for (const field of sortedFields) {
+      const cells = provSlugs.map((slug) => {
+        const prov = supported.find((p) => p.slug === slug)!;
+        const cap = prov.content[contentType];
+        return cap?.frontmatterFields?.includes(field) ? "✓" : "—";
+      });
+      lines.push(`| \`${field}\` | ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
+  // Config location — for hooks and MCP.
+  const hasConfig = supported.some(
+    (p) => p.content[contentType]?.configLocation
+  );
+
+  if (hasConfig) {
+    lines.push(
+      "## Config Location",
+      "",
+      `| Provider | Config File |`,
+      `|----------|------------|`
+    );
+
+    for (const prov of supported) {
+      const cap = prov.content[contentType]!;
+      const link = `[${prov.name}](/using-syllago/providers/${prov.slug}/)`;
+      const config = cap.configLocation
+        ? `\`${cap.configLocation}\``
+        : "—";
+      lines.push(`| ${link} | ${config} |`);
+    }
+    lines.push("");
+  }
+
+  // MCP-specific: transports.
+  if (contentType === "mcp") {
+    const hasTransports = supported.some(
+      (p) => p.content.mcp?.mcpTransports?.length
+    );
+    if (hasTransports) {
+      // Collect all transports.
+      const allTransports = new Set<string>();
+      for (const prov of supported) {
+        for (const t of prov.content.mcp?.mcpTransports ?? []) {
+          allTransports.add(t);
+        }
+      }
+      const sortedTransports = [...allTransports].sort();
+
+      lines.push(
+        "## Transport Support",
+        "",
+        "Which MCP transports each provider supports for communicating with tool servers.",
+        "",
+        `| Transport | ${provNames.join(" | ")} |`,
+        `|-----------|${provNames.map(() => ":---:").join("|")}|`
+      );
+
+      for (const transport of sortedTransports) {
+        const cells = provSlugs.map((slug) => {
+          const prov = supported.find((p) => p.slug === slug)!;
+          return prov.content.mcp?.mcpTransports?.includes(transport)
+            ? "✓"
+            : "—";
+        });
+        lines.push(`| \`${transport}\` | ${cells.join(" | ")} |`);
+      }
+      lines.push("");
+    }
+  }
+
+  // Unsupported providers note.
+  if (unsupported.length > 0) {
+    lines.push(
+      `**Not supported by:** ${unsupported.map((p) => `[${p.name}](/using-syllago/providers/${p.slug}/)`).join(", ")}.`,
+      ""
+    );
+  }
+
+  lines.push(
+    "## See Also",
+    "",
+    `- [${CT_DISPLAY[contentType] || contentType} Content Type](/using-syllago/content-types/${contentType === "mcp" ? "mcp-configs" : contentType}/)`,
+    "- [Providers Overview](/using-syllago/providers/)",
+    "- [Compare Providers](/reference/compare-providers/)",
+    "",
+    `*Generated from syllago ${manifest.syllagoVersion} on ${manifest.generatedAt.split("T")[0]}.*`,
+    ""
+  );
+
+  return lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -661,13 +903,27 @@ async function main() {
 
   console.log(`  MDX: ${count} provider pages`);
 
-  // 3. Generate hook event matrix page.
+  // 3. Generate reference pages.
   mkdirSync(REFERENCE_DIR, { recursive: true });
+
   const matrixContent = generateHookEventMatrix(manifest.providers, manifest);
   writeFileSync(join(REFERENCE_DIR, "hook-events.mdx"), matrixContent);
   console.log("  MDX: reference/hook-events.mdx");
 
-  console.log(`  Total: ${count + 2} MDX + ${manifest.providers.length} JSON`);
+  // 4. Generate content type comparison pages.
+  let refCount = 1; // hook-events already counted
+  const CT_MATRIX_TYPES = ["rules", "skills", "agents", "mcp", "commands"];
+  for (const ct of CT_MATRIX_TYPES) {
+    const ctContent = generateContentTypeMatrix(ct, manifest.providers, manifest);
+    if (ctContent) {
+      const slug = ct === "mcp" ? "mcp-configs" : ct;
+      writeFileSync(join(REFERENCE_DIR, `${slug}-matrix.mdx`), ctContent);
+      console.log(`  MDX: reference/${slug}-matrix.mdx`);
+      refCount++;
+    }
+  }
+
+  console.log(`  Total: ${count + 1 + refCount} MDX + ${manifest.providers.length} JSON`);
 }
 
 main().catch((err) => {
