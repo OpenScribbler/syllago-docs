@@ -1,6 +1,8 @@
 #!/usr/bin/env bun
 /**
- * sync-providers.ts — Fetches providers.json and generates MDX pages for provider reference.
+ * sync-providers.ts — Fetches providers.json and generates:
+ *   1. Per-provider JSON data files (src/data/providers/*.json) for Astro data collection
+ *   2. MDX documentation pages (src/content/docs/using-syllago/providers/*.mdx)
  *
  * Usage:
  *   bun scripts/sync-providers.ts                                # fetch from latest GitHub release
@@ -16,19 +18,10 @@ import { execFileSync } from "child_process";
 // Types (mirrors the Go ProviderManifest schema)
 // ---------------------------------------------------------------------------
 
-interface ProviderManifest {
-  version: string;
-  generatedAt: string;
-  syllagoVersion: string;
-  providers: ProviderCapEntry[];
-  contentTypes: string[];
-}
-
-interface ProviderCapEntry {
-  name: string;
-  slug: string;
-  configDir: string;
-  content: Record<string, ContentCapability>;
+interface HookEventInfo {
+  canonical: string;
+  nativeName: string;
+  category?: string;
 }
 
 interface ContentCapability {
@@ -38,17 +31,38 @@ interface ContentCapability {
   installPath?: string;
   symlinkSupport: boolean;
   discoveryPaths?: string[];
+  // Enrichment fields
+  hookEvents?: HookEventInfo[];
+  hookTypes?: string[];
+  configLocation?: string;
+  mcpTransports?: string[];
+  frontmatterFields?: string[];
+}
+
+interface ProviderCapEntry {
+  name: string;
+  slug: string;
+  configDir: string;
+  emitPath?: string;
+  content: Record<string, ContentCapability>;
+}
+
+interface ProviderManifest {
+  version: string;
+  generatedAt: string;
+  syllagoVersion: string;
+  providers: ProviderCapEntry[];
+  contentTypes: string[];
 }
 
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
 
+const ROOT_DIR = dirname(import.meta.dir);
 const GITHUB_REPO = "OpenScribbler/syllago";
-const OUTPUT_DIR = join(
-  dirname(import.meta.dir),
-  "src/content/docs/using-syllago/providers"
-);
+const MDX_OUTPUT_DIR = join(ROOT_DIR, "src/content/docs/using-syllago/providers");
+const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
 const FETCH_TIMEOUT_MS = 15_000;
 
 // Display names for content types (used in tables).
@@ -80,6 +94,20 @@ const METHOD_DISPLAY: Record<string, string> = {
   filesystem: "Symlink",
   "json-merge": "JSON merge",
   "project-scope": "Project scope",
+};
+
+// Hook event category display names.
+const CATEGORY_DISPLAY: Record<string, string> = {
+  tool: "Tool",
+  lifecycle: "Lifecycle",
+  context: "Context",
+  output: "Output",
+  security: "Security",
+  config: "Config",
+  workspace: "Workspace",
+  interaction: "Interaction",
+  collaboration: "Collaboration",
+  model: "Model",
 };
 
 // ---------------------------------------------------------------------------
@@ -162,6 +190,26 @@ async function loadManifest(): Promise<ProviderManifest> {
 }
 
 // ---------------------------------------------------------------------------
+// Data collection output — Per-provider JSON files
+// ---------------------------------------------------------------------------
+
+function writeProviderDataFiles(providers: ProviderCapEntry[]): void {
+  rmSync(DATA_OUTPUT_DIR, { recursive: true, force: true });
+  mkdirSync(DATA_OUTPUT_DIR, { recursive: true });
+
+  for (const prov of providers) {
+    // Write provider data with slug as the JSON id field for Astro's glob loader.
+    const data = { id: prov.slug, ...prov };
+    writeFileSync(
+      join(DATA_OUTPUT_DIR, `${prov.slug}.json`),
+      JSON.stringify(data, null, 2) + "\n"
+    );
+  }
+
+  console.log(`  Data: ${providers.length} JSON files in ${DATA_OUTPUT_DIR}`);
+}
+
+// ---------------------------------------------------------------------------
 // MDX generation — Index page
 // ---------------------------------------------------------------------------
 
@@ -193,13 +241,13 @@ function generateIndexPage(
     "",
   ];
 
-  // Build the matrix table.
+  // Build the matrix table with hooks count and MCP transports columns.
   const headerCols = MATRIX_TYPES.map((ct) => CT_DISPLAY[ct] || ct);
   lines.push(
-    `| Provider | Slug | ${headerCols.join(" | ")} |`
+    `| Provider | Slug | ${headerCols.join(" | ")} | Hook Events | MCP Transports |`
   );
   lines.push(
-    `|----------|------|${headerCols.map(() => ":---:").join("|")}|`
+    `|----------|------|${headerCols.map(() => ":---:").join("|")}|:---:|:---:|`
   );
 
   for (const prov of providers) {
@@ -208,7 +256,16 @@ function generateIndexPage(
       return cap?.supported ? "✅" : "—";
     });
     const link = `[${prov.name}](/using-syllago/providers/${prov.slug}/)`;
-    lines.push(`| ${link} | \`${prov.slug}\` | ${cells.join(" | ")} |`);
+
+    // Hook events count.
+    const hookEvents = prov.content.hooks?.hookEvents?.length ?? 0;
+    const hookCell = hookEvents > 0 ? `${hookEvents}` : "—";
+
+    // MCP transports.
+    const mcpTransports = prov.content.mcp?.mcpTransports ?? [];
+    const mcpCell = mcpTransports.length > 0 ? mcpTransports.join(", ") : "—";
+
+    lines.push(`| ${link} | \`${prov.slug}\` | ${cells.join(" | ")} | ${hookCell} | ${mcpCell} |`);
   }
 
   lines.push(
@@ -233,16 +290,6 @@ function generateIndexPage(
     "",
     "If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.",
     "",
-    "## Provider compatibility",
-    "",
-    "Use `syllago compat` to check which providers support a specific content item:",
-    "",
-    "```bash",
-    "syllago compat my-skill",
-    "```",
-    "",
-    "This shows a matrix of which providers can handle the item, with any conversion warnings.",
-    "",
     `*Generated from syllago ${manifest.syllagoVersion} on ${manifest.generatedAt.split("T")[0]}.*`,
     ""
   );
@@ -251,7 +298,7 @@ function generateIndexPage(
 }
 
 // ---------------------------------------------------------------------------
-// MDX generation — Per-provider pages
+// MDX generation — Per-provider pages (enriched)
 // ---------------------------------------------------------------------------
 
 function generateProviderPage(
@@ -265,7 +312,7 @@ function generateProviderPage(
   const lines: string[] = [
     "---",
     `title: ${prov.name}`,
-    `description: How syllago works with ${prov.name}.`,
+    `description: How syllago works with ${prov.name} — supported content types, file locations, hook events, MCP configuration, and format details.`,
     "---",
     "",
     "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
@@ -277,12 +324,22 @@ function generateProviderPage(
     `| **Slug** | \`${prov.slug}\` |`,
     `| **Config directory** | \`~/${prov.configDir}\` |`,
     `| **Supported content types** | ${supportedTypes.join(", ")} |`,
+  ];
+
+  // Emit path.
+  if (prov.emitPath) {
+    lines.push(
+      `| **Emit path** | \`${prov.emitPath.replace("{project}/", "")}\` |`
+    );
+  }
+
+  lines.push(
     "",
     "## Supported Content Types",
     "",
     "| Content Type | Supported | Install Method |",
-    "|-------------|-----------|---------------|",
-  ];
+    "|-------------|-----------|---------------|"
+  );
 
   for (const ct of [...MATRIX_TYPES, "loadouts"]) {
     const cap = prov.content[ct];
@@ -313,11 +370,12 @@ function generateProviderPage(
       const cap = prov.content[ct];
       if (!cap?.supported) continue;
       const name = CT_DISPLAY[ct] || ct;
-      const format = FORMAT_DISPLAY[cap.fileFormat || ""] || cap.fileFormat || "—";
+      const format =
+        FORMAT_DISPLAY[cap.fileFormat || ""] || cap.fileFormat || "—";
 
       const discovery = cap.discoveryPaths?.length
         ? cap.discoveryPaths
-            .map((p) => `\`${p.replace("{project}/", "")}\``)
+            .map((p) => `\`${p.replace("{project}/", "").replace("{home}/", "~/")}\``)
             .join(", ")
         : "—";
 
@@ -329,29 +387,85 @@ function generateProviderPage(
     }
   }
 
-  // Discovery paths detail.
-  const hasDiscovery = Object.values(prov.content).some(
-    (cap) => cap.supported && cap.discoveryPaths?.length
-  );
-
-  if (hasDiscovery) {
+  // --- Enrichment: Hook events ---
+  const hooksCap = prov.content.hooks;
+  if (hooksCap?.supported && hooksCap.hookEvents?.length) {
     lines.push(
       "",
-      "## Discovery Paths",
+      "## Hook Events",
       "",
-      "| Content Type | Discovery Paths |",
-      "|-------------|----------------|"
+      `${prov.name} supports **${hooksCap.hookEvents.length} hook events** with handler types: ${(hooksCap.hookTypes ?? ["command"]).map((t) => `\`${t}\``).join(", ")}.`,
+      ""
     );
 
-    for (const ct of [...MATRIX_TYPES, "loadouts"]) {
-      const cap = prov.content[ct];
-      if (!cap?.supported || !cap.discoveryPaths?.length) continue;
-      const name = CT_DISPLAY[ct] || ct;
-      const paths = cap.discoveryPaths
-        .map((p) => `\`${p.replace("{project}/", "")}\``)
-        .join(", ");
-      lines.push(`| ${name} | ${paths} |`);
+    if (hooksCap.configLocation) {
+      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
     }
+
+    lines.push(
+      "| Event | Native Name | Category |",
+      "|-------|------------|----------|"
+    );
+
+    for (const ev of hooksCap.hookEvents) {
+      const cat = ev.category
+        ? CATEGORY_DISPLAY[ev.category] || ev.category
+        : "—";
+      lines.push(
+        `| \`${ev.canonical}\` | \`${ev.nativeName}\` | ${cat} |`
+      );
+    }
+  } else if (hooksCap?.supported) {
+    // Supports hooks but no event mappings yet (e.g. Windsurf, Codex).
+    lines.push(
+      "",
+      "## Hooks",
+      "",
+      `${prov.name} supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from ${prov.name} is best-effort.`,
+      ""
+    );
+    if (hooksCap.configLocation) {
+      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
+    }
+  }
+
+  // --- Enrichment: MCP configuration ---
+  const mcpCap = prov.content.mcp;
+  if (mcpCap?.supported && mcpCap.mcpTransports?.length) {
+    lines.push(
+      "",
+      "## MCP Configuration",
+      "",
+      "| Detail | Value |",
+      "|--------|-------|",
+      `| **Transports** | ${mcpCap.mcpTransports.map((t) => `\`${t}\``).join(", ")} |`
+    );
+    if (mcpCap.configLocation) {
+      lines.push(
+        `| **Config file** | \`${mcpCap.configLocation}\` |`
+      );
+    }
+    lines.push("");
+  }
+
+  // --- Enrichment: Rules format ---
+  const rulesCap = prov.content.rules;
+  if (rulesCap?.supported && rulesCap.frontmatterFields?.length) {
+    lines.push(
+      "",
+      "## Rules Format",
+      "",
+      "| Detail | Value |",
+      "|--------|-------|",
+      `| **File format** | ${FORMAT_DISPLAY[rulesCap.fileFormat || ""] || rulesCap.fileFormat || "Markdown"} |`,
+      `| **Frontmatter fields** | ${rulesCap.frontmatterFields.map((f) => `\`${f}\``).join(", ")} |`
+    );
+    if (prov.emitPath) {
+      lines.push(
+        `| **Primary file** | \`${prov.emitPath.replace("{project}/", "")}\` |`
+      );
+    }
+    lines.push("");
   }
 
   // Detection.
@@ -392,7 +506,7 @@ async function main() {
   try {
     manifest = await loadManifest();
   } catch (err: any) {
-    if (existsSync(join(OUTPUT_DIR, "index.mdx"))) {
+    if (existsSync(join(MDX_OUTPUT_DIR, "index.mdx"))) {
       console.log(`Sync skipped: ${err.message}`);
       console.log("Using existing provider reference files.");
       return;
@@ -404,25 +518,26 @@ async function main() {
     `Loaded ${manifest.providers.length} providers from syllago ${manifest.syllagoVersion}`
   );
 
-  // Wipe output directory.
-  rmSync(OUTPUT_DIR, { recursive: true, force: true });
-  mkdirSync(OUTPUT_DIR, { recursive: true });
+  // 1. Write per-provider JSON data files for Astro data collection.
+  writeProviderDataFiles(manifest.providers);
 
-  // Generate index page.
+  // 2. Generate MDX pages.
+  rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });
+  mkdirSync(MDX_OUTPUT_DIR, { recursive: true });
+
   const indexContent = generateIndexPage(manifest.providers, manifest);
-  writeFileSync(join(OUTPUT_DIR, "index.mdx"), indexContent);
-  console.log("  Generated: index.mdx");
+  writeFileSync(join(MDX_OUTPUT_DIR, "index.mdx"), indexContent);
+  console.log("  MDX: index.mdx");
 
-  // Generate per-provider pages.
   let count = 0;
   for (const prov of manifest.providers) {
     const content = generateProviderPage(prov, manifest);
-    writeFileSync(join(OUTPUT_DIR, `${prov.slug}.mdx`), content);
+    writeFileSync(join(MDX_OUTPUT_DIR, `${prov.slug}.mdx`), content);
     count++;
   }
 
-  console.log(`  Generated: ${count} provider pages`);
-  console.log(`  Total: ${count + 1} files in ${OUTPUT_DIR}`);
+  console.log(`  MDX: ${count} provider pages`);
+  console.log(`  Total: ${count + 1} MDX + ${manifest.providers.length} JSON`);
 }
 
 main().catch((err) => {

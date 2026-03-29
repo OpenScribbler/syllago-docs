@@ -1,0 +1,140 @@
+{
+  "id": "cursor",
+  "name": "Cursor",
+  "slug": "cursor",
+  "configDir": ".cursor",
+  "emitPath": "{project}/.cursor/rules/syllago-context.mdc",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.cursor/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.cursor/agents",
+        "{project}/AGENTS.md"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "model",
+        "readonly",
+        "is_background"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.cursor/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.cursor/commands"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.cursor/settings.json"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "PostToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "Stop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_compact",
+          "nativeName": "PreCompact",
+          "category": "context"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "UserPromptSubmit",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "PreToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "SessionEnd",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "SessionStart",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".cursor/settings.json"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.cursor/mcp.json"
+      ],
+      "configLocation": ".cursor/mcp.json",
+      "mcpTransports": [
+        "stdio",
+        "sse",
+        "streamable-http"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "mdc",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.cursor",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.cursor/rules",
+        "{project}/.cursorrules"
+      ],
+      "frontmatterFields": [
+        "description",
+        "alwaysApply",
+        "globs"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.cursor/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.cursor/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata",
+        "disable-model-invocation"
+      ]
+    }
+  }
+}

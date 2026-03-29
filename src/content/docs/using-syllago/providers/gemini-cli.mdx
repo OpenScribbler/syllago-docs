@@ -1,6 +1,6 @@
 ---
 title: Gemini CLI
-description: How syllago works with Gemini CLI.
+description: How syllago works with Gemini CLI — supported content types, file locations, hook events, MCP configuration, and format details.
 ---
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
@@ -12,6 +12,7 @@ description: How syllago works with Gemini CLI.
 | **Slug** | `gemini-cli` |
 | **Config directory** | `~/.gemini` |
 | **Supported content types** | Agents, Commands, Hooks, MCP Configs, Rules, Skills |
+| **Emit path** | `GEMINI.md` |
 
 ## Supported Content Types
 
@@ -36,16 +37,33 @@ description: How syllago works with Gemini CLI.
 | Hooks | `.gemini/settings.json` | — | JSON |
 | Commands | `.gemini/commands` | `~/.gemini/commands` | Markdown |
 
-## Discovery Paths
+## Hook Events
 
-| Content Type | Discovery Paths |
-|-------------|----------------|
-| Rules | `GEMINI.md` |
-| Skills | `.gemini/skills`, `.agents/skills` |
-| Agents | `.gemini/agents` |
-| MCP Configs | `.gemini/settings.json` |
-| Hooks | `.gemini/settings.json` |
-| Commands | `.gemini/commands` |
+Gemini CLI supports **11 hook events** with handler types: `command`.
+
+Hooks are configured in `.gemini/settings.json`.
+
+| Event | Native Name | Category |
+|-------|------------|----------|
+| `after_model` | `AfterModel` | Model |
+| `after_tool_execute` | `AfterTool` | Tool |
+| `agent_stop` | `AfterAgent` | Lifecycle |
+| `before_compact` | `PreCompress` | Context |
+| `before_model` | `BeforeModel` | Model |
+| `before_prompt` | `BeforeAgent` | Lifecycle |
+| `before_tool_execute` | `BeforeTool` | Tool |
+| `before_tool_selection` | `BeforeToolSelection` | Model |
+| `notification` | `Notification` | Output |
+| `session_end` | `SessionEnd` | Lifecycle |
+| `session_start` | `SessionStart` | Lifecycle |
+
+## MCP Configuration
+
+| Detail | Value |
+|--------|-------|
+| **Transports** | `stdio`, `sse` |
+| **Config file** | `.gemini/settings.json` |
+
 
 ## Detection
 
@@ -66,4 +84,4 @@ syllago install my-rule --to gemini-cli
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

@@ -1,0 +1,256 @@
+{
+  "id": "claude-code",
+  "name": "Claude Code",
+  "slug": "claude-code",
+  "configDir": ".claude",
+  "emitPath": "{project}/CLAUDE.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.claude/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.claude/agents"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "tools",
+        "disallowedTools",
+        "model",
+        "maxTurns",
+        "permissionMode",
+        "skills",
+        "mcpServers",
+        "memory",
+        "background",
+        "isolation",
+        "effort",
+        "hooks",
+        "color",
+        "temperature",
+        "timeout_mins",
+        "kind"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.claude/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.claude/commands"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "allowed-tools",
+        "context",
+        "agent",
+        "model",
+        "disable-model-invocation",
+        "user-invocable",
+        "argument-hint",
+        "effort"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.claude/settings.json"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_compact",
+          "nativeName": "PostCompact",
+          "category": "context"
+        },
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "PostToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "after_tool_failure",
+          "nativeName": "PostToolUseFailure",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "Stop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_compact",
+          "nativeName": "PreCompact",
+          "category": "context"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "UserPromptSubmit",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "PreToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "config_change",
+          "nativeName": "ConfigChange",
+          "category": "config"
+        },
+        {
+          "canonical": "elicitation",
+          "nativeName": "Elicitation",
+          "category": "interaction"
+        },
+        {
+          "canonical": "elicitation_result",
+          "nativeName": "ElicitationResult",
+          "category": "interaction"
+        },
+        {
+          "canonical": "error_occurred",
+          "nativeName": "ErrorOccurred",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "instructions_loaded",
+          "nativeName": "InstructionsLoaded",
+          "category": "context"
+        },
+        {
+          "canonical": "notification",
+          "nativeName": "Notification",
+          "category": "output"
+        },
+        {
+          "canonical": "permission_request",
+          "nativeName": "PermissionRequest",
+          "category": "security"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "SessionEnd",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "SessionStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "stop_failure",
+          "nativeName": "StopFailure",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_start",
+          "nativeName": "SubagentStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_stop",
+          "nativeName": "SubagentStop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "task_completed",
+          "nativeName": "TaskCompleted",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "teammate_idle",
+          "nativeName": "TeammateIdle",
+          "category": "collaboration"
+        },
+        {
+          "canonical": "worktree_create",
+          "nativeName": "WorktreeCreate",
+          "category": "workspace"
+        },
+        {
+          "canonical": "worktree_remove",
+          "nativeName": "WorktreeRemove",
+          "category": "workspace"
+        }
+      ],
+      "hookTypes": [
+        "command",
+        "http",
+        "prompt",
+        "agent"
+      ],
+      "configLocation": ".claude/settings.json"
+    },
+    "loadouts": {
+      "supported": true,
+      "fileFormat": "md",
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.claude.json",
+        "{project}/.mcp.json"
+      ],
+      "configLocation": ".mcp.json",
+      "mcpTransports": [
+        "stdio",
+        "sse",
+        "streamable-http"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.claude/rules",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/CLAUDE.md",
+        "{project}/.claude/rules"
+      ],
+      "frontmatterFields": [
+        "paths"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.claude/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.claude/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata",
+        "allowed-tools",
+        "disallowed-tools",
+        "context",
+        "agent",
+        "model",
+        "effort",
+        "disable-model-invocation",
+        "user-invocable",
+        "argument-hint",
+        "hooks"
+      ]
+    }
+  }
+}

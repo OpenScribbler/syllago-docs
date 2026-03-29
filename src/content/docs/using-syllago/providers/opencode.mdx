@@ -1,6 +1,6 @@
 ---
 title: OpenCode
-description: How syllago works with OpenCode.
+description: How syllago works with OpenCode — supported content types, file locations, hook events, MCP configuration, and format details.
 ---
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
@@ -12,6 +12,7 @@ description: How syllago works with OpenCode.
 | **Slug** | `opencode` |
 | **Config directory** | `~/.config/opencode` |
 | **Supported content types** | Agents, Commands, MCP Configs, Rules, Skills |
+| **Emit path** | `AGENTS.md` |
 
 ## Supported Content Types
 
@@ -35,15 +36,13 @@ description: How syllago works with OpenCode.
 | MCP Configs | `opencode.json`, `opencode.jsonc` | — | JSON with comments |
 | Commands | `.opencode/commands` | `~/.config/opencode/commands` | Markdown |
 
-## Discovery Paths
+## MCP Configuration
 
-| Content Type | Discovery Paths |
-|-------------|----------------|
-| Rules | `AGENTS.md`, `CLAUDE.md` |
-| Skills | `.opencode/skills` |
-| Agents | `.opencode/agents` |
-| MCP Configs | `opencode.json`, `opencode.jsonc` |
-| Commands | `.opencode/commands` |
+| Detail | Value |
+|--------|-------|
+| **Transports** | `stdio` |
+| **Config file** | `opencode.json` |
+
 
 ## Detection
 
@@ -64,4 +63,4 @@ syllago install my-rule --to opencode
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

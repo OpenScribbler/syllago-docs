@@ -19,20 +19,20 @@ syllago info providers
 
 Not every provider supports every content type. The matrix below shows what each provider can handle.
 
-| Provider | Slug | Rules | Skills | Agents | MCP Configs | Hooks | Commands |
-|----------|------|:---:|:---:|:---:|:---:|:---:|:---:|
-| [Claude Code](/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Cursor](/using-syllago/providers/cursor/) | `cursor` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | — |
-| [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — |
-| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | ✅ | — |
-| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | — |
-| [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ |
-| [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — |
-| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — |
+| Provider | Slug | Rules | Skills | Agents | MCP Configs | Hooks | Commands | Hook Events | MCP Transports |
+|----------|------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [Claude Code](/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 23 | stdio, sse, streamable-http |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 11 | stdio, sse |
+| [Cursor](/using-syllago/providers/cursor/) | `cursor` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 7 | stdio, sse, streamable-http |
+| [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | — | — | stdio, sse |
+| [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | stdio |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 8 | stdio, sse |
+| [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — | — | stdio |
+| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | ✅ | — | 8 | stdio, sse, streamable-http |
+| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | — | — | stdio, sse, streamable-http |
+| [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio |
+| [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — | 5 | stdio, sse |
+| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — | — | stdio, sse |
 
 Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
 
@@ -54,14 +54,4 @@ syllago install my-rule --to gemini-cli
 
 If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.
 
-## Provider compatibility
-
-Use `syllago compat` to check which providers support a specific content item:
-
-```bash
-syllago compat my-skill
-```
-
-This shows a matrix of which providers can handle the item, with any conversion warnings.
-
-*Generated from syllago dev on 2026-03-28.*
+*Generated from syllago dev on 2026-03-29.*

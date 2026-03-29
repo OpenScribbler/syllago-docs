@@ -1,0 +1,50 @@
+{
+  "id": "zed",
+  "name": "Zed",
+  "slug": "zed",
+  "configDir": ".config/zed",
+  "emitPath": "{project}/.rules",
+  "content": {
+    "agents": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "configLocation": "~/.config/zed/settings.json",
+      "mcpTransports": [
+        "stdio"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.rules",
+        "{project}/.cursorrules",
+        "{project}/CLAUDE.md"
+      ]
+    },
+    "skills": {
+      "supported": false,
+      "symlinkSupport": false
+    }
+  }
+}

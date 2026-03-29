@@ -1,0 +1,73 @@
+{
+  "id": "windsurf",
+  "name": "Windsurf",
+  "slug": "windsurf",
+  "configDir": ".codeium/windsurf",
+  "emitPath": "{project}/.windsurf/rules",
+  "content": {
+    "agents": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".windsurf/hooks.json"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "configLocation": ".windsurf/mcp_config.json",
+      "mcpTransports": [
+        "stdio",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codeium/windsurf",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.windsurfrules",
+        "{project}/.windsurf/rules"
+      ],
+      "frontmatterFields": [
+        "trigger",
+        "description",
+        "globs"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codeium/windsurf/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.windsurf/skills",
+        "{project}/.agents/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description"
+      ]
+    }
+  }
+}

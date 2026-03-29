@@ -1,0 +1,152 @@
+{
+  "id": "copilot-cli",
+  "name": "Copilot CLI",
+  "slug": "copilot-cli",
+  "configDir": ".copilot",
+  "emitPath": "{project}/.github/copilot-instructions.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.github/agents",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.copilot/agents",
+        "{project}/.github/agents",
+        "{project}/.claude/agents"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "tools",
+        "model",
+        "target",
+        "mcp-servers"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.copilot/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.copilot/commands"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "agent",
+        "model",
+        "tools",
+        "argument-hint"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.github/hooks"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "postToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "agentStop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "userPromptSubmitted",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "preToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "error_occurred",
+          "nativeName": "errorOccurred",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "sessionEnd",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "sessionStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_stop",
+          "nativeName": "subagentStop",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".github/hooks/"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.copilot/mcp-config.json"
+      ],
+      "configLocation": ".copilot/mcp-config.json",
+      "mcpTransports": [
+        "stdio",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.copilot",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.github/copilot-instructions.md",
+        "{project}/AGENTS.md"
+      ],
+      "frontmatterFields": [
+        "applyTo"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.github/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.github/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "argument-hint",
+        "user-invocable",
+        "disable-model-invocation"
+      ]
+    }
+  }
+}
