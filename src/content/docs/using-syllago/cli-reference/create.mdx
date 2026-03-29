@@ -1,6 +1,6 @@
 ---
 title: "syllago create"
-description: "Scaffold a new content item in the global library"
+description: "Scaffold a new content item in local/"
 ---
 
 ## Synopsis
@@ -11,8 +11,12 @@ syllago create <type> <name> [flags]
 
 ## Description
 
-Creates a new content item directory under ~/.syllago/content/ with
-.syllago.yaml metadata.
+Creates a new content item directory under local/ with template files
+and .syllago.yaml metadata.
+
+Examples:
+  syllago create skills my-new-skill
+  syllago create rules my-rule --provider claude-code
 
 ## Options
 
@@ -28,19 +32,6 @@ Creates a new content item directory under ~/.syllago/content/ with
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
-
-## Examples
-
-```bash
-  # Create a new skill
-  syllago create skills my-new-skill
-
-  # Create a provider-specific rule
-  syllago create rules my-rule --provider claude-code
-
-  # Create a new agent
-  syllago create agents my-agent
-```
 
 ---
 
