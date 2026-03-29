@@ -2,6 +2,19 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-03-29
+
+### Added
+- Provider data collection: per-provider JSON data files (`src/data/providers/*.json`) with hook events, MCP transports, config locations, and frontmatter fields
+- Enriched provider pages with hook events tables, MCP config sections, and rules format sections — all driven from data
+- Hook Event Matrix reference page (`/reference/hook-events/`) — cross-provider comparison of 27 canonical hook events across 6 providers, grouped by category
+- Reference section in sidebar
+
+### Changed
+- Synced CLI reference pages to match current commands.json (removed deleted commands, added export/import/promote/promote-to-registry)
+- Extended `sync-providers.ts` to generate Astro data collection and hook event matrix
+- Added `providers` content collection with Zod schema in `content.config.ts`
+
 ## 2026-03-23
 
 ### Added
