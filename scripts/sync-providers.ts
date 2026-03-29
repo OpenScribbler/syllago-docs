@@ -63,6 +63,7 @@ const ROOT_DIR = dirname(import.meta.dir);
 const GITHUB_REPO = "OpenScribbler/syllago";
 const MDX_OUTPUT_DIR = join(ROOT_DIR, "src/content/docs/using-syllago/providers");
 const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
+const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
 const FETCH_TIMEOUT_MS = 15_000;
 
 // Display names for content types (used in tables).
@@ -498,6 +499,128 @@ function generateProviderPage(
 }
 
 // ---------------------------------------------------------------------------
+// MDX generation — Hook Event Matrix page
+// ---------------------------------------------------------------------------
+
+function generateHookEventMatrix(
+  providers: ProviderCapEntry[],
+  manifest: ProviderManifest
+): string {
+  // Collect providers that have hook event mappings.
+  const mappedProviders = providers.filter(
+    (p) => p.content.hooks?.supported && (p.content.hooks.hookEvents?.length ?? 0) > 0
+  );
+
+  // Providers that support hooks but have no event mappings.
+  const unmappedProviders = providers.filter(
+    (p) => p.content.hooks?.supported && (p.content.hooks.hookEvents?.length ?? 0) === 0
+  );
+
+  // Build a map: canonical event → { category, providers: { slug → nativeName } }.
+  const eventMap = new Map<string, { category: string; providers: Map<string, string> }>();
+
+  for (const prov of mappedProviders) {
+    for (const ev of prov.content.hooks!.hookEvents!) {
+      if (!eventMap.has(ev.canonical)) {
+        eventMap.set(ev.canonical, {
+          category: ev.category ?? "",
+          providers: new Map(),
+        });
+      }
+      eventMap.get(ev.canonical)!.providers.set(prov.slug, ev.nativeName);
+    }
+  }
+
+  // Group events by category, sorted alphabetically within each group.
+  const categories = [...new Set([...eventMap.values()].map((e) => e.category))].sort();
+  const eventsByCategory = new Map<string, string[]>();
+  for (const cat of categories) {
+    const events = [...eventMap.entries()]
+      .filter(([, e]) => e.category === cat)
+      .map(([canonical]) => canonical)
+      .sort();
+    eventsByCategory.set(cat, events);
+  }
+
+  const provCols = mappedProviders.map((p) => p.name);
+  const provSlugs = mappedProviders.map((p) => p.slug);
+
+  const lines: string[] = [
+    "---",
+    "title: Hook Event Matrix",
+    "description: Cross-provider comparison of hook events — which canonical events each provider supports and their native names.",
+    "---",
+    "",
+    "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
+    "",
+    "Syllago maps each provider's native hook event names to **canonical events** — a shared vocabulary that makes hooks portable across tools. This page shows which events each provider supports and what they call them.",
+    "",
+    "## How to read this table",
+    "",
+    "- **Canonical name**: The syllago-standard event name used in `.syllago.yaml`",
+    "- **Provider columns**: The native event name each provider uses, or `—` if unsupported",
+    "- **Category**: Groups related events (lifecycle, tool, context, etc.)",
+    "",
+  ];
+
+  // Render one table per category.
+  for (const cat of categories) {
+    const catDisplay = CATEGORY_DISPLAY[cat] || cat || "Other";
+    const events = eventsByCategory.get(cat)!;
+
+    lines.push(`## ${catDisplay}`, "");
+    lines.push(`| Canonical Event | ${provCols.join(" | ")} |`);
+    lines.push(`|-----------------|${provCols.map(() => "---").join("|")}|`);
+
+    for (const canonical of events) {
+      const entry = eventMap.get(canonical)!;
+      const cells = provSlugs.map((slug) => {
+        const native = entry.providers.get(slug);
+        return native ? `\`${native}\`` : "—";
+      });
+      lines.push(`| \`${canonical}\` | ${cells.join(" | ")} |`);
+    }
+    lines.push("");
+  }
+
+  // Summary stats.
+  lines.push(
+    "## Coverage Summary",
+    "",
+    "| Provider | Hook Events | Hook Types |",
+    "|----------|:-----------:|------------|"
+  );
+
+  for (const prov of mappedProviders) {
+    const hooksCap = prov.content.hooks!;
+    const count = hooksCap.hookEvents!.length;
+    const types = (hooksCap.hookTypes ?? ["command"]).map((t) => `\`${t}\``).join(", ");
+    const link = `[${prov.name}](/using-syllago/providers/${prov.slug}/)`;
+    lines.push(`| ${link} | ${count} | ${types} |`);
+  }
+
+  if (unmappedProviders.length > 0) {
+    lines.push("");
+    lines.push(
+      `**Hooks supported, event mappings pending:** ${unmappedProviders.map((p) => `[${p.name}](/using-syllago/providers/${p.slug}/)`).join(", ")}. These providers support hooks, but syllago does not yet map their event names. Hook conversion is best-effort.`
+    );
+  }
+
+  lines.push(
+    "",
+    "## See Also",
+    "",
+    "- [Hooks Content Type](/using-syllago/content-types/hooks/)",
+    "- [Providers Overview](/using-syllago/providers/)",
+    "",
+    `*Generated from syllago ${manifest.syllagoVersion} on ${manifest.generatedAt.split("T")[0]}.*`,
+    ""
+  );
+
+  return lines.join("\n");
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -537,7 +660,14 @@ async function main() {
   }
 
   console.log(`  MDX: ${count} provider pages`);
-  console.log(`  Total: ${count + 1} MDX + ${manifest.providers.length} JSON`);
+
+  // 3. Generate hook event matrix page.
+  mkdirSync(REFERENCE_DIR, { recursive: true });
+  const matrixContent = generateHookEventMatrix(manifest.providers, manifest);
+  writeFileSync(join(REFERENCE_DIR, "hook-events.mdx"), matrixContent);
+  console.log("  MDX: reference/hook-events.mdx");
+
+  console.log(`  Total: ${count + 2} MDX + ${manifest.providers.length} JSON`);
 }
 
 main().catch((err) => {

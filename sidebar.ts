@@ -66,6 +66,13 @@ export const sidebar: SidebarItem[] = [
     ],
   },
   {
+    label: 'Reference',
+    collapsed: true,
+    items: [
+      { label: 'Hook Event Matrix', slug: 'reference/hook-events' },
+    ],
+  },
+  {
     label: 'Advanced',
     collapsed: true,
     items: [
