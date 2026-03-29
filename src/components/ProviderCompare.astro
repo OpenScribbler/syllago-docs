@@ -43,11 +43,8 @@ const METHOD_DISPLAY: Record<string, string> = {
   class="provider-compare"
   data-max-slots={maxSlots}
   data-defaults={JSON.stringify(defaults)}
+  data-providers={JSON.stringify(sorted)}
 >
-  <script type="application/json" id="provider-compare-data">
-    {JSON.stringify(sorted)}
-  </script>
-
   <div class="compare-controls">
     {defaults.map((slug, i) => (
       <select class="provider-select" data-slot={i} aria-label={`Provider ${i + 1}`}>
@@ -383,9 +380,7 @@ const METHOD_DISPLAY: Record<string, string> = {
     if (!root || root.dataset.initialized) return;
     root.dataset.initialized = 'true';
 
-    var dataEl = document.getElementById('provider-compare-data');
-    if (!dataEl) return;
-    var allProviders = JSON.parse(dataEl.textContent);
+    var allProviders = JSON.parse(root.dataset.providers);
 
     var maxSlots = parseInt(root.dataset.maxSlots) || 3;
     var selected = JSON.parse(root.dataset.defaults);
