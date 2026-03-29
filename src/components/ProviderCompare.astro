@@ -196,6 +196,7 @@ const METHOD_DISPLAY: Record<string, string> = {
 </div>
 
 <style>
+  /* Component-specific styles only — table/scroll styles are in src/styles/tables.css */
   .provider-compare {
     margin: 1.5rem 0;
   }
@@ -213,7 +214,7 @@ const METHOD_DISPLAY: Record<string, string> = {
     padding: 0 2rem 0 0.75rem;
     border: 1px solid var(--sl-color-gray-5);
     border-radius: 0.5rem;
-    background: var(--sl-color-bg-nav);
+    background: var(--sl-color-bg);
     color: var(--sl-color-white);
     font-size: 0.875rem;
     font-family: inherit;
@@ -249,120 +250,6 @@ const METHOD_DISPLAY: Record<string, string> = {
   .add-provider-btn:hover {
     border-color: var(--sl-color-gray-4);
     color: var(--sl-color-white);
-  }
-
-  .compare-scroll-wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scroll-indicator {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 2;
-  }
-
-  .scroll-indicator-right {
-    right: 0;
-    background: linear-gradient(to right, transparent, var(--sl-color-bg));
-  }
-
-  .scroll-indicator.visible {
-    opacity: 1;
-  }
-
-  .scroll-indicator svg {
-    opacity: 0.5;
-  }
-
-  .compare-table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-  }
-
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-    min-width: max-content;
-  }
-
-  .compare-table th,
-  .compare-table td {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid var(--sl-color-gray-5);
-    text-align: left;
-    vertical-align: top;
-  }
-
-  .compare-table thead th {
-    background: var(--sl-color-bg-nav);
-    font-weight: 600;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-
-  .row-label-col {
-    min-width: 10rem;
-    position: sticky;
-    left: 0;
-    z-index: 3;
-    background: var(--sl-color-bg-nav);
-  }
-
-  .row-label {
-    font-weight: 500;
-    white-space: nowrap;
-    position: sticky;
-    left: 0;
-    background: var(--sl-color-bg);
-    z-index: 1;
-  }
-
-  .provider-col {
-    min-width: 10rem;
-  }
-
-  .section-header td {
-    background: var(--sl-color-bg-nav);
-    font-weight: 700;
-    font-size: 0.8125rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--sl-color-gray-2);
-    padding: 0.625rem 0.75rem 0.375rem;
-    border-left: none;
-    border-right: none;
-  }
-
-  .cell-no {
-    color: var(--sl-color-gray-4);
-  }
-
-  .cell-yes {
-    color: var(--sl-color-white);
-  }
-
-  .compare-table code {
-    font-size: 0.8125rem;
-    padding: 0.1em 0.3em;
-    border-radius: 0.25rem;
-    background: var(--sl-color-gray-6);
-  }
-
-  /* Space between inline code tags in frontmatter field lists */
-  .compare-table td code + code {
-    margin-left: 0.25rem;
   }
 
   @media (max-width: 50rem) {
