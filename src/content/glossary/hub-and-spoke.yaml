@@ -1,0 +1,7 @@
+term: Hub-and-Spoke
+slug: hub-and-spoke
+definition: Syllago's content conversion model. All content is stored in a provider-neutral syllago format (the hub) and converted to or from each provider's native format (the spokes) on demand — meaning content only needs to be authored once to work with any provider.
+category: core
+related:
+  - format-conversion
+  - canonical-tool-name

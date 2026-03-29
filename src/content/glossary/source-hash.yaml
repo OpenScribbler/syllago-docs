@@ -1,0 +1,6 @@
+term: Source Hash
+slug: source-hash
+definition: A SHA-256 fingerprint of a content item's original source file, stored in .syllago.yaml. Syllago uses it to detect when upstream content has changed since the item was last synced.
+category: core
+related:
+  - syllago-yaml

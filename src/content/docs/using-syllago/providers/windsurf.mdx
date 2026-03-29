@@ -3,7 +3,7 @@ title: Windsurf
 description: How syllago works with Windsurf.
 ---
 
-An AI-native code editor from Codeium with support for rules, skills, hooks, and MCP configurations.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ An AI-native code editor from Codeium with support for rules, skills, hooks, and
 |--------|-------|
 | **Slug** | `windsurf` |
 | **Config directory** | `~/.codeium/windsurf` |
-| **Supported content types** | Rules, Skills, Hooks, MCP Configs |
+| **Supported content types** | Hooks, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -19,26 +19,27 @@ An AI-native code editor from Codeium with support for rules, skills, hooks, and
 |-------------|-----------|---------------|
 | Rules | Yes | Symlink |
 | Skills | Yes | Symlink |
-| Hooks | Yes | JSON merge |
-| MCP Configs | Yes | JSON merge |
 | Agents | No | — |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | JSON merge |
 | Commands | No | — |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `.windsurfrules`, `.windsurf/rules/` | `~/.codeium/windsurf/` | Markdown |
-| Skills | `.windsurf/skills/`, `.agents/skills/` | `~/.codeium/windsurf/skills/` | Markdown |
-| Hooks | — | — | JSON |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `.windsurfrules`, `.windsurf/rules` | `~/.codeium/windsurf` | Markdown |
+| Skills | `.windsurf/skills`, `.agents/skills` | `~/.codeium/windsurf/skills` | Markdown |
 | MCP Configs | — | — | JSON |
+| Hooks | — | — | JSON |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
-| Rules | `.windsurfrules`, `.windsurf/rules/` |
-| Skills | `.windsurf/skills/`, `.agents/skills/` (fallback) |
+| Rules | `.windsurfrules`, `.windsurf/rules` |
+| Skills | `.windsurf/skills`, `.agents/skills` |
 
 ## Detection
 
@@ -58,3 +59,5 @@ syllago install my-rule --to windsurf
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

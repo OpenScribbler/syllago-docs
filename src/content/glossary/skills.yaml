@@ -1,0 +1,11 @@
+term: Skills
+slug: skills
+definition: Reusable task definitions that tell an AI coding tool how to perform a specific workflow. Skills are invoked on demand and describe a sequence of steps or specialized behavior the AI should follow.
+category: content-type
+aliases:
+  - slash commands
+  - custom commands
+link: /using-syllago/content-types/skills/
+related:
+  - commands
+  - rules

@@ -3,7 +3,7 @@ title: Zed
 description: How syllago works with Zed.
 ---
 
-A high-performance editor with a built-in AI assistant, supporting rules and MCP configurations.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,25 +11,26 @@ A high-performance editor with a built-in AI assistant, supporting rules and MCP
 |--------|-------|
 | **Slug** | `zed` |
 | **Config directory** | `~/.config/zed` |
-| **Supported content types** | Rules, MCP Configs |
+| **Supported content types** | MCP Configs, Rules |
 
 ## Supported Content Types
 
 | Content Type | Supported | Install Method |
 |-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| MCP Configs | Yes | JSON merge |
+| Rules | Yes | Project scope |
 | Skills | No | — |
 | Agents | No | — |
+| MCP Configs | Yes | JSON merge |
 | Hooks | No | — |
 | Commands | No | — |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `.rules` | — | Markdown |
-| MCP Configs | — | `~/.config/zed/settings.json` | JSON |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `.rules`, `.cursorrules`, `CLAUDE.md` | — | Markdown |
+| MCP Configs | — | — | JSON |
 
 ## Discovery Paths
 
@@ -37,15 +38,9 @@ A high-performance editor with a built-in AI assistant, supporting rules and MCP
 |-------------|----------------|
 | Rules | `.rules`, `.cursorrules`, `CLAUDE.md` |
 
-## Format Notes
-
-Zed uses a different JSON key for MCP server definitions. Where most providers use `mcpServers`, Zed uses `context_servers`. Syllago handles this key mapping automatically.
-
-Zed discovers rules from three file formats: `.rules`, `.cursorrules`, and `CLAUDE.md`.
-
 ## Detection
 
-Syllago detects Zed by checking for the `~/.config/zed` directory or the `zed` command in PATH.
+Syllago detects Zed by checking for the `~/.config/zed` directory.
 
 ## Working with Zed
 
@@ -61,3 +56,5 @@ syllago install my-rule --to zed
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

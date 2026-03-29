@@ -1,0 +1,7 @@
+term: Lifecycle Event
+slug: lifecycle-event
+definition: A named moment in an AI coding tool's execution flow that hooks can respond to. Examples include before a tool runs, after a model responds, or when a session starts or ends.
+category: ai-ecosystem
+related:
+  - hook-event
+  - hooks

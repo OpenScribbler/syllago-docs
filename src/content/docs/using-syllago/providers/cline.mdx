@@ -3,52 +3,47 @@ title: Cline
 description: How syllago works with Cline.
 ---
 
-A VS Code extension for AI-assisted coding with support for rules, hooks, and MCP configurations.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `cline` |
-| **Config directory** | `.clinerules` |
-| **Supported content types** | Rules, Hooks, MCP Configs |
+| **Config directory** | `~/.clinerules` |
+| **Supported content types** | Hooks, MCP Configs, Rules |
 
 ## Supported Content Types
 
 | Content Type | Supported | Install Method |
 |-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| Hooks | Yes | Symlink (file-based executables) |
-| MCP Configs | Yes | JSON merge |
+| Rules | Yes | Project scope |
 | Skills | No | — |
 | Agents | No | — |
+| MCP Configs | Yes | JSON merge |
+| Hooks | Yes | Project scope |
 | Commands | No | — |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `.clinerules/` | `~/Documents/Cline/Rules/` | Markdown |
-| Hooks | `.clinerules/hooks/` | — | Markdown |
-| MCP Configs | VS Code globalStorage | — | JSON |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `.clinerules`, `/home/hhewett/Documents/Cline/Rules` | — | Markdown |
+| MCP Configs | `/home/hhewett/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` | — | JSON |
+| Hooks | `.clinerules/hooks` | — | Markdown |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
-| Rules | `.clinerules/`, `~/Documents/Cline/Rules/` |
-| Hooks | `.clinerules/hooks/` |
-| MCP Configs | VS Code globalStorage (platform-aware path) |
-
-## Format Notes
-
-Cline's MCP configuration is stored in VS Code's `globalStorage` directory, which varies by platform. Syllago detects the correct path automatically.
-
-Hooks in Cline are file-based executables in the `.clinerules/hooks/` directory, unlike the JSON-based hooks used by most other providers.
+| Rules | `.clinerules`, `/home/hhewett/Documents/Cline/Rules` |
+| MCP Configs | `/home/hhewett/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` |
+| Hooks | `.clinerules/hooks` |
 
 ## Detection
 
-Syllago detects Cline by checking for the `~/Documents/Cline/Rules` directory.
+Syllago detects Cline by checking for the `~/.clinerules` directory.
 
 ## Working with Cline
 
@@ -64,3 +59,5 @@ syllago install my-rule --to cline
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

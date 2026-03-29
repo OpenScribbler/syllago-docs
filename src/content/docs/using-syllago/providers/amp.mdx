@@ -3,7 +3,7 @@ title: Amp
 description: How syllago works with Amp.
 ---
 
-Amp is an AI coding assistant that uses `AGENTS.md` for its rule files.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ Amp is an AI coding assistant that uses `AGENTS.md` for its rule files.
 |--------|-------|
 | **Slug** | `amp` |
 | **Config directory** | `~/.config/amp` |
-| **Supported content types** | Rules, Skills, MCP Configs |
+| **Supported content types** | MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -19,32 +19,27 @@ Amp is an AI coding assistant that uses `AGENTS.md` for its rule files.
 |-------------|-----------|---------------|
 | Rules | Yes | Symlink |
 | Skills | Yes | Symlink |
-| MCP Configs | Yes | JSON merge |
 | Agents | No | — |
+| MCP Configs | Yes | JSON merge |
 | Hooks | No | — |
 | Commands | No | — |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `AGENTS.md` | `~/.config/amp/AGENTS.md` | Markdown |
-| Skills | `.agents/skills/` | `~/.config/agents/skills/` | Markdown |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` | `~/.config/amp` | Markdown |
+| Skills | `.agents/skills`, `.claude/skills` | `~/.config/agents/skills` | Markdown |
 | MCP Configs | `.amp/settings.json` | — | JSON |
 
 ## Discovery Paths
 
-When adding content from Amp, syllago looks in these locations:
-
 | Content Type | Discovery Paths |
 |-------------|----------------|
 | Rules | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` |
-| Skills | `.agents/skills/`, `.claude/skills/` (compatibility fallback) |
-| MCP Configs | `.amp/settings.json` (workspace-scoped, requires user approval in Amp) |
-
-## Format Notes
-
-Amp adds an implicit `**/` prefix to glob patterns at runtime. When converting rules to Amp format, syllago strips any existing `**/` prefix from globs to avoid double-prefixing.
+| Skills | `.agents/skills`, `.claude/skills` |
+| MCP Configs | `.amp/settings.json` |
 
 ## Detection
 
@@ -58,12 +53,11 @@ syllago add --from amp
 
 # Install content to Amp
 syllago install my-rule --to amp
-
-# Check compatibility with Amp
-syllago compat my-skill
 ```
 
 ## See Also
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

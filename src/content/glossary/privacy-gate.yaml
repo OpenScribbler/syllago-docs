@@ -1,0 +1,7 @@
+term: Privacy Gate
+slug: privacy-gate
+definition: A mechanism that prevents tainted content from being published or synced to remote registries. Syllago enforces privacy gates across publish, share, and loadout commands to prevent accidental leakage of private content.
+category: core
+link: /advanced/registry-privacy/
+related:
+  - privacy-taint

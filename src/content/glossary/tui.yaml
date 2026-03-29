@@ -1,0 +1,9 @@
+term: TUI
+slug: tui
+definition: Text-based User Interface — an interactive visual interface that runs entirely in the terminal, providing menus, panels, and navigation without a graphical window. Syllago includes a TUI for browsing and managing library content interactively.
+category: format
+abbr: TUI
+aliases:
+  - Terminal UI
+  - text user interface
+link: /using-syllago/tui/

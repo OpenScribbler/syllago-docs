@@ -1,0 +1,9 @@
+term: Hook Event
+slug: hook-event
+definition: A specific lifecycle event that triggers a hook, such as PreToolUse or PostToolUse. Hook events are named differently across providers but syllago translates between equivalent events automatically during format conversion.
+category: ai-ecosystem
+related:
+  - hooks
+  - hook-handler
+  - lifecycle-event
+  - matcher

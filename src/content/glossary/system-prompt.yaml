@@ -1,0 +1,6 @@
+term: System Prompt
+slug: system-prompt
+definition: Instructions provided to an AI model before a conversation begins that shape its behavior, persona, and constraints. In AI coding tools, system prompts are often assembled from rules files managed by syllago.
+category: ai-ecosystem
+related:
+  - rules

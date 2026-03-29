@@ -1,0 +1,9 @@
+term: Commands
+slug: commands
+definition: Provider-specific invocable actions, typically triggered via a slash command or the provider's command palette. Commands differ from skills in that they map more directly to the provider's native command system.
+category: content-type
+aliases:
+  - slash commands
+link: /using-syllago/content-types/commands/
+related:
+  - skills

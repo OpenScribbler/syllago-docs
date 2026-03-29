@@ -1,0 +1,5 @@
+term: OpenCode
+slug: opencode
+definition: An open-source terminal AI coding agent. Rules are stored as YAML files — syllago converts standard Markdown frontmatter to OpenCode's YAML structure automatically.
+category: provider
+link: /using-syllago/providers/opencode/

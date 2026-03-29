@@ -2,6 +2,15 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-03-28
+
+### Added
+- Glossary content collection with Zod schema (`src/content.config.ts`)
+- 48 glossary term stubs across 5 categories: core, content-type, provider, ai-ecosystem, format
+
+### Fixed
+- Removed stale "nesco" reference from changelog
+
 ## 2026-03-23
 
 ### Added
@@ -75,7 +84,7 @@ All notable changes to the syllago documentation site.
 ### Fixed
 - GitHub Actions pinned SHA corrections
 - Line ending fix for install-d2.sh
-- Renamed from nesco to syllago
+- Renamed project to syllago
 
 ## 2026-02-27
 

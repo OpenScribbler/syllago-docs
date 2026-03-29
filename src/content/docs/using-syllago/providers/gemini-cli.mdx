@@ -3,7 +3,7 @@ title: Gemini CLI
 description: How syllago works with Gemini CLI.
 ---
 
-Google's CLI agent with full support for all six standard content types.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ Google's CLI agent with full support for all six standard content types.
 |--------|-------|
 | **Slug** | `gemini-cli` |
 | **Config directory** | `~/.gemini` |
-| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands |
+| **Supported content types** | Agents, Commands, Hooks, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -23,32 +23,29 @@ Google's CLI agent with full support for all six standard content types.
 | MCP Configs | Yes | JSON merge |
 | Hooks | Yes | JSON merge |
 | Commands | Yes | Symlink |
+| Loadouts | No | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `GEMINI.md` | `~/.gemini/` | Markdown |
-| Skills | `.gemini/skills/`, `.agents/skills/` | `~/.gemini/skills/` | Markdown |
-| Agents | `.gemini/agents/` | `~/.gemini/agents/` | Markdown |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `GEMINI.md` | `~/.gemini` | Markdown |
+| Skills | `.gemini/skills`, `.agents/skills` | `~/.gemini/skills` | Markdown |
+| Agents | `.gemini/agents` | `~/.gemini/agents` | Markdown |
 | MCP Configs | `.gemini/settings.json` | — | JSON |
 | Hooks | `.gemini/settings.json` | — | JSON |
-| Commands | `.gemini/commands/` | `~/.gemini/commands/` | Markdown |
+| Commands | `.gemini/commands` | `~/.gemini/commands` | Markdown |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
 | Rules | `GEMINI.md` |
-| Skills | `.gemini/skills/`, `.agents/skills/` (fallback) |
-| Agents | `.gemini/agents/` |
+| Skills | `.gemini/skills`, `.agents/skills` |
+| Agents | `.gemini/agents` |
 | MCP Configs | `.gemini/settings.json` |
 | Hooks | `.gemini/settings.json` |
-| Commands | `.gemini/commands/` |
-
-## Format Notes
-
-Gemini CLI uses Markdown for text-based content types and JSON for structured configurations. Gemini CLI supports unique hook events (`before_model`, `after_model`, `before_tool_selection`) not available in other providers.
+| Commands | `.gemini/commands` |
 
 ## Detection
 
@@ -68,3 +65,5 @@ syllago install my-rule --to gemini-cli
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*

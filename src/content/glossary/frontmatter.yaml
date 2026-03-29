@@ -1,0 +1,7 @@
+term: Frontmatter
+slug: frontmatter
+definition: Structured metadata embedded at the top of a Markdown file between triple-dash delimiters (---). Frontmatter is typically written in YAML and used by syllago to store provider-specific metadata like descriptions, glob patterns, and behavioral flags.
+category: format
+related:
+  - toml
+  - mdc

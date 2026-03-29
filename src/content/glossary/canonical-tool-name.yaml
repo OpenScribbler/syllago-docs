@@ -1,0 +1,8 @@
+term: Canonical Tool Name
+slug: canonical-tool-name
+definition: Syllago's provider-neutral identifier for a tool capability (e.g., file_read, shell, web_fetch). During format conversion, syllago maps canonical names to each provider's native tool names automatically — no manual translation required.
+category: format
+related:
+  - format-conversion
+  - tool-call
+  - hub-and-spoke

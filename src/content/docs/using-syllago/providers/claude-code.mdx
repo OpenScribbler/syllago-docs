@@ -3,7 +3,7 @@ title: Claude Code
 description: How syllago works with Claude Code.
 ---
 
-Anthropic's CLI and IDE agent, with the broadest content type support of any provider.
+{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
 ## Provider Details
 
@@ -11,7 +11,7 @@ Anthropic's CLI and IDE agent, with the broadest content type support of any pro
 |--------|-------|
 | **Slug** | `claude-code` |
 | **Config directory** | `~/.claude` |
-| **Supported content types** | Rules, Skills, Agents, MCP Configs, Hooks, Commands, Loadouts |
+| **Supported content types** | Agents, Commands, Hooks, Loadouts, MCP Configs, Rules, Skills |
 
 ## Supported Content Types
 
@@ -23,34 +23,30 @@ Anthropic's CLI and IDE agent, with the broadest content type support of any pro
 | MCP Configs | Yes | JSON merge |
 | Hooks | Yes | JSON merge |
 | Commands | Yes | Symlink |
-| Loadouts | Yes | JSON merge |
+| Loadouts | Yes | — |
 
 ## File Format and Location
 
-| Content Type | Project Location | Global Location | Format |
-|-------------|-----------------|----------------|--------|
-| Rules | `CLAUDE.md`, `.claude/rules/` | `~/.claude/rules/` | Markdown |
-| Skills | `.claude/skills/` | `~/.claude/skills/` | Markdown |
-| Agents | `.claude/agents/` | `~/.claude/agents/` | Markdown |
+| Content Type | Discovery Paths | Global Location | Format |
+|-------------|----------------|----------------|--------|
+| Rules | `CLAUDE.md`, `.claude/rules` | `~/.claude/rules` | Markdown |
+| Skills | `.claude/skills` | `~/.claude/skills` | Markdown |
+| Agents | `.claude/agents` | `~/.claude/agents` | Markdown |
 | MCP Configs | `.claude.json`, `.mcp.json` | — | JSON |
 | Hooks | `.claude/settings.json` | — | JSON |
-| Commands | `.claude/commands/` | `~/.claude/commands/` | Markdown |
-| Loadouts | `.claude/settings.json` | — | JSON |
+| Commands | `.claude/commands` | `~/.claude/commands` | Markdown |
+| Loadouts | — | — | Markdown |
 
 ## Discovery Paths
 
 | Content Type | Discovery Paths |
 |-------------|----------------|
-| Rules | `CLAUDE.md`, `.claude/rules/` |
-| Skills | `.claude/skills/` |
-| Agents | `.claude/agents/` |
+| Rules | `CLAUDE.md`, `.claude/rules` |
+| Skills | `.claude/skills` |
+| Agents | `.claude/agents` |
 | MCP Configs | `.claude.json`, `.mcp.json` |
 | Hooks | `.claude/settings.json` |
-| Commands | `.claude/commands/` |
-
-## Format Notes
-
-Claude Code uses plain Markdown for most content types, making its files straightforward to read and edit manually. MCP configurations, hooks, and loadouts are stored as JSON within settings files. Claude Code supports all seven content types that syllago tracks, so no conversion or feature gaps apply when working with this provider.
+| Commands | `.claude/commands` |
 
 ## Detection
 
@@ -70,3 +66,5 @@ syllago install my-rule --to claude-code
 
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
+
+*Generated from syllago dev on 2026-03-28.*
