@@ -8,6 +8,8 @@ All notable changes to the syllago documentation site.
 - Provider data collection: per-provider JSON data files (`src/data/providers/*.json`) with hook events, MCP transports, config locations, and frontmatter fields
 - Enriched provider pages with hook events tables, MCP config sections, and rules format sections — all driven from data
 - Hook Event Matrix reference page (`/reference/hook-events/`) — cross-provider comparison of 27 canonical hook events across 6 providers, grouped by category
+- Interactive provider comparison page (`/reference/compare-providers/`) — dropdown-based side-by-side comparison of 2-3 providers with content types, hooks, MCP, and rules details
+- `ProviderCompare.astro` component — SSR with progressive enhancement via vanilla JS, no framework dependency
 - Reference section in sidebar
 
 ### Changed
