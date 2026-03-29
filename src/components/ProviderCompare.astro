@@ -62,11 +62,11 @@ const METHOD_DISPLAY: Record<string, string> = {
   </div>
 
   <div class="compare-scroll-wrapper">
-    <div class="scroll-indicator scroll-indicator-right" aria-hidden="true">
+    <button class="scroll-indicator scroll-indicator-right" type="button" aria-label="Scroll right to see more">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <path d="M8 4l6 6-6 6"/>
       </svg>
-    </div>
+    </button>
     <div class="compare-table-container">
       <table class="compare-table">
         <thead>
@@ -195,70 +195,7 @@ const METHOD_DISPLAY: Record<string, string> = {
   </div>
 </div>
 
-<style>
-  /* Component-specific styles only — table/scroll styles are in src/styles/tables.css */
-  .provider-compare {
-    margin: 1.5rem 0;
-  }
-
-  .compare-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    align-items: center;
-  }
-
-  .provider-select {
-    height: 2.25rem;
-    padding: 0 2rem 0 0.75rem;
-    border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    background: var(--sl-color-bg);
-    color: var(--sl-color-white);
-    font-size: 0.875rem;
-    font-family: inherit;
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23888' stroke-width='1.5'%3E%3Cpath d='M3 5l3 3 3-3'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.5rem center;
-  }
-
-  .provider-select:hover {
-    border-color: var(--sl-color-gray-4);
-  }
-
-  .provider-select:focus-visible {
-    outline: 2px solid var(--sl-color-accent);
-    outline-offset: 2px;
-  }
-
-  .add-provider-btn {
-    height: 2.25rem;
-    padding: 0 0.75rem;
-    border: 1px dashed var(--sl-color-gray-5);
-    border-radius: 0.5rem;
-    background: transparent;
-    color: var(--sl-color-gray-3);
-    font-size: 0.875rem;
-    font-family: inherit;
-    cursor: pointer;
-    transition: border-color 0.15s, color 0.15s;
-  }
-
-  .add-provider-btn:hover {
-    border-color: var(--sl-color-gray-4);
-    color: var(--sl-color-white);
-  }
-
-  @media (max-width: 50rem) {
-    .provider-select {
-      flex: 1;
-      min-width: 0;
-    }
-  }
-</style>
+<!-- All styles are in src/styles/tables.css (global) so JS-created elements get styled -->
 
 <script is:inline>
 (function() {
@@ -512,10 +449,16 @@ const METHOD_DISPLAY: Record<string, string> = {
       }
     }
 
-    // Scroll indicator
+    // Scroll indicator — track scroll and make clickable
     if (container) {
       container.addEventListener('scroll', checkScroll);
       window.addEventListener('resize', checkScroll);
+    }
+    if (indicator) {
+      indicator.addEventListener('click', function() {
+        if (!container) return;
+        container.scrollBy({ left: 200, behavior: 'smooth' });
+      });
     }
 
     // Attach change handlers to SSR-rendered selects.
