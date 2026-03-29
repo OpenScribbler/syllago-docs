@@ -1,0 +1,7 @@
+term: Zed
+slug: zed
+definition: A high-performance collaborative code editor with built-in AI features. Uses context_servers instead of mcpServers for MCP configuration — syllago maps this key automatically during conversion.
+category: provider
+link: /using-syllago/providers/zed/
+related:
+  - model-context-protocol

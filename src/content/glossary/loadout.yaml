@@ -1,0 +1,8 @@
+term: Loadout
+slug: loadout
+definition: A curated bundle of content items grouped together for a specific workflow or use case. Loadouts can be applied in a single command to configure a provider with a complete set of rules, skills, hooks, and other content.
+category: core
+link: /using-syllago/collections/
+related:
+  - library
+  - collection

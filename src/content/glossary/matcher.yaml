@@ -1,0 +1,8 @@
+term: Matcher
+slug: matcher
+definition: A rule within a hook definition that determines which tool calls or events trigger the hook. Matchers can filter by tool name, regex pattern, or MCP server target. Syllago translates matcher types between providers during conversion.
+category: ai-ecosystem
+related:
+  - hooks
+  - hook-event
+  - tool-call

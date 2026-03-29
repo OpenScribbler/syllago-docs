@@ -1,0 +1,12 @@
+term: MCP Configs
+slug: mcp-configs
+definition: Configuration entries that define how an AI coding tool connects to a Model Context Protocol server. MCP configs specify the server command, arguments, environment variables, and transport type.
+category: content-type
+abbr: MCP Configs
+aliases:
+  - MCP configurations
+  - MCP server configs
+link: /using-syllago/content-types/mcp/
+related:
+  - model-context-protocol
+  - context-server

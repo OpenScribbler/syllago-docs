@@ -1,0 +1,8 @@
+term: Agents
+slug: agents
+definition: Autonomous AI configurations that define a specialized assistant with specific tools, behaviors, and instructions. Agents can execute multi-step tasks with minimal user intervention.
+category: content-type
+link: /using-syllago/content-types/agents/
+related:
+  - skills
+  - mcp-configs

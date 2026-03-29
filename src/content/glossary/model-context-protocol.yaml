@@ -1,0 +1,11 @@
+term: Model Context Protocol
+slug: model-context-protocol
+definition: An open standard created by Anthropic for connecting AI tools to external data sources and services. MCP defines how AI coding tools discover, connect to, and interact with context servers that expose tools and resources.
+category: ai-ecosystem
+abbr: MCP
+aliases:
+  - MCP
+related:
+  - context-server
+  - mcp-configs
+  - tool-call

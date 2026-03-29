@@ -1,0 +1,7 @@
+term: Context Server
+slug: context-server
+definition: An MCP-compatible server that exposes tools, resources, or data to AI coding tools. Context servers allow AI tools to interact with external services like databases, APIs, and custom tooling through a standardized interface.
+category: ai-ecosystem
+related:
+  - model-context-protocol
+  - mcp-configs

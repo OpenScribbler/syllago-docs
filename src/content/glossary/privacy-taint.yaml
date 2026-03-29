@@ -1,0 +1,7 @@
+term: Privacy Taint
+slug: privacy-taint
+definition: A permanent flag applied to a content item when it originates from a private registry. Tainted items are blocked by privacy gates from being published to public destinations.
+category: core
+link: /advanced/registry-privacy/
+related:
+  - privacy-gate

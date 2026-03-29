@@ -1,0 +1,8 @@
+term: Cursor
+slug: cursor
+definition: A VS Code-based AI code editor with deep IDE integration. Uses MDC format for rules. Syllago auto-converts from standard Markdown to MDC when targeting Cursor.
+category: provider
+link: /using-syllago/providers/cursor/
+related:
+  - mdc
+  - windsurf

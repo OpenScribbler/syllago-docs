@@ -1,0 +1,8 @@
+term: TOML
+slug: toml
+definition: Tom's Obvious Minimal Language — a minimal, readable configuration file format. Used by some providers (notably Codex) for agent definitions. Syllago automatically converts between TOML and Markdown frontmatter during format conversion.
+category: format
+abbr: TOML
+related:
+  - frontmatter
+  - codex

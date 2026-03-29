@@ -1,0 +1,7 @@
+term: Cline
+slug: cline
+definition: An autonomous AI coding agent VS Code extension. Syllago supports rules, skills, agents, MCP configs, and hooks for Cline.
+category: provider
+aliases:
+  - Claude Dev
+link: /using-syllago/providers/cline/

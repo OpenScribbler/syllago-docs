@@ -1,0 +1,9 @@
+term: Format Conversion
+slug: format-conversion
+definition: The process of translating content from one provider's native format to another via the syllago canonical format. Syllago handles frontmatter mapping, tool name translation, and format-specific quirks automatically during conversion.
+category: core
+link: /using-syllago/format-conversion/
+related:
+  - hub-and-spoke
+  - canonical-tool-name
+  - portability-warning

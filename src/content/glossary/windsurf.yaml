@@ -1,0 +1,7 @@
+term: Windsurf
+slug: windsurf
+definition: Codeium's AI-native IDE with agentic flow capabilities. Supports rules, skills, agents, MCP configs, hooks, and commands in syllago.
+category: provider
+link: /using-syllago/providers/windsurf/
+related:
+  - cursor

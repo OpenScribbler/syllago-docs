@@ -1,0 +1,8 @@
+term: Provider
+slug: provider
+definition: An AI coding tool that syllago can read from or write to. Syllago manages content across providers by converting between each tool's native format and the provider-neutral syllago format.
+category: core
+link: /using-syllago/providers/
+related:
+  - format-conversion
+  - hub-and-spoke

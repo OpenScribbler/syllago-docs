@@ -1,0 +1,7 @@
+term: Codex
+slug: codex
+definition: OpenAI's CLI agent for autonomous coding tasks. Uses TOML format for agent definitions, which syllago converts automatically from Markdown frontmatter.
+category: provider
+link: /using-syllago/providers/codex/
+related:
+  - toml

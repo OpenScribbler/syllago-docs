@@ -1,0 +1,8 @@
+term: Library
+slug: library
+definition: The local directory (~/.syllago/content/) where syllago stores and manages your content items. Each item has its own subdirectory containing a content file and a .syllago.yaml metadata file.
+category: core
+link: /using-syllago/collections/
+related:
+  - syllago-yaml
+  - collection

@@ -1,0 +1,7 @@
+term: Exit Code Contract
+slug: exit-code-contract
+definition: The convention by which a hook handler signals its outcome to the AI coding tool via the process exit code. Typically exit 0 means success, exit 1 is a non-blocking warning, and exit 2 blocks the operation (if the hook is configured as blocking).
+category: ai-ecosystem
+related:
+  - hook-handler
+  - hooks

@@ -1,0 +1,7 @@
+term: Portability Warning
+slug: portability-warning
+definition: A warning surfaced during conversion or install when content uses a feature the target provider doesn't support. Warnings appear inline in text output and in the warnings array in JSON output.
+category: core
+related:
+  - format-conversion
+  - capability-degradation
