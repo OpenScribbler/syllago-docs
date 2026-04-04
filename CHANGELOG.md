@@ -2,6 +2,13 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-04
+
+### Added
+- Telemetry reference page (`/reference/telemetry/`) — auto-generated from `telemetry.json` with event catalog, property tables, and privacy guarantees
+- `sync-telemetry.ts` script — fetches `telemetry.json` from GitHub releases or local file, generates MDX
+- `sync:telemetry` npm script and added to `sync`/`prebuild` pipelines
+
 ## 2026-03-29
 
 ### Added
