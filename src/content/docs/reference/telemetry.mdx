@@ -1,0 +1,85 @@
+---
+title: Telemetry
+description: What syllago collects, how it works, and what it never collects. Full event catalog with every property documented.
+---
+
+{/* AUTO-GENERATED — do not edit. Source: telemetry.json via sync-telemetry.ts */}
+
+Syllago collects anonymous usage telemetry to understand which commands and features are used. Telemetry is **opt-out** — you can disable it at any time.
+
+## Opting out
+
+Any of these methods will disable telemetry:
+
+```bash
+# Via syllago command
+syllago telemetry off
+
+# Via environment variable (respects console.do standard)
+export DO_NOT_TRACK=1
+```
+
+## What we collect
+
+Every event includes these standard properties:
+
+| Property | Type | Description | Example |
+|----------|------|-------------|---------|
+| `version` | `string` | Syllago version | `"0.7.0"` |
+| `os` | `string` | Operating system (runtime.GOOS) | `"linux"` |
+| `arch` | `string` | CPU architecture (runtime.GOARCH) | `"amd64"` |
+
+## `command_executed`
+
+Fired when a CLI command completes successfully.
+
+**When:** PersistentPostRun (every non-telemetry command)
+
+| Property | Type | Description | Example | Commands |
+|----------|------|-------------|---------|----------|
+| `command` | `string` | Command name (cobra command path) | `"install"` | all |
+| `provider` | `string` | Target provider slug | `"claude-code"` | `install`, `uninstall`, `loadout_apply`, `sandbox_run`, `sync-and-export` |
+| `content_type` | `string` | Content type filter or specific type | `"rules"` | `install`, `add`, `convert`, `create`, `uninstall`, `remove`, `list`, `share`, `sync-and-export`, `registry_items` |
+| `content_count` | `int` | Number of content items affected | `3` | `install`, `add` |
+| `dry_run` | `bool` | Whether --dry-run flag was used | `false` | `install`, `add`, `uninstall`, `remove`, `sync-and-export` |
+| `from` | `string` | Source provider slug when adding cross-provider content | `"cursor"` | `add` |
+| `from_provider` | `string` | Source provider for conversion | `"cursor"` | `convert` |
+| `to_provider` | `string` | Target provider for conversion | `"claude-code"` | `convert` |
+| `source_filter` | `string` | Content source filter (library, shared, or registry) | `"library"` | `list` |
+| `item_count` | `int` | Number of items in the result set | `12` | `list`, `registry_items` |
+| `mode` | `string` | Loadout application mode | `"try"` | `loadout_apply` |
+| `action_count` | `int` | Number of actions performed by loadout | `5` | `loadout_apply` |
+| `registry_count` | `int` | Number of registries involved | `2` | `registry_sync` |
+
+## `tui_session_started`
+
+Fired when the TUI exits normally after a session.
+
+**When:** After tea.Program.Run() completes without error (main.go root command)
+
+| Property | Type | Description | Example | Commands |
+|----------|------|-------------|---------|----------|
+| `success` | `bool` | Whether the TUI exited normally | `true` | `(root)` |
+
+## What we never collect
+
+These categories of data are **never** included in telemetry events, regardless of configuration:
+
+| Category | Examples |
+|----------|----------|
+| **File contents** | Rule text, skill prompts, hook commands, MCP configs |
+| **File paths** | /home/user/.claude/rules/my-secret-rule |
+| **User identity** | Usernames, hostnames, IP addresses, email |
+| **Registry URLs** | Git clone URLs, registry names |
+| **Content names** | Names of rules, skills, agents, hooks, or MCP servers you manage |
+| **Interaction details** | Keystrokes, mouse clicks, TUI navigation paths |
+
+## Implementation
+
+- Telemetry is sent to PostHog via their batch API
+- A random anonymous ID is generated on first run and stored locally
+- No cookies, fingerprinting, or cross-device tracking
+- All telemetry code is in [`cli/internal/telemetry/`](https://github.com/OpenScribbler/syllago/tree/main/cli/internal/telemetry)
+- The event catalog source of truth is [`catalog.go`](https://github.com/OpenScribbler/syllago/blob/main/cli/internal/telemetry/catalog.go)
+
+*Generated from syllago 0.7.0 on 2026-04-04.*

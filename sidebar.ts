@@ -76,6 +76,7 @@ export const sidebar: SidebarItem[] = [
       { label: 'Agents Matrix', slug: 'reference/agents-matrix' },
       { label: 'MCP Matrix', slug: 'reference/mcp-configs-matrix' },
       { label: 'Commands Matrix', slug: 'reference/commands-matrix' },
+      { label: 'Telemetry', slug: 'reference/telemetry' },
     ],
   },
   {
