@@ -1,0 +1,113 @@
+---
+/**
+ * MetaBox.astro — Capability key metadata infobox.
+ *
+ * Props-driven; no collection queries. All values are passed inline
+ * from the generated MDX page (sync-capabilities.ts has the data at
+ * generation time).
+ */
+
+interface Props {
+  lastChangedAt: string;
+  sourceCount: number;
+  providerSupportCount: number;
+  totalProviders: number;
+  issueUrl: string;
+}
+
+const { lastChangedAt, sourceCount, providerSupportCount, totalProviders, issueUrl } =
+  Astro.props;
+
+// Format ISO date string as "Apr 11, 2026".
+const verifiedDate = new Date(lastChangedAt).toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<aside class="meta-box not-content">
+  <dl class="meta-box__items">
+    <div class="meta-box__item">
+      <dt>Last verified</dt>
+      <dd>{verifiedDate}</dd>
+    </div>
+    <div class="meta-box__item">
+      <dt>Sources</dt>
+      <dd>{sourceCount} across providers</dd>
+    </div>
+    <div class="meta-box__item">
+      <dt>Support</dt>
+      <dd>{providerSupportCount} of {totalProviders} providers</dd>
+    </div>
+    <div class="meta-box__item meta-box__item--action">
+      <a href={issueUrl} target="_blank" rel="noopener noreferrer" class="meta-box__report-link">
+        Report issue
+      </a>
+    </div>
+  </dl>
+</aside>
+
+<style>
+  .meta-box {
+    background-color: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-box__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    margin: 0;
+  }
+
+  .meta-box__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .meta-box__item dt {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .meta-box__item dd {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-text);
+    margin: 0;
+  }
+
+  .meta-box__item--action {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .meta-box__report-link {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    border: 1px solid var(--sl-color-text-accent);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    transition: background-color 0.15s;
+  }
+
+  .meta-box__report-link:hover {
+    background-color: var(--sl-color-text-accent);
+    color: var(--sl-color-white);
+  }
+
+  @media (max-width: 50rem) {
+    .meta-box__item--action {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

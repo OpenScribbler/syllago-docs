@@ -1,0 +1,29 @@
+{
+  "id": "factory-droid-mcp",
+  "provider": "factory-droid",
+  "contentType": "mcp",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.factory.ai/llms.txt",
+      "type": "index",
+      "fetched_at": "2026-04-11T21:50:30.239613273Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "mcp_manager_ui",
+      "name": "MCP Manager UI",
+      "description": "Factory added a dedicated MCP Manager UI in release 1.10, providing a graphical interface for connecting and managing MCP servers without manual JSON editing.",
+      "source_ref": "https://docs.factory.ai/llms.txt"
+    },
+    {
+      "id": "factory_as_mcp_server",
+      "name": "Factory as MCP Server",
+      "description": "Factory CLI can itself act as an MCP server, enabling programmatic control and integration with other tools that speak the MCP client protocol.",
+      "source_ref": "https://docs.factory.ai/llms.txt"
+    }
+  ]
+}

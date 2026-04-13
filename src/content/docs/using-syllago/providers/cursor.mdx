@@ -39,19 +39,26 @@ description: How syllago works with Cursor — supported content types, file loc
 
 ## Hook Events
 
-Cursor supports **7 hook events** with handler types: `command`.
+Cursor supports **14 hook events** with handler types: `command`.
 
 Hooks are configured in `.cursor/settings.json`.
 
 | Event | Native Name | Category |
 |-------|------------|----------|
+| `after_model` | `afterAgentResponse` | Model |
 | `after_tool_execute` | `PostToolUse` | Tool |
 | `agent_stop` | `Stop` | Lifecycle |
 | `before_compact` | `PreCompact` | Context |
+| `before_model` | `beforeAgentResponse` | Model |
 | `before_prompt` | `UserPromptSubmit` | Lifecycle |
 | `before_tool_execute` | `PreToolUse` | Tool |
+| `before_tool_selection` | `beforeToolSelection` | Model |
+| `file_changed` | `afterFileEdit` | Workspace |
 | `session_end` | `SessionEnd` | Lifecycle |
 | `session_start` | `SessionStart` | Lifecycle |
+| `subagent_start` | `SubagentStart` | Lifecycle |
+| `subagent_stop` | `SubagentStop` | Lifecycle |
+| `tool_use_failure` | `postToolUseFailure` | Tool |
 
 ## MCP Configuration
 
@@ -89,4 +96,4 @@ syllago install my-rule --to cursor
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

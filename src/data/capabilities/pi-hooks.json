@@ -1,0 +1,81 @@
+{
+  "id": "pi-hooks",
+  "provider": "pi",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/types.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T21:50:57Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:57Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/runner.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T21:50:57Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "pi_extension_typescript_native",
+      "name": "TypeScript-native extensions loaded via jiti",
+      "description": "Pi extensions are TypeScript modules that export a default factory function receiving ExtensionAPI. They are loaded at runtime via jiti — no compilation step required. Extensions can import from @mariozechner/pi-coding-agent, @sinclair/typebox, @mariozechner/pi-ai, @mariozechner/pi-tui, Node.js built-ins, and any npm packages installed in a co-located package.json.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_event_model",
+      "name": "Rich lifecycle event model with 21 event types",
+      "description": "Extensions subscribe to events via pi.on(). Available events: resources_discover, session_start, session_before_switch, session_before_fork, session_before_compact, session_compact, session_shutdown, session_before_tree, session_tree, context (inject messages into LLM context), before_provider_request (inspect or replace API payload), before_agent_start (inject messages, modify system prompt), agent_start, agent_end, turn_start, turn_end, message_start, message_update, message_end, tool_execution_start, tool_execution_update, tool_execution_end, model_select, tool_call (can block execution), tool_result (can modify result), user_bash (can intercept ! commands), input (can intercept user input before expansion).",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/types.ts"
+    },
+    {
+      "id": "pi_extension_tool_call_blocking",
+      "name": "tool_call event can block or mutate tool execution",
+      "description": "The tool_call handler fires before execution and can return { block: true, reason?: string } to prevent the tool from running. event.input is mutable — handlers can patch tool arguments in place. Later handlers see mutations from earlier handlers. No re-validation is performed after mutation. In parallel tool execution mode (default), sibling tool calls from the same assistant message are preflighted sequentially, then executed concurrently.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_tool_result_middleware",
+      "name": "tool_result handlers chain as middleware",
+      "description": "The tool_result handler fires after tool execution, before tool_execution_end. Handlers run in extension load order and chain like middleware — each sees the latest result after previous handler changes. Handlers can return partial patches (content, details, or isError); omitted fields keep their current values.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_register_tool",
+      "name": "registerTool() adds LLM-callable tools",
+      "description": "Extensions can register tools callable by the LLM via pi.registerTool(). Tool definitions include name, label, description, a TypeBox parameter schema, and an async execute() function. Registered tools appear alongside pi's built-in tools (bash, read, write, edit, grep, find, ls). Extensions can also override built-in tools by registering with the same name.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_register_command",
+      "name": "registerCommand() adds slash commands",
+      "description": "Extensions can register custom slash commands (e.g., /mycommand) via pi.registerCommand(). Commands are checked before the agent processes user input — if matched, the command handler runs and the turn is bypassed. This enables extension-owned operations that don't involve the LLM.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_custom_ui",
+      "name": "Full TUI component access and UI primitives",
+      "description": "Extensions can interact with the user via ctx.ui: select(), confirm(), input(), notify() for dialogs; setStatus() for footer status text; setWidget() for text or full TUI components above/below the editor; setFooter() and setHeader() for complete replacement of footer/header components; custom() for arbitrary TUI overlays with keyboard focus. ctx.ui.custom() accepts a factory receiving TUI, Theme, KeybindingsManager, and a done callback.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_register_provider",
+      "name": "registerProvider() and unregisterProvider() for dynamic model provider management",
+      "description": "Extensions can register or override model providers at runtime via pi.registerProvider(), specifying baseUrl, apiKey, API type, models, and optional OAuth support. Providers can also be unregistered. Registration during the initial load phase is queued and applied after the runner binds; after that, it takes effect immediately without requiring /reload.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    },
+    {
+      "id": "pi_extension_hot_reload",
+      "name": "Hot reload with /reload command",
+      "description": "Extensions in auto-discovered locations (~/.pi/agent/extensions/, .pi/extensions/) support hot reload via /reload. The --extension/-e CLI flag loads extensions for quick testing but these do not participate in hot reload. Extensions are also reloaded when resources_discover fires with reason: 'reload'.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "codex-commands",
+  "provider": "codex",
+  "contentType": "commands",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/openai/codex/main/docs/slash_commands.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:46:20.726110295Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

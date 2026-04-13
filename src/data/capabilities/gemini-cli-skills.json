@@ -1,0 +1,72 @@
+{
+  "id": "gemini-cli-skills",
+  "provider": "gemini-cli",
+  "contentType": "skills",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:41Z"
+    }
+  ],
+  "canonicalMappings": {
+    "canonical_filename": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name)"
+    },
+    "custom_filename": {
+      "supported": false,
+      "mechanism": "not observed — filename is fixed as SKILL.md"
+    },
+    "description": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Gemini should use it — drives auto-invocation decisions"
+    },
+    "disable_model_invocation": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "display_name": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); value should match the skill's directory name"
+    },
+    "global_scope": {
+      "supported": true,
+      "mechanism": "~/.gemini/skills/<name>/SKILL.md",
+      "paths": [
+        "~/.gemini/skills/<name>/SKILL.md"
+      ]
+    },
+    "project_scope": {
+      "supported": true,
+      "mechanism": ".gemini/skills/<name>/SKILL.md",
+      "paths": [
+        ".gemini/skills/<name>/SKILL.md"
+      ]
+    },
+    "shared_scope": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "user_invocable": {
+      "supported": false,
+      "mechanism": ""
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "supporting_files",
+      "name": "Supporting file directories",
+      "description": "Skills may include optional subdirectories alongside SKILL.md for organizing supporting resources: scripts/ for executable scripts, references/ for static documentation, and assets/ for templates and other resources. The skill-creator built-in generates these three directories automatically. Only SKILL.md is required.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md"
+    },
+    {
+      "id": "skill_creator",
+      "name": "Built-in skill-creator skill",
+      "description": "Gemini CLI ships a built-in skill named skill-creator that generates new skill directories from a natural language prompt (e.g. \"create a new skill called code-reviewer\"). It creates the skill directory, SKILL.md with required frontmatter, and the standard scripts/, references/, and assets/ subdirectories.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md"
+    }
+  ]
+}

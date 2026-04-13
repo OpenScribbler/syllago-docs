@@ -1,0 +1,35 @@
+{
+  "id": "factory-droid-commands",
+  "provider": "factory-droid",
+  "contentType": "commands",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:24.284728649Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "two_command_types",
+      "name": "Two Command Types",
+      "description": "Commands come in two types: Markdown (.md files — prompt templates injected into the conversation, support $ARGUMENTS substitution) and Executable (scripts — run as shell commands with stdout fed into the conversation). Both share the same discovery directories.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands"
+    },
+    {
+      "id": "command_discovery_paths",
+      "name": "Command Discovery Paths",
+      "description": "Commands are discovered from .factory/commands/ (project) or ~/.factory/commands/ (personal). The filename (without extension) becomes the slash command name. Project commands override personal commands with the same slug.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands"
+    },
+    {
+      "id": "skills_supersede_commands",
+      "name": "Skills Supersede Commands",
+      "description": "Factory's own docs note that skills are now user-invokable via slash commands and recommend skills over commands for new work. Commands remain supported for backwards compatibility but are considered a legacy mechanism relative to skills.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands"
+    }
+  ]
+}

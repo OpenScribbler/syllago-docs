@@ -1,0 +1,21 @@
+{
+  "id": "skills-metadata_map",
+  "key": "metadata_map",
+  "contentType": "skills",
+  "description": "Arbitrary key-value metadata attached to the skill. Provider-specific semantics; often used for tooling or automation metadata.",
+  "type": "object",
+  "providers": {
+    "kiro": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: metadata (optional map)"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: metadata (optional map)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: metadata (optional, arbitrary key-value mapping)"
+    }
+  }
+}

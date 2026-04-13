@@ -5,6 +5,8 @@ description: How syllago works with Kiro — supported content types, file locat
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -38,16 +40,21 @@ description: How syllago works with Kiro — supported content types, file locat
 
 ## Hook Events
 
-Kiro supports **5 hook events** with handler types: `command`.
+Kiro supports **10 hook events** with handler types: `command`.
 
 Hooks are configured in `.kiro/agents/`.
 
 | Event | Native Name | Category |
 |-------|------------|----------|
+| `after_task` | `Post Task Execution` | Lifecycle |
 | `after_tool_execute` | `postToolUse` | Tool |
 | `agent_stop` | `stop` | Lifecycle |
 | `before_prompt` | `userPromptSubmit` | Lifecycle |
+| `before_task` | `Pre Task Execution` | Lifecycle |
 | `before_tool_execute` | `preToolUse` | Tool |
+| `file_changed` | `File Save` | Workspace |
+| `file_created` | `File Create` | Workspace |
+| `file_deleted` | `File Delete` | Workspace |
 | `session_start` | `agentSpawn` | Lifecycle |
 
 ## MCP Configuration
@@ -65,6 +72,36 @@ Hooks are configured in `.kiro/agents/`.
 | **File format** | Markdown |
 | **Frontmatter fields** | `inclusion`, `fileMatchPattern`, `name`, `description` |
 | **Primary file** | `.kiro/steering` |
+
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="kiro" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="kiro" contentType="rules" />
+
+## Agents Extensions
+
+Provider-specific agents behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="kiro" contentType="agents" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="kiro" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="kiro" contentType="mcp" />
 
 
 ## Detection
@@ -86,4 +123,4 @@ syllago install my-rule --to kiro
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

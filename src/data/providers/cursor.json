@@ -43,6 +43,11 @@
       ],
       "hookEvents": [
         {
+          "canonical": "after_model",
+          "nativeName": "afterAgentResponse",
+          "category": "model"
+        },
+        {
           "canonical": "after_tool_execute",
           "nativeName": "PostToolUse",
           "category": "tool"
@@ -58,6 +63,11 @@
           "category": "context"
         },
         {
+          "canonical": "before_model",
+          "nativeName": "beforeAgentResponse",
+          "category": "model"
+        },
+        {
           "canonical": "before_prompt",
           "nativeName": "UserPromptSubmit",
           "category": "lifecycle"
@@ -68,6 +78,16 @@
           "category": "tool"
         },
         {
+          "canonical": "before_tool_selection",
+          "nativeName": "beforeToolSelection",
+          "category": "model"
+        },
+        {
+          "canonical": "file_changed",
+          "nativeName": "afterFileEdit",
+          "category": "workspace"
+        },
+        {
           "canonical": "session_end",
           "nativeName": "SessionEnd",
           "category": "lifecycle"
@@ -76,6 +96,21 @@
           "canonical": "session_start",
           "nativeName": "SessionStart",
           "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_start",
+          "nativeName": "SubagentStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_stop",
+          "nativeName": "SubagentStop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "tool_use_failure",
+          "nativeName": "postToolUseFailure",
+          "category": "tool"
         }
       ],
       "hookTypes": [

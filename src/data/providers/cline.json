@@ -21,48 +21,6 @@
       "discoveryPaths": [
         "{project}/.clinerules/hooks"
       ],
-      "hookEvents": [
-        {
-          "canonical": "after_tool_execute",
-          "nativeName": "PostToolUse",
-          "category": "tool"
-        },
-        {
-          "canonical": "before_compact",
-          "nativeName": "PreCompact",
-          "category": "context"
-        },
-        {
-          "canonical": "before_prompt",
-          "nativeName": "UserPromptSubmit",
-          "category": "lifecycle"
-        },
-        {
-          "canonical": "before_tool_execute",
-          "nativeName": "PreToolUse",
-          "category": "tool"
-        },
-        {
-          "canonical": "session_end",
-          "nativeName": "TaskComplete",
-          "category": "lifecycle"
-        },
-        {
-          "canonical": "session_start",
-          "nativeName": "TaskStart",
-          "category": "lifecycle"
-        },
-        {
-          "canonical": "task_cancel",
-          "nativeName": "TaskCancel",
-          "category": "lifecycle"
-        },
-        {
-          "canonical": "task_resume",
-          "nativeName": "TaskResume",
-          "category": "lifecycle"
-        }
-      ],
       "hookTypes": [
         "command"
       ],

@@ -18,6 +18,38 @@
       "fileFormat": "json",
       "installMethod": "json-merge",
       "symlinkSupport": false,
+      "hookEvents": [
+        {
+          "canonical": "agent_stop",
+          "nativeName": "post_cascade_response",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "pre_user_prompt",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "session_end",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "session_start",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "transcript_export",
+          "nativeName": "post_cascade_response_with_transcript",
+          "category": "output"
+        },
+        {
+          "canonical": "worktree_create",
+          "nativeName": "post_setup_worktree",
+          "category": "workspace"
+        }
+      ],
       "hookTypes": [
         "command"
       ],

@@ -1,0 +1,80 @@
+{
+  "id": "gemini-cli-hooks",
+  "provider": "gemini-cli",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/core/src/hooks/types.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T21:50:37Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T21:50:38Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/index.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:38Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:38Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "hook_events",
+      "name": "Hook event system",
+      "description": "Gemini CLI supports 11 hook events covering the full agent lifecycle: BeforeTool, AfterTool, BeforeAgent, AfterAgent, BeforeModel, AfterModel, BeforeToolSelection, SessionStart, SessionEnd, PreCompress, and Notification. Hooks are shell commands configured per-event in settings.json under the hooks key. Each event entry is an array of hook definition objects with optional matcher, optional sequential flag, and a hooks array of command configs.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md"
+    },
+    {
+      "id": "hook_io_protocol",
+      "name": "stdin/stdout JSON I/O protocol",
+      "description": "Hooks communicate via stdin (JSON input) and stdout (JSON output). All hooks receive a common base input with session_id, transcript_path, cwd, hook_event_name, and timestamp. Output fields include decision (allow/deny/block), reason, systemMessage, suppressOutput, continue, and stopReason. Stdout must contain only the JSON object — any plain text pollutes the parse. Stderr is safe for debug logging and is never parsed.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md"
+    },
+    {
+      "id": "exit_code_semantics",
+      "name": "Exit code semantics",
+      "description": "Exit code 0 means success — stdout is parsed as JSON. Exit code 2 means system block — the target action is aborted and stderr is used as the rejection reason. Any other exit code is a non-fatal warning — the interaction continues with original parameters. This three-tier exit code contract is specific to Gemini CLI's hook system.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md"
+    },
+    {
+      "id": "hook_matchers",
+      "name": "Matcher-based hook filtering",
+      "description": "Hook definitions support a matcher field to filter which tools or triggers fire the hook. For BeforeTool and AfterTool, matchers are regular expressions matched against the tool name (e.g., \"write_.*\"). For lifecycle events, matchers are exact strings (e.g., \"startup\"). An empty string or \"*\" matches all occurrences.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/index.md"
+    },
+    {
+      "id": "hook_fingerprinting",
+      "name": "Project hook fingerprinting",
+      "description": "Project-level hooks (.gemini/settings.json) are fingerprinted by Gemini CLI. If a hook's name or command changes (e.g., via git pull), it is treated as a new untrusted hook and the user is warned before execution. This is a security measure for untrusted project contexts.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/index.md"
+    },
+    {
+      "id": "hook_sequential_flag",
+      "name": "Sequential execution flag",
+      "description": "Hook definition groups support a sequential boolean field. When true, hooks in the group run one after another in order. When false (or omitted), hooks run in parallel. This allows dependency ordering within a hook event group.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json"
+    },
+    {
+      "id": "hook_event_specific_outputs",
+      "name": "Event-specific hook output fields",
+      "description": "Several events support hookSpecificOutput fields beyond the common output schema: BeforeTool supports tool_input (merges with and overrides model arguments); AfterTool supports additionalContext (appended to tool result) and tailToolCallRequest (routes execution to another tool, replacing the original response); AfterAgent supports clearContext (clears LLM conversation history while preserving UI display); BeforeModel supports llm_request (overrides outgoing request) and llm_response (provides synthetic response, skipping the LLM call entirely); BeforeToolSelection supports toolConfig with mode (AUTO/ANY/NONE) and allowedFunctionNames.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md"
+    },
+    {
+      "id": "hook_management_commands",
+      "name": "In-session hook management commands",
+      "description": "Hooks can be managed interactively without editing JSON: /hooks panel displays all configured hooks; /hooks enable-all and /hooks disable-all toggle the entire hook system; /hooks enable <name> and /hooks disable <name> toggle individual hooks by name. Changes take effect immediately within the session.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/index.md"
+    }
+  ]
+}

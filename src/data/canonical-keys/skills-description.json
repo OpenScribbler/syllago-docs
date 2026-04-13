@@ -1,0 +1,53 @@
+{
+  "id": "skills-description",
+  "key": "description",
+  "contentType": "skills",
+  "description": "What the skill does. Used by the AI to decide when to auto-invoke it. Also shown in skill listings and help text.",
+  "type": "string",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required)"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (recommended)"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required) — tells Cline when to use this skill, max 1024 characters"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "YAML frontmatter key: description (required — empty string triggers MissingField error; max 1024 chars enforced after whitespace normalization)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required per Agent Skills open standard)"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (recommended, not required)"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Gemini should use it — drives auto-invocation decisions"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required)"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required, max 1024 chars)"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching."
+    }
+  }
+}

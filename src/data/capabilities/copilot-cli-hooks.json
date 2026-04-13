@@ -1,0 +1,45 @@
+{
+  "id": "copilot-cli-hooks",
+  "provider": "copilot-cli",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/hooks-configuration.md",
+      "type": "reference",
+      "fetched_at": "2026-04-11T21:50:14.393054682Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/use-hooks.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:14.529583981Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-copilot-cli.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:14.951733729Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "hook_event_types",
+      "name": "Six Hook Event Types",
+      "description": "Copilot CLI exposes six named hook events: `sessionStart` (on new or resumed session), `sessionEnd` (on session complete or terminate), `userPromptSubmitted` (when user submits a prompt), `preToolUse` (before any tool executes — can deny execution), `postToolUse` (after tool completes — result modification not supported), and `errorOccurred` (on agent execution error). Each event receives a JSON payload over stdin with a `timestamp`, `cwd`, and event-specific fields. Only `preToolUse` produces meaningful output: a `permissionDecision` field (`\"allow\"`, `\"deny\"`, or `\"ask\"`) with an optional `permissionDecisionReason`. Output from all other hooks is ignored.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/hooks-configuration.md"
+    },
+    {
+      "id": "hook_config_format",
+      "name": "JSON Hook Configuration File",
+      "description": "Hooks are defined in a `.github/hooks/*.json` file (or inline in a plugin's `hooks.json`). The top-level structure is `{\"version\": 1, \"hooks\": { EVENT_NAME: [HOOK_OBJECT, ...] }}`. Each hook object has a `type` field (currently only `\"command\"` is documented), `bash` (Bash script path or inline), `powershell` (PowerShell script path or inline), optional `cwd` (working directory), optional `timeoutSec` (default 30), and optional `comment`. Multiple hooks of the same event type execute in array order.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/hooks-configuration.md"
+    },
+    {
+      "id": "pre_tool_use_deny",
+      "name": "Pre-Tool-Use Deny Gate",
+      "description": "The `preToolUse` hook is the only hook type that can block agent execution. Returning `{\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"...\"}` from the hook script causes the tool call to be rejected. The `\"allow\"` decision is the default (returning nothing or `\"allow\"` both allow). The `\"ask\"` value is documented in the schema but only `\"deny\"` is stated as currently processed. The hook receives `toolName` (e.g., `\"bash\"`, `\"edit\"`, `\"view\"`, `\"create\"`) and `toolArgs` (a JSON string of the tool's arguments).",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/hooks-configuration.md"
+    }
+  ]
+}

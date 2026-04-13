@@ -1,0 +1,111 @@
+---
+/**
+ * CanonicalSupportTable.astro — Provider support table for a canonical key.
+ *
+ * Queries the 'capabilities' collection at build time and renders:
+ *   Provider | Supported | Mechanism
+ *
+ * Rows sorted: supported providers first (alphabetical), then unsupported
+ * (alphabetical). Support shown as checkmark; unsupported as cross.
+ *
+ * Props:
+ *   keyName: string      — e.g., "display_name"
+ *   contentType: string  — e.g., "skills"
+ */
+import { getCollection } from 'astro:content';
+
+interface Props {
+  keyName: string;
+  contentType: string;
+}
+
+const { keyName, contentType } = Astro.props;
+
+// Load all capability entries for this content type.
+const allCapabilities = await getCollection('capabilities');
+const relevant = allCapabilities.filter(
+  (entry) => entry.data.contentType === contentType
+);
+
+// Build rows: one per provider that has an entry for this contentType.
+interface Row {
+  provider: string;
+  supported: boolean;
+  mechanism: string;
+}
+
+const rows: Row[] = relevant.map((entry) => {
+  const mapping = entry.data.canonicalMappings[keyName];
+  return {
+    provider: entry.data.provider,
+    supported: mapping?.supported ?? false,
+    mechanism: mapping?.mechanism ?? "not documented",
+  };
+});
+
+// Sort: supported first, then unsupported; alphabetical within each group.
+rows.sort((a, b) => {
+  if (a.supported !== b.supported) return a.supported ? -1 : 1;
+  return a.provider.localeCompare(b.provider);
+});
+---
+
+{rows.length === 0 ? (
+  <p>No provider support data available for <code>{keyName}</code>.</p>
+) : (
+  <table>
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Supported</th>
+        <th>Mechanism</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td><a href={`/using-syllago/providers/${row.provider}/`}>{row.provider}</a></td>
+          <td class={row.supported ? "support-yes" : "support-no"}>
+            {row.supported ? "✓" : "✗"}
+          </td>
+          <td>{row.mechanism}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  th {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .support-yes {
+    color: var(--sl-color-green);
+    font-weight: 600;
+  }
+
+  .support-no {
+    color: var(--sl-color-red);
+    font-weight: 600;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+</style>

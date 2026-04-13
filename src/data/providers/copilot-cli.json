@@ -91,6 +91,11 @@
           "canonical": "subagent_stop",
           "nativeName": "subagentStop",
           "category": "lifecycle"
+        },
+        {
+          "canonical": "tool_use_failure",
+          "nativeName": "errorOccurred",
+          "category": "tool"
         }
       ],
       "hookTypes": [

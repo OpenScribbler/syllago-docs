@@ -5,6 +5,8 @@ description: How syllago works with Copilot CLI — supported content types, fil
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -39,7 +41,7 @@ description: How syllago works with Copilot CLI — supported content types, fil
 
 ## Hook Events
 
-Copilot CLI supports **8 hook events** with handler types: `command`.
+Copilot CLI supports **9 hook events** with handler types: `command`.
 
 Hooks are configured in `.github/hooks/`.
 
@@ -53,6 +55,7 @@ Hooks are configured in `.github/hooks/`.
 | `session_end` | `sessionEnd` | Lifecycle |
 | `session_start` | `sessionStart` | Lifecycle |
 | `subagent_stop` | `subagentStop` | Lifecycle |
+| `tool_use_failure` | `errorOccurred` | Tool |
 
 ## MCP Configuration
 
@@ -69,6 +72,42 @@ Hooks are configured in `.github/hooks/`.
 | **File format** | Markdown |
 | **Frontmatter fields** | `applyTo` |
 | **Primary file** | `.github/copilot-instructions.md` |
+
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="rules" />
+
+## Agents Extensions
+
+Provider-specific agents behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="agents" />
+
+## Commands Extensions
+
+Provider-specific commands behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="commands" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="copilot-cli" contentType="mcp" />
 
 
 ## Detection
@@ -90,4 +129,4 @@ syllago install my-rule --to copilot-cli
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

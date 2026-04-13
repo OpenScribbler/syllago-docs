@@ -1,0 +1,47 @@
+{
+  "id": "factory-droid-agents",
+  "provider": "factory-droid",
+  "contentType": "agents",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.factory.ai/cli/configuration/custom-droids",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:33.339259873Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "droid_format",
+      "name": "Custom Droid Format",
+      "description": "Agents (Custom Droids) are .md files stored under .factory/droids/ (project) or ~/.factory/droids/ (personal). Each droid defines its own system prompt, model preference, and tooling policy in a single file. The CLI scans top-level files only (no subdirectory recursion).",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids"
+    },
+    {
+      "id": "droid_precedence",
+      "name": "Project-Over-Personal Precedence",
+      "description": "Project-scope droids override personal droids with the same slug. This is the opposite of skills precedence (where personal overrides project) and must be accounted for in any cross-provider conversion.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids"
+    },
+    {
+      "id": "tool_categories",
+      "name": "Tool Categories",
+      "description": "Droids specify allowed tools via named categories: filesystem, shell, search, browser, web_fetch, and others. This categorical tooling policy differs from per-tool allowlists used by some other providers.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids"
+    },
+    {
+      "id": "model_selection_per_droid",
+      "name": "Per-Droid Model Selection",
+      "description": "Each droid can specify its own model preference independently of the global model setting, enabling mixed-model agent compositions within a single project.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids"
+    },
+    {
+      "id": "claude_code_subagent_import",
+      "name": "Claude Code Subagent Import",
+      "description": "The /import-subagent command reads .claude/agents/*.md files and converts them to Factory droid format, providing a migration path from Claude Code agent definitions to Factory droids.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids"
+    }
+  ]
+}

@@ -80,7 +80,8 @@
       "installPath": "{home}/.config/opencode/skills",
       "symlinkSupport": true,
       "discoveryPaths": [
-        "{project}/.opencode/skills"
+        "{project}/.opencode/skills",
+        "{project}/.agents/skills"
       ],
       "frontmatterFields": [
         "name",

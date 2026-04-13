@@ -5,6 +5,8 @@ description: How syllago works with Codex — supported content types, file loca
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -51,6 +53,36 @@ Hooks are configured in `.codex/hooks.json`.
 | **Transports** | `stdio` |
 | **Config file** | `.codex/config.toml` |
 
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="codex" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="codex" contentType="rules" />
+
+## Agents Extensions
+
+Provider-specific agents behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="codex" contentType="agents" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="codex" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="codex" contentType="mcp" />
+
 
 ## Detection
 
@@ -71,4 +103,4 @@ syllago install my-rule --to codex
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

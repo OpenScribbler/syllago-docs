@@ -10,7 +10,7 @@
  *   PROVIDERS_JSON_PATH=path/to/providers.json bun scripts/sync-providers.ts
  */
 
-import { mkdirSync, rmSync, writeFileSync, readFileSync, existsSync } from "fs";
+import { mkdirSync, rmSync, writeFileSync, readFileSync, existsSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { execFileSync } from "child_process";
 
@@ -55,6 +55,21 @@ interface ProviderManifest {
   contentTypes: string[];
 }
 
+// Capabilities data shape (written by sync-capabilities.ts).
+interface CapDataExtension {
+  id: string;
+  name: string;
+  description: string;
+  source_ref?: string;
+}
+
+interface CapDataEntry {
+  id: string;
+  provider: string;
+  contentType: string;
+  providerExtensions: CapDataExtension[];
+}
+
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
@@ -63,6 +78,7 @@ const ROOT_DIR = dirname(import.meta.dir);
 const GITHUB_REPO = "OpenScribbler/syllago";
 const MDX_OUTPUT_DIR = join(ROOT_DIR, "src/content/docs/using-syllago/providers");
 const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
+const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
 const FETCH_TIMEOUT_MS = 15_000;
 
@@ -160,6 +176,33 @@ function getGitHubToken(): string | undefined {
   } catch {
     return undefined;
   }
+}
+
+// ---------------------------------------------------------------------------
+// Load capabilities data (written by sync-capabilities.ts)
+// ---------------------------------------------------------------------------
+
+function loadCapabilitiesData(): Map<string, CapDataEntry> {
+  // Map key: "<provider>-<contentType>"
+  const result = new Map<string, CapDataEntry>();
+
+  if (!existsSync(CAPABILITIES_DATA_DIR)) {
+    console.log("  Capabilities data not found — skipping extensions enrichment.");
+    return result;
+  }
+
+  const files = readdirSync(CAPABILITIES_DATA_DIR).filter((f) =>
+    f.endsWith(".json")
+  );
+
+  for (const file of files) {
+    const raw = readFileSync(join(CAPABILITIES_DATA_DIR, file), "utf-8");
+    const entry = JSON.parse(raw) as CapDataEntry;
+    result.set(entry.id, entry);
+  }
+
+  console.log(`  Loaded ${result.size} capability entries for extensions enrichment.`);
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -337,13 +380,63 @@ function generateIndexPage(
 }
 
 // ---------------------------------------------------------------------------
+// Extensions section generator
+// ---------------------------------------------------------------------------
+
+function generateExtensionsSections(
+  providerSlug: string,
+  capabilitiesData: Map<string, CapDataEntry>
+): { imports: string[]; sections: string[] } {
+  const imports: string[] = [];
+  const sections: string[] = [];
+
+  // Content types to check for extensions, in display order.
+  const contentTypesOrdered = [
+    "skills", "rules", "agents", "commands", "hooks", "mcp",
+  ];
+
+  let needsImport = false;
+
+  for (const contentType of contentTypesOrdered) {
+    const entry = capabilitiesData.get(`${providerSlug}-${contentType}`);
+    if (!entry || entry.providerExtensions.length === 0) continue;
+
+    needsImport = true;
+    const ctTitle =
+      CT_DISPLAY[contentType] || contentType.charAt(0).toUpperCase() + contentType.slice(1);
+
+    sections.push(
+      `## ${ctTitle} Extensions`,
+      "",
+      `Provider-specific ${ctTitle.toLowerCase()} behaviors and configuration options beyond the canonical keys.`,
+      "",
+      `<ProviderExtensions provider="${providerSlug}" contentType="${contentType}" />`,
+      ""
+    );
+  }
+
+  if (needsImport) {
+    imports.push("import ProviderExtensions from '../../../../components/ProviderExtensions.astro';");
+  }
+
+  return { imports, sections };
+}
+
+// ---------------------------------------------------------------------------
 // MDX generation — Per-provider pages (enriched)
 // ---------------------------------------------------------------------------
 
 function generateProviderPage(
   prov: ProviderCapEntry,
-  manifest: ProviderManifest
+  manifest: ProviderManifest,
+  capabilitiesData: Map<string, CapDataEntry>
 ): string {
+  // Compute extensions first so we can emit imports at the top.
+  const { imports: extImports, sections: extSections } = generateExtensionsSections(
+    prov.slug,
+    capabilitiesData
+  );
+
   const supportedTypes = Object.entries(prov.content)
     .filter(([, cap]) => cap.supported)
     .map(([ct]) => CT_DISPLAY[ct] || ct);
@@ -356,6 +449,14 @@ function generateProviderPage(
     "",
     "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
     "",
+  ];
+
+  // Extension component imports (only present when provider has extensions).
+  if (extImports.length > 0) {
+    lines.push(...extImports, "");
+  }
+
+  lines.push(
     "## Provider Details",
     "",
     "| Detail | Value |",
@@ -363,7 +464,7 @@ function generateProviderPage(
     `| **Slug** | \`${prov.slug}\` |`,
     `| **Config directory** | \`~/${prov.configDir}\` |`,
     `| **Supported content types** | ${supportedTypes.join(", ")} |`,
-  ];
+  );
 
   // Emit path.
   if (prov.emitPath) {
@@ -505,6 +606,11 @@ function generateProviderPage(
       );
     }
     lines.push("");
+  }
+
+  // --- Extensions enrichment ---
+  if (extSections.length > 0) {
+    lines.push(...extSections);
   }
 
   // Detection.
@@ -890,13 +996,16 @@ async function main() {
   rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });
   mkdirSync(MDX_OUTPUT_DIR, { recursive: true });
 
+  // Load capabilities data for extensions enrichment.
+  const capabilitiesData = loadCapabilitiesData();
+
   const indexContent = generateIndexPage(manifest.providers, manifest);
   writeFileSync(join(MDX_OUTPUT_DIR, "index.mdx"), indexContent);
   console.log("  MDX: index.mdx");
 
   let count = 0;
   for (const prov of manifest.providers) {
-    const content = generateProviderPage(prov, manifest);
+    const content = generateProviderPage(prov, manifest, capabilitiesData);
     writeFileSync(join(MDX_OUTPUT_DIR, `${prov.slug}.mdx`), content);
     count++;
   }

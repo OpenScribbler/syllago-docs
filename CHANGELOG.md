@@ -2,6 +2,21 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-12
+
+### Added
+- Capabilities pipeline: `sync-capabilities.ts` fetches `capabilities.json` from GitHub releases, generates Astro data collections and reference pages
+- 13 canonical key reference pages (`/reference/canonical-keys/<key>/`) — per-key detail with provider support table, metadata infobox, and pre-filled issue reporting
+- Capabilities matrix page (`/reference/capabilities-matrix/`) — cross-provider grid showing which providers support each canonical skill key
+- `MetaBox.astro` component — props-driven metadata infobox showing verification date, source count, and provider support ratio
+- `CanonicalSupportTable.astro` component — build-time table querying capabilities collection for per-key provider support
+- `ProviderExtensions.astro` component — build-time list querying capabilities collection for provider-specific extensions
+- `capabilities` and `canonical-keys` Astro data collections with Zod schemas in `content.config.ts`
+- `sync:capabilities` npm script and added to `sync`/`prebuild` pipelines (runs first in chain)
+
+### Changed
+- `sync-providers.ts` now reads capabilities data from `src/data/capabilities/` and emits `<ProviderExtensions>` sections on provider pages for content types with provider-specific extensions
+
 ## 2026-04-04
 
 ### Added

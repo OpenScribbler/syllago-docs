@@ -31,11 +31,63 @@ const providerSchema = z.object({
 	content: z.record(z.string(), contentCapabilitySchema),
 });
 
+const capSourceSchema = z.object({
+	uri: z.string(),
+	type: z.string(),
+	fetched_at: z.string(),
+});
+
+const capMappingSchema = z.object({
+	supported: z.boolean(),
+	mechanism: z.string(),
+	paths: z.array(z.string()).optional(),
+});
+
+const capExtensionSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	description: z.string(),
+	source_ref: z.string().optional(),
+});
+
+const capabilitySchema = z.object({
+	id: z.string(),
+	provider: z.string(),
+	contentType: z.string(),
+	status: z.string(),
+	lastChangedAt: z.string(),
+	sources: z.array(capSourceSchema),
+	canonicalMappings: z.record(z.string(), capMappingSchema),
+	providerExtensions: z.array(capExtensionSchema),
+});
+
+const canonicalKeyProviderSupportSchema = z.object({
+	supported: z.boolean(),
+	mechanism: z.string(),
+});
+
+const canonicalKeySchema = z.object({
+	id: z.string(),
+	key: z.string(),
+	contentType: z.string(),
+	description: z.string(),
+	type: z.string(),
+	providers: z.record(z.string(), canonicalKeyProviderSupportSchema),
+});
+
 export const collections = {
 	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
 	providers: defineCollection({
 		loader: glob({ pattern: '*.json', base: './src/data/providers' }),
 		schema: providerSchema,
+	}),
+	capabilities: defineCollection({
+		loader: glob({ pattern: '*.json', base: './src/data/capabilities' }),
+		schema: capabilitySchema,
+	}),
+	'canonical-keys': defineCollection({
+		loader: glob({ pattern: '*.json', base: './src/data/canonical-keys' }),
+		schema: canonicalKeySchema,
 	}),
 	glossary: defineCollection({
 		loader: glob({ pattern: '**/*.yaml', base: './src/content/glossary' }),

@@ -1,0 +1,41 @@
+{
+  "id": "gemini-cli-rules",
+  "provider": "gemini-cli",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:48:27Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "hierarchical_context_loading",
+      "name": "Hierarchical GEMINI.md loading",
+      "description": "Gemini CLI loads GEMINI.md files from three tiers in order: (1) global (~/.gemini/GEMINI.md), (2) workspace/environment context files found by searching configured workspace directories and their parent directories, and (3) just-in-time (JIT) context files discovered automatically when a tool accesses a file or directory — scanning that directory and its ancestors up to a trusted root. All found files are concatenated and sent to the model with every prompt. The CLI footer displays the number of loaded context files.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md"
+    },
+    {
+      "id": "configurable_filename",
+      "name": "Configurable context file name",
+      "description": "The default context filename is GEMINI.md, but users can configure alternative names or a list of names via the context.fileName property in settings.json. For example: {\"context\": {\"fileName\": [\"AGENTS.md\", \"CONTEXT.md\", \"GEMINI.md\"]}}. The CLI checks each name in order.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md"
+    },
+    {
+      "id": "file_imports",
+      "name": "File import directives",
+      "description": "GEMINI.md files can import content from other files using the @file.md syntax (e.g., @./components/instructions.md or @../shared/style-guide.md). Both relative and absolute paths are supported. Imported content is inlined before being sent to the model, allowing large rule sets to be modularized across multiple files.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md"
+    },
+    {
+      "id": "memory_command",
+      "name": "/memory management command",
+      "description": "The /memory command provides runtime management of loaded context files: /memory show displays the full concatenated active context; /memory reload forces a re-scan of all GEMINI.md files without restarting; /memory add <text> appends text directly to ~/.gemini/GEMINI.md for persistent in-session memory capture.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "skills-canonical_filename",
+  "key": "canonical_filename",
+  "contentType": "skills",
+  "description": "The required or conventional filename for this skill type. For example, \"SKILL.md\" for Claude Code skills.",
+  "type": "string",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name)"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md required inside skill directory"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md required inside a named skill directory"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md required within each named skill directory (SKILLS_FILENAME constant)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "SKILL.md (fixed filename per Agent Skills open standard)"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "SKILL.md (fixed, required filename within the skill directory)"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name)"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "Fixed filename POWER.md (required, all caps)"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md inside skill directory (Agent Skills spec)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed filename for directory-form skills)"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md required in each skill directory. All scopes (workspace, global, system) use this same convention."
+    }
+  }
+}

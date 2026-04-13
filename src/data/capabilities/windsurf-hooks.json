@@ -1,0 +1,47 @@
+{
+  "id": "windsurf-hooks",
+  "provider": "windsurf",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.windsurf.com/windsurf/cascade/hooks.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:51:05.350405506Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "twelve_hook_events",
+      "name": "Twelve hook event types",
+      "description": "Windsurf Cascade Hooks support twelve named event types covering the full agent action lifecycle: pre_read_code, post_read_code, pre_write_code, post_write_code, pre_run_command, post_run_command, pre_mcp_tool_use, post_mcp_tool_use, pre_user_prompt, post_cascade_response, post_cascade_response_with_transcript, and post_setup_worktree. Pre-hooks (pre_user_prompt, pre_read_code, pre_write_code, pre_run_command, pre_mcp_tool_use) can block the action by exiting with code 2. Post-hooks cannot block since the action has already occurred.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#hook-events"
+    },
+    {
+      "id": "json_stdin_context",
+      "name": "JSON context delivered via stdin",
+      "description": "Each hook receives a JSON object on stdin with common fields (agent_action_name, trajectory_id, execution_id, timestamp, tool_info) plus event-specific fields in tool_info. For example, pre_write_code includes file_path and an edits array with old_string/new_string pairs; pre_run_command includes command_line and cwd; pre_mcp_tool_use includes mcp_server_name, mcp_tool_name, and mcp_tool_arguments. Scripts can be written in any language (Python, Bash, Node.js, any executable).",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#common-input-structure"
+    },
+    {
+      "id": "three_config_scopes",
+      "name": "System, user, and workspace config scopes merged in order",
+      "description": "Hook configurations are JSON files loaded from three scopes and merged together. System-level (enterprise, managed by IT): macOS /Library/Application Support/Windsurf/hooks.json, Linux/WSL /etc/windsurf/hooks.json, Windows C:\\ProgramData\\Windsurf\\hooks.json. User-level (personal): ~/.codeium/windsurf/hooks.json (Windsurf IDE) or ~/.codeium/hooks.json (JetBrains plugin). Workspace-level (project, version-controlled): .windsurf/hooks.json in the workspace root. Hooks from all levels are combined and execute in order: cloud dashboard → system → user → workspace.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#configuration"
+    },
+    {
+      "id": "cloud_dashboard_distribution",
+      "name": "Cloud dashboard distribution for enterprise teams",
+      "description": "Enterprise teams can configure Cascade Hooks directly from the Windsurf Team Settings dashboard without managing local files. Requires Enterprise plan and TEAM_SETTINGS_UPDATE permission. Cloud-configured hooks are automatically distributed to all team members and loaded first (before system, user, and workspace hooks). Multiple team configs are merged per action rather than overwritten.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#cloud-dashboard-configuration"
+    },
+    {
+      "id": "transcript_hook",
+      "name": "Full conversation transcript hook variant",
+      "description": "post_cascade_response_with_transcript is a distinct variant of post_cascade_response that writes the full conversation transcript (from conversation start) to a local JSONL file at ~/.windsurf/transcripts/{trajectory_id}.jsonl and delivers the file path in tool_info rather than inline markdown. The JSONL format includes structured step-level data (file contents, command outputs, tool arguments, applied rules). Files are written with 0600 permissions; the directory is capped at 100 files with oldest pruned first. Designed for enterprise audit and compliance logging.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#post_cascade_response_with_transcript"
+    }
+  ]
+}

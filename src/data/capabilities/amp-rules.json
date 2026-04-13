@@ -1,0 +1,40 @@
+{
+  "id": "amp-rules",
+  "provider": "amp",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T21:49:38Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/AGENT.md",
+      "type": "example",
+      "fetched_at": "2026-04-11T21:46:10Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md",
+      "type": "example",
+      "fetched_at": "2026-04-11T21:46:11Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "canonical_filename",
+      "name": "Canonical filename: AGENT.md",
+      "description": "Amp rules files are named AGENT.md. The filename is fixed — no frontmatter, no directory wrapper. The file contains plain Markdown with behavioral instructions, coding conventions, workflow guidelines, and any other context the agent should follow when working in the project.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+    },
+    {
+      "id": "project_scope",
+      "name": "Project-scope placement at repository root",
+      "description": "AGENT.md is placed at the root of the project repository. It is project-scoped: the instructions apply when Amp operates within that project. The file can be committed to version control so the whole team benefits from the same guidelines.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+    },
+    {
+      "id": "plain_markdown_content",
+      "name": "Plain Markdown, no frontmatter",
+      "description": "AGENT.md contains plain Markdown only — no YAML frontmatter, no structured metadata fields. Sections are organized with Markdown headings. Typical content observed includes: build commands and scripts, architecture and directory layout, code style and conventions, testing methodology (e.g., TDD requirements), PR workflow rules, tool and dependency notes, and any team-specific behavioral instructions for the AI.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+    }
+  ]
+}

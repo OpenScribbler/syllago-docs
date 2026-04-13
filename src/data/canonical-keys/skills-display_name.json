@@ -1,0 +1,53 @@
+{
+  "id": "skills-display_name",
+  "key": "display_name",
+  "contentType": "skills",
+  "description": "Human-readable display name for the skill. If omitted, the directory name is used. Shown in skill listings and menus.",
+  "type": "string",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required)"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name)"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required) — must exactly match the directory name"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "YAML frontmatter key: name (optional — falls back to parent directory name if absent or empty; max 64 chars enforced after whitespace normalization)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required per Agent Skills open standard)"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); value should match the skill's directory name"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required, slug-style identifier)"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required, max 64 chars, lowercase a-z/0-9/hyphens, must match parent directory name)"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions."
+    }
+  }
+}

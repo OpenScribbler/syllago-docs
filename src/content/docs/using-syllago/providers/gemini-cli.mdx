@@ -5,6 +5,8 @@ description: How syllago works with Gemini CLI — supported content types, file
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -64,6 +66,36 @@ Hooks are configured in `.gemini/settings.json`.
 | **Transports** | `stdio`, `sse` |
 | **Config file** | `.gemini/settings.json` |
 
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="gemini-cli" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="gemini-cli" contentType="rules" />
+
+## Commands Extensions
+
+Provider-specific commands behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="gemini-cli" contentType="commands" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="gemini-cli" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="gemini-cli" contentType="mcp" />
+
 
 ## Detection
 
@@ -84,4 +116,4 @@ syllago install my-rule --to gemini-cli
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

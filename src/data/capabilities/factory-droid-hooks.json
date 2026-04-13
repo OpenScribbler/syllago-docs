@@ -1,0 +1,52 @@
+{
+  "id": "factory-droid-hooks",
+  "provider": "factory-droid",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.factory.ai/cli/configuration/hooks-guide",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:46:21.993498315Z"
+    },
+    {
+      "uri": "https://docs.factory.ai/reference/hooks-reference",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:46:22.150307964Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "hook_events",
+      "name": "Hook Events",
+      "description": "Eight hook events: PreToolUse, PostToolUse, Notification, UserPromptSubmit, Stop, SubagentStop, PreCompact, SessionStart, SessionEnd. PreToolUse can block tool execution (decision: block). PostToolUse can trigger rerun (decision: rerun). UserPromptSubmit can modify inputText before processing.",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference"
+    },
+    {
+      "id": "hook_config_structure",
+      "name": "Hook Config Structure",
+      "description": "Hooks are configured as JSON under a top-level \"hooks\" key: {\"hooks\": {\"EventName\": [{\"matcher\": \"ToolPattern\", \"hooks\": [{\"type\": \"command\", \"command\": \"...\"}]}]}}. Matchers support exact strings, regex patterns, and \"*\" for all tools. MCP tool names follow the mcp__serverName__toolName pattern.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/hooks-guide"
+    },
+    {
+      "id": "hook_scope_files",
+      "name": "Hook Scope Files",
+      "description": "Hooks are stored in scoped settings files: ~/.factory/settings.json (user-global), .factory/settings.json (project, committed), .factory/settings.local.json (project-local, not committed). Plugin hooks live in plugins/[name]/settings.json.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/hooks-guide"
+    },
+    {
+      "id": "hook_exit_code_behavior",
+      "name": "Hook Exit Code Behavior",
+      "description": "Exit code 2 has special semantics: suppress output and return empty result. JSON output fields include decision, reason, stopReason, inputText, and suppressOutput. The FACTORY_TOOL_INPUT environment variable is available to hook processes.",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference"
+    },
+    {
+      "id": "pre_compact_event",
+      "name": "PreCompact Hook Event",
+      "description": "The PreCompact event fires before context compaction occurs, enabling hooks to inject memory or state into the compaction prompt. Useful for preserving important session context across compaction boundaries.",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference"
+    }
+  ]
+}

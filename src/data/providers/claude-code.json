@@ -77,11 +77,6 @@
           "category": "tool"
         },
         {
-          "canonical": "after_tool_failure",
-          "nativeName": "PostToolUseFailure",
-          "category": "tool"
-        },
-        {
           "canonical": "agent_stop",
           "nativeName": "Stop",
           "category": "lifecycle"
@@ -120,6 +115,11 @@
           "canonical": "error_occurred",
           "nativeName": "ErrorOccurred",
           "category": "lifecycle"
+        },
+        {
+          "canonical": "file_changed",
+          "nativeName": "FileChanged",
+          "category": "workspace"
         },
         {
           "canonical": "instructions_loaded",
@@ -170,6 +170,11 @@
           "canonical": "teammate_idle",
           "nativeName": "TeammateIdle",
           "category": "collaboration"
+        },
+        {
+          "canonical": "tool_use_failure",
+          "nativeName": "PostToolUseFailure",
+          "category": "tool"
         },
         {
           "canonical": "worktree_create",

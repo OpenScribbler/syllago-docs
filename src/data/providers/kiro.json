@@ -45,6 +45,11 @@
       ],
       "hookEvents": [
         {
+          "canonical": "after_task",
+          "nativeName": "Post Task Execution",
+          "category": "lifecycle"
+        },
+        {
           "canonical": "after_tool_execute",
           "nativeName": "postToolUse",
           "category": "tool"
@@ -60,9 +65,29 @@
           "category": "lifecycle"
         },
         {
+          "canonical": "before_task",
+          "nativeName": "Pre Task Execution",
+          "category": "lifecycle"
+        },
+        {
           "canonical": "before_tool_execute",
           "nativeName": "preToolUse",
           "category": "tool"
+        },
+        {
+          "canonical": "file_changed",
+          "nativeName": "File Save",
+          "category": "workspace"
+        },
+        {
+          "canonical": "file_created",
+          "nativeName": "File Create",
+          "category": "workspace"
+        },
+        {
+          "canonical": "file_deleted",
+          "nativeName": "File Delete",
+          "category": "workspace"
         },
         {
           "canonical": "session_start",

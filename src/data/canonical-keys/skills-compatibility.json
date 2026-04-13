@@ -1,0 +1,21 @@
+{
+  "id": "skills-compatibility",
+  "key": "compatibility",
+  "contentType": "skills",
+  "description": "Provider compatibility constraints — which AI tool versions or providers this skill is compatible with.",
+  "type": "object",
+  "providers": {
+    "kiro": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional)"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional, max 500 chars)"
+    }
+  }
+}

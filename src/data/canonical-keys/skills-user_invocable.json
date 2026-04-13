@@ -1,0 +1,49 @@
+{
+  "id": "skills-user_invocable",
+  "key": "user_invocable",
+  "contentType": "skills",
+  "description": "When false, the skill is hidden from user-facing menus (e.g., the / command menu). The AI can still invoke it. Default: true.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "not documented — no mechanism to hide skills from user-facing menus is described; skills are managed via 'amp skill' CLI and command palette, not a slash-command invocation menu"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true)"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "slash-prefixed skill name in user prompt (e.g. /frontend-design)"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Explicit @mention by skill name in Cascade input (e.g., @deploy-to-production). Always available regardless of auto-invocation eligibility."
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "id": "factory-droid-skills",
+  "provider": "factory-droid",
+  "contentType": "skills",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.factory.ai/cli/configuration/skills",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:50:31Z"
+    }
+  ],
+  "canonicalMappings": {
+    "canonical_filename": {
+      "supported": true,
+      "mechanism": "SKILL.md (fixed, required filename within the skill directory)"
+    },
+    "custom_filename": {
+      "supported": true,
+      "mechanism": "skill.mdx is accepted as an alternative to SKILL.md within the skill directory"
+    },
+    "description": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (recommended, not required)"
+    },
+    "disable_model_invocation": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
+    },
+    "display_name": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
+    },
+    "global_scope": {
+      "supported": true,
+      "mechanism": "~/.factory/skills/<skill-name>/SKILL.md",
+      "paths": [
+        "~/.factory/skills/<skill-name>/SKILL.md"
+      ]
+    },
+    "project_scope": {
+      "supported": true,
+      "mechanism": "<repo>/.factory/skills/<skill-name>/SKILL.md",
+      "paths": [
+        ".factory/skills/<skill-name>/SKILL.md",
+        ".agent/skills/<skill-name>/SKILL.md"
+      ]
+    },
+    "shared_scope": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "user_invocable": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "supporting_files",
+      "name": "Supporting Files",
+      "description": "Optional supporting files (scripts, schemas, checklists, etc.) can be co-located in the skill directory alongside SKILL.md. The Droid can reference these files when executing the skill. This enables self-contained skill packages that bundle their own tooling assets.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+    },
+    {
+      "id": "auto_invocation",
+      "name": "Auto-Invocation",
+      "description": "The Droid automatically invokes matching skills when they apply to the current task, without explicit user prompting. The skill description is the primary trigger signal — the model uses it to determine whether a skill is relevant to the current context. The user-invocable and disable-model-invocation frontmatter keys control whether auto-invocation is permitted.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+    },
+    {
+      "id": "monorepo_skill_paths",
+      "name": "Monorepo Skill Paths",
+      "description": "Skills can be organized per-project within a monorepo using per-project .factory/skills/ directories, or shared across projects via a root-level .factory/skills/ directory. This allows monorepos to maintain project-specific skills alongside shared skills without path conflicts.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+    },
+    {
+      "id": "skill_composability",
+      "name": "Skill Composability",
+      "description": "The Droid can chain multiple skills inside a single plan, invoking them in sequence as the plan progresses. This enables composite workflows composed of reusable skill primitives without requiring a single monolithic skill.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+    },
+    {
+      "id": "legacy_commands_compatibility",
+      "name": "Legacy Commands Compatibility",
+      "description": "Files under .factory/commands/ continue to work and are recognized by the Droid. Skills (under .factory/skills/) supersede commands as the preferred mechanism, but the commands directory is still loaded for backwards compatibility with pre-skills configurations.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+    }
+  ]
+}

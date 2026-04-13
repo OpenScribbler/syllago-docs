@@ -1,0 +1,49 @@
+{
+  "id": "skills-shared_scope",
+  "key": "shared_scope",
+  "contentType": "skills",
+  "description": "Whether the skill can be installed at shared/enterprise scope (applies to all users in an organization or shared environment).",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "not documented — only project-scope (.agents/skills/) and user-wide (~/.config/agents/skills/) are described; no enterprise or shared scope exists"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Managed settings deployment for organization-wide distribution"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "Admin scope at /etc/codex/skills on Unix (SkillScope::Admin) — machine-level shared skills readable by all local users; injected via System config layer"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "organization-level and enterprise-level skills explicitly stated as 'coming soon' in source"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "OS-specific system path deployed by enterprise IT; read-only for end users. macOS: /Library/Application Support/Windsurf/skills/<skill-name>/; Linux/WSL: /etc/windsurf/skills/<skill-name>/; Windows: C:\\ProgramData\\Windsurf\\skills\\<skill-name>\\."
+    }
+  }
+}

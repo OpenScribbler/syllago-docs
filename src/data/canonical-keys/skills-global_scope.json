@@ -1,0 +1,53 @@
+{
+  "id": "skills-global_scope",
+  "key": "global_scope",
+  "contentType": "skills",
+  "description": "Whether the skill can be installed at global/personal scope (applies across all projects for the current user).",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "skill directory placed under ~/.config/agents/skills/<name>/, ~/.config/amp/skills/<name>/, or ~/.claude/skills/<name>/"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "~/.claude/skills/<skill-name>/SKILL.md in user home directory"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "Skills stored in ~/.cline/skills/<name>/SKILL.md (macOS/Linux)"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "Skills directory at $HOME/.agents/skills/ or the user config layer's skills/ subdir ($CODEX_HOME/skills, deprecated but kept for backward compatibility) (SkillScope::User)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "skill directory under ~/.copilot/skills/<name>/, ~/.claude/skills/<name>/, or ~/.agents/skills/<name>/"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "~/.factory/skills/<skill-name>/SKILL.md"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "~/.gemini/skills/<name>/SKILL.md"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "cross-provider convention at ~/.config/opencode/skills/<name>/SKILL.md"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "~/.pi/agent/skills/<name>/SKILL.md or ~/.agents/skills/<name>/SKILL.md"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Skill directory at ~/.codeium/windsurf/skills/<skill-name>/. Available in all workspaces on the user's machine; not committed to version control. Also discovered at ~/.agents/skills/<skill-name>/ and (if Claude Code config reading is enabled) ~/.claude/skills/<skill-name>/."
+    }
+  }
+}

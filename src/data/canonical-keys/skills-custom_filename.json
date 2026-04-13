@@ -1,0 +1,41 @@
+{
+  "id": "skills-custom_filename",
+  "key": "custom_filename",
+  "contentType": "skills",
+  "description": "Whether the provider supports custom filenames (beyond the canonical filename convention).",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "not observed — amp requires SKILL.md as the fixed canonical filename"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Variable directory name: .claude/skills/<name>/SKILL.md — directory name is the skill identifier"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Not applicable — Cline uses fixed SKILL.md canonical filename only"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "not observed — Agent Skills standard uses fixed SKILL.md filename"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "skill.mdx is accepted as an alternative to SKILL.md within the skill directory"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "not observed — filename is fixed as SKILL.md"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Not observed — POWER.md is fixed"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "Any .md filename at root of ~/.pi/agent/skills/ or .pi/skills/ (shorthand single-file form)"
+    }
+  }
+}

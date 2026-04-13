@@ -1,0 +1,45 @@
+{
+  "id": "skills-disable_model_invocation",
+  "key": "disable_model_invocation",
+  "contentType": "skills",
+  "description": "When true, the AI cannot auto-invoke this skill; only the user can invoke it explicitly. Default: false.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "not documented — no mechanism to prevent the model from auto-invoking a skill; the model always selects based on name and description match"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "openai.yaml companion file key: policy.allow_implicit_invocation (optional bool; false disables implicit/auto invocation; defaults to true when absent)"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool); confirmed in SkillFrontmatter TypeScript interface as disable-model-invocation?: boolean"
+    }
+  }
+}

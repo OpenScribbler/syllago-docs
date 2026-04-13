@@ -5,6 +5,8 @@ description: How syllago works with Amp — supported content types, file locati
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -50,6 +52,30 @@ description: How syllago works with Amp — supported content types, file locati
 | **Frontmatter fields** | `globs` |
 | **Primary file** | `AGENTS.md` |
 
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="amp" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="amp" contentType="rules" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="amp" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="amp" contentType="mcp" />
+
 
 ## Detection
 
@@ -70,4 +96,4 @@ syllago install my-rule --to amp
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

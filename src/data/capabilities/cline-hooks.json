@@ -1,0 +1,53 @@
+{
+  "id": "cline-hooks",
+  "provider": "cline",
+  "contentType": "hooks",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.cline.bot/customization/hooks",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T21:49:54.580789106Z"
+    }
+  ],
+  "canonicalMappings": {},
+  "providerExtensions": [
+    {
+      "id": "eight_hook_types",
+      "name": "Eight Named Hook Types",
+      "description": "Cline defines 8 hook types covering the full task lifecycle: TaskStart (new task begins), TaskResume (interrupted task resumes), TaskCancel (task cancelled by user), TaskComplete (task succeeds), PreToolUse (before any tool executes), PostToolUse (after tool completes), UserPromptSubmit (user sends a message), PreCompact (before context truncation). Each runs at a specific, documented point in the lifecycle. Hook input JSON uses camelCase field names matching the hook type (e.g., preToolUse, taskStart).",
+      "source_ref": "https://docs.cline.bot/customization/hooks#hook-types"
+    },
+    {
+      "id": "context_modification_output",
+      "name": "contextModification Output Field for Injecting Conversation Context",
+      "description": "Hook stdout JSON supports a contextModification field (string). When set, the text is injected into the active conversation as context for Cline to consider. This allows hooks to supply dynamic information — project-specific context at task start, validation results before a tool runs, environment state mid-task — without requiring the user to manually paste it. The cancel and errorMessage fields control operation blocking.",
+      "source_ref": "https://docs.cline.bot/customization/hooks#context-modification"
+    },
+    {
+      "id": "global_and_project_hooks",
+      "name": "Global and Project Hook Scopes with Additive Execution",
+      "description": "Hooks can be stored globally (~/Documents/Cline/Hooks/) or per-project (.clinerules/hooks/). When both exist for the same hook type, both execute: global hooks run first, then workspace hooks. If either returns cancel: true, the operation stops. Project hooks can be committed to version control.",
+      "source_ref": "https://docs.cline.bot/customization/hooks#hook-locations"
+    },
+    {
+      "id": "platform_specific_file_format",
+      "name": "Platform-Specific Hook File Format",
+      "description": "Hook filenames are platform-sensitive: Windows requires <HookName>.ps1 (PowerShell), macOS/Linux requires extensionless <HookName> (executable shell script or binary). Wrong-platform naming is silently ignored by hook discovery. On Windows, hook enable/disable toggling is not yet supported — hooks run whenever the file exists. Toggle support is consistent on macOS/Linux via the Hooks UI.",
+      "source_ref": "https://docs.cline.bot/customization/hooks#quick-start-your-first-hook"
+    },
+    {
+      "id": "pre_tool_use_cancellation",
+      "name": "PreToolUse Can Cancel Tool Execution Before It Happens",
+      "description": "PreToolUse hooks receive the tool name and full parameters before execution. Returning cancel: true with an errorMessage blocks the operation entirely and surfaces the message to the user. PostToolUse hooks can also return cancel: true to stop the task, but cannot undo the tool execution that already occurred.",
+      "source_ref": "https://docs.cline.bot/customization/hooks#pretooluse"
+    },
+    {
+      "id": "model_info_in_hook_input",
+      "name": "Active Model Provider and Slug in Hook Input",
+      "description": "Every hook input JSON includes a model object with provider (machine-stable provider identifier) and slug (model identifier, e.g. \"anthropic/claude-sonnet-4.5\"). If unavailable, both fields fall back to the string \"unknown\". This allows hooks to implement model-aware logic — e.g., stricter guardrails for less capable models or routing to different external systems based on provider.",
+      "source_ref": "https://docs.cline.bot/customization/hooks#input-structure"
+    }
+  ]
+}

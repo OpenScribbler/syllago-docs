@@ -5,6 +5,8 @@ description: How syllago works with Claude Code — supported content types, fil
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
+import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
+
 ## Provider Details
 
 | Detail | Value |
@@ -40,7 +42,7 @@ description: How syllago works with Claude Code — supported content types, fil
 
 ## Hook Events
 
-Claude Code supports **23 hook events** with handler types: `command`, `http`, `prompt`, `agent`.
+Claude Code supports **24 hook events** with handler types: `command`, `http`, `prompt`, `agent`.
 
 Hooks are configured in `.claude/settings.json`.
 
@@ -48,7 +50,6 @@ Hooks are configured in `.claude/settings.json`.
 |-------|------------|----------|
 | `after_compact` | `PostCompact` | Context |
 | `after_tool_execute` | `PostToolUse` | Tool |
-| `after_tool_failure` | `PostToolUseFailure` | Tool |
 | `agent_stop` | `Stop` | Lifecycle |
 | `before_compact` | `PreCompact` | Context |
 | `before_prompt` | `UserPromptSubmit` | Lifecycle |
@@ -57,6 +58,7 @@ Hooks are configured in `.claude/settings.json`.
 | `elicitation` | `Elicitation` | Interaction |
 | `elicitation_result` | `ElicitationResult` | Interaction |
 | `error_occurred` | `ErrorOccurred` | Lifecycle |
+| `file_changed` | `FileChanged` | Workspace |
 | `instructions_loaded` | `InstructionsLoaded` | Context |
 | `notification` | `Notification` | Output |
 | `permission_request` | `PermissionRequest` | Security |
@@ -67,6 +69,7 @@ Hooks are configured in `.claude/settings.json`.
 | `subagent_stop` | `SubagentStop` | Lifecycle |
 | `task_completed` | `TaskCompleted` | Lifecycle |
 | `teammate_idle` | `TeammateIdle` | Collaboration |
+| `tool_use_failure` | `PostToolUseFailure` | Tool |
 | `worktree_create` | `WorktreeCreate` | Workspace |
 | `worktree_remove` | `WorktreeRemove` | Workspace |
 
@@ -85,6 +88,42 @@ Hooks are configured in `.claude/settings.json`.
 | **File format** | Markdown |
 | **Frontmatter fields** | `paths` |
 | **Primary file** | `CLAUDE.md` |
+
+## Skills Extensions
+
+Provider-specific skills behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="skills" />
+
+## Rules Extensions
+
+Provider-specific rules behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="rules" />
+
+## Agents Extensions
+
+Provider-specific agents behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="agents" />
+
+## Commands Extensions
+
+Provider-specific commands behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="commands" />
+
+## Hooks Extensions
+
+Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="hooks" />
+
+## MCP Configs Extensions
+
+Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+
+<ProviderExtensions provider="claude-code" contentType="mcp" />
 
 
 ## Detection
@@ -106,4 +145,4 @@ syllago install my-rule --to claude-code
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-03-29.*
+*Generated from syllago dev on 2026-04-13.*

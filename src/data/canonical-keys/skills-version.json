@@ -1,0 +1,8 @@
+{
+  "id": "skills-version",
+  "key": "version",
+  "contentType": "skills",
+  "description": "Semantic version string for the skill. Used for update detection and compatibility checks.",
+  "type": "string",
+  "providers": {}
+}
