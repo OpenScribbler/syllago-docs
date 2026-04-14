@@ -16,7 +16,36 @@
       "fetched_at": "2026-04-11T21:46:21.364812422Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "project scope (.github/agents/ or .claude/agents/), personal (~/.copilot/agents/), plugin (agents/); personal takes precedence over project"
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": ".agent.md files with YAML frontmatter (description required); up to 30,000 chars of Markdown instructions as agent system prompt"
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "/agent slash command, natural language instruction, auto-inference (suppressible with disable-model-invocation), or --agent flag; 4 patterns"
+    },
+    "model_selection": {
+      "supported": true,
+      "mechanism": "model field in frontmatter overrides default model for that agent"
+    },
+    "per_agent_mcp": {
+      "supported": true,
+      "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default"
+    },
+    "subagent_spawning": {
+      "supported": true,
+      "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "tools field with cross-provider alias system (execute/shell/Bash, read/Read, edit/Edit, etc.); [\"*\"] grants all tools; unrecognized names silently ignored"
+    }
+  },
   "providerExtensions": [
     {
       "id": "agent_profile_format",

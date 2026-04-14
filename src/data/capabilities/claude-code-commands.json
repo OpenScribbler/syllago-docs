@@ -11,7 +11,16 @@
       "fetched_at": "2026-04-11T21:49:49Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS (all args), $ARGUMENTS[N] (Nth arg), $N (positional), ${CLAUDE_SESSION_ID} and other env vars; shared with skills argument substitution"
+    },
+    "builtin_commands": {
+      "supported": true,
+      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+    }
+  },
   "providerExtensions": [
     {
       "id": "command_file_format",

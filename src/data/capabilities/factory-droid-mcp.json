@@ -11,7 +11,40 @@
       "fetched_at": "2026-04-11T21:50:30.239613273Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document pre-configured auto-approval for MCP tools"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document organization-level MCP management"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP configuration does not document environment variable expansion"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Factory Droid does not have an in-IDE MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP does not document OAuth 2.0 authentication"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document MCP resource referencing"
+    },
+    "tool_filtering": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document per-server MCP tool filtering"
+    },
+    "transport_types": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP transport types not documented beyond basic MCP support"
+    }
+  },
   "providerExtensions": [
     {
       "id": "mcp_manager_ui",

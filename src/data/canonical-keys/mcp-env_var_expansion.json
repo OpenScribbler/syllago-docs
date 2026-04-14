@@ -1,0 +1,45 @@
+{
+  "id": "mcp-env_var_expansion",
+  "key": "env_var_expansion",
+  "contentType": "mcp",
+  "description": "Whether MCP server configuration supports environment variable expansion. Reduces the need for hardcoded secrets in config files.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp MCP configuration does not document environment variable expansion"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_env_var_expansion: ${VAR} and ${VAR:-default} syntax in command, args, env, url, and headers fields of .mcp.json"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline MCP configuration does not document environment variable expansion syntax"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex MCP configuration does not document environment variable expansion"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP configuration does not document environment variable expansion"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP configuration does not document environment variable expansion"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: Gemini CLI MCP configuration supports environment variable expansion for secrets and paths"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro MCP configuration does not document environment variable expansion"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${VAR} interpolation for environment variables"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "mcp-auto_approve",
+  "key": "auto_approve",
+  "contentType": "mcp",
+  "description": "Whether specific MCP tools or entire servers can be configured for automatic approval without per-invocation user confirmation. Boundary: auto_approve governs execution gating (user prompt suppression) for tools that are already visible; see tool_filtering for tool visibility control.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp does not document pre-configured auto-approval for specific MCP tools separate from tool filtering"
+    },
+    "claude-code": {
+      "supported": false,
+      "mechanism": "Claude Code does not support pre-configured auto-approval for specific MCP tools; all tool calls require user confirmation unless covered by session permission rules"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "always_allow_tools (execution-gating scope): Cline's always_allow list suppresses per-invocation confirmation prompts for listed tools that are already visible"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "mcp_per_tool_approval: Codex supports per-tool approval configuration to suppress confirmation prompts for trusted tools"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document pre-configured auto-approval for MCP tools"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document pre-configured auto-approval for MCP tools"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not document pre-configured auto-approval for specific MCP tools"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "kiro_mcp_auto_approve: Kiro supports per-server or per-tool auto-approval configuration to suppress confirmation prompts"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf does not support pre-configured auto-approval for specific MCP tools"
+    }
+  }
+}

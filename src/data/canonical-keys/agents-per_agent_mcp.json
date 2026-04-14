@@ -1,0 +1,33 @@
+{
+  "id": "agents-per_agent_mcp",
+  "key": "per_agent_mcp",
+  "contentType": "agents",
+  "description": "Whether agents can have their own MCP server configuration, scoping which external tools each agent can access.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcpServers frontmatter field: list of server names referencing already-configured workspace servers or inline server definitions"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "MCP configuration is workspace-wide; no per-role MCP scoping mechanism"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "AGENTS.md has no structured config; MCP is workspace-wide only, not per-agent"
+    }
+  }
+}

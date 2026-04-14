@@ -16,7 +16,40 @@
       "fetched_at": "2026-04-11T21:49:56.739049379Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": true,
+      "mechanism": "always_allow_tools (execution-gating scope): Cline's always_allow list suppresses per-invocation confirmation prompts for listed tools that are already visible"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Cline does not document organization-level MCP configuration management"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Cline MCP configuration does not document environment variable expansion syntax"
+    },
+    "marketplace": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Cline has an in-IDE MCP server discovery and installation experience"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Cline MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Cline does not document @-mention or equivalent access to MCP resources"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "always_allow_tools (visibility scope): Cline's always_allow list controls which MCP tools are exposed in the agent's available tool set without per-invocation prompts"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "sse_transport_support: Cline supports SSE transport alongside stdio; HTTP transport support follows MCP protocol adoption"
+    }
+  },
   "providerExtensions": [
     {
       "id": "mcp_marketplace",

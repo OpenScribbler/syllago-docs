@@ -11,7 +11,28 @@
       "fetched_at": "2026-04-11T21:46:19Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "Always-on (CLAUDE.md loads at every session start); conditional via paths frontmatter in .claude/rules/*.md files (glob-based, triggers on file access)"
+    },
+    "auto_memory": {
+      "supported": true,
+      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; requires CC v2.1.59+; enabled by default"
+    },
+    "cross_provider_recognition": {
+      "supported": false,
+      "mechanism": "Claude Code does not natively read rule files defined by other providers"
+    },
+    "file_imports": {
+      "supported": true,
+      "mechanism": "@path/to/file syntax in CLAUDE.md files; relative and absolute paths; recursive up to 5 hops; requires per-project approval"
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root; .claude/rules/ files discovered recursively; user-level rules load before project rules"
+    }
+  },
   "providerExtensions": [
     {
       "id": "claude_md_files",

@@ -11,7 +11,36 @@
       "fetched_at": "2026-04-11T21:48:31.830747939Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "scope from file location: root-level = workspace-wide always-on, subdirectory = subtree glob; git root discovery extends scope to parent directories within the repo"
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "AGENTS.md (or agents.md) plain markdown files with no frontmatter; scope inferred from directory location (root = always-on, subdirectory = auto-glob subtree)"
+    },
+    "invocation_patterns": {
+      "supported": false,
+      "mechanism": "AGENTS.md files are always-on rule injection, not invocable agents; no manual invocation or delegation mechanism"
+    },
+    "model_selection": {
+      "supported": false,
+      "mechanism": "AGENTS.md has no frontmatter; no per-agent model selection"
+    },
+    "per_agent_mcp": {
+      "supported": false,
+      "mechanism": "AGENTS.md has no structured config; MCP is workspace-wide only, not per-agent"
+    },
+    "subagent_spawning": {
+      "supported": false,
+      "mechanism": "no structured agent orchestration; AGENTS.md is rules injection piggybacking on the Rules engine, not an agent harness"
+    },
+    "tool_restrictions": {
+      "supported": false,
+      "mechanism": "AGENTS.md contains free-form instructions only; no structured tool restriction mechanism — it is a rules delivery format, not an agent harness"
+    }
+  },
   "providerExtensions": [
     {
       "id": "agents_md_format",

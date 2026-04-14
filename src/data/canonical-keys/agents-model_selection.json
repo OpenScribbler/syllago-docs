@@ -1,0 +1,33 @@
+{
+  "id": "agents-model_selection",
+  "key": "model_selection",
+  "contentType": "agents",
+  "description": "Whether per-agent model overrides are supported, allowing different agents to use different AI models.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "model frontmatter field accepts sonnet/opus/haiku alias, full model ID, or inherit (default); per-agent override"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "role config_file can override model and model_reasoning_effort; caller's current profile and model_provider preserved unless explicitly overridden"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "model field in frontmatter overrides default model for that agent"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "per-droid model preference field independent of global model setting; enables mixed-model agent compositions"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "model field in agent JSON config overrides workspace default for that agent"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "AGENTS.md has no frontmatter; no per-agent model selection"
+    }
+  }
+}

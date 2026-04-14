@@ -1,0 +1,45 @@
+{
+  "id": "mcp-enterprise_management",
+  "key": "enterprise_management",
+  "contentType": "mcp",
+  "description": "Whether the provider supports organization-level MCP configuration management, including managed server lists, allowlists, and enterprise registries.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "enterprise_registry_allowlist: Amp supports organization-level MCP configuration with an enterprise registry and allowlist"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_managed_config: managed-mcp.json for exclusive control, or allowedMcpServers/deniedMcpServers in managed settings for policy-based control"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline does not document organization-level MCP configuration management"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex does not document organization-level MCP management"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document organization-level MCP management"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document organization-level MCP management"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not document organization-level MCP management"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro does not document organization-level MCP management"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries"
+    }
+  }
+}

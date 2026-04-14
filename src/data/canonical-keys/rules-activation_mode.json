@@ -1,0 +1,49 @@
+{
+  "id": "rules-activation_mode",
+  "key": "activation_mode",
+  "contentType": "rules",
+  "description": "How rules decide when to load into context. Providers implement varying modes: always-on, conditional/glob-based, model-decision, and manual activation. Tracks which modes the provider supports and how they are configured.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Always-on (CLAUDE.md loads at every session start); conditional via paths frontmatter in .claude/rules/*.md files (glob-based, triggers on file access)"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "conditional_rules_paths: Cline supports path-conditional rules alongside always-on rules; conditions use glob patterns"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex AGENTS.md files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI rules load unconditionally at session start; no conditional or manual activation modes documented"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI rule files load unconditionally; no conditional activation syntax documented"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle)"
+    }
+  }
+}

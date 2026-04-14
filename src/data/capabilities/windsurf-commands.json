@@ -11,7 +11,16 @@
       "fetched_at": "2026-04-11T21:51:02.329185401Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": false,
+      "mechanism": "Windsurf Workflows (.windsurf/workflows/*.md) are plain Markdown prompt templates with no documented argument substitution mechanism"
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "no built-in slash commands for Workflows; Windsurf Command (Cmd+I) is a UI keyboard shortcut, not a slash command"
+    }
+  },
   "providerExtensions": [
     {
       "id": "command_inline_editor",

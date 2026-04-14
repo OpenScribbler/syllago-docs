@@ -1,0 +1,33 @@
+{
+  "id": "agents-subagent_spawning",
+  "key": "subagent_spawning",
+  "contentType": "agents",
+  "description": "Whether agents can spawn, delegate to, or resume other agents. Enables multi-agent coordination patterns.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "main-thread agents spawn subagents via Agent tool; subagents cannot spawn further subagents; Agent(type) in tools allowlist restricts which subagent types are allowed"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "multi-agent V2 feature flag; max_threads controls concurrent agent count, max_depth controls nesting depth; spawn-agent tool initiates delegation"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "no subagent spawning mechanism documented for Kiro custom agents"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "no structured agent orchestration; AGENTS.md is rules injection piggybacking on the Rules engine, not an agent harness"
+    }
+  }
+}

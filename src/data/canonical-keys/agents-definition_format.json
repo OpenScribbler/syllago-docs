@@ -1,0 +1,33 @@
+{
+  "id": "agents-definition_format",
+  "key": "definition_format",
+  "contentType": "agents",
+  "description": "What format agent definitions use. Varies widely: Markdown with YAML frontmatter, JSON config files, TOML sections, or AGENTS.md plain markdown.",
+  "type": "string",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Markdown files with YAML frontmatter in .claude/agents/ (project) or ~/.claude/agents/ (user); file body becomes system prompt"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "TOML role config files referenced from config.toml [agents] section; built-in roles (default/explorer/worker) always available without user config"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": ".agent.md files with YAML frontmatter (description required); up to 30,000 chars of Markdown instructions as agent system prompt"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with system prompt, model preference, and tooling policy"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "JSON config files in .kiro/agents/ (project) or ~/.kiro/agents/ (global); prompt field accepts inline string or file:// URI to external .md file"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "AGENTS.md (or agents.md) plain markdown files with no frontmatter; scope inferred from directory location (root = always-on, subdirectory = auto-glob subtree)"
+    }
+  }
+}

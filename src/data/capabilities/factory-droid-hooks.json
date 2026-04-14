@@ -16,7 +16,44 @@
       "fetched_at": "2026-04-11T21:46:22.150307964Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "async_execution": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks run synchronously; no async execution documented"
+    },
+    "context_injection": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot inject context into the agent session"
+    },
+    "decision_control": {
+      "supported": true,
+      "mechanism": "hook_exit_code_behavior: Factory Droid hooks use exit codes to signal block (non-zero) or allow (zero) decisions on the triggering action"
+    },
+    "handler_types": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks execute shell commands only; no other handler types documented"
+    },
+    "hook_scopes": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "input_modification": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot modify tool input before execution"
+    },
+    "json_io_protocol": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "matcher_patterns": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks fire on configured lifecycle events; no per-tool pattern matching documented"
+    },
+    "permission_control": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"
+    }
+  },
   "providerExtensions": [
     {
       "id": "hook_events",

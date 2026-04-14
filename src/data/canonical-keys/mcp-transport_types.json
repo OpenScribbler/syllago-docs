@@ -1,0 +1,45 @@
+{
+  "id": "mcp-transport_types",
+  "key": "transport_types",
+  "contentType": "mcp",
+  "description": "Which MCP transport protocols the provider supports. Common transports: stdio (local process), SSE (Server-Sent Events), HTTP/streamable-HTTP (stateless or streaming).",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp MCP transport types not documented beyond basic MCP support"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_transport_types: stdio (local process), SSE (deprecated, still supported), HTTP/streamable-HTTP (recommended for remote)"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "sse_transport_support: Cline supports SSE transport alongside stdio; HTTP transport support follows MCP protocol adoption"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex MCP transport types not documented beyond basic MCP support; likely stdio only"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP transport types not documented"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP transport types not documented beyond basic MCP support"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "transport_types: Gemini CLI documents supported MCP transport protocols including stdio and HTTP"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro MCP transport types not documented beyond basic MCP support"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports"
+    }
+  }
+}

@@ -16,7 +16,44 @@
       "fetched_at": "2026-04-11T21:49:36Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "async_execution": {
+      "supported": false,
+      "mechanism": "Amp hooks run synchronously; no async execution documented"
+    },
+    "context_injection": {
+      "supported": false,
+      "mechanism": "Amp hooks cannot inject context into the agent session"
+    },
+    "decision_control": {
+      "supported": false,
+      "mechanism": "Amp hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+    },
+    "handler_types": {
+      "supported": false,
+      "mechanism": "Amp hooks execute shell commands only; no other handler types documented"
+    },
+    "hook_scopes": {
+      "supported": false,
+      "mechanism": "Amp hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "input_modification": {
+      "supported": false,
+      "mechanism": "Amp hooks cannot modify tool input before execution"
+    },
+    "json_io_protocol": {
+      "supported": false,
+      "mechanism": "Amp hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "matcher_patterns": {
+      "supported": true,
+      "mechanism": "hook_match_input_contains: Amp hooks can match on input content containing specific strings"
+    },
+    "permission_control": {
+      "supported": true,
+      "mechanism": "permissions_system: Amp has a permissions system that hooks interact with to make tool availability decisions"
+    }
+  },
   "providerExtensions": [
     {
       "id": "hook_events",

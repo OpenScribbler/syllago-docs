@@ -11,7 +11,44 @@
       "fetched_at": "2026-04-11T21:50:46Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "async_execution": {
+      "supported": false,
+      "mechanism": "Kiro hooks run synchronously; no async execution documented"
+    },
+    "context_injection": {
+      "supported": false,
+      "mechanism": "Kiro hooks cannot inject context into the agent session"
+    },
+    "decision_control": {
+      "supported": false,
+      "mechanism": "Kiro hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+    },
+    "handler_types": {
+      "supported": false,
+      "mechanism": "Kiro hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "hook_scopes": {
+      "supported": false,
+      "mechanism": "Kiro hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "input_modification": {
+      "supported": false,
+      "mechanism": "Kiro hooks cannot modify tool input before execution"
+    },
+    "json_io_protocol": {
+      "supported": false,
+      "mechanism": "Kiro hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "matcher_patterns": {
+      "supported": false,
+      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool filtering documented"
+    },
+    "permission_control": {
+      "supported": false,
+      "mechanism": "Kiro hooks do not participate in permission decisions"
+    }
+  },
   "providerExtensions": [
     {
       "id": "kiro_hook_agent_prompt_action",

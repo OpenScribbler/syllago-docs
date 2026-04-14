@@ -1,0 +1,49 @@
+{
+  "id": "rules-auto_memory",
+  "key": "auto_memory",
+  "contentType": "rules",
+  "description": "Whether the provider auto-generates persistent rules from conversation context. Distinct from user-authored rules — these are AI-created and stored separately.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp does not have an AI-generated auto-memory system"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; requires CC v2.1.59+; enabled by default"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline does not have an AI-generated auto-memory system distinct from user-authored rules"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex does not have an AI-generated auto-memory system"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not have an AI-generated persistent memory system for rules"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not have an AI-generated auto-memory system"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "memory_command: Gemini CLI /memory command saves notes that persist across sessions as rule-like content"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro does not have an AI-generated auto-memory system separate from user-authored steering files"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi does not have an AI-generated auto-memory system"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in .windsurf/memories/ as rule-like files"
+    }
+  }
+}

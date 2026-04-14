@@ -1,0 +1,41 @@
+{
+  "id": "commands-builtin_commands",
+  "key": "builtin_commands",
+  "contentType": "commands",
+  "description": "Whether the provider ships default/built-in commands alongside user-defined custom commands.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "6 built-in slash commands: /newtask, /smol (/compact), /newrule, /deep-planning, /explain-changes (VS Code only), /reportbug; hardcoded, not user-modifiable"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "no implementation details captured; slash commands feature exists but format and capabilities are undocumented in cached sources"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI has no standalone slash-command mechanism; extensibility is via plugins that bundle agents/skills/hooks; command format within plugins is undocumented"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "no built-in slash commands documented; Factory commands are user-defined Markdown templates or executables"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "built-in slash commands include /commands reload (reload command files without restart) and /help; user-defined commands supplement but do not replace built-ins"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "pi prompt templates are entirely user-defined; no built-in slash commands documented"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "no built-in slash commands for Workflows; Windsurf Command (Cmd+I) is a UI keyboard shortcut, not a slash command"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "hooks-async_execution",
+  "key": "async_execution",
+  "contentType": "hooks",
+  "description": "Whether hooks can run asynchronously without blocking the agent's execution loop. Fire-and-forget semantics.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp hooks run synchronously; no async execution documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "hook_async_execution: async: true on command handlers runs hook in background without blocking; decisions ignored; systemMessage delivered on next turn"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline hooks run synchronously before/after tool events; no async execution documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_execution_mode: Codex supports async hook execution mode for fire-and-forget background hook runs"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks run synchronously; no async execution documented"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks run synchronously; no async execution documented"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks run synchronously; no async execution documented"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks run synchronously; no async execution documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks run synchronously; no async execution documented"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks run synchronously; no async/background execution documented"
+    }
+  }
+}

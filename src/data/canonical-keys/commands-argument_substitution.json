@@ -1,0 +1,41 @@
+{
+  "id": "commands-argument_substitution",
+  "key": "argument_substitution",
+  "contentType": "commands",
+  "description": "How user-provided arguments are injected into command templates. Mechanisms vary: $ARGUMENTS, {{args}}, positional $1/$2/${@:N}, and other interpolation syntaxes.",
+  "type": "object",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS (all args), $ARGUMENTS[N] (Nth arg), $N (positional), ${CLAUDE_SESSION_ID} and other env vars; shared with skills argument substitution"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "custom workflow commands (.clinerules/workflows/*.md) are plain prompt templates with no documented argument substitution mechanism"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "no implementation details captured; only source is a redirect stub to external docs — cannot confirm argument substitution support"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "command file format undocumented; no evidence of argument substitution in plugin.json schema or available sources"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS substitution in Markdown-type commands; equivalent to Claude Code's $ARGUMENTS pattern; Executable commands receive args via shell process stdin/args"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "{{args}} placeholder injects all user-provided arguments; processed before shell injection (!{...}) and other substitutions; default argument handling collapses newlines"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "positional expansion: $1, $2 (specific positions), $@ or $ARGUMENTS (all args joined), ${@:N} (args from position N), ${@:N:L} (L args starting at N); richer syntax than most providers"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf Workflows (.windsurf/workflows/*.md) are plain Markdown prompt templates with no documented argument substitution mechanism"
+    }
+  }
+}

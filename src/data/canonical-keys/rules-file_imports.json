@@ -1,0 +1,49 @@
+{
+  "id": "rules-file_imports",
+  "key": "file_imports",
+  "contentType": "rules",
+  "description": "Whether rules can reference or include content from other files. Mechanisms vary: @-import syntax, @file.md directives, @path/to/file references.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Amp rule files"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "@path/to/file syntax in CLAUDE.md files; relative and absolute paths; recursive up to 5 hops; requires per-project approval"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "No file import/include syntax documented for Cline rule files"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Codex AGENTS.md files"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "No @-import or file inclusion syntax documented for Copilot CLI rule files"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Factory Droid rule files"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "file_imports extension: Gemini CLI supports including external file content into rule files via import directives"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Pi rule files"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "No @-import or file inclusion syntax documented for Windsurf rule files"
+    }
+  }
+}

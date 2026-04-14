@@ -1,0 +1,45 @@
+{
+  "id": "mcp-resource_referencing",
+  "key": "resource_referencing",
+  "contentType": "mcp",
+  "description": "Whether MCP resources (not just tools) can be accessed, typically via @-mention syntax or similar referencing mechanisms.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp does not document MCP resource referencing"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_resources: MCP resources accessible via @server:protocol://path syntax; appear in @ autocomplete; auto-fetched when referenced"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline does not document @-mention or equivalent access to MCP resources"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex does not document MCP resource referencing"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document MCP resource referencing"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document MCP resource referencing"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "resource_referencing: Gemini CLI supports accessing MCP resources in addition to tools"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro does not document MCP resource referencing"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
+    }
+  }
+}

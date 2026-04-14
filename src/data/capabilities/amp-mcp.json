@@ -21,7 +21,40 @@
       "fetched_at": "2026-04-11T21:49:38Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Amp does not document pre-configured auto-approval for specific MCP tools separate from tool filtering"
+    },
+    "enterprise_management": {
+      "supported": true,
+      "mechanism": "enterprise_registry_allowlist: Amp supports organization-level MCP configuration with an enterprise registry and allowlist"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Amp MCP configuration does not document environment variable expansion"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Amp does not have an in-IDE MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": true,
+      "mechanism": "oauth_support: Amp supports OAuth 2.0 authentication for remote MCP servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Amp does not document MCP resource referencing"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "per_tool_enable_disable: Amp supports per-tool enable/disable configuration to control which MCP tools are exposed to the agent"
+    },
+    "transport_types": {
+      "supported": false,
+      "mechanism": "Amp MCP transport types not documented beyond basic MCP support"
+    }
+  },
   "providerExtensions": [
     {
       "id": "config_key_and_fields",

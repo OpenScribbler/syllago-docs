@@ -16,7 +16,28 @@
       "fetched_at": "2026-04-11T21:46:11Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Amp rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Amp does not have an AI-generated auto-memory system"
+    },
+    "cross_provider_recognition": {
+      "supported": false,
+      "mechanism": "Amp reads its own rule format; no cross-provider rule file recognition documented"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Amp rule files"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Amp rule files are project-scoped; no subdirectory hierarchy documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "canonical_filename",

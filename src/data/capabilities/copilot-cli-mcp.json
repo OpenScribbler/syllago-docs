@@ -16,7 +16,40 @@
       "fetched_at": "2026-04-11T21:48:25.329663064Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document pre-configured auto-approval for MCP tools"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document organization-level MCP management"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP configuration does not document environment variable expansion"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not have an in-IDE MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP does not document OAuth 2.0 authentication"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not document MCP resource referencing"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "mcp_tool_allow_deny_flags: Copilot CLI supports per-tool allow and deny flags to control which MCP tools are exposed"
+    },
+    "transport_types": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP transport types not documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "builtin_github_mcp_server",

@@ -16,7 +16,28 @@
       "fetched_at": "2026-04-11T21:50:01.867399674Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Codex AGENTS.md files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Codex does not have an AI-generated auto-memory system"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "agents_md_filename: Codex reads AGENTS.md files using the standard filename used by multiple providers"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Codex AGENTS.md files"
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "hierarchical_agents_md: Codex loads AGENTS.md from subdirectories with defined precedence (deeper overrides higher)"
+    }
+  },
   "providerExtensions": [
     {
       "id": "agents_md_filename",

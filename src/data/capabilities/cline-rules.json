@@ -11,7 +11,28 @@
       "fetched_at": "2026-04-11T21:49:51.899572822Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "conditional_rules_paths: Cline supports path-conditional rules alongside always-on rules; conditions use glob patterns"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Cline does not have an AI-generated auto-memory system distinct from user-authored rules"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "multi_source_rule_detection: Cline reads .clinerules/, .cursorrules, CLAUDE.md, and other provider rule files automatically"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import/include syntax documented for Cline rule files"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Cline rules are project-scoped or global; no per-subdirectory loading hierarchy documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "multi_source_rule_detection",

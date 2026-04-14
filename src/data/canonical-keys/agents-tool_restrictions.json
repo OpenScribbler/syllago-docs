@@ -1,0 +1,33 @@
+{
+  "id": "agents-tool_restrictions",
+  "key": "tool_restrictions",
+  "contentType": "agents",
+  "description": "Whether agents can be restricted to specific tools via allowlists, denylists, tool categories, or per-tool configuration maps.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "tools allowlist and disallowedTools denylist in frontmatter; Agent(type) syntax restricts which subagent types a main-thread agent can spawn"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "role config layers override model/settings but no explicit tool allowlist or denylist in role definitions"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "tools field with cross-provider alias system (execute/shell/Bash, read/Read, edit/Edit, etc.); [\"*\"] grants all tools; unrecognized names silently ignored"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "categorical tool policy using named categories (filesystem, shell, search, browser, web_fetch); differs from per-tool allowlists used by other providers"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "AGENTS.md contains free-form instructions only; no structured tool restriction mechanism — it is a rules delivery format, not an agent harness"
+    }
+  }
+}

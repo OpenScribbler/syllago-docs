@@ -11,7 +11,16 @@
       "fetched_at": "2026-04-11T21:50:54Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "positional expansion: $1, $2 (specific positions), $@ or $ARGUMENTS (all args joined), ${@:N} (args from position N), ${@:N:L} (L args starting at N); richer syntax than most providers"
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "pi prompt templates are entirely user-defined; no built-in slash commands documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "pi_prompt_template_arguments",

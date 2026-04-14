@@ -11,7 +11,16 @@
       "fetched_at": "2026-04-11T21:50:35Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "{{args}} placeholder injects all user-provided arguments; processed before shell injection (!{...}) and other substitutions; default argument handling collapses newlines"
+    },
+    "builtin_commands": {
+      "supported": true,
+      "mechanism": "built-in slash commands include /commands reload (reload command files without restart) and /help; user-defined commands supplement but do not replace built-ins"
+    }
+  },
   "providerExtensions": [
     {
       "id": "toml_format",

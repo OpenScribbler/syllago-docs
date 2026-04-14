@@ -2,6 +2,14 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-13
+
+### Added
+- Canonical keys expanded to all content types: 31 new reference pages for rules (5), hooks (9), agents (7), mcp (8), and commands (2) — up from 13 skills-only keys
+
+### Fixed
+- MDX brace escaping in canonical key page generator — descriptions containing code syntax like `{{args}}` or `${@:N}` no longer break the build
+
 ## 2026-04-12
 
 ### Added

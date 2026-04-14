@@ -1,0 +1,49 @@
+{
+  "id": "hooks-matcher_patterns",
+  "key": "matcher_patterns",
+  "contentType": "hooks",
+  "description": "Whether hooks can filter which tools or events they respond to using name matching, regex patterns, or structured criteria.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "hook_match_input_contains: Amp hooks can match on input content containing specific strings"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "hook_matcher_patterns: exact string, pipe-separated list, or JavaScript regex; matches on tool_name or event-specific fields"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline hooks fire on configured lifecycle events; no per-tool pattern matching documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_matcher: Codex hooks support pattern matching to filter which tools or events trigger the hook"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks fire on all events of their configured type; no per-tool filtering documented"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks fire on configured lifecycle events; no per-tool pattern matching documented"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "hook_matchers: Gemini CLI hooks support event and tool name matching to filter when hooks fire"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool filtering documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool filtering documented"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks fire on all events of their configured type; no per-tool or regex matching documented"
+    }
+  }
+}

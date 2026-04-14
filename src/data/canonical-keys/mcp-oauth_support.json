@@ -1,0 +1,45 @@
+{
+  "id": "mcp-oauth_support",
+  "key": "oauth_support",
+  "contentType": "mcp",
+  "description": "Whether the provider supports OAuth 2.0 authentication for remote MCP servers, including token storage and automatic refresh.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "oauth_support: Amp supports OAuth 2.0 authentication for remote MCP servers"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration; token storage in macOS keychain or credentials file; auto-refresh"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "mcp_oauth_support: Codex supports OAuth 2.0 authentication for remote MCP servers"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP does not document OAuth 2.0 authentication"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP does not document OAuth 2.0 authentication"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf MCP does not document OAuth 2.0 authentication for remote servers"
+    }
+  }
+}

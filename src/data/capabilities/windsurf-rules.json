@@ -16,7 +16,28 @@
       "fetched_at": "2026-04-11T21:51:03.792139198Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle)"
+    },
+    "auto_memory": {
+      "supported": true,
+      "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in .windsurf/memories/ as rule-like files"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "agents_md_auto_scoping: Windsurf reads AGENTS.md files from other providers and applies them with workspace-aware scoping"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No @-import or file inclusion syntax documented for Windsurf rule files"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "activation_modes",

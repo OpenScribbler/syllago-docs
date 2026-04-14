@@ -297,7 +297,10 @@ function generateCanonicalKeyPage(
   // Human-readable title from key name: "display_name" → "display_name"
   // (keep as-is; the key name is the canonical identifier).
   const title = keyName;
-  const description = meta.description.split(".")[0].trim(); // first sentence
+  // Escape braces that MDX would otherwise parse as JSX expressions.
+  // Descriptions can contain code syntax like {{args}} or ${@:N}.
+  const escapeMdx = (s: string) => s.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
+  const description = escapeMdx(meta.description.split(".")[0].trim()); // first sentence
 
   const lines: string[] = [
     "---",
@@ -318,7 +321,7 @@ function generateCanonicalKeyPage(
     `  issueUrl="${issueUrl}"`,
     `/>`,
     "",
-    meta.description,
+    escapeMdx(meta.description),
     "",
     `**Type:** \`${meta.type}\`  **Content type:** \`${contentType}\``,
     "",

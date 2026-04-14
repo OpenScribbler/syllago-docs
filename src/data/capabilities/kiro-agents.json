@@ -11,7 +11,36 @@
       "fetched_at": "2026-04-11T21:50:51Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "project (.kiro/agents/) + global (~/.kiro/agents/); global overrides local on name collision — reverse of most Kiro content types"
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "JSON config files in .kiro/agents/ (project) or ~/.kiro/agents/ (global); prompt field accepts inline string or file:// URI to external .md file"
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "keyboard shortcut binding for IDE invocation; welcomeMessage shown on agent start; manual selection via agent picker"
+    },
+    "model_selection": {
+      "supported": true,
+      "mechanism": "model field in agent JSON config overrides workspace default for that agent"
+    },
+    "per_agent_mcp": {
+      "supported": true,
+      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"
+    },
+    "subagent_spawning": {
+      "supported": false,
+      "mechanism": "no subagent spawning mechanism documented for Kiro custom agents"
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"
+    }
+  },
   "providerExtensions": [
     {
       "id": "kiro_agent_file_uri_prompt",

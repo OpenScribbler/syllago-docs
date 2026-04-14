@@ -21,7 +21,40 @@
       "fetched_at": "2026-04-11T21:46:23Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not document pre-configured auto-approval for specific MCP tools"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not document organization-level MCP management"
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: Gemini CLI MCP configuration supports environment variable expansion for secrets and paths"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not have an in-IDE MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "resource_referencing": {
+      "supported": true,
+      "mechanism": "resource_referencing: Gemini CLI supports accessing MCP resources in addition to tools"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "tool_filtering: Gemini CLI supports per-server tool filtering to control which MCP tools are exposed to the agent"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "transport_types: Gemini CLI documents supported MCP transport protocols including stdio and HTTP"
+    }
+  },
   "providerExtensions": [
     {
       "id": "transport_types",

@@ -11,7 +11,16 @@
       "fetched_at": "2026-04-11T21:46:20.322921534Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": false,
+      "mechanism": "custom workflow commands (.clinerules/workflows/*.md) are plain prompt templates with no documented argument substitution mechanism"
+    },
+    "builtin_commands": {
+      "supported": true,
+      "mechanism": "6 built-in slash commands: /newtask, /smol (/compact), /newrule, /deep-planning, /explain-changes (VS Code only), /reportbug; hardcoded, not user-modifiable"
+    }
+  },
   "providerExtensions": [
     {
       "id": "builtin_slash_commands",

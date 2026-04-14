@@ -86,7 +86,44 @@
       "fetched_at": "2026-04-11T21:48:23.78180342Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "async_execution": {
+      "supported": true,
+      "mechanism": "hook_execution_mode: Codex supports async hook execution mode for fire-and-forget background hook runs"
+    },
+    "context_injection": {
+      "supported": true,
+      "mechanism": "hook_system_message: Codex hooks can inject a system message into the agent's active session context"
+    },
+    "decision_control": {
+      "supported": true,
+      "mechanism": "hook_result_abort: Codex hooks can abort (block) the triggering action; allow and modify sub-capabilities documented via hook result schema"
+    },
+    "handler_types": {
+      "supported": true,
+      "mechanism": "hook_handler_types: Codex supports shell command and LLM prompt handler types; TypeScript extension type also documented"
+    },
+    "hook_scopes": {
+      "supported": true,
+      "mechanism": "hook_scope: Codex hooks can be scoped to global/user or project configuration"
+    },
+    "input_modification": {
+      "supported": true,
+      "mechanism": "hook_updated_input: Codex PreToolUse hooks return modified input arguments that replace the original tool input"
+    },
+    "json_io_protocol": {
+      "supported": false,
+      "mechanism": "Codex hooks communicate via exit codes and stdout text; no structured JSON stdin/stdout protocol documented"
+    },
+    "matcher_patterns": {
+      "supported": true,
+      "mechanism": "hook_matcher: Codex hooks support pattern matching to filter which tools or events trigger the hook"
+    },
+    "permission_control": {
+      "supported": true,
+      "mechanism": "hook_permission_decision: Codex hooks can return permission decisions that grant or deny tool availability"
+    }
+  },
   "providerExtensions": [
     {
       "id": "hook_events",

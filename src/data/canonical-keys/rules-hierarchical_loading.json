@@ -1,0 +1,49 @@
+{
+  "id": "rules-hierarchical_loading",
+  "key": "hierarchical_loading",
+  "contentType": "rules",
+  "description": "Whether rules load from multiple directory levels with defined precedence. Enables project-root rules plus subdirectory-scoped overrides.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp rule files are project-scoped; no subdirectory hierarchy documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root; .claude/rules/ files discovered recursively; user-level rules load before project rules"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline rules are project-scoped or global; no per-subdirectory loading hierarchy documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hierarchical_agents_md: Codex loads AGENTS.md from subdirectories with defined precedence (deeper overrides higher)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "Copilot CLI supports repo-wide instructions plus path-specific and personal instruction layers with defined precedence"
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "Factory Droid loads global and project rule layers; innermost (most specific) layer takes precedence"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "hierarchical_context_loading: Gemini CLI loads GEMINI.md files from multiple directory levels with defined precedence"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi rule files are not documented as supporting multi-level directory loading"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+    }
+  }
+}

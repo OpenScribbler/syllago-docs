@@ -1,0 +1,45 @@
+{
+  "id": "mcp-marketplace",
+  "key": "marketplace",
+  "contentType": "mcp",
+  "description": "Whether the provider offers an in-IDE MCP server discovery and installation experience.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp does not have an in-IDE MCP marketplace"
+    },
+    "claude-code": {
+      "supported": false,
+      "mechanism": "Claude Code does not have an in-IDE MCP marketplace for discovery and installation"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Cline has an in-IDE MCP server discovery and installation experience"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex does not have an in-IDE MCP marketplace"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI does not have an in-IDE MCP marketplace"
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not have an in-IDE MCP marketplace"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI does not have an in-IDE MCP marketplace"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro does not have an in-IDE MCP marketplace"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
+    }
+  }
+}

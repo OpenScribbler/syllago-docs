@@ -11,7 +11,28 @@
       "fetched_at": "2026-04-11T21:46:23Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Kiro does not have an AI-generated auto-memory system separate from user-authored steering files"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "kiro_agents_md_recognition: Kiro reads AGENTS.md files from other providers in addition to its own steering files"
+    },
+    "file_imports": {
+      "supported": true,
+      "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "kiro_steering_inclusion_mode",
