@@ -5,46 +5,85 @@ description: How syllago works with Windsurf — supported content types, file l
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
-import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
-
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `windsurf` |
 | **Config directory** | `~/.codeium/windsurf` |
-| **Supported content types** | Hooks, MCP Configs, Rules, Skills |
+| **Supported content types** | [Skills](#skills-conventions), [Hooks](#hook-conventions), [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions) |
 | **Emit path** | `.windsurf/rules` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| Skills | Yes | Symlink |
-| Agents | No | — |
-| MCP Configs | Yes | JSON merge |
-| Hooks | Yes | JSON merge |
-| Commands | No | — |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Skills](#skills-conventions) | Symlink | Yes |
+| [Hooks](#hook-conventions) | JSON merge | No |
+| [Rules](#rule-conventions) | Symlink | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
 
-## File Format and Location
+## Skills Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `.windsurfrules`, `.windsurf/rules` | `~/.codeium/windsurf` | Markdown |
-| Skills | `.windsurf/skills`, `.agents/skills` | `~/.codeium/windsurf/skills` | Markdown |
-| MCP Configs | — | — | JSON |
-| Hooks | — | — | JSON |
+### Native Format
 
-## Hook Events
+- **File format:** Markdown
+- **Discovery paths:** `.windsurf/skills`, `.agents/skills`
+- **Global install path:** `~/.codeium/windsurf/skills`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`
 
-Windsurf supports **6 hook events** with handler types: `command`.
+### Mappings to Canonical
 
-Hooks are configured in `.windsurf/hooks.json`.
+How Windsurf's native skills features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-| Event | Native Name | Category |
-|-------|------------|----------|
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`canonical_filename`](/reference/canonical-keys/canonical-filename/) | Fixed filename SKILL.md required in each skill directory. All scopes (workspace, global, system) use this same convention. |
+| [`description`](/reference/canonical-keys/description/) | yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching. |
+| [`display_name`](/reference/canonical-keys/display-name/) | yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions. |
+| [`global_scope`](/reference/canonical-keys/global-scope/) | Skill directory at ~/.codeium/windsurf/skills/&lt;skill-name&gt;/. Available in all workspaces on the user's machine; not committed to version control. Also discovered at ~/.agents/skills/&lt;skill-name&gt;/ and (if Claude Code config reading is enabled) ~/.claude/skills/&lt;skill-name&gt;/. |
+| [`project_scope`](/reference/canonical-keys/project-scope/) | Skill directory at .windsurf/skills/&lt;skill-name&gt;/. Committed with the repo; current workspace only. For cross-agent compatibility, also discovered at .agents/skills/&lt;skill-name&gt;/ and (if Claude Code config reading is enabled) .claude/skills/&lt;skill-name&gt;/. |
+| [`shared_scope`](/reference/canonical-keys/shared-scope/) | OS-specific system path deployed by enterprise IT; read-only for end users. macOS: /Library/Application Support/Windsurf/skills/&lt;skill-name&gt;/; Linux/WSL: /etc/windsurf/skills/&lt;skill-name&gt;/; Windows: C:\ProgramData\Windsurf\skills\&lt;skill-name&gt;\. |
+| [`user_invocable`](/reference/canonical-keys/user-invocable/) | Explicit @mention by skill name in Cascade input (e.g., @deploy-to-production). Always available regardless of auto-invocation eligibility. |
+
+### Windsurf-specific Skills
+
+These are Windsurf-specific skills behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
+
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/skills.md#adding-supporting-resources" target="_blank" rel="noopener noreferrer">Supporting resource files</a></dt>
+    <dd class="provider-extensions__description">A skill directory may contain arbitrary additional files alongside SKILL.md (e.g., shell scripts, markdown checklists, config templates, test templates, environment files). These files become available to Cascade when the skill is invoked. There is no restriction on file type or count. The skill directory is effectively a mini-bundle of everything needed to execute a multi-step workflow. This is the primary structural differentiator between Skills (folder-based bundles) and Rules/Workflows (single-file). Examples from docs: deployment-checklist.md, rollback-procedure.md, config-template.yaml, pre-deploy-checks.sh, security-checklist.md, review-template.md, test-template.py, coverage-config.json.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/skills.md#required-frontmatter-fields" target="_blank" rel="noopener noreferrer">Skill name format constraint</a></dt>
+    <dd class="provider-extensions__description">Skill names (the `name` frontmatter field) must be unique per scope and use only lowercase letters, numbers, and hyphens. This constraint is enforced by the UI wizard and documented as a requirement. Invalid names are not accepted. Examples of valid names: deploy-to-staging, code-review, setup-dev-environment.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/skills.md#automatic-invocation" target="_blank" rel="noopener noreferrer">Automatic model-driven invocation</a></dt>
+    <dd class="provider-extensions__description">Beyond explicit @mention, Cascade automatically invokes skills when the user's request semantically matches a skill's description. This is described as the most common invocation path. The description frontmatter field is the key signal: it tells Cascade when to invoke the skill. This is distinct from user_invocable (@mention) and is driven entirely by model inference against the description field. Users simply describe what they want and Cascade selects relevant skills without any explicit invocation syntax.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/skills.md#using-the-ui-easiest" target="_blank" rel="noopener noreferrer">UI-based skill creation</a></dt>
+    <dd class="provider-extensions__description">Skills can be created through the Cascade panel UI without manual file creation. Flow: open Cascade panel → three dots (top right) → customizations menu → Skills section → click "+ Workspace" (project-specific) or "+ Global" (all workspaces) → enter name. The UI enforces the name format constraint (lowercase, numbers, hyphens).</dd>
+  </div>
+</dl>
+
+## Hook Conventions
+
+### Native Format
+
+- **File format:** JSON
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `.windsurf/hooks.json`
+- **Handler types:** `command`
+- **Hook events:** 6
+
+| Canonical Event | Native Name | Category |
+|-----------------|-------------|----------|
 | `agent_stop` | `post_cascade_response` | Lifecycle |
 | `before_prompt` | `pre_user_prompt` | Lifecycle |
 | `session_end` | `session_end` | Lifecycle |
@@ -52,58 +91,134 @@ Hooks are configured in `.windsurf/hooks.json`.
 | `transcript_export` | `post_cascade_response_with_transcript` | Output |
 | `worktree_create` | `post_setup_worktree` | Workspace |
 
-## MCP Configuration
+### Mappings to Canonical
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio`, `sse` |
-| **Config file** | `.windsurf/mcp_config.json` |
+How Windsurf's native hooks features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`hook_scopes`](/reference/canonical-keys/hook-scopes/) | three_config_scopes: global (user-wide), workspace, and managed/enterprise hook configuration scopes |
+| [`json_io_protocol`](/reference/canonical-keys/json-io-protocol/) | json_stdin_context: Windsurf hooks receive event context as JSON on stdin |
 
-## Rules Format
+### Windsurf-specific Hooks
 
-| Detail | Value |
-|--------|-------|
-| **File format** | Markdown |
-| **Frontmatter fields** | `trigger`, `description`, `globs` |
-| **Primary file** | `.windsurf/rules` |
+These are Windsurf-specific hooks behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
 
-## Skills Extensions
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/hooks.md#hook-events" target="_blank" rel="noopener noreferrer">Twelve hook event types</a></dt>
+    <dd class="provider-extensions__description">Windsurf Cascade Hooks support twelve named event types covering the full agent action lifecycle: pre_read_code, post_read_code, pre_write_code, post_write_code, pre_run_command, post_run_command, pre_mcp_tool_use, post_mcp_tool_use, pre_user_prompt, post_cascade_response, post_cascade_response_with_transcript, and post_setup_worktree. Pre-hooks (pre_user_prompt, pre_read_code, pre_write_code, pre_run_command, pre_mcp_tool_use) can block the action by exiting with code 2. Post-hooks cannot block since the action has already occurred.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/hooks.md#common-input-structure" target="_blank" rel="noopener noreferrer">JSON context delivered via stdin</a></dt>
+    <dd class="provider-extensions__description">Each hook receives a JSON object on stdin with common fields (agent_action_name, trajectory_id, execution_id, timestamp, tool_info) plus event-specific fields in tool_info. For example, pre_write_code includes file_path and an edits array with old_string/new_string pairs; pre_run_command includes command_line and cwd; pre_mcp_tool_use includes mcp_server_name, mcp_tool_name, and mcp_tool_arguments. Scripts can be written in any language (Python, Bash, Node.js, any executable).</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/hooks.md#configuration" target="_blank" rel="noopener noreferrer">System, user, and workspace config scopes merged in order</a></dt>
+    <dd class="provider-extensions__description">Hook configurations are JSON files loaded from three scopes and merged together. System-level (enterprise, managed by IT): macOS /Library/Application Support/Windsurf/hooks.json, Linux/WSL /etc/windsurf/hooks.json, Windows C:\ProgramData\Windsurf\hooks.json. User-level (personal): ~/.codeium/windsurf/hooks.json (Windsurf IDE) or ~/.codeium/hooks.json (JetBrains plugin). Workspace-level (project, version-controlled): .windsurf/hooks.json in the workspace root. Hooks from all levels are combined and execute in order: cloud dashboard → system → user → workspace.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/hooks.md#cloud-dashboard-configuration" target="_blank" rel="noopener noreferrer">Cloud dashboard distribution for enterprise teams</a></dt>
+    <dd class="provider-extensions__description">Enterprise teams can configure Cascade Hooks directly from the Windsurf Team Settings dashboard without managing local files. Requires Enterprise plan and TEAM_SETTINGS_UPDATE permission. Cloud-configured hooks are automatically distributed to all team members and loaded first (before system, user, and workspace hooks). Multiple team configs are merged per action rather than overwritten.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/hooks.md#post_cascade_response_with_transcript" target="_blank" rel="noopener noreferrer">Full conversation transcript hook variant</a></dt>
+    <dd class="provider-extensions__description">post_cascade_response_with_transcript is a distinct variant of post_cascade_response that writes the full conversation transcript (from conversation start) to a local JSONL file at ~/.windsurf/transcripts/&#123;trajectory_id&#125;.jsonl and delivers the file path in tool_info rather than inline markdown. The JSONL format includes structured step-level data (file contents, command outputs, tool arguments, applied rules). Files are written with 0600 permissions; the directory is capped at 100 files with oldest pruned first. Designed for enterprise audit and compliance logging.</dd>
+  </div>
+</dl>
 
-Provider-specific skills behaviors and configuration options beyond the canonical keys.
+## Rule Conventions
 
-<ProviderExtensions provider="windsurf" contentType="skills" />
+### Native Format
 
-## Rules Extensions
+- **File format:** Markdown
+- **Discovery paths:** `.windsurfrules`, `.windsurf/rules`
+- **Global install path:** `~/.codeium/windsurf`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Primary file:** `.windsurf/rules`
+- **Native frontmatter fields:** `trigger`, `description`, `globs`
 
-Provider-specific rules behaviors and configuration options beyond the canonical keys.
+### Mappings to Canonical
 
-<ProviderExtensions provider="windsurf" contentType="rules" />
+How Windsurf's native rules features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-## Agents Extensions
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`activation_mode`](/reference/canonical-keys/activation-mode/) | activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle) |
+| [`auto_memory`](/reference/canonical-keys/auto-memory/) | auto_generated_memories: Windsurf AI generates persistent memories stored in .windsurf/memories/ as rule-like files |
+| [`cross_provider_recognition`](/reference/canonical-keys/cross-provider-recognition/) | agents_md_auto_scoping: Windsurf reads AGENTS.md files from other providers and applies them with workspace-aware scoping |
 
-Provider-specific agents behaviors and configuration options beyond the canonical keys.
+### Windsurf-specific Rules
 
-<ProviderExtensions provider="windsurf" contentType="agents" />
+These are Windsurf-specific rules behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
 
-## Commands Extensions
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/memories.md#activation-modes" target="_blank" rel="noopener noreferrer">Four activation modes via trigger frontmatter</a></dt>
+    <dd class="provider-extensions__description">Workspace rules declare an activation mode in frontmatter via the `trigger` field. Four modes exist: `always_on` (included in every system prompt), `model_decision` (description always shown; full content loaded on demand when the model judges it relevant), `glob` (applied when Cascade reads or edits files matching the `globs` pattern), and `manual` (excluded from system prompt until @-mentioned by name in the Cascade input box). The global rules file and root-level AGENTS.md do not use frontmatter — they are always on.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/agents-md.md" target="_blank" rel="noopener noreferrer">AGENTS.md: location-based auto-scoping without frontmatter</a></dt>
+    <dd class="provider-extensions__description">AGENTS.md (or agents.md) files use plain markdown with no frontmatter. Windsurf infers the activation mode from file location: a root-level AGENTS.md is treated as always-on; any subdirectory AGENTS.md is treated as a glob rule scoped to that directory's subtree (auto-generated pattern `&lt;directory&gt;/**`). This provides simple directory-specific guidance without any frontmatter configuration.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/memories.md#rules" target="_blank" rel="noopener noreferrer">Global, workspace, and system rule scopes</a></dt>
+    <dd class="provider-extensions__description">Rules exist at three user-accessible scopes plus an enterprise system scope. Global: single file at ~/.codeium/windsurf/memories/global_rules.md, always-on, 6,000 character limit. Workspace: one .md file per rule in .windsurf/rules/, each with its own activation mode, 12,000 character limit per file. System (Enterprise): OS-specific read-only directories deployed by IT — macOS /Library/Application Support/Windsurf/rules/*.md, Linux/WSL /etc/windsurf/rules/*.md, Windows C:\ProgramData\Windsurf\rules\*.md. Workspace rules are also discovered in subdirectories and parent directories up to the git root, with deduplication across multiple open folders.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/memories.md#memories" target="_blank" rel="noopener noreferrer">Auto-generated memories distinct from rules</a></dt>
+    <dd class="provider-extensions__description">Memories are a separate mechanism from Rules. Cascade auto-generates memories during conversations when it encounters context worth remembering, and stores them at ~/.codeium/windsurf/memories/ (workspace-scoped, not committed to git). Users can also ask Cascade to create a memory explicitly. Memories do not consume credits. They are distinct from Rules, which are user-authored and version-controlled. The docs recommend preferring Rules or AGENTS.md over memories for durable, team-shareable knowledge.</dd>
+  </div>
+</dl>
 
-Provider-specific commands behaviors and configuration options beyond the canonical keys.
+## MCP Config Conventions
 
-<ProviderExtensions provider="windsurf" contentType="commands" />
+### Native Format
 
-## Hooks Extensions
+- **File format:** JSON
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `.windsurf/mcp_config.json`
+- **Transports:** `stdio`, `sse`
 
-Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+### Mappings to Canonical
 
-<ProviderExtensions provider="windsurf" contentType="hooks" />
+How Windsurf's native mcp configs features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-## MCP Configs Extensions
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`enterprise_management`](/reference/canonical-keys/enterprise-management/) | enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries |
+| [`env_var_expansion`](/reference/canonical-keys/env-var-expansion/) | config_interpolation: Windsurf MCP configuration supports $&#123;VAR&#125; interpolation for environment variables |
+| [`marketplace`](/reference/canonical-keys/marketplace/) | mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience |
+| [`transport_types`](/reference/canonical-keys/transport-types/) | three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports |
 
-Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+### Windsurf-specific MCP Configs
 
-<ProviderExtensions provider="windsurf" contentType="mcp" />
+These are Windsurf-specific mcp configs behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
 
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/mcp.md" target="_blank" rel="noopener noreferrer">Three transport types: stdio, Streamable HTTP, SSE</a></dt>
+    <dd class="provider-extensions__description">Windsurf supports stdio, Streamable HTTP, and SSE transport types for MCP servers, plus OAuth for each. For HTTP servers the URL field should be the endpoint URL (e.g., https://&lt;server&gt;/mcp). Remote HTTP servers use a `serverUrl` or `url` field rather than `command`/`args`. This three-transport support is broader than providers that only support stdio.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/mcp.md#config-interpolation" target="_blank" rel="noopener noreferrer">Variable interpolation in mcp_config.json</a></dt>
+    <dd class="provider-extensions__description">The mcp_config.json file supports variable interpolation in command, args, env, serverUrl, url, and headers fields. Two patterns: `$&#123;env:VAR_NAME&#125;` is replaced with the named environment variable (empty string if unset); `$&#123;file:/path/to/file&#125;` is replaced with the trimmed contents of the file at that path (tilde paths supported; left unchanged if file is unread). This avoids hardcoding secrets in the config file.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/mcp.md#configuring-mcp-tools" target="_blank" rel="noopener noreferrer">100-tool cap across all MCP servers</a></dt>
+    <dd class="provider-extensions__description">Cascade has a hard limit of 100 total MCP tools available at any one time across all configured servers. Individual tools per server can be toggled on or off via the MCP settings UI to stay within this limit.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises" target="_blank" rel="noopener noreferrer">Enterprise MCP whitelist and custom registry</a></dt>
+    <dd class="provider-extensions__description">Team admins can whitelist approved MCP servers; once any server is whitelisted, all non-whitelisted servers are blocked for the team. Whitelist matching uses regex patterns on command, args (per-element, length-matched), with env not matched. Teams can also configure custom MCP registry URLs to replace the default Windsurf marketplace; multiple registry URLs are unioned. Custom registries must follow the official MCP registry schema.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.windsurf.com/windsurf/cascade/mcp.md" target="_blank" rel="noopener noreferrer">In-IDE MCP marketplace</a></dt>
+    <dd class="provider-extensions__description">Windsurf includes a built-in MCP marketplace accessible from the Cascade panel (MCPs icon in top-right menu) or Windsurf Settings &gt; Cascade &gt; MCP Servers. Official MCPs are marked with a blue checkmark. Users click Install to add a server. For MCPs not in the marketplace, users can edit mcp_config.json directly.</dd>
+  </div>
+</dl>
 
 ## Detection
 
@@ -124,4 +239,4 @@ syllago install my-rule --to windsurf
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

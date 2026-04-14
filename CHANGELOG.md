@@ -6,9 +6,23 @@ All notable changes to the syllago documentation site.
 
 ### Added
 - Canonical keys expanded to all content types: 31 new reference pages for rules (5), hooks (9), agents (7), mcp (8), and commands (2) — up from 13 skills-only keys
+- Per-content-type "Conventions" sections on provider pages: Skills, Hook, Rule, MCP Config, Command, and Agent Conventions each with three subsections — Native Format (format, paths, install method, native fields, and hook events table for hooks), Mappings to Canonical (linked canonical-key table with mechanism detail), and `<Provider>`-specific (inline definition list explaining items that haven't been mapped to canonical keys yet, with a graduation note)
+- `src/styles/provider-extensions.css` — styles for the provider-specific definition list, registered via Starlight `customCss`
+- `@types/bun` devDependency — resolves `import.meta.dir` TypeScript diagnostics in the sync scripts
+
+### Changed
+- Provider page layout restructured: flat cross-cutting tables (File Format and Location, Hook Events, MCP Configuration, Rules Format) replaced with per-content-type sections that link from the Supported Content Types overview
+- "Install Method" column renamed to "Syllago Install Method" on provider pages to clarify that the value is how syllago installs content, not a native provider mechanism
+- Supported Content Types table now lists only supported types, with a Symlink column, and each row links to its section on the page
+- Loadouts removed from the Supported Content Types table (syllago-specific, not a comparable provider content type)
+
+### Removed
+- `ProviderExtensions.astro` component — provider-specific details are now rendered inline as HTML `<dl class="provider-extensions not-content">` by `sync-providers.ts`, reading directly from `capabilities/*.json`
 
 ### Fixed
 - MDX brace escaping in canonical key page generator — descriptions containing code syntax like `{{args}}` or `${@:N}` no longer break the build
+- MDX angle-bracket and pipe escaping in canonical mappings table — mechanism strings containing placeholder syntax like `<name>` or `<skill-name>` are now HTML-entity-escaped before being rendered into Markdown table cells, preventing MDX from parsing them as unclosed JSX tags; pipe characters are also escaped as `\|` to prevent table column splits
+- Canonical-key links now slugify `_` to `-` to match the filenames `sync-capabilities.ts` writes (e.g., `/reference/canonical-keys/canonical-filename/` not `/reference/canonical-keys/canonical_filename/`)
 
 ## 2026-04-12
 

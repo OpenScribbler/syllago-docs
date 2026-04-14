@@ -11,37 +11,58 @@ description: How syllago works with Roo Code — supported content types, file l
 |--------|-------|
 | **Slug** | `roo-code` |
 | **Config directory** | `~/.roo` |
-| **Supported content types** | Agents, MCP Configs, Rules, Skills |
+| **Supported content types** | [Skills](#skills-conventions), [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions), [Agents](#agent-conventions) |
 | **Emit path** | `.roo/rules` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Project scope |
-| Skills | Yes | Symlink |
-| Agents | Yes | Project scope |
-| MCP Configs | Yes | JSON merge |
-| Hooks | No | — |
-| Commands | No | — |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Skills](#skills-conventions) | Symlink | Yes |
+| [Rules](#rule-conventions) | Project scope | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
+| [Agents](#agent-conventions) | Project scope | Yes |
 
-## File Format and Location
+## Skills Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `.roo/rules`, `.roo/rules-code`, `.roo/rules-architect`, `.roo/rules-ask`, `.roo/rules-debug`, `.roo/rules-orchestrator`, `.roorules`, `~/.roo/rules` | — | Markdown |
-| Skills | `.roo/skills`, `.agents/skills` | `~/.roo/skills` | Markdown |
-| Agents | — | — | YAML |
-| MCP Configs | `.roo/mcp.json` | — | JSON |
+### Native Format
 
-## MCP Configuration
+- **File format:** Markdown
+- **Discovery paths:** `.roo/skills`, `.agents/skills`
+- **Global install path:** `~/.roo/skills`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio`, `sse`, `streamable-http` |
-| **Config file** | `.roo/mcp.json` |
+## Rule Conventions
 
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `.roo/rules`, `.roo/rules-code`, `.roo/rules-architect`, `.roo/rules-ask`, `.roo/rules-debug`, `.roo/rules-orchestrator`, `.roorules`, `~/.roo/rules`
+- **Syllago install method:** Project scope
+- **Symlink support:** Yes
+- **Primary file:** `.roo/rules`
+
+## MCP Config Conventions
+
+### Native Format
+
+- **File format:** JSON
+- **Discovery paths:** `.roo/mcp.json`
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `.roo/mcp.json`
+- **Transports:** `stdio`, `sse`, `streamable-http`
+
+## Agent Conventions
+
+### Native Format
+
+- **File format:** YAML
+- **Syllago install method:** Project scope
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `slug`, `name`, `roleDefinition`, `whenToUse`, `customInstructions`, `groups`
 
 ## Detection
 
@@ -62,4 +83,4 @@ syllago install my-rule --to roo-code
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

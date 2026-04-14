@@ -11,38 +11,88 @@ description: How syllago works with OpenCode — supported content types, file l
 |--------|-------|
 | **Slug** | `opencode` |
 | **Config directory** | `~/.config/opencode` |
-| **Supported content types** | Agents, Commands, MCP Configs, Rules, Skills |
+| **Supported content types** | [Skills](#skills-conventions), [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions), [Commands](#command-conventions), [Agents](#agent-conventions) |
 | **Emit path** | `AGENTS.md` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| Skills | Yes | Symlink |
-| Agents | Yes | Symlink |
-| MCP Configs | Yes | JSON merge |
-| Hooks | No | — |
-| Commands | Yes | Symlink |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Skills](#skills-conventions) | Symlink | Yes |
+| [Rules](#rule-conventions) | Symlink | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
+| [Commands](#command-conventions) | Symlink | Yes |
+| [Agents](#agent-conventions) | Symlink | Yes |
 
-## File Format and Location
+## Skills Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode` | Markdown |
-| Skills | `.opencode/skills`, `.agents/skills` | `~/.config/opencode/skills` | Markdown |
-| Agents | `.opencode/agents` | `~/.config/opencode/agents` | Markdown |
-| MCP Configs | `opencode.json`, `opencode.jsonc` | — | JSON with comments |
-| Commands | `.opencode/commands` | `~/.config/opencode/commands` | Markdown |
+### Native Format
 
-## MCP Configuration
+- **File format:** Markdown
+- **Discovery paths:** `.opencode/skills`, `.agents/skills`
+- **Global install path:** `~/.config/opencode/skills`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`, `license`, `compatibility`, `metadata`
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio` |
-| **Config file** | `opencode.json` |
+### Mappings to Canonical
 
+How OpenCode's native skills features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
+
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`canonical_filename`](/reference/canonical-keys/canonical-filename/) | Fixed filename SKILL.md inside skill directory (Agent Skills spec) |
+| [`compatibility`](/reference/canonical-keys/compatibility/) | yaml frontmatter key: compatibility (optional) |
+| [`description`](/reference/canonical-keys/description/) | yaml frontmatter key: description (required) |
+| [`display_name`](/reference/canonical-keys/display-name/) | yaml frontmatter key: name (required) |
+| [`global_scope`](/reference/canonical-keys/global-scope/) | cross-provider convention at ~/.config/opencode/skills/&lt;name&gt;/SKILL.md |
+| [`license`](/reference/canonical-keys/license/) | yaml frontmatter key: license (optional) |
+| [`metadata_map`](/reference/canonical-keys/metadata-map/) | yaml frontmatter key: metadata (optional map) |
+| [`project_scope`](/reference/canonical-keys/project-scope/) | cross-provider SKILL.md convention at .opencode/skill/&lt;name&gt;/SKILL.md |
+
+## Rule Conventions
+
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `AGENTS.md`, `CLAUDE.md`
+- **Global install path:** `~/.config/opencode`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Primary file:** `AGENTS.md`
+
+## MCP Config Conventions
+
+### Native Format
+
+- **File format:** JSON with comments
+- **Discovery paths:** `opencode.json`, `opencode.jsonc`
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `opencode.json`
+- **Transports:** `stdio`
+
+## Command Conventions
+
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `.opencode/commands`
+- **Global install path:** `~/.config/opencode/commands`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `description`, `agent`, `model`, `subtask`
+
+## Agent Conventions
+
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `.opencode/agents`
+- **Global install path:** `~/.config/opencode/agents`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`, `tools`, `model`, `steps`, `color`, `temperature`
 
 ## Detection
 
@@ -63,4 +113,4 @@ syllago install my-rule --to opencode
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

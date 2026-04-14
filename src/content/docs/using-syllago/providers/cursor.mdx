@@ -11,40 +11,45 @@ description: How syllago works with Cursor — supported content types, file loc
 |--------|-------|
 | **Slug** | `cursor` |
 | **Config directory** | `~/.cursor` |
-| **Supported content types** | Agents, Commands, Hooks, MCP Configs, Rules, Skills |
+| **Supported content types** | [Skills](#skills-conventions), [Hooks](#hook-conventions), [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions), [Commands](#command-conventions), [Agents](#agent-conventions) |
 | **Emit path** | `.cursor/rules/syllago-context.mdc` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Symlink |
-| Skills | Yes | Symlink |
-| Agents | Yes | Symlink |
-| MCP Configs | Yes | JSON merge |
-| Hooks | Yes | JSON merge |
-| Commands | Yes | Symlink |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Skills](#skills-conventions) | Symlink | Yes |
+| [Hooks](#hook-conventions) | JSON merge | No |
+| [Rules](#rule-conventions) | Symlink | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
+| [Commands](#command-conventions) | Symlink | Yes |
+| [Agents](#agent-conventions) | Symlink | Yes |
 
-## File Format and Location
+## Skills Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `.cursor/rules`, `.cursorrules` | `~/.cursor` | MDC (Markdown + frontmatter) |
-| Skills | `.cursor/skills` | `~/.cursor/skills` | Markdown |
-| Agents | `.cursor/agents`, `AGENTS.md` | `~/.cursor/agents` | Markdown |
-| MCP Configs | `.cursor/mcp.json` | — | JSON |
-| Hooks | `.cursor/settings.json` | — | JSON |
-| Commands | `.cursor/commands` | `~/.cursor/commands` | Markdown |
+### Native Format
 
-## Hook Events
+- **File format:** Markdown
+- **Discovery paths:** `.cursor/skills`
+- **Global install path:** `~/.cursor/skills`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`, `license`, `compatibility`, `metadata`, `disable-model-invocation`
 
-Cursor supports **14 hook events** with handler types: `command`.
+## Hook Conventions
 
-Hooks are configured in `.cursor/settings.json`.
+### Native Format
 
-| Event | Native Name | Category |
-|-------|------------|----------|
+- **File format:** JSON
+- **Discovery paths:** `.cursor/settings.json`
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `.cursor/settings.json`
+- **Handler types:** `command`
+- **Hook events:** 14
+
+| Canonical Event | Native Name | Category |
+|-----------------|-------------|----------|
 | `after_model` | `afterAgentResponse` | Model |
 | `after_tool_execute` | `PostToolUse` | Tool |
 | `agent_stop` | `Stop` | Lifecycle |
@@ -60,22 +65,49 @@ Hooks are configured in `.cursor/settings.json`.
 | `subagent_stop` | `SubagentStop` | Lifecycle |
 | `tool_use_failure` | `postToolUseFailure` | Tool |
 
-## MCP Configuration
+## Rule Conventions
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio`, `sse`, `streamable-http` |
-| **Config file** | `.cursor/mcp.json` |
+### Native Format
 
+- **File format:** MDC (Markdown + frontmatter)
+- **Discovery paths:** `.cursor/rules`, `.cursorrules`
+- **Global install path:** `~/.cursor`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Primary file:** `.cursor/rules/syllago-context.mdc`
+- **Native frontmatter fields:** `description`, `alwaysApply`, `globs`
 
-## Rules Format
+## MCP Config Conventions
 
-| Detail | Value |
-|--------|-------|
-| **File format** | MDC (Markdown + frontmatter) |
-| **Frontmatter fields** | `description`, `alwaysApply`, `globs` |
-| **Primary file** | `.cursor/rules/syllago-context.mdc` |
+### Native Format
 
+- **File format:** JSON
+- **Discovery paths:** `.cursor/mcp.json`
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `.cursor/mcp.json`
+- **Transports:** `stdio`, `sse`, `streamable-http`
+
+## Command Conventions
+
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `.cursor/commands`
+- **Global install path:** `~/.cursor/commands`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+
+## Agent Conventions
+
+### Native Format
+
+- **File format:** Markdown
+- **Discovery paths:** `.cursor/agents`, `AGENTS.md`
+- **Global install path:** `~/.cursor/agents`
+- **Syllago install method:** Symlink
+- **Symlink support:** Yes
+- **Native frontmatter fields:** `name`, `description`, `model`, `readonly`, `is_background`
 
 ## Detection
 
@@ -96,4 +128,4 @@ syllago install my-rule --to cursor
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

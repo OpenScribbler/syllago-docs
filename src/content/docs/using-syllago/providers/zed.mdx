@@ -11,35 +11,35 @@ description: How syllago works with Zed — supported content types, file locati
 |--------|-------|
 | **Slug** | `zed` |
 | **Config directory** | `~/.config/zed` |
-| **Supported content types** | MCP Configs, Rules |
+| **Supported content types** | [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions) |
 | **Emit path** | `.rules` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Project scope |
-| Skills | No | — |
-| Agents | No | — |
-| MCP Configs | Yes | JSON merge |
-| Hooks | No | — |
-| Commands | No | — |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Rules](#rule-conventions) | Project scope | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
 
-## File Format and Location
+## Rule Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `.rules`, `.cursorrules`, `CLAUDE.md` | — | Markdown |
-| MCP Configs | — | — | JSON |
+### Native Format
 
-## MCP Configuration
+- **File format:** Markdown
+- **Discovery paths:** `.rules`, `.cursorrules`, `CLAUDE.md`
+- **Syllago install method:** Project scope
+- **Symlink support:** Yes
+- **Primary file:** `.rules`
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio` |
-| **Config file** | `~/.config/zed/settings.json` |
+## MCP Config Conventions
 
+### Native Format
+
+- **File format:** JSON
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `~/.config/zed/settings.json`
+- **Transports:** `stdio`
 
 ## Detection
 
@@ -60,4 +60,4 @@ syllago install my-rule --to zed
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

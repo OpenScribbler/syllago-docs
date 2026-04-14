@@ -5,90 +5,169 @@ description: How syllago works with Cline — supported content types, file loca
 
 {/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}
 
-import ProviderExtensions from '../../../../components/ProviderExtensions.astro';
-
 ## Provider Details
 
 | Detail | Value |
 |--------|-------|
 | **Slug** | `cline` |
 | **Config directory** | `~/.clinerules` |
-| **Supported content types** | Hooks, MCP Configs, Rules |
+| **Supported content types** | [Hooks](#hook-conventions), [Rules](#rule-conventions), [MCP Configs](#mcp-config-conventions) |
 | **Emit path** | `.clinerules` |
 
 ## Supported Content Types
 
-| Content Type | Supported | Install Method |
-|-------------|-----------|---------------|
-| Rules | Yes | Project scope |
-| Skills | No | — |
-| Agents | No | — |
-| MCP Configs | Yes | JSON merge |
-| Hooks | Yes | Project scope |
-| Commands | No | — |
-| Loadouts | No | — |
+| Content Type | Syllago Install Method | Symlink |
+|--------------|------------------------|:-------:|
+| [Hooks](#hook-conventions) | Project scope | Yes |
+| [Rules](#rule-conventions) | Project scope | Yes |
+| [MCP Configs](#mcp-config-conventions) | JSON merge | No |
 
-## File Format and Location
+## Hook Conventions
 
-| Content Type | Discovery Paths | Global Location | Format |
-|-------------|----------------|----------------|--------|
-| Rules | `.clinerules`, `~/Documents/Cline/Rules` | — | Markdown |
-| MCP Configs | `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json` | — | JSON |
-| Hooks | `.clinerules/hooks` | — | Markdown |
+### Native Format
 
-## Hooks
+- **File format:** Markdown
+- **Discovery paths:** `.clinerules/hooks`
+- **Syllago install method:** Project scope
+- **Symlink support:** Yes
+- **Config file:** `.clinerules/hooks`
+- **Handler types:** `command`
 
 Cline supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from Cline is best-effort.
 
-Hooks are configured in `.clinerules/hooks`.
+### Mappings to Canonical
 
+How Cline's native hooks features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-## MCP Configuration
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`context_injection`](/reference/canonical-keys/context-injection/) | context_modification_output: Cline hooks can inject additional context into the agent's session via hook output |
+| [`decision_control`](/reference/canonical-keys/decision-control/) | pre_tool_use_cancellation: PreToolUse hooks can cancel (block) the tool invocation; no allow or modify sub-capabilities documented |
+| [`hook_scopes`](/reference/canonical-keys/hook-scopes/) | global_and_project_hooks: Cline supports global (user-wide) and project-level hook configuration |
+| [`input_modification`](/reference/canonical-keys/input-modification/) | context_modification_output: Cline PreToolUse hooks can return modified context/input before tool execution |
 
-| Detail | Value |
-|--------|-------|
-| **Transports** | `stdio`, `sse`, `streamable-http` |
-| **Config file** | `cline_mcp_settings.json` |
+### Cline-specific Hooks
 
+These are Cline-specific hooks behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
 
-## Rules Format
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#hook-types" target="_blank" rel="noopener noreferrer">Eight Named Hook Types</a></dt>
+    <dd class="provider-extensions__description">Cline defines 8 hook types covering the full task lifecycle: TaskStart (new task begins), TaskResume (interrupted task resumes), TaskCancel (task cancelled by user), TaskComplete (task succeeds), PreToolUse (before any tool executes), PostToolUse (after tool completes), UserPromptSubmit (user sends a message), PreCompact (before context truncation). Each runs at a specific, documented point in the lifecycle. Hook input JSON uses camelCase field names matching the hook type (e.g., preToolUse, taskStart).</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#context-modification" target="_blank" rel="noopener noreferrer">contextModification Output Field for Injecting Conversation Context</a></dt>
+    <dd class="provider-extensions__description">Hook stdout JSON supports a contextModification field (string). When set, the text is injected into the active conversation as context for Cline to consider. This allows hooks to supply dynamic information — project-specific context at task start, validation results before a tool runs, environment state mid-task — without requiring the user to manually paste it. The cancel and errorMessage fields control operation blocking.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#hook-locations" target="_blank" rel="noopener noreferrer">Global and Project Hook Scopes with Additive Execution</a></dt>
+    <dd class="provider-extensions__description">Hooks can be stored globally (~/Documents/Cline/Hooks/) or per-project (.clinerules/hooks/). When both exist for the same hook type, both execute: global hooks run first, then workspace hooks. If either returns cancel: true, the operation stops. Project hooks can be committed to version control.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#quick-start-your-first-hook" target="_blank" rel="noopener noreferrer">Platform-Specific Hook File Format</a></dt>
+    <dd class="provider-extensions__description">Hook filenames are platform-sensitive: Windows requires &lt;HookName&gt;.ps1 (PowerShell), macOS/Linux requires extensionless &lt;HookName&gt; (executable shell script or binary). Wrong-platform naming is silently ignored by hook discovery. On Windows, hook enable/disable toggling is not yet supported — hooks run whenever the file exists. Toggle support is consistent on macOS/Linux via the Hooks UI.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#pretooluse" target="_blank" rel="noopener noreferrer">PreToolUse Can Cancel Tool Execution Before It Happens</a></dt>
+    <dd class="provider-extensions__description">PreToolUse hooks receive the tool name and full parameters before execution. Returning cancel: true with an errorMessage blocks the operation entirely and surfaces the message to the user. PostToolUse hooks can also return cancel: true to stop the task, but cannot undo the tool execution that already occurred.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/hooks#input-structure" target="_blank" rel="noopener noreferrer">Active Model Provider and Slug in Hook Input</a></dt>
+    <dd class="provider-extensions__description">Every hook input JSON includes a model object with provider (machine-stable provider identifier) and slug (model identifier, e.g. "anthropic/claude-sonnet-4.5"). If unavailable, both fields fall back to the string "unknown". This allows hooks to implement model-aware logic — e.g., stricter guardrails for less capable models or routing to different external systems based on provider.</dd>
+  </div>
+</dl>
 
-| Detail | Value |
-|--------|-------|
-| **File format** | Markdown |
-| **Frontmatter fields** | `paths` |
-| **Primary file** | `.clinerules` |
+## Rule Conventions
 
-## Skills Extensions
+### Native Format
 
-Provider-specific skills behaviors and configuration options beyond the canonical keys.
+- **File format:** Markdown
+- **Discovery paths:** `.clinerules`, `~/Documents/Cline/Rules`
+- **Syllago install method:** Project scope
+- **Symlink support:** Yes
+- **Primary file:** `.clinerules`
+- **Native frontmatter fields:** `paths`
 
-<ProviderExtensions provider="cline" contentType="skills" />
+### Mappings to Canonical
 
-## Rules Extensions
+How Cline's native rules features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-Provider-specific rules behaviors and configuration options beyond the canonical keys.
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`activation_mode`](/reference/canonical-keys/activation-mode/) | conditional_rules_paths: Cline supports path-conditional rules alongside always-on rules; conditions use glob patterns |
+| [`cross_provider_recognition`](/reference/canonical-keys/cross-provider-recognition/) | multi_source_rule_detection: Cline reads .clinerules/, .cursorrules, CLAUDE.md, and other provider rule files automatically |
 
-<ProviderExtensions provider="cline" contentType="rules" />
+### Cline-specific Rules
 
-## Commands Extensions
+These are Cline-specific rules behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
 
-Provider-specific commands behaviors and configuration options beyond the canonical keys.
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/rules#supported-rule-types" target="_blank" rel="noopener noreferrer">Multi-Source Rule Detection</a></dt>
+    <dd class="provider-extensions__description">Cline automatically detects and loads rule files from multiple formats beyond its own .clinerules/ directory: .cursorrules (Cursor), .windsurfrules (Windsurf), and AGENTS.md (agents.md standard). All detected types appear in the Rules panel with individual toggles. This means a project's existing rule files from other providers are automatically active in Cline without any migration step.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/rules#toggling-rules" target="_blank" rel="noopener noreferrer">Per-Rule Enable/Disable Toggle</a></dt>
+    <dd class="provider-extensions__description">Every rule file has a toggle in the Rules panel to enable or disable it without deleting the file. This allows fine-grained control — e.g., disabling a strict testing rule during prototyping, or toggling a client-specific rule on/off per engagement — without modifying the rule file itself.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/rules#conditional-rules" target="_blank" rel="noopener noreferrer">Conditional Rules via YAML Frontmatter paths</a></dt>
+    <dd class="provider-extensions__description">Rule files can include YAML frontmatter with a `paths` key (array of glob patterns). A rule only activates when the current context (open tabs, mentioned file paths, files Cline is editing) matches at least one pattern. Rules without frontmatter are always active. An empty `paths: []` permanently disables the rule. If frontmatter cannot be parsed, Cline fails open: the rule activates with raw content visible. Activation triggers a UI notification: "Conditional rules applied: workspace:&lt;filename&gt;".</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/customization/rules#creating-rules" target="_blank" rel="noopener noreferrer">/newrule Slash Command for Interactive Rule Creation</a></dt>
+    <dd class="provider-extensions__description">The /newrule slash command prompts Cline to guide the user through creating a new rule file interactively. Cline asks about communication style, coding standards, project context, and workflows, then saves the result to .clinerules/. This lowers the barrier to authoring well-structured rules.</dd>
+  </div>
+</dl>
 
-<ProviderExtensions provider="cline" contentType="commands" />
+## MCP Config Conventions
 
-## Hooks Extensions
+### Native Format
 
-Provider-specific hooks behaviors and configuration options beyond the canonical keys.
+- **File format:** JSON
+- **Discovery paths:** `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+- **Syllago install method:** JSON merge
+- **Symlink support:** No
+- **Config file:** `cline_mcp_settings.json`
+- **Transports:** `stdio`, `sse`, `streamable-http`
 
-<ProviderExtensions provider="cline" contentType="hooks" />
+### Mappings to Canonical
 
-## MCP Configs Extensions
+How Cline's native mcp configs features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.
 
-Provider-specific mcp configs behaviors and configuration options beyond the canonical keys.
+| Canonical Key | Mechanism |
+|---------------|-----------|
+| [`auto_approve`](/reference/canonical-keys/auto-approve/) | always_allow_tools (execution-gating scope): Cline's always_allow list suppresses per-invocation confirmation prompts for listed tools that are already visible |
+| [`marketplace`](/reference/canonical-keys/marketplace/) | mcp_marketplace: Cline has an in-IDE MCP server discovery and installation experience |
+| [`tool_filtering`](/reference/canonical-keys/tool-filtering/) | always_allow_tools (visibility scope): Cline's always_allow list controls which MCP tools are exposed in the agent's available tool set without per-invocation prompts |
+| [`transport_types`](/reference/canonical-keys/transport-types/) | sse_transport_support: Cline supports SSE transport alongside stdio; HTTP transport support follows MCP protocol adoption |
 
-<ProviderExtensions provider="cline" contentType="mcp" />
+### Cline-specific MCP Configs
 
+These are Cline-specific mcp configs behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.
+
+<dl class="provider-extensions not-content">
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/mcp/configuring-mcp-servers#finding-mcp-servers" target="_blank" rel="noopener noreferrer">Built-In MCP Marketplace for Server Discovery and Installation</a></dt>
+    <dd class="provider-extensions__description">Cline includes a dedicated MCP Marketplace UI accessible from the MCP Servers icon in the top navigation bar. Users can browse and install MCP servers directly from within the tool without visiting external sites. This is in addition to community directories like mcpservers.org, mcp.so, and the official MCP GitHub repo.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/mcp/configuring-mcp-servers#adding-servers-with-cline" target="_blank" rel="noopener noreferrer">AI-Assisted MCP Server Setup via Conversation</a></dt>
+    <dd class="provider-extensions__description">Users can add MCP servers by providing Cline with a GitHub repo URL (optionally with README contents). Cline clones the repo, builds it, and adds the configuration automatically, asking clarifying questions (e.g., about API keys, build commands) as needed. This conversational setup flow is unique to Cline and reduces manual JSON editing.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/mcp/configuring-mcp-servers#stdio-transport-local-servers" target="_blank" rel="noopener noreferrer">alwaysAllow List for Auto-Approving Specific MCP Tools</a></dt>
+    <dd class="provider-extensions__description">Each server entry in cline_mcp_settings.json supports an alwaysAllow array of tool names. Tools in this list are executed without user confirmation. This is server-scoped and tool-name-specific — it does not blanket-allow all tools on a server. Complements the global auto-approval feature.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/mcp/configuring-mcp-servers#global-mcp-mode" target="_blank" rel="noopener noreferrer">Global MCP Mode Setting for Token Usage Control</a></dt>
+    <dd class="provider-extensions__description">A Cline&gt;Mcp:Mode setting controls how MCP servers affect token usage globally. Accessible via the MCP Servers icon &gt; Configure tab &gt; Advanced MCP Settings. The exact mode options are not detailed in the documentation source, but the setting targets token efficiency for users with many MCP servers.</dd>
+  </div>
+  <div class="provider-extensions__item">
+    <dt class="provider-extensions__name"><a href="https://docs.cline.bot/mcp/configuring-mcp-servers#sse-transport-remote-servers" target="_blank" rel="noopener noreferrer">SSE Transport Support for Remote MCP Servers</a></dt>
+    <dd class="provider-extensions__description">In addition to STDIO (local child process), Cline supports SSE transport for remote MCP servers over HTTP/HTTPS. SSE server config uses a url field instead of command/args, plus optional headers (e.g., Authorization). This enables centrally-hosted MCP servers shared across multiple users without per-user installation.</dd>
+  </div>
+</dl>
 
 ## Detection
 
@@ -109,4 +188,4 @@ syllago install my-rule --to cline
 - [Providers Overview](/using-syllago/providers/)
 - [Format Conversion](/using-syllago/format-conversion/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.7.0 on 2026-04-11.*

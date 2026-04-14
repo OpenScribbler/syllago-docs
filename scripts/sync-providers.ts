@@ -63,10 +63,17 @@ interface CapDataExtension {
   source_ref?: string;
 }
 
+interface CapDataMapping {
+  supported: boolean;
+  mechanism: string;
+  paths?: string[];
+}
+
 interface CapDataEntry {
   id: string;
   provider: string;
   contentType: string;
+  canonicalMappings?: Record<string, CapDataMapping>;
   providerExtensions: CapDataExtension[];
 }
 
@@ -90,11 +97,25 @@ const CT_DISPLAY: Record<string, string> = {
   skills: "Skills",
   agents: "Agents",
   commands: "Commands",
-  loadouts: "Loadouts",
 };
 
-// The six standard content types shown in the matrix (excludes loadouts).
+// The six standard content types shown in the matrix.
 const MATRIX_TYPES = ["rules", "skills", "agents", "mcp", "hooks", "commands"];
+
+// Order of the per-content-type "Conventions" sections on a provider page.
+// The slug is stable (derived from the section title) so the Supported
+// Content Types table can link to each section by anchor.
+const CT_SECTION_ORDER = ["skills", "hooks", "rules", "mcp", "commands", "agents"];
+
+// Section title and anchor slug for each content type's Conventions section.
+const CT_SECTION_INFO: Record<string, { title: string; slug: string }> = {
+  skills: { title: "Skills Conventions", slug: "skills-conventions" },
+  hooks: { title: "Hook Conventions", slug: "hook-conventions" },
+  rules: { title: "Rule Conventions", slug: "rule-conventions" },
+  mcp: { title: "MCP Config Conventions", slug: "mcp-config-conventions" },
+  commands: { title: "Command Conventions", slug: "command-conventions" },
+  agents: { title: "Agent Conventions", slug: "agent-conventions" },
+};
 
 // File format display names.
 const FORMAT_DISPLAY: Record<string, string> = {
@@ -380,46 +401,173 @@ function generateIndexPage(
 }
 
 // ---------------------------------------------------------------------------
-// Extensions section generator
+// MDX-safe text escape — provider extension descriptions may contain `{`, `<`,
+// `&` etc. that MDX would otherwise interpret as JSX. This escape is used only
+// for user-facing text inserted into raw HTML blocks (not URLs or code spans).
 // ---------------------------------------------------------------------------
 
-function generateExtensionsSections(
-  providerSlug: string,
-  capabilitiesData: Map<string, CapDataEntry>
-): { imports: string[]; sections: string[] } {
-  const imports: string[] = [];
-  const sections: string[] = [];
+function escapeMdxInline(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\{/g, "&#123;")
+    .replace(/\}/g, "&#125;")
+    .replace(/\|/g, "\\|");
+}
 
-  // Content types to check for extensions, in display order.
-  const contentTypesOrdered = [
-    "skills", "rules", "agents", "commands", "hooks", "mcp",
-  ];
+// ---------------------------------------------------------------------------
+// Pretty-print helpers for native-format bullets.
+// ---------------------------------------------------------------------------
 
-  let needsImport = false;
+function formatPath(p: string): string {
+  return `\`${p.replace("{project}/", "").replace("{home}/", "~/")}\``;
+}
 
-  for (const contentType of contentTypesOrdered) {
-    const entry = capabilitiesData.get(`${providerSlug}-${contentType}`);
-    if (!entry || entry.providerExtensions.length === 0) continue;
+function formatFormat(fmt?: string): string {
+  return FORMAT_DISPLAY[fmt || ""] || fmt || "—";
+}
 
-    needsImport = true;
-    const ctTitle =
-      CT_DISPLAY[contentType] || contentType.charAt(0).toUpperCase() + contentType.slice(1);
+function formatMethod(method?: string): string {
+  return METHOD_DISPLAY[method || ""] || method || "—";
+}
 
-    sections.push(
-      `## ${ctTitle} Extensions`,
+// ---------------------------------------------------------------------------
+// Per-content-type Conventions section
+// ---------------------------------------------------------------------------
+
+function generateContentTypeConventions(
+  ct: string,
+  prov: ProviderCapEntry,
+  capEntry: CapDataEntry | undefined
+): string[] {
+  const cap = prov.content[ct];
+  if (!cap?.supported) return [];
+
+  const info = CT_SECTION_INFO[ct];
+  if (!info) return [];
+
+  const lines: string[] = [];
+  const ctDisplay = CT_DISPLAY[ct] || ct;
+
+  lines.push(`## ${info.title}`, "");
+
+  // ----- Native Format -----
+  lines.push("### Native Format", "");
+
+  const nativeBullets: string[] = [];
+  if (cap.fileFormat) {
+    nativeBullets.push(`- **File format:** ${formatFormat(cap.fileFormat)}`);
+  }
+  if (cap.discoveryPaths?.length) {
+    const paths = cap.discoveryPaths.map(formatPath).join(", ");
+    nativeBullets.push(`- **Discovery paths:** ${paths}`);
+  }
+  if (cap.installPath) {
+    nativeBullets.push(`- **Global install path:** ${formatPath(cap.installPath)}`);
+  }
+  if (cap.installMethod) {
+    nativeBullets.push(`- **Syllago install method:** ${formatMethod(cap.installMethod)}`);
+  }
+  nativeBullets.push(`- **Symlink support:** ${cap.symlinkSupport ? "Yes" : "No"}`);
+
+  // CT-specific native fields.
+  if (ct === "hooks") {
+    if (cap.configLocation) {
+      nativeBullets.push(`- **Config file:** \`${cap.configLocation}\``);
+    }
+    if (cap.hookTypes?.length) {
+      const types = cap.hookTypes.map((t) => `\`${t}\``).join(", ");
+      nativeBullets.push(`- **Handler types:** ${types}`);
+    }
+    if (cap.hookEvents?.length) {
+      nativeBullets.push(`- **Hook events:** ${cap.hookEvents.length}`);
+    }
+  } else if (ct === "mcp") {
+    if (cap.configLocation) {
+      nativeBullets.push(`- **Config file:** \`${cap.configLocation}\``);
+    }
+    if (cap.mcpTransports?.length) {
+      const transports = cap.mcpTransports.map((t) => `\`${t}\``).join(", ");
+      nativeBullets.push(`- **Transports:** ${transports}`);
+    }
+  } else if (ct === "rules" && prov.emitPath) {
+    nativeBullets.push(`- **Primary file:** \`${prov.emitPath.replace("{project}/", "")}\``);
+  }
+
+  if (cap.frontmatterFields?.length) {
+    const fields = cap.frontmatterFields.map((f) => `\`${f}\``).join(", ");
+    nativeBullets.push(`- **Native frontmatter fields:** ${fields}`);
+  }
+
+  lines.push(...nativeBullets, "");
+
+  // Hooks get the canonical ↔ native event table inside Native Format.
+  if (ct === "hooks") {
+    if (cap.hookEvents?.length) {
+      lines.push(
+        "| Canonical Event | Native Name | Category |",
+        "|-----------------|-------------|----------|"
+      );
+      for (const ev of cap.hookEvents) {
+        const cat = ev.category ? CATEGORY_DISPLAY[ev.category] || ev.category : "—";
+        lines.push(`| \`${ev.canonical}\` | \`${ev.nativeName}\` | ${cat} |`);
+      }
+      lines.push("");
+    } else {
+      lines.push(
+        `${prov.name} supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from ${prov.name} is best-effort.`,
+        ""
+      );
+    }
+  }
+
+  // ----- Mappings to Canonical -----
+  const mappings = capEntry?.canonicalMappings;
+  if (mappings && Object.keys(mappings).length > 0) {
+    lines.push("### Mappings to Canonical", "");
+    lines.push(
+      `How ${prov.name}'s native ${ctDisplay.toLowerCase()} features map to syllago's canonical keys. See the [capabilities matrix](/reference/capabilities-matrix/) for the full vocabulary.`,
       "",
-      `Provider-specific ${ctTitle.toLowerCase()} behaviors and configuration options beyond the canonical keys.`,
-      "",
-      `<ProviderExtensions provider="${providerSlug}" contentType="${contentType}" />`,
-      ""
+      "| Canonical Key | Mechanism |",
+      "|---------------|-----------|"
     );
+    const keys = Object.keys(mappings).sort();
+    for (const key of keys) {
+      const m = mappings[key];
+      if (!m.supported) continue;
+      const slug = key.replace(/_/g, "-");
+      lines.push(`| [\`${key}\`](/reference/canonical-keys/${slug}/) | ${escapeMdxInline(m.mechanism)} |`);
+    }
+    lines.push("");
   }
 
-  if (needsImport) {
-    imports.push("import ProviderExtensions from '../../../../components/ProviderExtensions.astro';");
+  // ----- Provider-specific details -----
+  const extensions = capEntry?.providerExtensions ?? [];
+  if (extensions.length > 0) {
+    lines.push(`### ${prov.name}-specific ${ctDisplay}`, "");
+    lines.push(
+      `These are ${prov.name}-specific ${ctDisplay.toLowerCase()} behaviors and configuration options that haven't been mapped to canonical keys yet. When a canonical key covers one of these, the corresponding item graduates there.`,
+      "",
+      '<dl class="provider-extensions not-content">'
+    );
+    for (const ext of extensions) {
+      const safeName = escapeMdxInline(ext.name);
+      const safeDesc = escapeMdxInline(ext.description);
+      const nameHtml = ext.source_ref
+        ? `<a href="${ext.source_ref}" target="_blank" rel="noopener noreferrer">${safeName}</a>`
+        : safeName;
+      lines.push(
+        '  <div class="provider-extensions__item">',
+        `    <dt class="provider-extensions__name">${nameHtml}</dt>`,
+        `    <dd class="provider-extensions__description">${safeDesc}</dd>`,
+        "  </div>"
+      );
+    }
+    lines.push("</dl>", "");
   }
 
-  return { imports, sections };
+  return lines;
 }
 
 // ---------------------------------------------------------------------------
@@ -431,15 +579,18 @@ function generateProviderPage(
   manifest: ProviderManifest,
   capabilitiesData: Map<string, CapDataEntry>
 ): string {
-  // Compute extensions first so we can emit imports at the top.
-  const { imports: extImports, sections: extSections } = generateExtensionsSections(
-    prov.slug,
-    capabilitiesData
+  // Supported content types, in section order, for the linked overview table.
+  const supportedInOrder = CT_SECTION_ORDER.filter(
+    (ct) => prov.content[ct]?.supported
   );
 
-  const supportedTypes = Object.entries(prov.content)
-    .filter(([, cap]) => cap.supported)
-    .map(([ct]) => CT_DISPLAY[ct] || ct);
+  const supportedTypesSummary = supportedInOrder
+    .map((ct) => {
+      const info = CT_SECTION_INFO[ct];
+      const display = CT_DISPLAY[ct] || ct;
+      return info ? `[${display}](#${info.slug})` : display;
+    })
+    .join(", ");
 
   const lines: string[] = [
     "---",
@@ -449,24 +600,15 @@ function generateProviderPage(
     "",
     "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
     "",
-  ];
-
-  // Extension component imports (only present when provider has extensions).
-  if (extImports.length > 0) {
-    lines.push(...extImports, "");
-  }
-
-  lines.push(
     "## Provider Details",
     "",
     "| Detail | Value |",
     "|--------|-------|",
     `| **Slug** | \`${prov.slug}\` |`,
     `| **Config directory** | \`~/${prov.configDir}\` |`,
-    `| **Supported content types** | ${supportedTypes.join(", ")} |`,
-  );
+    `| **Supported content types** | ${supportedTypesSummary || "—"} |`,
+  ];
 
-  // Emit path.
   if (prov.emitPath) {
     lines.push(
       `| **Emit path** | \`${prov.emitPath.replace("{project}/", "")}\` |`
@@ -477,145 +619,33 @@ function generateProviderPage(
     "",
     "## Supported Content Types",
     "",
-    "| Content Type | Supported | Install Method |",
-    "|-------------|-----------|---------------|"
+    "| Content Type | Syllago Install Method | Symlink |",
+    "|--------------|------------------------|:-------:|"
   );
 
-  for (const ct of [...MATRIX_TYPES, "loadouts"]) {
+  for (const ct of CT_SECTION_ORDER) {
     const cap = prov.content[ct];
-    if (!cap) continue;
-    const name = CT_DISPLAY[ct] || ct;
-    const supported = cap.supported ? "Yes" : "No";
-    const method = cap.supported
-      ? METHOD_DISPLAY[cap.installMethod || ""] || cap.installMethod || "—"
-      : "—";
-    lines.push(`| ${name} | ${supported} | ${method} |`);
+    if (!cap?.supported) continue;
+    const info = CT_SECTION_INFO[ct];
+    const display = CT_DISPLAY[ct] || ct;
+    const name = info ? `[${display}](#${info.slug})` : display;
+    const method = formatMethod(cap.installMethod);
+    const symlink = cap.symlinkSupport ? "Yes" : "No";
+    lines.push(`| ${name} | ${method} | ${symlink} |`);
   }
 
-  // File format and location table.
-  const hasLocations = Object.values(prov.content).some(
-    (cap) => cap.supported && (cap.installPath || cap.discoveryPaths?.length)
-  );
+  lines.push("");
 
-  if (hasLocations) {
-    lines.push(
-      "",
-      "## File Format and Location",
-      "",
-      "| Content Type | Discovery Paths | Global Location | Format |",
-      "|-------------|----------------|----------------|--------|"
-    );
-
-    for (const ct of [...MATRIX_TYPES, "loadouts"]) {
-      const cap = prov.content[ct];
-      if (!cap?.supported) continue;
-      const name = CT_DISPLAY[ct] || ct;
-      const format =
-        FORMAT_DISPLAY[cap.fileFormat || ""] || cap.fileFormat || "—";
-
-      const discovery = cap.discoveryPaths?.length
-        ? cap.discoveryPaths
-            .map((p) => `\`${p.replace("{project}/", "").replace("{home}/", "~/")}\``)
-            .join(", ")
-        : "—";
-
-      const global = cap.installPath
-        ? `\`${cap.installPath.replace("{home}/", "~/")}\``
-        : "—";
-
-      lines.push(`| ${name} | ${discovery} | ${global} | ${format} |`);
+  // Per-content-type Conventions sections.
+  for (const ct of CT_SECTION_ORDER) {
+    const capEntry = capabilitiesData.get(`${prov.slug}-${ct}`);
+    const sectionLines = generateContentTypeConventions(ct, prov, capEntry);
+    if (sectionLines.length > 0) {
+      lines.push(...sectionLines);
     }
   }
 
-  // --- Enrichment: Hook events ---
-  const hooksCap = prov.content.hooks;
-  if (hooksCap?.supported && hooksCap.hookEvents?.length) {
-    lines.push(
-      "",
-      "## Hook Events",
-      "",
-      `${prov.name} supports **${hooksCap.hookEvents.length} hook events** with handler types: ${(hooksCap.hookTypes ?? ["command"]).map((t) => `\`${t}\``).join(", ")}.`,
-      ""
-    );
-
-    if (hooksCap.configLocation) {
-      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
-    }
-
-    lines.push(
-      "| Event | Native Name | Category |",
-      "|-------|------------|----------|"
-    );
-
-    for (const ev of hooksCap.hookEvents) {
-      const cat = ev.category
-        ? CATEGORY_DISPLAY[ev.category] || ev.category
-        : "—";
-      lines.push(
-        `| \`${ev.canonical}\` | \`${ev.nativeName}\` | ${cat} |`
-      );
-    }
-  } else if (hooksCap?.supported) {
-    // Supports hooks but no event mappings yet (e.g. Windsurf, Codex).
-    lines.push(
-      "",
-      "## Hooks",
-      "",
-      `${prov.name} supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from ${prov.name} is best-effort.`,
-      ""
-    );
-    if (hooksCap.configLocation) {
-      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
-    }
-  }
-
-  // --- Enrichment: MCP configuration ---
-  const mcpCap = prov.content.mcp;
-  if (mcpCap?.supported && mcpCap.mcpTransports?.length) {
-    lines.push(
-      "",
-      "## MCP Configuration",
-      "",
-      "| Detail | Value |",
-      "|--------|-------|",
-      `| **Transports** | ${mcpCap.mcpTransports.map((t) => `\`${t}\``).join(", ")} |`
-    );
-    if (mcpCap.configLocation) {
-      lines.push(
-        `| **Config file** | \`${mcpCap.configLocation}\` |`
-      );
-    }
-    lines.push("");
-  }
-
-  // --- Enrichment: Rules format ---
-  const rulesCap = prov.content.rules;
-  if (rulesCap?.supported && rulesCap.frontmatterFields?.length) {
-    lines.push(
-      "",
-      "## Rules Format",
-      "",
-      "| Detail | Value |",
-      "|--------|-------|",
-      `| **File format** | ${FORMAT_DISPLAY[rulesCap.fileFormat || ""] || rulesCap.fileFormat || "Markdown"} |`,
-      `| **Frontmatter fields** | ${rulesCap.frontmatterFields.map((f) => `\`${f}\``).join(", ")} |`
-    );
-    if (prov.emitPath) {
-      lines.push(
-        `| **Primary file** | \`${prov.emitPath.replace("{project}/", "")}\` |`
-      );
-    }
-    lines.push("");
-  }
-
-  // --- Extensions enrichment ---
-  if (extSections.length > 0) {
-    lines.push(...extSections);
-  }
-
-  // Detection.
   lines.push(
-    "",
     "## Detection",
     "",
     `Syllago detects ${prov.name} by checking for the \`~/${prov.configDir}\` directory.`,
