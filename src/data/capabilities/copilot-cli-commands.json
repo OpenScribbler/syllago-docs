@@ -36,19 +36,22 @@
       "id": "plugin_system",
       "name": "Plugin System as Commands Distribution Mechanism",
       "description": "Copilot CLI does not have a standalone \"commands\" content type equivalent to Claude Code's `/commands` or Cursor's slash commands. Instead, CLI extensibility is delivered via the plugin system: installable packages that bundle agents, skills, hooks, MCP server configs, and (optionally) command directories. Plugins are installed via `copilot plugin install SPECIFICATION` where SPECIFICATION can be a marketplace reference (`plugin@marketplace`), GitHub repo (`OWNER/REPO` or `OWNER/REPO:PATH`), Git URL, or local path. Installed plugins are cached and persist across sessions.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-cli-plugins.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-cli-plugins.md",
+      "required": null
     },
     {
       "id": "plugin_manifest",
       "name": "Plugin Manifest (plugin.json)",
       "description": "Every plugin requires a `plugin.json` manifest at the plugin root (also checked at `.plugin/plugin.json`, `.github/plugin/plugin.json`, `.claude-plugin/plugin.json`). The manifest declares the plugin's name (required, kebab-case, max 64 chars), optional metadata (description, version, author, homepage, repository, license, keywords, category, tags), and optional component path overrides (`agents`, `skills`, `commands`, `hooks`, `mcpServers`, `lspServers`). Default conventions are used when path fields are omitted. The `commands` path field in `plugin.json` is explicitly listed in the schema but no documentation exists for the command file format itself.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-plugin-reference.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-plugin-reference.md",
+      "required": null
     },
     {
       "id": "marketplace_system",
       "name": "Plugin Marketplace System",
       "description": "Plugins are discoverable and installable through marketplaces. Two marketplaces are registered by default: `copilot-plugins` (github/copilot-plugins) and `awesome-copilot` (github/awesome-copilot). Custom marketplaces can be added via `copilot plugin marketplace add SPECIFICATION` using the same specification formats as plugin install. A marketplace is defined by a `marketplace.json` file in `.github/plugin/` of a repository or local filesystem. This enables private enterprise plugin distribution without requiring public GitHub repos.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-cli-plugins.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-cli-plugins.md",
+      "required": null
     }
   ]
 }

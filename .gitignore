@@ -16,3 +16,6 @@ Thumbs.db
 
 # Claude Code local rules (personal, not shared)
 .claude/*.local.md
+
+# Handoff state (personal, not shared)
+.claude/projects/

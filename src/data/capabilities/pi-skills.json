@@ -79,43 +79,50 @@
       "id": "pi_allowed_tools",
       "name": "allowed-tools frontmatter field",
       "description": "Space-delimited list of pre-approved tools (experimental). Pre-approves tool access for the skill without user confirmation prompt.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "supporting_files",
       "name": "Supporting files in skill directory",
       "description": "Skill directories may include arbitrary supporting files organized by convention into scripts/ (helper scripts), references/ (detailed docs loaded on-demand), and assets/ (templates, data files). The agent resolves relative paths in SKILL.md against the skill directory and uses them in tool commands.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "auto_invocation",
       "name": "Description-based auto-invocation",
       "description": "At startup pi scans skill locations and injects names and descriptions into the system prompt in XML format. When a task matches a skill description, the agent uses the read tool to load the full SKILL.md on-demand (progressive disclosure). Users can force invocation via /skill:name commands.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "cross_harness_skill_loading",
       "name": "Cross-harness skill loading via settings array",
       "description": "Pi's settings skills array accepts paths to other providers' skill directories (e.g., ~/.claude/skills, ~/.codex/skills). This allows a pi session to load and use skills authored for Claude Code or OpenAI Codex without any conversion. No other known provider loads other providers' skill directories.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "package_json_skills",
       "name": "Package.json and monorepo skill discovery",
       "description": "Skills can be declared via pi.skills entries in package.json or placed in skills/ subdirectories within npm packages. This enables monorepo skill discovery: each package can ship its own skills, discovered automatically when pi runs in that package's directory.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "cli_skill_flags",
       "name": "CLI flags for runtime skill management",
       "description": "--skill <path> (repeatable) loads additional skill files or directories at runtime; additive even when --no-skills is set. --no-skills disables discovery of all default skill locations, leaving only paths provided via --skill.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null
     },
     {
       "id": "gitignore_respect",
       "name": "Ignore-file respect during skill scanning",
       "description": "Pi respects .gitignore, .ignore, and .fdignore files when scanning skill directories. Patterns are read from each subdirectory and prefixed with the relative path so they apply correctly to nested content. Implemented in the TypeScript scanner via the ignore npm package.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/core/skills.ts"
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/core/skills.ts",
+      "required": null
     }
   ]
 }

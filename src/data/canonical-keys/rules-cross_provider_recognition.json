@@ -25,10 +25,6 @@
       "supported": true,
       "mechanism": "agents_md_instructions: Copilot CLI reads AGENTS.md files following the multi-provider shared format"
     },
-    "factory-droid": {
-      "supported": true,
-      "mechanism": "agents_md_format: Factory Droid reads AGENTS.md files in the shared multi-provider format"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI reads its own GEMINI.md format; no cross-provider rule file recognition documented"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": true,
       "mechanism": "kiro_agents_md_recognition: Kiro reads AGENTS.md files from other providers in addition to its own steering files"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi reads its own rule format; no cross-provider rule file recognition documented"
     },
     "windsurf": {
       "supported": true,

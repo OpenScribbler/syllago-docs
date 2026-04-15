@@ -25,10 +25,6 @@
       "supported": true,
       "mechanism": "Copilot CLI supports repo-wide instructions plus path-specific and personal instruction layers with defined precedence"
     },
-    "factory-droid": {
-      "supported": true,
-      "mechanism": "Factory Droid loads global and project rule layers; innermost (most specific) layer takes precedence"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "hierarchical_context_loading: Gemini CLI loads GEMINI.md files from multiple directory levels with defined precedence"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi rule files are not documented as supporting multi-level directory loading"
     },
     "windsurf": {
       "supported": false,

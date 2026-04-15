@@ -21,10 +21,6 @@
       "supported": false,
       "mechanism": "not observed — Agent Skills standard uses fixed SKILL.md filename"
     },
-    "factory-droid": {
-      "supported": true,
-      "mechanism": "skill.mdx is accepted as an alternative to SKILL.md within the skill directory"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "not observed — filename is fixed as SKILL.md"
@@ -32,10 +28,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Not observed — POWER.md is fixed"
-    },
-    "pi": {
-      "supported": true,
-      "mechanism": "Any .md filename at root of ~/.pi/agent/skills/ or .pi/skills/ (shorthand single-file form)"
     }
   }
 }

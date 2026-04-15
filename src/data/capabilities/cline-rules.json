@@ -38,25 +38,29 @@
       "id": "multi_source_rule_detection",
       "name": "Multi-Source Rule Detection",
       "description": "Cline automatically detects and loads rule files from multiple formats beyond its own .clinerules/ directory: .cursorrules (Cursor), .windsurfrules (Windsurf), and AGENTS.md (agents.md standard). All detected types appear in the Rules panel with individual toggles. This means a project's existing rule files from other providers are automatically active in Cline without any migration step.",
-      "source_ref": "https://docs.cline.bot/customization/rules#supported-rule-types"
+      "source_ref": "https://docs.cline.bot/customization/rules#supported-rule-types",
+      "required": null
     },
     {
       "id": "rule_toggle",
       "name": "Per-Rule Enable/Disable Toggle",
       "description": "Every rule file has a toggle in the Rules panel to enable or disable it without deleting the file. This allows fine-grained control — e.g., disabling a strict testing rule during prototyping, or toggling a client-specific rule on/off per engagement — without modifying the rule file itself.",
-      "source_ref": "https://docs.cline.bot/customization/rules#toggling-rules"
+      "source_ref": "https://docs.cline.bot/customization/rules#toggling-rules",
+      "required": null
     },
     {
       "id": "conditional_rules_paths",
       "name": "Conditional Rules via YAML Frontmatter paths",
       "description": "Rule files can include YAML frontmatter with a `paths` key (array of glob patterns). A rule only activates when the current context (open tabs, mentioned file paths, files Cline is editing) matches at least one pattern. Rules without frontmatter are always active. An empty `paths: []` permanently disables the rule. If frontmatter cannot be parsed, Cline fails open: the rule activates with raw content visible. Activation triggers a UI notification: \"Conditional rules applied: workspace:<filename>\".",
-      "source_ref": "https://docs.cline.bot/customization/rules#conditional-rules"
+      "source_ref": "https://docs.cline.bot/customization/rules#conditional-rules",
+      "required": null
     },
     {
       "id": "newrule_slash_command",
       "name": "/newrule Slash Command for Interactive Rule Creation",
       "description": "The /newrule slash command prompts Cline to guide the user through creating a new rule file interactively. Cline asks about communication style, coding standards, project context, and workflows, then saves the result to .clinerules/. This lowers the barrier to authoring well-structured rules.",
-      "source_ref": "https://docs.cline.bot/customization/rules#creating-rules"
+      "source_ref": "https://docs.cline.bot/customization/rules#creating-rules",
+      "required": null
     }
   ]
 }

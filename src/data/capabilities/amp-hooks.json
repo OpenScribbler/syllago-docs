@@ -59,61 +59,71 @@
       "id": "hook_events",
       "name": "Hook trigger events",
       "description": "Amp hooks support two trigger events: 'tool:pre-execute' fires before a tool (e.g. edit_file, Bash) is executed, and 'tool:post-execute' fires after a tool has been executed. Not all actions are compatible with all events — 'send-user-message' is only valid with 'tool:pre-execute', and 'redact-tool-input' is only valid with 'tool:post-execute'.",
-      "source_ref": "https://ampcode.com/manual/hooks.md"
+      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "required": null
     },
     {
       "id": "hook_action_send_user_message",
       "name": "Hook action: send-user-message",
       "description": "The 'send-user-message' action sends a user message that interrupts the agent and cancels the pending tool call before it executes. Only valid with the 'tool:pre-execute' event. Used to enforce behavioral constraints when AGENTS.md instructions are not sufficient.",
-      "source_ref": "https://ampcode.com/manual/hooks.md"
+      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "required": null
     },
     {
       "id": "hook_action_redact_tool_input",
       "name": "Hook action: redact-tool-input",
       "description": "The 'redact-tool-input' action redacts the tool input fields after execution. Only valid with the 'tool:post-execute' event. Intended for tools used for side effects only or that have sensitive inputs that should not be stored after execution.",
-      "source_ref": "https://ampcode.com/manual/hooks.md"
+      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "required": null
     },
     {
       "id": "hook_match_input_contains",
       "name": "Hook match condition: input.contains",
       "description": "Hook rules can match on 'input.contains' to filter which tool calls trigger the hook. This is an exact string match only — regular expressions and glob patterns are not supported. The hook fires only when the tool input contains the specified literal string.",
-      "source_ref": "https://ampcode.com/manual/hooks.md"
+      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "required": null
     },
     {
       "id": "hook_config_location",
       "name": "Hook configuration in settings file",
       "description": "Hooks are defined as an array under the 'amp.hooks' key in an Amp settings file. Each entry specifies an event and an action object. Settings files are standard Amp configuration files (e.g., .amp/settings.json at project or user scope).",
-      "source_ref": "https://ampcode.com/manual/hooks.md"
+      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "required": null
     },
     {
       "id": "permissions_system",
       "name": "Permissions system (amp.permissions)",
       "description": "Amp has a separate, ordered permission rule system configured under 'amp.permissions' in the settings file. Rules are evaluated sequentially; the first matching rule wins. Each rule has: 'tool' (glob matching tool name), 'matches' (map of tool-argument to condition), 'action' (allow/reject/ask/delegate), 'context' (thread/subagent, optional), 'to' (program path, required only for delegate), and 'message' (returned to model on reject, optional). Default behavior when no rule matches: main thread asks the operator; sub-agent rejects the tool call. Built-in rules apply as fallback after user rules.",
-      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md"
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null
     },
     {
       "id": "permissions_match_conditions",
       "name": "Permission match condition types",
       "description": "Permission rule 'matches' values support: string glob patterns (e.g. 'git *'), regex patterns (strings starting and ending with '/', e.g. '/git (status|log|diff)/'), arrays for OR logic, boolean/number/null/undefined for literal exact matches, and nested objects for deep property matching. Dot notation is supported for nested objects; numeric string keys for array indices.",
-      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md"
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null
     },
     {
       "id": "permissions_delegate_action",
       "name": "Permission delegate action",
       "description": "The 'delegate' action passes the permission decision to an external program. Amp executes the program named in the 'to' field (must be on $PATH or an absolute path), pipes tool parameters to stdin as JSON, and exports AMP_THREAD_ID, AGENT_TOOL_NAME, and AGENT=amp environment variables. Exit code semantics: 0=allow, 1=ask operator, >=2=reject (stderr is surfaced to the model). The permissions documentation notes that for new permission hooks, the plugin API is preferred and is expected to replace the built-in permissions system.",
-      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md"
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null
     },
     {
       "id": "permissions_context_restriction",
       "name": "Permission context restriction (thread vs subagent)",
       "description": "Permission rules can be scoped to the main conversation thread or to sub-agent tool calls via the optional 'context' field: 'thread' restricts the rule to the main thread only, 'subagent' restricts it to sub-agent calls only, and omitting the field applies the rule everywhere. The default fallback behavior also differs by context: main thread prompts the operator, sub-agent rejects outright.",
-      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md"
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null
     },
     {
       "id": "permissions_cli",
       "name": "Permissions CLI (amp permissions)",
       "description": "Amp provides 'amp permissions' subcommands for managing permission rules without editing JSON directly. Supported operations: 'amp permissions list' (show user rules), 'amp permissions list --builtin' (show built-in rules), 'amp permissions add <action> <tool> [--arg val ...]' (add a rule), 'amp permissions edit' (open $EDITOR with rules in text format), and 'amp permissions test <tool> [--arg val ...]' (simulate a tool call and show which rule would match and what action it would take). The text format uses a UNIX-shell-compatible syntax: '<action> [--to <prog>] <tool> [--<key>[:<op>] <value>] ...' with quoted strings and JSON-literal bare words.",
-      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md"
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null
     }
   ]
 }

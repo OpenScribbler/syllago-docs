@@ -25,10 +25,6 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required per Agent Skills open standard)"
     },
-    "factory-droid": {
-      "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required); value should match the skill's directory name"
@@ -40,10 +36,6 @@
     "opencode": {
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required)"
-    },
-    "pi": {
-      "supported": true,
-      "mechanism": "yaml frontmatter key: name (required, max 64 chars, lowercase a-z/0-9/hyphens, must match parent directory name)"
     },
     "windsurf": {
       "supported": true,

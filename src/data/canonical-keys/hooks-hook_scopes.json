@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks are configured at a single scope level; no multi-scope configuration documented"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks are project-scoped; no multi-scope configuration documented"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI hooks are project-scoped; no multi-scope configuration documented"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks are project-scoped; no multi-scope configuration documented"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks are project-scoped; no multi-scope configuration documented"
     },
     "windsurf": {
       "supported": true,

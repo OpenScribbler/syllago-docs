@@ -55,25 +55,29 @@
       "id": "builtin_github_mcp_server",
       "name": "Built-In GitHub MCP Server",
       "description": "The GitHub MCP server is built into Copilot CLI and available without any configuration. It provides tools for GitHub API operations (issues, PRs, repositories, etc.) and is always present in the tool set. This is unique among providers — no other provider ships an MCP server as part of the core CLI binary. The built-in server cannot be overridden by user-defined MCP configurations.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
+      "required": null
     },
     {
       "id": "interactive_mcp_management",
       "name": "Interactive /mcp Slash Commands",
       "description": "Copilot CLI exposes a `/mcp` slash command suite for managing MCP servers within an interactive session: `/mcp add` (interactive form with Tab navigation to configure server name, type, command/URL, env vars, and tool filter); `/mcp show` (list all configured servers and status); `/mcp show SERVER-NAME` (server details and tool list); `/mcp edit SERVER-NAME`; `/mcp delete SERVER-NAME`; `/mcp disable SERVER-NAME` (disable for current session); `/mcp enable SERVER-NAME`. Changes via `/mcp add` take effect immediately without restarting the CLI.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
+      "required": null
     },
     {
       "id": "mcp_config_file",
       "name": "Personal MCP Configuration File",
       "description": "MCP servers can be configured by editing `~/.copilot/mcp-config.json` directly. The file uses a `{\"mcpServers\": { NAME: CONFIG }}` structure. Each server config has a `type` field (`\"local\"` or `\"http\"`; also `\"stdio\"` and `\"sse\"` are accepted for compatibility), a `command`+`args`+`env`+`tools` object for local servers, or a `url`+`headers`+`tools` object for HTTP servers. Tool filtering per server is supported via a `tools` array (`[\"*\"]` for all tools, or a list of tool names).",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
+      "required": null
     },
     {
       "id": "mcp_tool_allow_deny_flags",
       "name": "Per-Tool Allow/Deny CLI Flags",
       "description": "The `--allow-tool='MCP_SERVER_NAME(tool_name)'` and `--deny-tool='MCP_SERVER_NAME(tool_name)'` command-line flags control which MCP server tools Copilot may use without manual approval. Using just the server name without parentheses allows/denies all tools from that server. `--allow-all-tools` grants blanket approval for all tools including MCP. These flags also control built-in tools (shell, write), not just MCP servers.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-copilot-cli.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-copilot-cli.md",
+      "required": null
     }
   ]
 }

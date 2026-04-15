@@ -71,6 +71,11 @@ const CANONICAL_KEYS_MDX_DIR = join(ROOT_DIR, "src/content/docs/reference/canoni
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
 const FETCH_TIMEOUT_MS = 15_000;
 
+// Providers present in capabilities.json but not yet public. Their capability
+// JSON files stay on disk for future use; they're excluded from matrix pages,
+// MetaBox counts, and canonical-key provider maps.
+const EXCLUDED_PROVIDERS = new Set(["factory-droid", "pi"]);
+
 // GitHub issue URL base for "Report issue" links in MetaBox.
 const ISSUE_REPO = "OpenScribbler/syllago";
 
@@ -221,6 +226,7 @@ function writeCanonicalKeysDataFiles(
   > = {};
 
   for (const [providerSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(providerSlug)) continue;
     for (const [contentType, cap] of Object.entries(contentTypes)) {
       if (!keySupport[contentType]) keySupport[contentType] = {};
       for (const [keyName, mapping] of Object.entries(cap.canonical_mappings)) {
@@ -266,15 +272,18 @@ function generateCanonicalKeyPage(
   meta: CanonicalKeyMeta,
   manifest: CapabilitiesManifest
 ): string {
-  // Compute MetaBox props from the manifest data.
-  const allProviderSlugs = Object.keys(manifest.providers);
+  // Compute MetaBox props from the manifest data (excluding non-public providers).
+  const allProviderSlugs = Object.keys(manifest.providers).filter(
+    (s) => !EXCLUDED_PROVIDERS.has(s)
+  );
   const totalProviders = allProviderSlugs.length;
 
   let providerSupportCount = 0;
   const uniqueSourceUris = new Set<string>();
   let mostRecentDate = "";
 
-  for (const [, contentTypes] of Object.entries(manifest.providers)) {
+  for (const [provSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(provSlug)) continue;
     const cap = contentTypes[contentType];
     if (!cap) continue;
 
@@ -356,7 +365,9 @@ function generateCanonicalKeyPages(manifest: CapabilitiesManifest): void {
 // ---------------------------------------------------------------------------
 
 function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
-  const providerSlugs = Object.keys(manifest.providers).sort();
+  const providerSlugs = Object.keys(manifest.providers)
+    .filter((s) => !EXCLUDED_PROVIDERS.has(s))
+    .sort();
 
   const lines: string[] = [
     "---",

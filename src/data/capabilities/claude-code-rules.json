@@ -38,43 +38,50 @@
       "id": "claude_md_files",
       "name": "CLAUDE.md Files",
       "description": "CLAUDE.md files are plain-text markdown files that give Claude persistent instructions across sessions. They load at the start of every session and consume context window tokens. Scope is determined by file location: managed policy (e.g. /etc/claude-code/CLAUDE.md on Linux/WSL), project (./CLAUDE.md or ./.claude/CLAUDE.md, committed to version control and shared with team), user (~/.claude/CLAUDE.md, personal across all projects), and local (./CLAUDE.local.md, gitignored personal project-specific preferences). All discovered files along the directory tree are concatenated into context rather than overriding each other; within each directory, CLAUDE.local.md is appended after CLAUDE.md. Subdirectory CLAUDE.md files load on demand when Claude reads files in those subdirectories rather than at session start. Block-level HTML comments are stripped before injection into Claude's context. The /init command generates a starter CLAUDE.md automatically by analyzing the codebase.",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#claude-md-files"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#claude-md-files",
+      "required": null
     },
     {
       "id": "rules_directory",
       "name": "Path-Scoped Rules in .claude/rules/",
       "description": "The .claude/rules/ directory provides modular, optionally path-scoped instruction files. Each .md file in this directory covers one topic (e.g., testing.md, api-design.md). Files are discovered recursively, so subdirectories like frontend/ or backend/ are supported. Rules without a paths frontmatter field load unconditionally at launch, equivalent in priority to .claude/CLAUDE.md. Rules with a paths field use YAML frontmatter like \"paths: [\\\"src/api/**/*.ts\\\"]\" and only load into context when Claude works with files matching those glob patterns, triggering on file access rather than on every tool use. Symlinks in .claude/rules/ are supported for sharing rules across projects; circular symlinks are detected and handled gracefully. User-level rules in ~/.claude/rules/ apply to all projects and load before project rules (giving project rules higher effective priority).",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#organize-rules-with-claude/rules/"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#organize-rules-with-claude/rules/",
+      "required": null
     },
     {
       "id": "file_imports",
       "name": "@-Import Syntax for CLAUDE.md",
       "description": "CLAUDE.md files can import additional files using @path/to/import syntax. Imported files are expanded and loaded into context at launch alongside the CLAUDE.md that references them. Both relative and absolute paths are supported; relative paths resolve relative to the importing file, not the working directory. Imported files can recursively import other files up to a maximum depth of five hops. The first time Claude Code encounters external imports in a project, it shows an approval dialog; if declined, imports are permanently disabled for that project without re-prompting. AGENTS.md files from other coding agents can be imported with @AGENTS.md so both tools read the same instructions.",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#import-additional-files"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#import-additional-files",
+      "required": null
     },
     {
       "id": "auto_memory",
       "name": "Auto Memory",
       "description": "Auto memory lets Claude accumulate knowledge across sessions without user authorship. Claude saves notes for itself (build commands, debugging insights, preferences) to ~/.claude/projects/<project>/memory/MEMORY.md, which is derived from the git repository so all worktrees share one directory. MEMORY.md acts as an index; detailed notes go into topic files (debugging.md, api-conventions.md, etc.) that are not loaded at startup and are read on demand. The first 200 lines or 25KB of MEMORY.md load at every session start. Auto memory requires Claude Code v2.1.59 or later and is on by default; toggled via autoMemoryEnabled in settings or CLAUDE_CODE_DISABLE_AUTO_MEMORY=1 env var. The storage location can be overridden with autoMemoryDirectory in user or local settings. Subagents can also maintain their own auto memory. Auto memory is machine-local; not shared across machines or cloud environments.",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#auto-memory"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#auto-memory",
+      "required": null
     },
     {
       "id": "claude_md_excludes",
       "name": "Exclude CLAUDE.md Files by Pattern",
       "description": "The claudeMdExcludes setting skips specific CLAUDE.md or rules files by path or glob pattern. Useful in large monorepos where ancestor CLAUDE.md files from other teams are irrelevant. Patterns match against absolute file paths using glob syntax. Configurable at any settings layer (user, project, local, or managed policy); arrays merge across layers. Managed policy CLAUDE.md files cannot be excluded and always apply.",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#exclude-specific-claude-md-files"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#exclude-specific-claude-md-files",
+      "required": null
     },
     {
       "id": "add_dir_rules_loading",
       "name": "Rules Loading from Additional Directories via Environment Variable",
       "description": "By default, CLAUDE.md files from directories added with --add-dir are not loaded. Setting the CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 environment variable enables loading CLAUDE.md, .claude/CLAUDE.md, and .claude/rules/*.md from additional directories. CLAUDE.local.md files in additional directories are not loaded even with this env var.",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#load-from-additional-directories"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#load-from-additional-directories",
+      "required": null
     },
     {
       "id": "managed_org_claude_md",
       "name": "Organization-Wide Managed CLAUDE.md",
       "description": "Organizations can deploy a centrally managed CLAUDE.md via MDM, Group Policy, Ansible, or similar tools to system-wide locations (macOS: /Library/Application Support/ClaudeCode/CLAUDE.md; Linux/WSL: /etc/claude-code/CLAUDE.md; Windows: C:\\Program Files\\ClaudeCode\\CLAUDE.md). This file cannot be excluded by individual settings and always applies to all users on the machine. Distinct from managed settings: managed CLAUDE.md provides behavioral guidance to Claude while managed settings enforce technical rules (tool denies, sandbox, permission modes).",
-      "source_ref": "https://code.claude.com/docs/en/memory.md#deploy-organization-wide-claude-md"
+      "source_ref": "https://code.claude.com/docs/en/memory.md#deploy-organization-wide-claude-md",
+      "required": null
     }
   ]
 }

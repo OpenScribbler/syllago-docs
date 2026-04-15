@@ -66,31 +66,36 @@
       "id": "kiro_displayname",
       "name": "displayName frontmatter field",
       "description": "A human-readable label separate from the slug-style 'name' field. Kiro uses both: 'name' as the slug identifier and 'displayName' for UI display.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null
     },
     {
       "id": "kiro_keywords",
       "name": "keywords frontmatter field",
       "description": "An array of activation trigger words used by Kiro's automatic power-loading system (e.g. [\"database\", \"postgres\", \"auth\"]).",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null
     },
     {
       "id": "steering_files",
       "name": "steering/ directory",
       "description": "An optional steering/ subdirectory inside the power directory containing workflow-specific guidance files (.md). For complex powers, the POWER.md maps each workflow to a specific steering file (e.g., 'Setting up a database → database-setup-workflow.md'). Kiro loads only the relevant steering file on-demand based on what the user is working on, preventing context overload. Simple powers include all guidance directly in POWER.md instead.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null
     },
     {
       "id": "bundled_mcp_config",
       "name": "mcp.json bundled in power directory",
       "description": "An optional mcp.json file inside the power directory that declares MCP server configurations for tool integrations (mcpServers map with command, args, and env). Server names in POWER.md must match the mcpServers keys in mcp.json. During installation, Kiro automatically namespaces server names to avoid conflicts (e.g., supabase-local becomes power-supabase-supabase-local). Environment variables are used for API keys and secrets.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null
     },
     {
       "id": "onboarding_section",
       "name": "Onboarding section in POWER.md",
       "description": "A dedicated # Onboarding section in POWER.md whose instructions run when a power is first activated. Used to validate dependencies (e.g., check Docker is installed and running), explain setup steps, or create workspace hooks. Kiro executes these instructions automatically — for example, checking if Docker is running, validating CLI installation, and creating hook files in .kiro/hooks/.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null
     }
   ]
 }

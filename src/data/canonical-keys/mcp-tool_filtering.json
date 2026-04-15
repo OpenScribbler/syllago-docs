@@ -25,10 +25,6 @@
       "supported": true,
       "mechanism": "mcp_tool_allow_deny_flags: Copilot CLI supports per-tool allow and deny flags to control which MCP tools are exposed"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid does not document per-server MCP tool filtering"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "tool_filtering: Gemini CLI supports per-server tool filtering to control which MCP tools are exposed to the agent"

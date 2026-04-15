@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks run synchronously; no async execution documented"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks run synchronously; no async execution documented"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI hooks run synchronously; no async execution documented"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks run synchronously; no async execution documented"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks run synchronously; no async execution documented"
     },
     "windsurf": {
       "supported": false,

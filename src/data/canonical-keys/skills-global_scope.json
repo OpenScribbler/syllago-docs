@@ -25,10 +25,6 @@
       "supported": true,
       "mechanism": "skill directory under ~/.copilot/skills/<name>/, ~/.claude/skills/<name>/, or ~/.agents/skills/<name>/"
     },
-    "factory-droid": {
-      "supported": true,
-      "mechanism": "~/.factory/skills/<skill-name>/SKILL.md"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "~/.gemini/skills/<name>/SKILL.md"
@@ -40,10 +36,6 @@
     "opencode": {
       "supported": true,
       "mechanism": "cross-provider convention at ~/.config/opencode/skills/<name>/SKILL.md"
-    },
-    "pi": {
-      "supported": true,
-      "mechanism": "~/.pi/agent/skills/<name>/SKILL.md or ~/.agents/skills/<name>/SKILL.md"
     },
     "windsurf": {
       "supported": true,

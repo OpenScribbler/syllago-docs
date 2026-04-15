@@ -38,25 +38,29 @@
       "id": "kiro_steering_inclusion_mode",
       "name": "Inclusion mode frontmatter field",
       "description": "Controls when a steering file is loaded into context. Four modes: 'always' (default — included in every agent interaction), 'conditional' (loaded when the current file matches a 'globs' frontmatter pattern), 'manual' (only loaded when the user explicitly requests it), 'auto' (Kiro decides based on relevance, similar to model-driven auto-invocation). The 'conditional' and 'auto' modes enable selective context loading to avoid context overload.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null
     },
     {
       "id": "kiro_steering_file_references",
       "name": "File references (@path/to/file) in steering files",
       "description": "Steering files can include references to other files using '@path/to/file' syntax, causing Kiro to inline the referenced file's content into the steering context. Enables modular steering composition without duplicating content.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null
     },
     {
       "id": "kiro_foundational_steering",
       "name": "Foundational steering files (auto-created)",
       "description": "Kiro automatically creates three foundational steering files on workspace initialization: product_requirements.md, tech_stack.md, and architecture.md. These serve as a structured project context baseline and are created by Kiro, not the user.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null
     },
     {
       "id": "kiro_agents_md_recognition",
       "name": "AGENTS.md root file recognition",
       "description": "Kiro recognizes AGENTS.md in the repo root as a steering source, consistent with the cross-provider AGENTS.md convention. Treated as a workspace-scoped steering file alongside .kiro/steering/ content.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null
     }
   ]
 }

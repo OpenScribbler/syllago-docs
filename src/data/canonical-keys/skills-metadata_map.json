@@ -12,10 +12,6 @@
     "opencode": {
       "supported": true,
       "mechanism": "yaml frontmatter key: metadata (optional map)"
-    },
-    "pi": {
-      "supported": true,
-      "mechanism": "yaml frontmatter key: metadata (optional, arbitrary key-value mapping)"
     }
   }
 }

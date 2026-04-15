@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks can deny tool invocations (decision_control) but do not govern tool availability"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI hooks control invocation flow via exit codes but do not govern tool availability"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks do not participate in permission decisions"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks cannot make permission decisions about tool availability"
     },
     "windsurf": {
       "supported": false,

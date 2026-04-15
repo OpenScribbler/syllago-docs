@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI does not document MCP resource referencing"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid does not document MCP resource referencing"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "resource_referencing: Gemini CLI supports accessing MCP resources in addition to tools"

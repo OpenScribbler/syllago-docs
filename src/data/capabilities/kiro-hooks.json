@@ -54,25 +54,29 @@
       "id": "kiro_hook_agent_prompt_action",
       "name": "Predefined agent prompt as hook action",
       "description": "Hook actions can be a predefined agent prompt (not a shell command). When the trigger fires, Kiro runs the specified prompt through its agent instead of executing a shell command. This is in addition to standard shell command actions.",
-      "source_ref": "https://kiro.dev/docs/hooks/"
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null
     },
     {
       "id": "kiro_hook_spec_task_triggers",
       "name": "Spec task lifecycle triggers (before/after spec task execution)",
       "description": "Hooks can fire before and after spec task execution — Kiro-specific triggers tied to its spec/planning workflow (spec tasks are a distinct Kiro concept). Not related to standard file or tool events.",
-      "source_ref": "https://kiro.dev/docs/hooks/"
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null
     },
     {
       "id": "kiro_hook_agent_turn_trigger",
       "name": "Agent turn completion trigger",
       "description": "A hook trigger that fires after each agent turn completes. Allows automated follow-up actions after every agent response in a session.",
-      "source_ref": "https://kiro.dev/docs/hooks/"
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null
     },
     {
       "id": "kiro_hooks_ui_only",
       "name": "Hooks configured via IDE UI only",
       "description": "Kiro hooks ('Agent hooks') are created and managed exclusively through the IDE panel or by asking Kiro in natural language ('Ask Kiro to create a hook'). No documented config file format — hooks are IDE-panel state, not portable YAML or JSON files.",
-      "source_ref": "https://kiro.dev/docs/hooks/"
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null
     }
   ]
 }

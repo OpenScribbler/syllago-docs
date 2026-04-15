@@ -26,43 +26,50 @@
       "id": "toml_format",
       "name": "TOML command file format",
       "description": "Commands are defined as TOML files with a .toml extension. The required field is prompt (string, single or multi-line). The optional field is description (string, one-line); if omitted, a generic description is generated from the filename. No other fields are documented in the v1 format.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "namespace_via_subdirectory",
       "name": "Namespace via subdirectory path",
       "description": "Commands are namespaced by their file path relative to the commands/ directory. Path separators (/ or \\) are converted to colons in the command name. For example, commands/git/commit.toml becomes /git:commit. This allows hierarchical organization of commands without any explicit namespace syntax in the TOML file.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "args_placeholder",
       "name": "{{args}} argument injection placeholder",
       "description": "The {{args}} placeholder in the prompt is replaced with text the user typed after the command name. When used in the main prompt body, args are injected raw. When used inside a shell injection block (!{...}), args are automatically shell-escaped before substitution to prevent command injection. If the prompt does not contain {{args}}, the user's full command input is appended after two newlines (default argument handling).",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "shell_injection",
       "name": "Shell command injection with !{...}",
       "description": "The !{...} syntax in a prompt executes a shell command and injects its stdout into the prompt before sending to the model. The parser handles nested braces and balanced-brace content. Before execution, Gemini CLI displays the resolved command and asks the user to confirm. If the command fails, the injected text includes stderr and an exit code status line. {{args}} inside !{...} is automatically shell-escaped.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "file_content_injection",
       "name": "File content injection with @{...}",
       "description": "The @{...} syntax in a prompt injects file content or a directory listing directly into the prompt. Supports text files, images (PNG, JPEG), PDFs, audio, and video (as multimodal input). Directory paths inject a listing of all files recursively, respecting .gitignore and .geminiignore. File injection is processed before shell commands (!{...}) and argument substitution ({{args}}). Paths are workspace-aware; absolute paths within the workspace are allowed.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "project_overrides_user",
       "name": "Project commands override user commands",
       "description": "When a command name exists in both the project commands directory (<project>/.gemini/commands/) and the user commands directory (~/.gemini/commands/), the project command always takes precedence. This allows projects to override global commands with project-specific versions.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     },
     {
       "id": "commands_reload",
       "name": "/commands reload for live updates",
       "description": "Running /commands reload picks up newly created or modified .toml command files without restarting the CLI. This allows iterative command development within an active session.",
-      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md"
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
+      "required": null
     }
   ]
 }

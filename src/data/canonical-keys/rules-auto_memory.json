@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI does not have an AI-generated persistent memory system for rules"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid does not have an AI-generated auto-memory system"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "memory_command: Gemini CLI /memory command saves notes that persist across sessions as rule-like content"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro does not have an AI-generated auto-memory system separate from user-authored steering files"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi does not have an AI-generated auto-memory system"
     },
     "windsurf": {
       "supported": true,

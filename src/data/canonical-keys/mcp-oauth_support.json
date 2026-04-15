@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI MCP does not document OAuth 2.0 authentication"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid MCP does not document OAuth 2.0 authentication"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"

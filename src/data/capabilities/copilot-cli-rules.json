@@ -48,25 +48,29 @@
       "id": "repository_wide_instructions",
       "name": "Repository-Wide Custom Instructions",
       "description": "A `.github/copilot-instructions.md` file at the repository root applies to all requests made in the context of that repository. This is a distinct named file (not a generic \"rules\" filename) scoped to the repo root. The file is always-on and automatically included in every interaction within its scope without any explicit user invocation.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
+      "required": null
     },
     {
       "id": "path_specific_instructions",
       "name": "Path-Specific Custom Instructions",
       "description": "One or more `NAME.instructions.md` files placed within or below `.github/instructions/` at the repository root (or in the current working directory) apply only to requests involving files that match a specified path glob. This allows different instructions to govern different parts of a codebase — for example, separate instructions for frontend vs. backend code. When a path-specific file matches and a repository-wide file also exists, both sets of instructions are combined.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
+      "required": null
     },
     {
       "id": "agents_md_instructions",
       "name": "AGENTS.md Instructions",
       "description": "Copilot CLI recognizes `AGENTS.md` files following the community-owned agentsmd/agents.md standard. An `AGENTS.md` at the repository root is treated as primary instructions; `AGENTS.md` files found elsewhere (or in directories listed in the `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` environment variable) are treated as additional instructions. Copilot also accepts `CLAUDE.md` and `GEMINI.md` at the repository root as equivalent instruction files. All recognized custom instruction files are combined (not priority-based fallbacks) per the source.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
+      "required": null
     },
     {
       "id": "personal_instructions",
       "name": "Personal (Home Directory) Custom Instructions",
       "description": "A file at `$HOME/.copilot/copilot-instructions.md` provides personal instructions scoped to the local user environment rather than any specific project. The `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` environment variable can also point to additional directories where Copilot will look for `AGENTS.md` and path-specific `.github/instructions/**/*.instructions.md` files.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md"
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
+      "required": null
     }
   ]
 }

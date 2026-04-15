@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks cannot inject context into the agent session"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot inject context into the agent session"
-    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI hooks cannot inject context into the agent session"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks cannot inject context into the agent session"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks cannot inject context into the agent session via hook output"
     },
     "windsurf": {
       "supported": false,

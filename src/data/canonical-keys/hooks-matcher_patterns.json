@@ -25,10 +25,6 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks fire on all events of their configured type; no per-tool filtering documented"
     },
-    "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks fire on configured lifecycle events; no per-tool pattern matching documented"
-    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "hook_matchers: Gemini CLI hooks support event and tool name matching to filter when hooks fire"
@@ -36,10 +32,6 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool filtering documented"
-    },
-    "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool filtering documented"
     },
     "windsurf": {
       "supported": false,

@@ -26,25 +26,29 @@
       "id": "builtin_slash_commands",
       "name": "Six Built-In Slash Commands",
       "description": "Cline ships six built-in slash commands accessible by typing / in chat: /newtask (start fresh task with distilled context from current conversation), /smol or /compact (compress conversation history in-place while preserving context), /newrule (interactively create a .clinerules rule file), /deep-planning (codebase investigation + structured implementation plan as implementation_plan.md), /explain-changes (AI-powered git diff explanation, VS Code only), /reportbug (collect diagnostics for bug reports). These are not user-defined; they are hardcoded Cline capabilities.",
-      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#slash-commands"
+      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#slash-commands",
+      "required": null
     },
     {
       "id": "custom_workflow_commands",
       "name": "Custom Workflow Slash Commands via .clinerules/workflows/",
       "description": "Users can create custom slash commands by placing Markdown files in .clinerules/workflows/. A file named deploy.md is invoked as /deploy.md. These workflow files are loaded and executed as Cline instructions when the command is used, making them functionally equivalent to reusable prompt templates or macros. They can be committed to version control for team sharing.",
-      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#custom-workflows"
+      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#custom-workflows",
+      "required": null
     },
     {
       "id": "newtask_context_distillation",
       "name": "/newtask Context Distillation for Long Sessions",
       "description": "/newtask packages the current conversation's plan, completed work, relevant files, and next steps into a fresh task with a clean context window, discarding tool call noise and implementation details. This is a structured handoff mechanism for multi-session or context-heavy implementations rather than a general slash command. The distillation is AI-generated, not a raw copy of the conversation.",
-      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#newtask"
+      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#newtask",
+      "required": null
     },
     {
       "id": "deep_planning_command",
       "name": "/deep-planning Four-Phase Implementation Planning",
       "description": "/deep-planning transforms Cline into a planning-first mode with four phases: (1) silent codebase investigation, (2) targeted clarifying questions, (3) creation of implementation_plan.md with detailed specifications, (4) new task creation with trackable steps. The resulting plan file is written to the workspace. Intended for multi-file features, architectural changes, or complex integrations where ad-hoc coding risks missing dependencies or structural issues.",
-      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#deep-planning"
+      "source_ref": "https://docs.cline.bot/core-workflows/using-commands#deep-planning",
+      "required": null
     }
   ]
 }
