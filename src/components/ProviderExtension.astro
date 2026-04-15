@@ -1,0 +1,156 @@
+---
+/**
+ * ProviderExtension.astro — One extension item card (D11, D12, D10).
+ *
+ * Renders: name + optional field-name code, three-state Required badge,
+ * optional value_type, description body, optional examples, no inline
+ * source link (source link appears in SourcesTable above — D8).
+ */
+
+interface Example {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  description: string;
+  source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  examples?: Example[];
+}
+
+const { name, description, required, value_type, examples } = Astro.props;
+
+function badgeClass(req: boolean | null | undefined): string {
+  if (req === true) return 'provider-badge provider-badge--required';
+  if (req === false) return 'provider-badge provider-badge--optional';
+  return 'provider-badge provider-badge--unspecified';
+}
+
+function badgeLabel(req: boolean | null | undefined): string {
+  if (req === true) return 'Required';
+  if (req === false) return 'Optional';
+  return 'Unspecified';
+}
+
+const badge = badgeClass(required);
+const label = badgeLabel(required);
+
+// Derive a field name from the description for display when it starts
+// with "Frontmatter field <fieldName>".
+const frontmatterMatch = description.match(/^Frontmatter field\s+([a-zA-Z][\w-]*)/);
+const fieldName = frontmatterMatch?.[1] ?? null;
+---
+
+<div class="ext-item not-content">
+  <div class="ext-item__header">
+    <span class="ext-item__name">{name}</span>
+    {fieldName && <code class="ext-item__field">{fieldName}</code>}
+    <span class={badge}>{label}</span>
+    {value_type && <span class="ext-item__type">{value_type}</span>}
+  </div>
+  <p class="ext-item__desc">{description}</p>
+  {examples && examples.length > 0 && (
+    <div class="ext-item__examples">
+      {examples.map((ex) => (
+        <div class="ext-item__example">
+          {ex.title && <p class="ext-item__example-title">{ex.title}</p>}
+          <pre class={`language-${ex.lang}`}><code>{ex.code}</code></pre>
+          {ex.note && <p class="ext-item__example-note">{ex.note}</p>}
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .ext-item {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .ext-item:last-child {
+    border-bottom: none;
+  }
+
+  .ext-item__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .ext-item__name {
+    font-weight: 600;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-text);
+  }
+
+  .ext-item__field {
+    font-size: var(--sl-text-xs);
+    background-color: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.2rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .ext-item__type {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-family: var(--sl-font-mono);
+  }
+
+  .ext-item__desc {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin: 0 0 0.5rem;
+    line-height: 1.5;
+  }
+
+  .ext-item__examples {
+    margin-top: 0.5rem;
+  }
+
+  .ext-item__example {
+    margin-bottom: 0.75rem;
+  }
+
+  .ext-item__example-title {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ext-item__example pre {
+    font-size: var(--sl-text-xs);
+    background-color: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.375rem;
+    padding: 0.625rem 0.875rem;
+    overflow-x: auto;
+    margin: 0 0 0.25rem;
+  }
+
+  .ext-item__example code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .ext-item__example-note {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    margin: 0;
+    font-style: italic;
+  }
+</style>

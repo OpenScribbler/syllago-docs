@@ -49,7 +49,10 @@ const integrations = [
     social: [
       { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/syllago' },
     ],
-    customCss: ['./src/styles/tables.css', './src/styles/provider-extensions.css'],
+    customCss: [
+      './src/styles/tables.css',
+      './src/styles/provider-badge.css',
+    ],
     sidebar,
     head: [
       {

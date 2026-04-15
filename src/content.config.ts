@@ -33,8 +33,10 @@ const providerSchema = z.object({
 
 const capSourceSchema = z.object({
 	uri: z.string(),
-	type: z.string(),
-	fetched_at: z.string(),
+	type: z.string().optional(),
+	fetched_at: z.string().optional(),
+	name: z.string().optional(),      // D9: human-readable label; fallback: last URI path segment
+	section: z.string().optional(),   // D9: which page section this source informed; fallback: "All"
 });
 
 const capMappingSchema = z.object({
@@ -48,6 +50,15 @@ const capExtensionSchema = z.object({
 	name: z.string(),
 	description: z.string(),
 	source_ref: z.string().optional(),
+	required: z.boolean().nullable().optional(),  // D12: true=Required, false=Optional, null=Unspecified
+	value_type: z.string().optional(),             // D12: e.g., "string", "bool", "string | string[]"
+	// NOTE: No `kind` field (D15 — the frontmatter/topic/behavior enum was deliberately excluded).
+	examples: z.array(z.object({                  // D10: structured usage examples
+		title: z.string().optional(),
+		lang: z.string(),
+		code: z.string().min(1),
+		note: z.string().optional(),
+	})).optional(),
 });
 
 const capabilitySchema = z.object({

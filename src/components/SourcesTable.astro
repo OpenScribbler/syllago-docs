@@ -1,0 +1,133 @@
+---
+/**
+ * SourcesTable.astro — Top-of-page consolidated sources table (D7, D8, D9).
+ *
+ * Renders one row per page-level source plus one row per extension source_ref.
+ * Per D9: `name` falls back to the last URI path segment (title-cased);
+ * `section` falls back to "All".
+ * Per D8: extension source_refs appear as "Extension: <field-name>" rows.
+ */
+
+interface CapSource {
+  uri: string;
+  type?: string;
+  fetched_at?: string;
+  name?: string;
+  section?: string;
+}
+
+interface CapExtension {
+  id: string;
+  name: string;
+  description: string;
+  source_ref?: string;
+}
+
+interface Props {
+  sources: CapSource[];
+  extensions: CapExtension[];
+}
+
+const { sources, extensions } = Astro.props;
+
+function deriveSourceName(uri: string): string {
+  try {
+    const path = new URL(uri).pathname;
+    const segment = path.split('/').filter(Boolean).pop() ?? uri;
+    const withoutExt = segment.replace(/\.[^.]+$/, '');
+    return withoutExt
+      .replace(/[-_]/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+  } catch {
+    return uri;
+  }
+}
+
+interface SourceRow {
+  name: string;
+  section: string;
+  uri: string;
+}
+
+const pageRows: SourceRow[] = sources.map((s) => ({
+  name: s.name ?? deriveSourceName(s.uri),
+  section: s.section ?? 'All',
+  uri: s.uri,
+}));
+
+const extRows: SourceRow[] = extensions
+  .filter((e): e is CapExtension & { source_ref: string } => e.source_ref != null)
+  .map((e) => ({
+    name: e.source_ref,
+    section: `Extension: ${e.name}`,
+    uri: e.source_ref,
+  }));
+
+const rows: SourceRow[] = [...pageRows, ...extRows];
+---
+
+{rows.length > 0 && (
+  <table class="sources-table not-content">
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td>
+            <a href={row.uri} target="_blank" rel="noopener noreferrer">
+              {row.name}
+            </a>
+          </td>
+          <td class="sources-table__section">{row.section}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+<style>
+  .sources-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: var(--sl-text-sm);
+  }
+
+  .sources-table th,
+  .sources-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .sources-table th {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .sources-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .sources-table a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .sources-table a:hover {
+    text-decoration: underline;
+  }
+
+  .sources-table__section {
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+</style>
