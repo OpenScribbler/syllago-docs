@@ -1,0 +1,75 @@
+---
+/**
+ * ProviderExtensionsList.astro — Iterates ProviderExtension items (D11).
+ *
+ * Renders the full list of provider-specific extensions for one
+ * (provider, contentType) pair. Wraps ProviderExtension leaf component.
+ */
+import ProviderExtension from './ProviderExtension.astro';
+
+interface Example {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
+}
+
+interface CapExtension {
+  id: string;
+  name: string;
+  description: string;
+  source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  examples?: Example[];
+}
+
+interface Props {
+  extensions: CapExtension[];
+  providerName: string;
+  contentTypeDisplay: string;
+}
+
+const { extensions, providerName, contentTypeDisplay } = Astro.props;
+---
+
+{extensions.length > 0 && (
+  <section class="ext-list not-content">
+    <h3 class="ext-list__heading">
+      {providerName}-specific {contentTypeDisplay}
+    </h3>
+    <p class="ext-list__intro">
+      {providerName}-specific {contentTypeDisplay.toLowerCase()} behaviors and configuration
+      options not yet mapped to canonical keys. When a canonical key covers one of these,
+      the item graduates there.
+    </p>
+    <div class="ext-list__items">
+      {extensions.map((ext) => (
+        <ProviderExtension {...ext} />
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .ext-list {
+    margin-top: 1.5rem;
+  }
+
+  .ext-list__heading {
+    font-size: var(--sl-text-h4);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--sl-color-text);
+  }
+
+  .ext-list__intro {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin: 0 0 1rem;
+  }
+
+  .ext-list__items {
+    border-top: 1px solid var(--sl-color-hairline-light);
+  }
+</style>
