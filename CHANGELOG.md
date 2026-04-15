@@ -2,6 +2,35 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-14
+
+### Added
+- Dynamic provider overview pages at `/using-syllago/providers/<slug>/` (12 routes, one per supported provider) — replaces generated MDX
+- Dynamic per-content-type conventions pages at `/using-syllago/providers/<slug>/<ct>/` (~70 routes filtered by each provider's supported content types)
+- `SourcesTable.astro` — consolidated sources table at the top of each per-CT page, with optional per-section scoping (D9)
+- `ProviderOverview.astro` — provider identity, detection, and supported content-type summary on the overview page (D6)
+- `ProviderConventions.astro` — per-(provider, CT) orchestrator combining SourcesTable, Native Format prose, canonical mappings, and extensions (D11)
+- `ProviderCanonicalMappings.astro` — canonical key → mechanism table linking to canonical-key pages
+- `ProviderExtension.astro` — individual extension card with structured examples (D10), value-type display, and three-state Required/Optional/Unspecified badge (D12)
+- `ProviderExtensionsList.astro` — iterates ProviderExtension cards for a (provider, CT) pair
+- `src/styles/provider-badge.css` — three-state required badge styles (dashed border for Unspecified per D12)
+- Vitest test suite — 58 tests covering schema validation, component helpers, and display maps
+- `vitest@^4.1.4` devDependency
+
+### Changed
+- `src/content.config.ts` — `capSourceSchema` gains optional `name` and `section` fields (D9); `capExtensionSchema` gains optional `required` (nullable boolean for Required/Optional/Unspecified tri-state, D12), `value_type` (D12), and structured `examples` array (D10)
+- `sidebar.ts` — "Supported Providers" section restructured from flat to nested: one collapsible group per provider, each with Overview and per-CT children filtered against each provider's `content.<ct>.supported` flag (e.g., cline omits Skills/Commands/Agents; zed only lists Rules/MCP). Switched from `slug:` to `link:` form because routes are now served by `src/pages/` dynamic routes instead of content collection entries
+- `scripts/sync-providers.ts` — removed per-provider MDX generation (600+ lines of `generateProviderPage`, `generateContentTypeConventions`, and MDX-escape helpers); retains JSON data writing, index page, hook-event matrix, and content-type matrix generation
+- `astro.config.mjs` — swapped `provider-extensions.css` → `provider-badge.css` in `customCss`; added `starlight-links-validator` exclude patterns for `/using-syllago/providers/*` and `/using-syllago/providers/*/*` (validator can't follow custom pages)
+
+### Fixed
+- `sidebar.ts` SidebarItem type import — derived locally from `StarlightUserConfig["sidebar"]` since Starlight 0.37.6 does not publicly re-export the `SidebarItem` schema type from `@astrojs/starlight/types`
+
+### Removed
+- `scripts/seed-provider-extensions.ts` and `src/content/provider-extensions/` seed MDX stubs — superseded by inline `providerExtensions` data in `src/data/capabilities/*.json`
+- 12 generated per-provider MDX pages in `src/content/docs/using-syllago/providers/` (amp, claude-code, cline, codex, copilot-cli, cursor, gemini-cli, kiro, opencode, roo-code, windsurf, zed) — replaced by dynamic routes. `index.mdx` preserved.
+- `src/styles/provider-extensions.css` — replaced by `provider-badge.css`
+
 ## 2026-04-13
 
 ### Added
