@@ -1,0 +1,10 @@
+{
+  "id": "claude-code",
+  "provider": "claude-code",
+  "totalExtensions": 72,
+  "unspecifiedRequiredCount": 71,
+  "unspecifiedValueTypeCount": 71,
+  "unspecifiedExamplesCount": 71,
+  "trackingIssue": null,
+  "generatedAt": "2026-04-15T22:39:55Z"
+}

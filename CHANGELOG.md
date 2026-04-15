@@ -2,6 +2,18 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-15
+
+### Added
+- `data-quality` Astro content collection — per-provider extension completeness data (total extensions, unspecified required/value_type/examples counts, generated-at timestamp), synced from the CLI's `data_quality` manifest block
+- `DataQualityBadge.astro` — compact percentage badge showing field-specification completeness for a provider; supports `required`, `valueType`, `examples`, or `overall` modes with color-coded tiers
+- `DataQualityTable.astro` — full provider comparison table showing extension counts and per-field specification percentages, sorted by data volume
+- Provider exclude filter in `sync-capabilities.ts` — `factory-droid` and `pi` are excluded from capabilities matrix, MetaBox counts, and canonical-key provider maps (capability JSONs stay on disk)
+
+### Changed
+- `sync-capabilities.ts` — extended to parse the `data_quality` manifest block and write per-provider JSON files to `src/data/data-quality/`; added `DataQualityEntry` type mirroring the Go struct; `CapabilitiesManifest` interface now includes optional `data_quality` field
+- `content.config.ts` — added `dataQualitySchema` (Zod) and `data-quality` collection definition
+
 ## 2026-04-14
 
 ### Added

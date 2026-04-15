@@ -52,9 +52,17 @@ interface CanonicalKeyMeta {
   type: string;
 }
 
+interface DataQualityEntry {
+  unspecified_required_count: number;
+  unspecified_value_type_count: number;
+  unspecified_examples_count: number;
+  tracking_issue?: string;
+}
+
 interface CapabilitiesManifest {
   version: string;
   generated_at: string;
+  data_quality?: { providers: Record<string, DataQualityEntry> };
   canonical_keys: Record<string, Record<string, CanonicalKeyMeta>>;
   providers: Record<string, Record<string, CapContentType>>;
 }
@@ -426,6 +434,57 @@ function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
 }
 
 // ---------------------------------------------------------------------------
+// Data quality output
+// ---------------------------------------------------------------------------
+
+const DATA_QUALITY_DIR = join(ROOT_DIR, "src/data/data-quality");
+
+function writeDataQualityFiles(manifest: CapabilitiesManifest): void {
+  const dq = manifest.data_quality;
+  if (!dq) {
+    console.log("  Data quality: not present in manifest, skipping.");
+    return;
+  }
+
+  rmSync(DATA_QUALITY_DIR, { recursive: true, force: true });
+  mkdirSync(DATA_QUALITY_DIR, { recursive: true });
+
+  // Count total extensions per provider (for computing % complete).
+  const extensionCounts: Record<string, number> = {};
+  for (const [providerSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(providerSlug)) continue;
+    let total = 0;
+    for (const cap of Object.values(contentTypes)) {
+      total += cap.provider_extensions.length;
+    }
+    extensionCounts[providerSlug] = total;
+  }
+
+  let count = 0;
+  for (const [slug, entry] of Object.entries(dq.providers)) {
+    if (EXCLUDED_PROVIDERS.has(slug)) continue;
+    const total = extensionCounts[slug] ?? 0;
+    const data = {
+      id: slug,
+      provider: slug,
+      totalExtensions: total,
+      unspecifiedRequiredCount: entry.unspecified_required_count,
+      unspecifiedValueTypeCount: entry.unspecified_value_type_count,
+      unspecifiedExamplesCount: entry.unspecified_examples_count,
+      trackingIssue: entry.tracking_issue || null,
+      generatedAt: manifest.generated_at,
+    };
+    writeFileSync(
+      join(DATA_QUALITY_DIR, `${slug}.json`),
+      JSON.stringify(data, null, 2) + "\n"
+    );
+    count++;
+  }
+
+  console.log(`  Data: ${count} data quality JSON files in ${DATA_QUALITY_DIR}`);
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -454,6 +513,7 @@ async function main() {
 
   writeCapabilitiesDataFiles(manifest);
   writeCanonicalKeysDataFiles(manifest);
+  writeDataQualityFiles(manifest);
   generateCanonicalKeyPages(manifest);
   generateCapabilitiesMatrix(manifest);
 }

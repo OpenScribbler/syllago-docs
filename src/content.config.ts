@@ -86,6 +86,17 @@ const canonicalKeySchema = z.object({
 	providers: z.record(z.string(), canonicalKeyProviderSupportSchema),
 });
 
+const dataQualitySchema = z.object({
+	id: z.string(),
+	provider: z.string(),
+	totalExtensions: z.number(),
+	unspecifiedRequiredCount: z.number(),
+	unspecifiedValueTypeCount: z.number(),
+	unspecifiedExamplesCount: z.number(),
+	trackingIssue: z.string().nullable(),
+	generatedAt: z.string(),
+});
+
 export const collections = {
 	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
 	providers: defineCollection({
@@ -99,6 +110,10 @@ export const collections = {
 	'canonical-keys': defineCollection({
 		loader: glob({ pattern: '*.json', base: './src/data/canonical-keys' }),
 		schema: canonicalKeySchema,
+	}),
+	'data-quality': defineCollection({
+		loader: glob({ pattern: '*.json', base: './src/data/data-quality' }),
+		schema: dataQualitySchema,
 	}),
 	glossary: defineCollection({
 		loader: glob({ pattern: '**/*.yaml', base: './src/content/glossary' }),
