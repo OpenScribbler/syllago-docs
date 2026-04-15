@@ -1,4 +1,6 @@
-import type { SidebarItem } from "@astrojs/starlight/types";
+import type { StarlightUserConfig } from "@astrojs/starlight/types";
+
+type SidebarItem = NonNullable<StarlightUserConfig["sidebar"]>[number];
 import cliSidebarItems from "./src/generated/cli-sidebar.json";
 
 export const sidebar: SidebarItem[] = [
