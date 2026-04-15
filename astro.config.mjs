@@ -41,6 +41,7 @@ const integrations = [
       starlightThemeFlexoki(),
       starlightLinksValidator({
         errorOnLocalLinks: false,
+        exclude: ['/using-syllago/providers/*', '/using-syllago/providers/*/*'],
       }),
       starlightLlmsTxt(),
       starlightHeadingBadges(),
