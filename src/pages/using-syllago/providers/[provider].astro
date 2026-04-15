@@ -1,0 +1,37 @@
+---
+/**
+ * [provider].astro — Overview page for /using-syllago/providers/<slug>/ (D6).
+ *
+ * Generates one static page per provider slug from the `providers` collection.
+ * URL preserved: /using-syllago/providers/<slug>/ — all 36 internal links resolve here.
+ */
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import ProviderOverview from '../../../components/ProviderOverview.astro';
+
+export async function getStaticPaths() {
+  const providers = await getCollection('providers');
+  return providers.map((entry) => ({
+    params: { provider: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { name, slug, configDir, emitPath, content } = entry.data;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: name,
+    description: `How syllago works with ${name} — supported content types, file locations, and format details.`,
+  }}
+>
+  <ProviderOverview
+    name={name}
+    slug={slug}
+    configDir={configDir}
+    emitPath={emitPath}
+    content={content}
+  />
+</StarlightPage>
