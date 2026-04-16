@@ -18,7 +18,6 @@ interface CapSource {
   type?: string;
   fetched_at?: string;
   name?: string;
-  section?: string;
 }
 
 interface CapMapping {
@@ -111,7 +110,7 @@ const fileFormat = FORMAT_DISPLAY[capability.fileFormat ?? ''] ?? capability.fil
 const installMethod = METHOD_DISPLAY[capability.installMethod ?? ''] ?? capability.installMethod ?? '—';
 ---
 
-<SourcesTable sources={sources} extensions={extensions} />
+<SourcesTable sources={sources} />
 
 <section class="native-format not-content">
   <h2 class="native-format__heading">Native Format</h2>

@@ -1,11 +1,9 @@
 ---
 /**
- * SourcesTable.astro — Top-of-page consolidated sources table (D7, D8, D9).
+ * SourcesTable.astro — Top-of-page sources list (D7).
  *
- * Renders one row per page-level source plus one row per extension source_ref.
- * Per D9: `name` falls back to the last URI path segment (title-cased);
- * `section` falls back to "All".
- * Per D8: extension source_refs appear as "Extension: <field-name>" rows.
+ * Renders one linked entry per page-level source.
+ * Name falls back to the last URI path segment (title-cased).
  */
 
 interface CapSource {
@@ -13,22 +11,13 @@ interface CapSource {
   type?: string;
   fetched_at?: string;
   name?: string;
-  section?: string;
-}
-
-interface CapExtension {
-  id: string;
-  name: string;
-  description: string;
-  source_ref?: string;
 }
 
 interface Props {
   sources: CapSource[];
-  extensions: CapExtension[];
 }
 
-const { sources, extensions } = Astro.props;
+const { sources } = Astro.props;
 
 function deriveSourceName(uri: string): string {
   try {
@@ -45,25 +34,13 @@ function deriveSourceName(uri: string): string {
 
 interface SourceRow {
   name: string;
-  section: string;
   uri: string;
 }
 
-const pageRows: SourceRow[] = sources.map((s) => ({
+const rows: SourceRow[] = sources.map((s) => ({
   name: s.name ?? deriveSourceName(s.uri),
-  section: s.section ?? 'All',
   uri: s.uri,
 }));
-
-const extRows: SourceRow[] = extensions
-  .filter((e): e is CapExtension & { source_ref: string } => e.source_ref != null)
-  .map((e) => ({
-    name: e.source_ref,
-    section: `Extension: ${e.name}`,
-    uri: e.source_ref,
-  }));
-
-const rows: SourceRow[] = [...pageRows, ...extRows];
 ---
 
 {rows.length > 0 && (
@@ -71,7 +48,6 @@ const rows: SourceRow[] = [...pageRows, ...extRows];
     <thead>
       <tr>
         <th>Source</th>
-        <th>Section</th>
       </tr>
     </thead>
     <tbody>
@@ -82,7 +58,6 @@ const rows: SourceRow[] = [...pageRows, ...extRows];
               {row.name}
             </a>
           </td>
-          <td class="sources-table__section">{row.section}</td>
         </tr>
       ))}
     </tbody>
@@ -124,10 +99,5 @@ const rows: SourceRow[] = [...pageRows, ...extRows];
 
   .sources-table a:hover {
     text-decoration: underline;
-  }
-
-  .sources-table__section {
-    color: var(--sl-color-gray-3);
-    white-space: nowrap;
   }
 </style>

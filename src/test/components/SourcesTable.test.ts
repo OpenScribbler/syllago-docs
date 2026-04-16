@@ -12,47 +12,24 @@ function deriveSourceName(uri: string): string {
 }
 
 // Helper extracted from SourcesTable.astro logic:
-// Builds the combined sources rows (page-level + per-extension source_ref rows).
+// Builds the source rows from page-level sources.
 interface CapSource {
   uri: string;
   type?: string;
   fetched_at?: string;
   name?: string;
-  section?: string;
-}
-
-interface CapExtension {
-  id: string;
-  name: string;
-  description: string;
-  source_ref?: string;
 }
 
 interface SourceRow {
   name: string;
-  section: string;
   uri: string;
 }
 
-function buildSourceRows(
-  sources: CapSource[],
-  extensions: CapExtension[]
-): SourceRow[] {
-  const pageRows: SourceRow[] = sources.map((s) => ({
+function buildSourceRows(sources: CapSource[]): SourceRow[] {
+  return sources.map((s) => ({
     name: s.name ?? deriveSourceName(s.uri),
-    section: s.section ?? 'All',
     uri: s.uri,
   }));
-
-  const extRows: SourceRow[] = extensions
-    .filter((e) => e.source_ref != null)
-    .map((e) => ({
-      name: e.source_ref!,
-      section: `Extension: ${e.name}`,
-      uri: e.source_ref!,
-    }));
-
-  return [...pageRows, ...extRows];
 }
 
 describe('deriveSourceName', () => {
@@ -71,50 +48,28 @@ describe('deriveSourceName', () => {
 });
 
 describe('buildSourceRows', () => {
-  it('maps page-level sources with name/section when present', () => {
-    const rows = buildSourceRows(
-      [{ uri: 'https://example.com/skills.md', name: 'Skills Docs', section: 'All' }],
-      []
-    );
-    expect(rows).toEqual([{ name: 'Skills Docs', section: 'All', uri: 'https://example.com/skills.md' }]);
+  it('uses explicit name when present', () => {
+    const rows = buildSourceRows([
+      { uri: 'https://example.com/skills.md', name: 'Skills Docs' },
+    ]);
+    expect(rows).toEqual([{ name: 'Skills Docs', uri: 'https://example.com/skills.md' }]);
   });
 
-  it('falls back to derived name and "All" when name/section absent', () => {
-    const rows = buildSourceRows(
-      [{ uri: 'https://example.com/skills.md' }],
-      []
-    );
+  it('falls back to derived name when name absent', () => {
+    const rows = buildSourceRows([{ uri: 'https://example.com/skills.md' }]);
     expect(rows[0].name).toBe('Skills');
-    expect(rows[0].section).toBe('All');
   });
 
-  it('generates Extension: <name> rows from extension source_refs', () => {
-    const rows = buildSourceRows(
-      [],
-      [{ id: 'model', name: 'Model', description: 'desc', source_ref: 'https://example.com/model.md' }]
-    );
-    expect(rows).toEqual([{
-      name: 'https://example.com/model.md',
-      section: 'Extension: Model',
-      uri: 'https://example.com/model.md',
-    }]);
-  });
-
-  it('omits extension rows with no source_ref', () => {
-    const rows = buildSourceRows(
-      [],
-      [{ id: 'model', name: 'Model', description: 'no ref' }]
-    );
+  it('returns empty array for empty sources', () => {
+    const rows = buildSourceRows([]);
     expect(rows).toHaveLength(0);
   });
 
-  it('combines page-level and extension rows in order', () => {
-    const rows = buildSourceRows(
-      [{ uri: 'https://a.com/docs.md', name: 'Docs', section: 'All' }],
-      [{ id: 'x', name: 'X Feature', description: 'd', source_ref: 'https://a.com/x.md' }]
-    );
-    expect(rows).toHaveLength(2);
-    expect(rows[0].section).toBe('All');
-    expect(rows[1].section).toBe('Extension: X Feature');
+  it('preserves source order', () => {
+    const rows = buildSourceRows([
+      { uri: 'https://a.com/alpha.md', name: 'Alpha' },
+      { uri: 'https://a.com/beta.md', name: 'Beta' },
+    ]);
+    expect(rows.map((r) => r.name)).toEqual(['Alpha', 'Beta']);
   });
 });

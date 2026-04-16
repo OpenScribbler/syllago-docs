@@ -36,7 +36,6 @@ const capSourceSchema = z.object({
 	type: z.string().optional(),
 	fetched_at: z.string().optional(),
 	name: z.string().optional(),      // D9: human-readable label; fallback: last URI path segment
-	section: z.string().optional(),   // D9: which page section this source informed; fallback: "All"
 });
 
 const capMappingSchema = z.object({
