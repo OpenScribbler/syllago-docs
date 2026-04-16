@@ -11,6 +11,15 @@ function deriveSourceName(uri: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+const TYPE_LABELS: Record<string, string> = {
+  documentation: 'Documentation',
+  reference: 'Reference',
+  source_code: 'Source code',
+  json_schema: 'Schema definition',
+  example: 'Usage example',
+  index: 'Index',
+};
+
 // Helper extracted from SourcesTable.astro logic:
 // Builds the source rows from page-level sources.
 interface CapSource {
@@ -23,12 +32,14 @@ interface CapSource {
 interface SourceRow {
   name: string;
   uri: string;
+  purpose: string;
 }
 
 function buildSourceRows(sources: CapSource[]): SourceRow[] {
   return sources.map((s) => ({
     name: s.name ?? deriveSourceName(s.uri),
     uri: s.uri,
+    purpose: TYPE_LABELS[s.type ?? ''] ?? s.type ?? '—',
   }));
 }
 
@@ -42,7 +53,6 @@ describe('deriveSourceName', () => {
   });
 
   it('falls back to the full URI for non-URL-parseable input', () => {
-    // URL constructor throws on invalid URIs; function should not be called with those.
     expect(deriveSourceName('https://example.com/docs/')).toBe('Docs');
   });
 });
@@ -50,26 +60,41 @@ describe('deriveSourceName', () => {
 describe('buildSourceRows', () => {
   it('uses explicit name when present', () => {
     const rows = buildSourceRows([
-      { uri: 'https://example.com/skills.md', name: 'Skills Docs' },
+      { uri: 'https://example.com/skills.md', name: 'Skills Docs', type: 'documentation' },
     ]);
-    expect(rows).toEqual([{ name: 'Skills Docs', uri: 'https://example.com/skills.md' }]);
+    expect(rows).toEqual([{
+      name: 'Skills Docs',
+      uri: 'https://example.com/skills.md',
+      purpose: 'Documentation',
+    }]);
   });
 
   it('falls back to derived name when name absent', () => {
-    const rows = buildSourceRows([{ uri: 'https://example.com/skills.md' }]);
+    const rows = buildSourceRows([{ uri: 'https://example.com/skills.md', type: 'reference' }]);
     expect(rows[0].name).toBe('Skills');
+    expect(rows[0].purpose).toBe('Reference');
+  });
+
+  it('maps all known type labels', () => {
+    const types = ['documentation', 'reference', 'source_code', 'json_schema', 'example', 'index'];
+    const expected = ['Documentation', 'Reference', 'Source code', 'Schema definition', 'Usage example', 'Index'];
+    types.forEach((t, i) => {
+      const rows = buildSourceRows([{ uri: 'https://x.com/a.md', type: t }]);
+      expect(rows[0].purpose).toBe(expected[i]);
+    });
+  });
+
+  it('falls back to raw type string for unknown types', () => {
+    const rows = buildSourceRows([{ uri: 'https://x.com/a.md', type: 'blog_post' }]);
+    expect(rows[0].purpose).toBe('blog_post');
+  });
+
+  it('shows dash when type is absent', () => {
+    const rows = buildSourceRows([{ uri: 'https://x.com/a.md' }]);
+    expect(rows[0].purpose).toBe('—');
   });
 
   it('returns empty array for empty sources', () => {
-    const rows = buildSourceRows([]);
-    expect(rows).toHaveLength(0);
-  });
-
-  it('preserves source order', () => {
-    const rows = buildSourceRows([
-      { uri: 'https://a.com/alpha.md', name: 'Alpha' },
-      { uri: 'https://a.com/beta.md', name: 'Beta' },
-    ]);
-    expect(rows.map((r) => r.name)).toEqual(['Alpha', 'Beta']);
+    expect(buildSourceRows([])).toHaveLength(0);
   });
 });

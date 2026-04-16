@@ -11,6 +11,9 @@ All notable changes to the syllago documentation site.
 - Provider exclude filter in `sync-capabilities.ts` — `factory-droid` and `pi` are excluded from capabilities matrix, MetaBox counts, and canonical-key provider maps (capability JSONs stay on disk)
 
 ### Changed
+- `SourcesTable.astro` — redesigned as two-column table (Source + Used for) with human-readable type labels instead of the old single-column or section-based layouts
+- `sidebar.ts` — fixed 15 broken links to content type pages with no capability data (Cursor, OpenCode, Roo Code, Zed, Gemini CLI); added missing links for Cline (skills, commands), Windsurf (commands, agents), and Amp (hooks)
+- `content.config.ts` — removed unused `section` field from `capSourceSchema`
 - `sync-capabilities.ts` — extended to parse the `data_quality` manifest block and write per-provider JSON files to `src/data/data-quality/`; added `DataQualityEntry` type mirroring the Go struct; `CapabilitiesManifest` interface now includes optional `data_quality` field
 - `content.config.ts` — added `dataQualitySchema` (Zod) and `data-quality` collection definition
 

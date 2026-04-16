@@ -1,8 +1,8 @@
 ---
 /**
- * SourcesTable.astro — Top-of-page sources list (D7).
+ * SourcesTable.astro — Top-of-page sources table (D7).
  *
- * Renders one linked entry per page-level source.
+ * Two columns: linked source name + human-readable purpose derived from `type`.
  * Name falls back to the last URI path segment (title-cased).
  */
 
@@ -18,6 +18,15 @@ interface Props {
 }
 
 const { sources } = Astro.props;
+
+const TYPE_LABELS: Record<string, string> = {
+  documentation: 'Documentation',
+  reference: 'Reference',
+  source_code: 'Source code',
+  json_schema: 'Schema definition',
+  example: 'Usage example',
+  index: 'Index',
+};
 
 function deriveSourceName(uri: string): string {
   try {
@@ -35,11 +44,13 @@ function deriveSourceName(uri: string): string {
 interface SourceRow {
   name: string;
   uri: string;
+  purpose: string;
 }
 
 const rows: SourceRow[] = sources.map((s) => ({
   name: s.name ?? deriveSourceName(s.uri),
   uri: s.uri,
+  purpose: TYPE_LABELS[s.type ?? ''] ?? s.type ?? '—',
 }));
 ---
 
@@ -48,6 +59,7 @@ const rows: SourceRow[] = sources.map((s) => ({
     <thead>
       <tr>
         <th>Source</th>
+        <th>Used for</th>
       </tr>
     </thead>
     <tbody>
@@ -58,6 +70,7 @@ const rows: SourceRow[] = sources.map((s) => ({
               {row.name}
             </a>
           </td>
+          <td class="sources-table__purpose">{row.purpose}</td>
         </tr>
       ))}
     </tbody>
@@ -99,5 +112,10 @@ const rows: SourceRow[] = sources.map((s) => ({
 
   .sources-table a:hover {
     text-decoration: underline;
+  }
+
+  .sources-table__purpose {
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
   }
 </style>
