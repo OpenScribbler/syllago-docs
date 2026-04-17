@@ -38,8 +38,8 @@ Fired when a CLI command completes successfully.
 | Property | Type | Description | Example | Commands |
 |----------|------|-------------|---------|----------|
 | `command` | `string` | Command name (cobra command path) | `"install"` | all |
-| `provider` | `string` | Target provider slug | `"claude-code"` | `install`, `uninstall`, `loadout_apply`, `sandbox_run`, `sync-and-export` |
-| `content_type` | `string` | Content type filter or specific type | `"rules"` | `install`, `add`, `convert`, `create`, `uninstall`, `remove`, `list`, `share`, `sync-and-export`, `registry_items` |
+| `provider` | `string` | Target provider slug | `"claude-code"` | `install`, `uninstall`, `loadout_apply`, `sandbox_run`, `sync-and-export`, `capmon_validate_spec`, `capmon_validate_format_doc`, `capmon_validate_sources`, `capmon_derive`, `capmon_check`, `capmon_onboard` |
+| `content_type` | `string` | Content type filter or specific type | `"rules"` | `install`, `add`, `convert`, `create`, `uninstall`, `remove`, `list`, `share`, `sync-and-export`, `registry_items`, `capmon_validate_spec` |
 | `content_count` | `int` | Number of content items affected | `3` | `install`, `add` |
 | `dry_run` | `bool` | Whether --dry-run flag was used | `false` | `install`, `add`, `uninstall`, `remove`, `sync-and-export` |
 | `from` | `string` | Source provider slug when adding cross-provider content | `"cursor"` | `add` |
@@ -82,4 +82,4 @@ These categories of data are **never** included in telemetry events, regardless 
 - All telemetry code is in [`cli/internal/telemetry/`](https://github.com/OpenScribbler/syllago/tree/main/cli/internal/telemetry)
 - The event catalog source of truth is [`catalog.go`](https://github.com/OpenScribbler/syllago/blob/main/cli/internal/telemetry/catalog.go)
 
-*Generated from syllago 0.7.0 on 2026-04-04.*
+*Generated from syllago 0.7.1 on 2026-04-17.*

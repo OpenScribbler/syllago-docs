@@ -1,12 +1,12 @@
 ---
 title: "syllago info providers"
-description: "List all known providers"
+description: "List providers or show data quality for a specific slug"
 ---
 
 ## Synopsis
 
 ```
-syllago info providers
+syllago info providers [slug]
 ```
 
 ## Global Options
@@ -17,6 +17,20 @@ syllago info providers
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # List providers and their supported types
+  syllago info providers
+
+  # JSON output
+  syllago info providers --json
+
+  # Data quality summary for one provider
+  syllago info providers claude-code
+  syllago info providers claude-code --json
+```
 
 ## See Also
 

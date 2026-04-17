@@ -52,7 +52,6 @@ const integrations = [
     ],
     customCss: [
       './src/styles/tables.css',
-      './src/styles/provider-badge.css',
     ],
     sidebar,
     head: [

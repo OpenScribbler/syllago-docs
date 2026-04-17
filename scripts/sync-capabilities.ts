@@ -30,13 +30,34 @@ interface CapMapping {
   supported: boolean;
   mechanism: string;
   paths?: string[];
+  provider_field?: string | null;
+  extension_id?: string;
+}
+
+type ConversionFate =
+  | 'translated'
+  | 'embedded'
+  | 'dropped'
+  | 'preserved'
+  | 'not-portable';
+
+interface CapExample {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
 }
 
 interface CapExtension {
   id: string;
   name: string;
-  description: string;
+  summary: string;
   source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  provider_field?: string | null;
+  conversion: ConversionFate;
+  examples?: CapExample[];
 }
 
 interface CapContentType {

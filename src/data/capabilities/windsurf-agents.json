@@ -45,16 +45,18 @@
     {
       "id": "agents_md_format",
       "name": "AGENTS.md: plain markdown with location-inferred scope",
-      "description": "Windsurf's agent instruction format is AGENTS.md (or agents.md — case insensitive), a plain markdown file with no required frontmatter. Scope is inferred from file location: root-level files apply to all files in the workspace (always-on); any subdirectory AGENTS.md applies to files within that subtree (auto-glob `<dir>/**`). Multiple AGENTS.md files can coexist at different directory levels for increasingly specific guidance. Both filenames are recognized.",
+      "summary": "AGENTS.md (case-insensitive) is a plain markdown file with no frontmatter; scope is inferred from file location (root = always-on, subdir = auto-glob).",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "git_root_discovery",
       "name": "Discovery up to git root across parent directories",
-      "description": "For git repositories, Windsurf searches parent directories up to the git root when discovering AGENTS.md files. This means AGENTS.md files in parent directories above the workspace root (but within the same git repo) are also picked up. Multiple open workspace folders are deduplicated.",
+      "summary": "For git repos, Windsurf searches parent directories up to the git root when discovering AGENTS.md files, deduplicating across open folders.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md#discovery-and-scoping",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

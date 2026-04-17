@@ -37,23 +37,27 @@
     {
       "id": "agents_md_format",
       "name": "AGENTS.md Format",
-      "description": "Factory uses AGENTS.md as its primary rules file format, explicitly mirroring the cross-provider AGENTS.md standard originated by OpenAI/Codex. Multiple AGENTS.md files can exist at different directory levels; the innermost file takes precedence over outer ones.",
+      "summary": "Factory uses the cross-provider AGENTS.md standard (OpenAI/Codex origin), with innermost file precedence across directory levels.",
       "source_ref": "https://docs.factory.ai/cli/configuration",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "global_rules_path",
       "name": "Global Rules Path",
-      "description": "A global AGENTS.md at ~/AGENTS.md applies across all projects. This sits above the repo root in the discovery hierarchy and is overridden by any project-level or subdirectory AGENTS.md.",
+      "summary": "A global ~/AGENTS.md applies across all projects, overridden by any project-level or subdirectory AGENTS.md.",
       "source_ref": "https://docs.factory.ai/cli/configuration",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "custom_instructions_setting",
       "name": "Custom Instructions Setting",
-      "description": "The personal settings file ~/.factory/settings.json supports a customInstructions key for always-on guidance that applies regardless of which project is open. Complements rather than replaces AGENTS.md.",
+      "summary": "Personal settings file customInstructions key provides always-on guidance regardless of which project is open.",
       "source_ref": "https://docs.factory.ai/cli/configuration",
-      "required": null
+      "required": null,
+      "provider_field": "customInstructions",
+      "conversion": "embedded"
     }
   ]
 }

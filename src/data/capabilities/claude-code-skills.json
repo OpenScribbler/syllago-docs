@@ -59,7 +59,7 @@
     {
       "id": "supporting_files",
       "name": "Supporting Files",
-      "description": "Skills can include multiple files in their directory beyond SKILL.md. The main SKILL.md acts as an entrypoint that references templates, example outputs, scripts, and detailed reference documentation stored as sibling files or subdirectories. Claude loads these on demand rather than upfront, keeping context lean. The built-in variable ${CLAUDE_SKILL_DIR} expands to the skill's directory so scripts and bundled assets can be referenced portably regardless of the current working directory.",
+      "summary": "Bundle templates, scripts, and reference docs alongside SKILL.md; loaded on demand via ${CLAUDE_SKILL_DIR}.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#add-supporting-files",
       "required": false,
       "value_type": "path",
@@ -69,147 +69,178 @@
           "code": "# No YAML field; this is a filesystem convention",
           "note": "Supporting files live in the skill directory alongside SKILL.md."
         }
-      ]
+      ],
+      "conversion": "not-portable"
     },
     {
       "id": "auto_invocation",
       "name": "Description-Based Auto-Invocation",
-      "description": "Claude reads all skill descriptions at session start and automatically invokes relevant skills when the conversation matches their description. This is the default behavior; setting disable-model-invocation: true opts out. When disable-model-invocation is false (default), the skill's description is always present in Claude's context so it can match requests. When true, the description is removed from context entirely and the skill only runs when the user explicitly types /skill-name.",
+      "summary": "Claude auto-invokes skills whose description matches the conversation; opt out via disable-model-invocation: true.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#control-who-invokes-a-skill",
-      "required": null
+      "required": null,
+      "provider_field": "disable-model-invocation",
+      "conversion": "embedded"
     },
     {
       "id": "argument_hint",
       "name": "Argument Hint",
-      "description": "Frontmatter field argument-hint provides a hint string shown during autocomplete to indicate expected arguments for a skill. Example values: \"[issue-number]\" or \"[filename] [format]\". This is purely presentational and does not affect argument parsing or validation.",
+      "summary": "Frontmatter argument-hint shows expected argument format during autocomplete (purely presentational).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "argument-hint",
+      "conversion": "embedded"
     },
     {
       "id": "allowed_tools",
       "name": "Allowed Tools Pre-Approval",
-      "description": "Frontmatter field allowed-tools grants permission for the listed tools while the skill is active, so Claude can use them without prompting the user for per-use approval. It does not restrict which tools are available — all tools remain callable. Accepts a space-separated string or a YAML list. Individual tool calls can be scoped using parenthetical syntax (e.g., Bash(git commit *)).",
+      "summary": "Frontmatter allowed-tools pre-approves tool calls while the skill is active (does not restrict availability).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#pre-approve-tools-for-a-skill",
-      "required": null
+      "required": null,
+      "provider_field": "allowed-tools",
+      "conversion": "embedded"
     },
     {
       "id": "model_override",
       "name": "Per-Skill Model Override",
-      "description": "Frontmatter field model specifies which model to use when this skill is active. Overrides the session model for the duration of the skill execution.",
+      "summary": "Frontmatter model overrides the session model while this skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "model",
+      "conversion": "embedded"
     },
     {
       "id": "effort_override",
       "name": "Per-Skill Effort Level",
-      "description": "Frontmatter field effort overrides the session effort level when this skill is active. Options: low, medium, high, max (max requires Opus 4.6). Default inherits from the session effort level.",
+      "summary": "Frontmatter effort overrides the session effort level (low/medium/high/max) while the skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "effort",
+      "conversion": "embedded"
     },
     {
       "id": "subagent_execution",
       "name": "Subagent Execution via context fork",
-      "description": "Frontmatter field context: fork runs the skill in an isolated subagent context. The skill content becomes the prompt that drives the subagent; it has no access to conversation history. The companion field agent specifies which subagent type to use (built-in types: Explore, Plan, general-purpose; or any custom subagent from .claude/agents/). If agent is omitted, uses general-purpose. This is the inverse of defining a subagent that preloads skills — here the skill drives the subagent rather than the subagent referencing the skill.",
+      "summary": "Frontmatter context: fork runs the skill in an isolated subagent with no conversation history; companion agent field selects the subagent type.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#run-skills-in-a-subagent",
-      "required": null
+      "required": null,
+      "provider_field": "context",
+      "conversion": "embedded"
     },
     {
       "id": "skill_scoped_hooks",
       "name": "Skill-Scoped Lifecycle Hooks",
-      "description": "Frontmatter field hooks attaches hooks scoped to the skill's lifecycle events. These hooks fire around tool events while the skill is active and follow the same configuration format as session-level hooks. Useful for enforcing invariants or logging during a specific skill's execution without affecting the rest of the session.",
+      "summary": "Frontmatter hooks attaches lifecycle hooks that fire only while this skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "hooks",
+      "conversion": "embedded"
     },
     {
       "id": "path_activation_filter",
       "name": "Path-Based Activation Filter",
-      "description": "Frontmatter field paths accepts glob patterns that limit when Claude auto-activates the skill. When set, Claude only loads the skill automatically when working with files that match one of the patterns. Uses the same format as path-specific rules in memory configuration. Accepts a comma-separated string or a YAML list. User-explicit invocation via /skill-name is not restricted by this field.",
+      "summary": "Frontmatter paths globs limit auto-activation to file matches; explicit /skill-name invocation is unrestricted.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "paths",
+      "conversion": "embedded"
     },
     {
       "id": "shell_selection",
       "name": "Per-Skill Shell Selection",
-      "description": "Frontmatter field shell selects the shell used for inline command execution blocks (!`command` and ```! fenced blocks) within the skill. Accepts bash (default) or powershell. Setting powershell runs inline shell commands via PowerShell on Windows and requires the environment variable CLAUDE_CODE_USE_POWERSHELL_TOOL=1.",
+      "summary": "Frontmatter shell selects bash (default) or powershell for inline command execution blocks within the skill.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
-      "required": null
+      "required": null,
+      "provider_field": "shell",
+      "conversion": "embedded"
     },
     {
       "id": "argument_substitution",
       "name": "Argument and Session Variable Substitution",
-      "description": "Skills support string substitution for dynamic values in skill content. $ARGUMENTS expands to all arguments passed at invocation; if not present, arguments are appended as \"ARGUMENTS: <value>\". $ARGUMENTS[N] and the shorthand $N access specific positional arguments (0-based). ${CLAUDE_SESSION_ID} expands to the current session ID. ${CLAUDE_SKILL_DIR} expands to the directory containing the skill's SKILL.md, enabling portable references to bundled scripts and assets. Multi-word arguments must be quoted when invoking.",
+      "summary": "Skills support $ARGUMENTS, $N, ${CLAUDE_SESSION_ID}, and ${CLAUDE_SKILL_DIR} string substitutions in skill body content.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#available-string-substitutions",
-      "required": null
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "shell_command_injection",
       "name": "Shell Command Injection for Dynamic Context",
-      "description": "The !`<command>` inline syntax and ```! fenced block syntax execute shell commands before the skill content is sent to Claude. Command output replaces the placeholder in the rendered prompt, so Claude receives live data rather than raw commands. This is preprocessing — Claude never sees the original command, only the output. Can be disabled organization-wide via the disableSkillShellExecution setting in managed settings, which replaces commands with \"[shell command execution disabled by policy]\". Bundled and managed skills are not affected by this setting.",
+      "summary": "Inline !`command` and ```! fenced blocks execute shell commands and inject output before Claude sees the prompt.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#inject-dynamic-context",
-      "required": null
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "skill_content_lifecycle",
       "name": "Skill Content Lifecycle and Compaction Behavior",
-      "description": "When invoked, skill content enters the conversation as a single message and persists for the rest of the session; Claude Code does not re-read the skill file on later turns. During auto-compaction, Claude Code re-attaches the most recent invocation of each skill after the summary, keeping the first 5,000 tokens of each. All re-attached skills share a combined budget of 25,000 tokens, filled starting from the most recently invoked skill, so older skills may be dropped entirely when many skills are invoked in one session. Subagents with preloaded skills work differently: full skill content is injected at startup rather than lazily.",
+      "summary": "Skill content enters context once per invocation and is partially re-attached after auto-compaction within a 25,000-token combined budget.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skill-content-lifecycle",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "nested_directory_discovery",
       "name": "Nested Directory Auto-Discovery",
-      "description": "When working with files in subdirectories, Claude Code automatically discovers skills from nested .claude/skills/ directories along the path. For example, editing a file in packages/frontend/ causes Claude Code to also load skills from packages/frontend/.claude/skills/. This supports monorepo setups where individual packages define their own skills without requiring centralized configuration.",
+      "summary": "Claude Code automatically discovers skills from .claude/skills/ directories along the path to edited files (monorepo support).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#automatic-discovery-from-nested-directories",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "add_dir_skills_loading",
       "name": "Additional Directory Skills Loading with Live Reload",
-      "description": "The --add-dir flag normally grants file access rather than configuration discovery, but .claude/skills/ directories within added directories are an exception: they are loaded automatically and support live change detection. Skills edited in an added directory during a session are picked up without restarting Claude Code. Other .claude/ configuration (subagents, commands, output styles) is not loaded from additional directories.",
+      "summary": "Skills in --add-dir directories are loaded with live change detection (other .claude/ configuration is not loaded from added directories).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skills-from-additional-directories",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "plugin_scope",
       "name": "Plugin Scope",
-      "description": "Skills can be bundled inside a plugin at <plugin>/skills/<skill-name>/SKILL.md. Plugin skills use a plugin-name:skill-name namespace, preventing conflicts with personal, project, or enterprise skills of the same name. The plugin scope is applied where the plugin is enabled. Priority order across scopes: enterprise > personal > project; plugin skills occupy a separate namespace and do not participate in this priority ordering.",
+      "summary": "Plugin-bundled skills use a plugin-name:skill-name namespace separate from enterprise/personal/project priority ordering.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#where-skills-live",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "skill_permission_rules",
       "name": "Skill Permission Rules",
-      "description": "Claude's access to skills can be controlled via permission rules using Skill tool syntax. Skill denies the Skill tool entirely. Skill(name) allows or denies an exact skill name. Skill(name *) matches a skill name prefix with any arguments. These rules integrate with the standard permissions system and can be set in user, project, or managed settings. The user-invocable field only controls menu visibility; permission rules are required to restrict programmatic invocation by Claude.",
+      "summary": "Skill, Skill(name), and Skill(name *) permission rules restrict which skills Claude may invoke programmatically.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#restrict-claudes-skill-access",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "disable_skill_shell_execution_policy",
       "name": "Organization Policy to Disable Shell Execution in Skills",
-      "description": "The disableSkillShellExecution setting in managed settings disables shell command injection (the !`command` and ```! syntax) for skills from user, project, plugin, and additional-directory sources. Each command placeholder is replaced with \"[shell command execution disabled by policy]\" rather than being executed. Bundled and managed skills are not affected by this setting. Most useful in managed settings where users cannot override it.",
+      "summary": "Managed setting disableSkillShellExecution disables inline shell command injection for user/project/plugin/added-directory skills.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#inject-dynamic-context",
-      "required": null
+      "required": null,
+      "provider_field": "disableSkillShellExecution",
+      "conversion": "embedded"
     },
     {
       "id": "bundled_skills",
       "name": "Bundled Skills",
-      "description": "Claude Code ships with a set of built-in prompt-based skills available in every session: /simplify, /batch, /debug, /loop, /claude-api, and others. Unlike built-in commands which execute fixed logic directly, bundled skills give Claude a detailed playbook and let it orchestrate work using its tools. They are listed alongside built-in commands in the commands reference, marked \"Skill\" in the Purpose column. Bundled and managed skills are not affected by the disableSkillShellExecution policy.",
+      "summary": "Claude Code ships built-in prompt-based skills (/simplify, /batch, /debug, /loop, /claude-api) immune to the shell-execution policy.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#bundled-skills",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "description_context_budget",
       "name": "Skill Description Context Budget",
-      "description": "All skill names are always loaded into Claude's context at session start. Descriptions are also loaded but are subject to a character budget that scales dynamically at 1% of the context window, with a fallback of 8,000 characters total. Individual entries are capped at 250 characters regardless of the total budget; descriptions longer than 250 characters are truncated in the listing. The budget can be raised by setting the SLASH_COMMAND_TOOL_CHAR_BUDGET environment variable. Skills with disable-model-invocation: true have their descriptions excluded from context entirely.",
+      "summary": "Skill descriptions share a dynamic budget (1% of context, 8,000 char fallback) with a 250-char per-entry cap, raisable via SLASH_COMMAND_TOOL_CHAR_BUDGET.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skill-descriptions-are-cut-short",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "open_standard_compliance",
       "name": "Agent Skills Open Standard Compliance",
-      "description": "Claude Code skills follow the Agent Skills open standard (agentskills.io), which is designed to work across multiple AI tools. Claude Code extends the standard with additional features including invocation control (disable-model-invocation, user-invocable), subagent execution (context: fork), and dynamic context injection (shell command substitution). The base standard covers skill directory layout, SKILL.md entrypoint, and frontmatter fields like name and description.",
+      "summary": "Claude Code skills follow the Agent Skills open standard (agentskills.io) with CC-specific extensions layered on top.",
       "source_ref": "https://code.claude.com/docs/en/skills.md",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

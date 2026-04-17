@@ -45,37 +45,42 @@
     {
       "id": "droid_format",
       "name": "Custom Droid Format",
-      "description": "Agents (Custom Droids) are .md files stored under .factory/droids/ (project) or ~/.factory/droids/ (personal). Each droid defines its own system prompt, model preference, and tooling policy in a single file. The CLI scans top-level files only (no subdirectory recursion).",
+      "summary": "Agents are flat .md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); top-level scan only, no recursion.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "droid_precedence",
       "name": "Project-Over-Personal Precedence",
-      "description": "Project-scope droids override personal droids with the same slug. This is the opposite of skills precedence (where personal overrides project) and must be accounted for in any cross-provider conversion.",
+      "summary": "Project-scope droids override personal droids of the same slug — the reverse of skills precedence.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "tool_categories",
       "name": "Tool Categories",
-      "description": "Droids specify allowed tools via named categories: filesystem, shell, search, browser, web_fetch, and others. This categorical tooling policy differs from per-tool allowlists used by some other providers.",
+      "summary": "Droids restrict tools by named categories (filesystem, shell, search, browser, web_fetch) instead of per-tool allowlists.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "model_selection_per_droid",
       "name": "Per-Droid Model Selection",
-      "description": "Each droid can specify its own model preference independently of the global model setting, enabling mixed-model agent compositions within a single project.",
+      "summary": "Each droid declares its own model preference independent of the global setting, enabling mixed-model agent compositions.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "claude_code_subagent_import",
       "name": "Claude Code Subagent Import",
-      "description": "The /import-subagent command reads .claude/agents/*.md files and converts them to Factory droid format, providing a migration path from Claude Code agent definitions to Factory droids.",
+      "summary": "The /import-subagent slash command converts .claude/agents/*.md files to Factory droid format for migration.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

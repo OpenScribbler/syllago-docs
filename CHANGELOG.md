@@ -2,6 +2,33 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-17
+
+### Added
+- `ProviderFeaturesTable.astro` — unified conversion-aware features table that merges canonical mappings and provider extensions into a single view, partitioned into "Fields" (native provider fields) and "Other features" groups, sorted by conversion fate (translated → embedded → dropped → preserved → not-portable). Renders conversion-fate badges with color variants tied to Starlight theme tokens. Handles the `extension_id` merge relationship: canonical mappings linked to an extension absorb its summary and conversion fate.
+- `src/test/components/ProviderFeaturesTable.test.ts` — 12 tests covering merge/partition/sort logic, empty state, and conversion-fate ordering
+
+### Changed
+- `src/content.config.ts` — `capMappingSchema` gains optional `provider_field` (nullable string) and `extension_id` (string) for canonical-to-extension linkage; `capExtensionSchema` renames `description` → `summary`, adds optional `provider_field` (nullable string), and adds required `conversion` field using the new `conversionEnum` (translated | embedded | dropped | preserved | not-portable)
+- `scripts/sync-capabilities.ts` — `CapMapping` and `CapExtension` TypeScript interfaces updated to match new Zod shape (added `provider_field`, `extension_id`, `required`, `value_type`, `summary`, `conversion`, and `examples` fields)
+- `ProviderConventions.astro` — rewritten to use `ProviderFeaturesTable` instead of the deprecated `ProviderCanonicalMappings` + `ProviderExtensionsList` pair. New page structure: At-a-glance card (`<dl>` grid replacing prose) → optional Hook events table (for `hooks` content type) → Features (with unified ProviderFeaturesTable) → Sources table at the bottom. `<h2 id="...">` headings now live outside `not-content` wrappers so Starlight's TOC registers them.
+
+### Removed
+- `src/components/ProviderCanonicalMappings.astro` — replaced by `ProviderFeaturesTable`
+- `src/components/ProviderExtensionsList.astro` — replaced by `ProviderFeaturesTable`
+- `src/components/ProviderExtension.astro` — per-extension card superseded by table rows
+- `src/styles/provider-badge.css` — three-state Required badge no longer rendered (extensions don't surface as cards anymore); Required field moves into the Fields table via `value_type` and summary columns in a future iteration
+- `src/test/components/ProviderCanonicalMappings.test.ts`, `ProviderExtensionsList.test.ts`, `ProviderExtension.test.ts` — tests for removed components
+- `astro.config.mjs` — dropped `./src/styles/provider-badge.css` from `customCss` (orphaned by component removal)
+
+## 2026-04-16
+
+### Added
+- Design spec for provider convention pages redesign (`docs/plans/2026-04-16-provider-convention-pages-redesign.md`) — schema contract, upstream/downstream plans, edge case survey, decision log
+
+### Changed
+- `format-conversion.mdx` — rewrote to explain the three conversion fates (translated, embedded as prose, dropped with warning), argument substitution translation, conversion notes mechanism, and the "preserved but may not work" distinction; restructured around conversion behavior rather than feature lists
+
 ## 2026-04-15
 
 ### Added

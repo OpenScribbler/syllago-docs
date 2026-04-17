@@ -49,37 +49,42 @@
     {
       "id": "three_transport_types",
       "name": "Three transport types: stdio, Streamable HTTP, SSE",
-      "description": "Windsurf supports stdio, Streamable HTTP, and SSE transport types for MCP servers, plus OAuth for each. For HTTP servers the URL field should be the endpoint URL (e.g., https://<server>/mcp). Remote HTTP servers use a `serverUrl` or `url` field rather than `command`/`args`. This three-transport support is broader than providers that only support stdio.",
+      "summary": "MCP servers can use stdio, Streamable HTTP, or SSE transports; remote servers use `serverUrl`/`url` fields instead of `command`/`args`.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "config_interpolation",
       "name": "Variable interpolation in mcp_config.json",
-      "description": "The mcp_config.json file supports variable interpolation in command, args, env, serverUrl, url, and headers fields. Two patterns: `${env:VAR_NAME}` is replaced with the named environment variable (empty string if unset); `${file:/path/to/file}` is replaced with the trimmed contents of the file at that path (tilde paths supported; left unchanged if file is unread). This avoids hardcoding secrets in the config file.",
+      "summary": "Config fields support `${env:VAR_NAME}` and `${file:/path}` interpolation to inject env vars and file contents without hardcoding secrets.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#config-interpolation",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "tool_limit_100",
       "name": "100-tool cap across all MCP servers",
-      "description": "Cascade has a hard limit of 100 total MCP tools available at any one time across all configured servers. Individual tools per server can be toggled on or off via the MCP settings UI to stay within this limit.",
+      "summary": "Cascade caps total MCP tools at 100 across all configured servers; individual tools can be toggled to stay within the limit.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#configuring-mcp-tools",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "enterprise_whitelist_and_registry",
       "name": "Enterprise MCP whitelist and custom registry",
-      "description": "Team admins can whitelist approved MCP servers; once any server is whitelisted, all non-whitelisted servers are blocked for the team. Whitelist matching uses regex patterns on command, args (per-element, length-matched), with env not matched. Teams can also configure custom MCP registry URLs to replace the default Windsurf marketplace; multiple registry URLs are unioned. Custom registries must follow the official MCP registry schema.",
+      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "mcp_marketplace",
       "name": "In-IDE MCP marketplace",
-      "description": "Windsurf includes a built-in MCP marketplace accessible from the Cascade panel (MCPs icon in top-right menu) or Windsurf Settings > Cascade > MCP Servers. Official MCPs are marked with a blue checkmark. Users click Install to add a server. For MCPs not in the marketplace, users can edit mcp_config.json directly.",
+      "summary": "Built-in MCP marketplace accessible from the Cascade panel for one-click discovery and installation of MCP servers.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

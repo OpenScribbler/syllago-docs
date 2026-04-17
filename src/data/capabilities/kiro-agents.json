@@ -45,58 +45,74 @@
     {
       "id": "kiro_agent_file_uri_prompt",
       "name": "File URI for externalizing agent prompt",
-      "description": "The 'prompt' field accepts either an inline string or a 'file://path/to/system-prompt.md' URI to load the prompt from an external Markdown file. Enables long or complex system prompts to be maintained as separate files without embedding them in the JSON config.",
+      "summary": "'prompt' field accepting a 'file://path' URI to load the system prompt from an external Markdown file.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "prompt",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_agent_tool_aliases",
       "name": "toolAliases for collision remapping",
-      "description": "A 'toolAliases' map that renames tools to resolve naming collisions. When two MCP servers expose tools with the same name, toolAliases provides a per-agent remapping so both tools remain accessible under distinct names.",
+      "summary": "Per-agent 'toolAliases' map renaming tools to resolve naming collisions across MCP servers.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "toolAliases",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_agent_resources",
       "name": "Resources attachment (files, skills, knowledge-base)",
-      "description": "Agents can declare a 'resources' array attaching contextual inputs: individual files (type: file, path), skills/powers (type: skill, name), or knowledge-base entries (type: knowledge-base, name). Resources are loaded into the agent's context alongside its system prompt.",
+      "summary": "'resources' array attaching files, skills, or knowledge-base entries into the agent's context.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "resources",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_agent_inline_mcp_servers",
       "name": "Inline mcpServers map per agent",
-      "description": "Agents can declare their own 'mcpServers' map directly in the agent JSON config (same schema as .kiro/mcp.json), scoping specific MCP server configurations to that agent without affecting the workspace-wide MCP config.",
+      "summary": "Per-agent 'mcpServers' map scoping MCP server configs to a single agent without touching workspace config.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "mcpServers",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_agent_include_mcp_json",
       "name": "includeMcpJson flag",
-      "description": "A boolean flag ('includeMcpJson') that controls whether the workspace .kiro/mcp.json config is merged into this agent's available MCP servers. Defaults to true; set to false to give an agent an isolated server set using only its inline mcpServers.",
+      "summary": "Boolean flag controlling whether workspace .kiro/mcp.json merges into the agent's available MCP servers.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "includeMcpJson",
+      "conversion": "not-portable"
     },
     {
       "id": "kiro_agent_tools_settings",
       "name": "toolsSettings per-tool configuration map",
-      "description": "A 'toolsSettings' map that provides per-tool configuration objects, allowing fine-grained behavioral settings for individual tools available to the agent. Tool-specific options vary by tool type.",
+      "summary": "'toolsSettings' map providing per-tool configuration objects for fine-grained behavioral settings.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "toolsSettings",
+      "conversion": "not-portable"
     },
     {
       "id": "kiro_agent_keyboard_shortcut",
       "name": "keyboardShortcut binding",
-      "description": "Agents can declare a 'keyboardShortcut' string to bind a keyboard shortcut for quick agent invocation from the IDE. IDE-level keybinding, not relevant to portable agent config.",
+      "summary": "'keyboardShortcut' string binding an IDE keyboard shortcut for quick agent invocation.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "keyboardShortcut",
+      "conversion": "not-portable"
     },
     {
       "id": "kiro_agent_welcome_message",
       "name": "welcomeMessage shown on agent start",
-      "description": "An optional 'welcomeMessage' string displayed to the user when the agent session starts. Provides onboarding context or usage instructions at session open.",
+      "summary": "Optional 'welcomeMessage' string displayed to the user when the agent session starts.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
-      "required": null
+      "required": null,
+      "provider_field": "welcomeMessage",
+      "conversion": "not-portable"
     }
   ]
 }

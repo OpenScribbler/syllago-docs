@@ -68,30 +68,34 @@
     {
       "id": "supporting_files",
       "name": "Supporting Files",
-      "description": "Skills are described as \"folders of instructions, scripts, and resources\" — the skill directory contains more than just SKILL.md. Additional files (scripts, resources, instructions) can be bundled alongside the main SKILL.md entrypoint. Copilot loads the skill \"when relevant,\" implying the directory is a unit of loading, not just the single markdown file.",
+      "summary": "Skills are folders that bundle SKILL.md plus additional scripts, resources, and instruction files as a unit of loading.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/about-agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "auto_invocation",
       "name": "Description-Based Auto-Invocation",
-      "description": "Copilot loads skills \"when relevant to improve its performance in specialized tasks.\" This implies description-driven automatic invocation — the model reads skill descriptions and activates relevant skills without an explicit user slash-command. This is distinct from the user_invocable slash-command syntax (/skill-name) which is explicit; the auto-invocation path is model-driven based on task relevance.",
+      "summary": "Copilot auto-loads skills based on description relevance to the current task, in addition to explicit /skill-name invocation.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/about-agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "plugin_scope",
       "name": "Plugin Scope",
-      "description": "Skills can be bundled with and added via plugins. The `/skills remove` command explicitly distinguishes between skills added directly and skills added as part of a plugin — plugin skills must be managed through the plugin itself, not via `/skills remove`. The `/skills info` subcommand can identify which plugin a skill came from. Plugin-scoped skills occupy their own management namespace separate from directly-installed personal and project skills.",
+      "summary": "Skills bundled via plugins occupy a separate management namespace and must be managed through the plugin, not /skills remove.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "cli_management_commands",
       "name": "CLI Skill Management Commands",
-      "description": "Copilot CLI exposes a dedicated `/skills` command with subcommands for managing the full skill lifecycle within a CLI session: `/skills list` lists currently available skills (also triggered by the natural language prompt \"What skills do you have?\"); `/skills` (bare) opens an interactive toggle UI using arrow keys and spacebar to enable/disable individual skills; `/skills info` shows details about a skill including its disk location and which plugin it came from; `/skills add` adds an alternative directory location for storing skills; `/skills reload` loads a newly added skill without restarting the CLI session; `/skills remove SKILL-DIRECTORY` removes a directly-added skill (not plugin skills). This CLI management surface is unique to Copilot CLI and has no equivalent in other providers' skills implementations.",
+      "summary": "The /skills slash-command suite (list, info, add, reload, remove, toggle UI) provides runtime skill management without restart.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

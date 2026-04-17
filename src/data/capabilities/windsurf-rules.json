@@ -42,30 +42,35 @@
     {
       "id": "activation_modes",
       "name": "Four activation modes via trigger frontmatter",
-      "description": "Workspace rules declare an activation mode in frontmatter via the `trigger` field. Four modes exist: `always_on` (included in every system prompt), `model_decision` (description always shown; full content loaded on demand when the model judges it relevant), `glob` (applied when Cascade reads or edits files matching the `globs` pattern), and `manual` (excluded from system prompt until @-mentioned by name in the Cascade input box). The global rules file and root-level AGENTS.md do not use frontmatter — they are always on.",
+      "summary": "The `trigger` frontmatter field selects one of four activation modes: always_on, model_decision, glob, or manual.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#activation-modes",
-      "required": null
+      "required": null,
+      "provider_field": "trigger",
+      "conversion": "translated"
     },
     {
       "id": "agents_md_auto_scoping",
       "name": "AGENTS.md: location-based auto-scoping without frontmatter",
-      "description": "AGENTS.md (or agents.md) files use plain markdown with no frontmatter. Windsurf infers the activation mode from file location: a root-level AGENTS.md is treated as always-on; any subdirectory AGENTS.md is treated as a glob rule scoped to that directory's subtree (auto-generated pattern `<directory>/**`). This provides simple directory-specific guidance without any frontmatter configuration.",
+      "summary": "AGENTS.md files use no frontmatter; root-level files are always-on while subdirectory files become auto-glob rules scoped to that subtree.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "three_scopes_plus_system",
       "name": "Global, workspace, and system rule scopes",
-      "description": "Rules exist at three user-accessible scopes plus an enterprise system scope. Global: single file at ~/.codeium/windsurf/memories/global_rules.md, always-on, 6,000 character limit. Workspace: one .md file per rule in .windsurf/rules/, each with its own activation mode, 12,000 character limit per file. System (Enterprise): OS-specific read-only directories deployed by IT — macOS /Library/Application Support/Windsurf/rules/*.md, Linux/WSL /etc/windsurf/rules/*.md, Windows C:\\ProgramData\\Windsurf\\rules\\*.md. Workspace rules are also discovered in subdirectories and parent directories up to the git root, with deduplication across multiple open folders.",
+      "summary": "Rules load from three user scopes plus an enterprise system scope, with per-scope character limits and OS-specific managed paths.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#rules",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "auto_generated_memories",
       "name": "Auto-generated memories distinct from rules",
-      "description": "Memories are a separate mechanism from Rules. Cascade auto-generates memories during conversations when it encounters context worth remembering, and stores them at ~/.codeium/windsurf/memories/ (workspace-scoped, not committed to git). Users can also ask Cascade to create a memory explicitly. Memories do not consume credits. They are distinct from Rules, which are user-authored and version-controlled. The docs recommend preferring Rules or AGENTS.md over memories for durable, team-shareable knowledge.",
+      "summary": "Cascade auto-generates workspace-scoped memories during conversations, stored separately from user-authored Rules and not committed to git.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#memories",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

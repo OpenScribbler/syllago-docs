@@ -42,17 +42,29 @@ const capMappingSchema = z.object({
 	supported: z.boolean(),
 	mechanism: z.string(),
 	paths: z.array(z.string()).optional(),
+	provider_field: z.string().nullable().optional(),  // native field name for this canonical key
+	extension_id: z.string().optional(),               // link to a provider_extensions[].id
 });
+
+const conversionEnum = z.enum([
+	'translated',    // has canonical equivalent; syllago maps field names/types
+	'embedded',      // no canonical; appended to body as conversion-notes block
+	'dropped',       // can't preserve; removed with warning
+	'preserved',     // kept as literal; target may not understand it
+	'not-portable',  // provider-specific filesystem/runtime feature, no wire analog
+]);
 
 const capExtensionSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	description: z.string(),
+	summary: z.string(),                            // <=150 chars; renamed from `description`
 	source_ref: z.string().optional(),
-	required: z.boolean().nullable().optional(),  // D12: true=Required, false=Optional, null=Unspecified
-	value_type: z.string().optional(),             // D12: e.g., "string", "bool", "string | string[]"
+	required: z.boolean().nullable().optional(),   // D12: true=Required, false=Optional, null=Unspecified
+	value_type: z.string().optional(),              // D12: e.g., "string", "bool", "string | string[]"
+	provider_field: z.string().nullable().optional(),  // native field name if the extension surfaces as a field
+	conversion: conversionEnum,                     // required: every extension declares its conversion fate
 	// NOTE: No `kind` field (D15 — the frontmatter/topic/behavior enum was deliberately excluded).
-	examples: z.array(z.object({                  // D10: structured usage examples
+	examples: z.array(z.object({                   // D10: structured usage examples
 		title: z.string().optional(),
 		lang: z.string(),
 		code: z.string().min(1),

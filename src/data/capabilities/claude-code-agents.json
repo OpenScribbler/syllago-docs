@@ -45,79 +45,95 @@
     {
       "id": "agent_file_format",
       "name": "Markdown + YAML Frontmatter Agent Files",
-      "description": "Agents (called \"subagents\" in Claude Code documentation) are defined as Markdown files with YAML frontmatter. The file body becomes the agent's system prompt. Only \"name\" and \"description\" are required frontmatter fields. The description field drives automatic delegation: Claude reads all subagent descriptions and delegates tasks when they match. Agents are stored as .md files in .claude/agents/ (project scope) or ~/.claude/agents/ (user scope). Subagents receive only their system prompt plus basic environment details (working directory), not the full Claude Code system prompt.",
+      "summary": "Agents are .md files with YAML frontmatter; body is the system prompt, name and description are the only required fields.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#write-subagent-files",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "agent_frontmatter_fields",
       "name": "Full Frontmatter Field Set",
-      "description": "Supported frontmatter fields beyond name and description: tools (allowlist of tool names the agent can use; inherits all tools if omitted), disallowedTools (denylist; if both tools and disallowedTools are set, disallowedTools is applied first), model (sonnet/opus/haiku alias, full model ID, or \"inherit\"; defaults to inherit), permissionMode (default, acceptEdits, auto, dontAsk, bypassPermissions, plan), maxTurns (maximum agentic turns), skills (list of skill names to inject in full at startup; subagents don't inherit parent session's skills), mcpServers (list of server names referencing already-configured servers or inline server definitions), hooks (lifecycle hooks scoped to this agent), memory (user, project, or local scope for persistent cross-session learning), background (bool, default false; always run as background task), effort (low/medium/high/max effort level override), isolation (set to \"worktree\" for isolated git worktree), color (display color in task list), initialPrompt (auto-submitted as first user turn when used as main session agent via --agent).",
+      "summary": "Frontmatter supports tools, disallowedTools, model, permissionMode, maxTurns, skills, mcpServers, hooks, memory, background, effort, isolation, color, initialPrompt.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "agent_scopes",
       "name": "Five Agent Scopes and Priority Ordering",
-      "description": "Agent definitions are loaded from five scopes with this priority (highest first): managed settings (.claude/agents/ in the managed settings directory, org-wide), CLI --agents flag (JSON inline, current session only, not saved to disk), project (.claude/agents/), user (~/.claude/agents/), plugin (plugin's agents/ directory). When multiple agents share the same name, the higher-priority definition wins. Project subagents are discovered by walking up from the working directory; --add-dir paths do not contribute subagents. Plugin subagents do not support hooks, mcpServers, or permissionMode frontmatter fields (those fields are ignored).",
+      "summary": "Five agent scopes (highest first): managed settings, CLI --agents flag, project, user, plugin; highest-priority wins on name collision.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#choose-the-subagent-scope",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "agent_invocation_patterns",
       "name": "Three Invocation Patterns",
-      "description": "Agents can be invoked in three ways. (1) Natural language: name the agent in a prompt; Claude decides whether to delegate. (2) @-mention: type @agent-<name> (or use the typeahead picker) to guarantee that specific agent runs for one task; for plugin agents use @agent-<plugin-name>:<agent-name>. (3) Session-wide: pass --agent <name> at startup to run the entire session under that agent's system prompt, tool restrictions, and model (replaces the default Claude Code system prompt; CLAUDE.md still loads). The agent setting in .claude/settings.json sets the default session agent. Built-in subagents include Explore (read-only, Haiku, fast codebase search), Plan (read-only, used in plan mode), and general-purpose (all tools, complex tasks).",
+      "summary": "Three invocation patterns: natural language auto-delegation, @agent-<name> mention, or --agent flag for session-wide agent.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#invoke-subagents-explicitly",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "agent_tool_restrictions",
       "name": "Tool Allowlist, Denylist, and Agent-Spawning Restrictions",
-      "description": "The tools field acts as an allowlist; omitting it inherits all tools. disallowedTools acts as a denylist. Agent(agent-type) syntax in the tools field restricts which subagent types a main-thread agent (launched via --agent) can spawn; e.g., \"tools: Agent(worker, researcher), Read, Bash\" allows spawning only worker and researcher. Without Agent in the tools field, the agent cannot spawn any subagents. Agent without parentheses allows spawning any subagent. Specific subagents can also be blocked via permissions.deny using \"Agent(subagent-name)\" syntax in settings. Note: subagents cannot spawn other subagents; the Agent(type) restriction only applies to main-thread agents.",
+      "summary": "tools allowlist, disallowedTools denylist, and Agent(type) syntax restricting which subagent types a main-thread agent may spawn.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#control-subagent-capabilities",
-      "required": null
+      "required": null,
+      "provider_field": "tools",
+      "conversion": "embedded"
     },
     {
       "id": "agent_persistent_memory",
       "name": "Persistent Cross-Session Memory",
-      "description": "The memory frontmatter field gives an agent a persistent directory that survives across conversations. Scopes: user (~/.claude/agent-memory/<name>/), project (.claude/agent-memory/<name>/), local (.claude/agent-memory-local/<name>/). When memory is enabled, the agent's system prompt includes instructions for reading/writing the memory directory, the first 200 lines or 25KB of MEMORY.md (an index file), and automatic enablement of Read/Write/Edit tools for memory management. Recommended scope is project (shareable via version control). The agent accumulates codebase patterns, debugging insights, and architectural decisions over time.",
+      "summary": "Frontmatter memory field gives an agent a persistent directory (user/project/local scope) seeded with MEMORY.md and Read/Write/Edit tools.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#enable-persistent-memory",
-      "required": null
+      "required": null,
+      "provider_field": "memory",
+      "conversion": "embedded"
     },
     {
       "id": "agent_background_foreground",
       "name": "Foreground vs Background Execution",
-      "description": "Agents run in foreground (blocking) or background (concurrent). Foreground agents block the main conversation; permission prompts and clarifying questions pass through to the user. Background agents run concurrently while the user continues working; before launching, Claude Code prompts for all tool permissions the agent will need upfront, then the agent auto-denies anything not pre-approved. If a background agent needs to ask clarifying questions, that tool call fails but the agent continues. Set \"background: true\" in frontmatter to always run as background. Users can also press Ctrl+B to background a running task. Disable all background task functionality with CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1 env var.",
+      "summary": "Agents run foreground (blocking, interactive prompts) or background (concurrent, pre-approved tools); set background: true or press Ctrl+B.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#run-subagents-in-foreground-or-background",
-      "required": null
+      "required": null,
+      "provider_field": "background",
+      "conversion": "embedded"
     },
     {
       "id": "agent_isolation_worktree",
       "name": "Isolated Git Worktree Execution",
-      "description": "Setting \"isolation: worktree\" in frontmatter runs the agent in a temporary git worktree, giving it an isolated copy of the repository. The worktree is automatically cleaned up if the agent makes no changes. This prevents the agent from interfering with the main working tree and enables safe parallel exploration or experimentation. Compatible with the WorktreeCreate/WorktreeRemove hook events for non-git VCS support.",
+      "summary": "Setting isolation: worktree runs the agent in a temporary git worktree, auto-cleaned if no changes are made.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
-      "required": null
+      "required": null,
+      "provider_field": "isolation",
+      "conversion": "not-portable"
     },
     {
       "id": "agent_cli_defined",
       "name": "CLI-Defined Session Agents via --agents Flag",
-      "description": "Agents can be defined inline as JSON when launching Claude Code via the --agents flag. They exist only for that session and are not saved to disk, making them useful for quick testing or automation scripts. Multiple agents can be defined in a single --agents call. Supports the same frontmatter fields as file-based agents, with \"prompt\" used for the system prompt body.",
+      "summary": "--agents flag accepts inline JSON agent definitions for the session only (not persisted); useful for testing and automation.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#choose-the-subagent-scope",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "agent_resume",
       "name": "Subagent Resumption",
-      "description": "Each subagent invocation normally creates a new instance with fresh context. To continue an existing subagent's work, Claude can use the SendMessage tool with the agent's ID as the \"to\" field (available when CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 is set). Resumed subagents retain their full conversation history. Stopped subagents auto-resume in the background when they receive a SendMessage. Subagent transcripts are stored independently at ~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl and are unaffected by main conversation compaction. Transcripts are cleaned up based on cleanupPeriodDays (default: 30 days).",
+      "summary": "SendMessage tool resumes existing subagents (gated on CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1); transcripts persist independently of main conversation compaction.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#resume-subagents",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "agent_mcp_scoping",
       "name": "Per-Agent MCP Server Scoping",
-      "description": "The mcpServers frontmatter field gives an agent access to MCP servers not available in the main conversation. Entries can be inline server definitions (connected when the subagent starts, disconnected when it finishes) or string references (share the parent session's connection). Inline definitions use the same schema as .mcp.json entries keyed by server name. Defining an MCP server inline in an agent's frontmatter prevents its tool descriptions from consuming context in the parent conversation.",
+      "summary": "Frontmatter mcpServers gives an agent inline or referenced MCP servers; inline definitions keep tool descriptions out of the parent context.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#scope-mcp-servers-to-a-subagent",
-      "required": null
+      "required": null,
+      "provider_field": "mcpServers",
+      "conversion": "embedded"
     }
   ]
 }

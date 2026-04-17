@@ -54,37 +54,46 @@
     {
       "id": "mcp_servers_config",
       "name": "MCP Servers Config (config.toml mcp_servers)",
-      "description": "MCP servers are configured in config.toml under the mcp_servers key, which is an object mapping server names to RawMcpServerConfig entries. Each entry supports: command (stdio binary path), url (HTTP/SSE endpoint), args (command arguments), env (environment variables), env_vars (list of env var names to pass through), env_http_headers (env var names for HTTP headers), http_headers (literal HTTP headers), bearer_token, bearer_token_env_var, cwd (working directory), enabled (bool), required (bool, fails session start if server is unreachable), startup_timeout_ms/startup_timeout_sec, tool_timeout_sec, enabled_tools (allowlist), disabled_tools (blocklist), tools (per-tool approval settings), oauth_resource, scopes (OAuth), and name (legacy display-name, kept for backward compatibility).",
+      "summary": "MCP servers declared under mcp_servers in config.toml as RawMcpServerConfig entries (command/url, args, env, headers, OAuth, timeouts, enabled/disabled tools).",
       "source_ref": "config.schema.json (RawMcpServerConfig, mcp_servers)",
-      "required": null
+      "required": null,
+      "provider_field": "mcp_servers",
+      "conversion": "translated"
     },
     {
       "id": "mcp_per_tool_approval",
       "name": "Per-Tool Approval Mode",
-      "description": "Each MCP server can configure per-tool approval settings via the tools map in RawMcpServerConfig. Each tool entry (McpServerToolConfig) specifies an approval_mode that overrides the session-level approval policy for that specific tool. This allows fine-grained permission control per MCP tool without requiring global policy changes.",
+      "summary": "Each MCP server can set per-tool approval_mode via the tools map, overriding session-level approval policy for individual tools.",
       "source_ref": "config.schema.json (McpServerToolConfig, AppToolApproval)",
-      "required": null
+      "required": null,
+      "provider_field": "tools.approval_mode",
+      "conversion": "translated"
     },
     {
       "id": "mcp_oauth_support",
       "name": "MCP OAuth Support",
-      "description": "Codex supports OAuth authentication for MCP servers. Configuration fields include mcp_oauth_callback_port (fixed port for local HTTP callback), mcp_oauth_callback_url (custom redirect URI), and mcp_oauth_credentials_store (keyring, file, or auto). Servers can specify oauth_resource and scopes fields in their config. The OAuth credential store backend is OS-specific keyring by default with file fallback.",
+      "summary": "OAuth fields mcp_oauth_callback_port, mcp_oauth_callback_url, and mcp_oauth_credentials_store (keyring/file/auto), plus per-server oauth_resource and scopes.",
       "source_ref": "config.schema.json (mcp_oauth_callback_port, mcp_oauth_callback_url, mcp_oauth_credentials_store)",
-      "required": null
+      "required": null,
+      "provider_field": "mcp_oauth_credentials_store",
+      "conversion": "translated"
     },
     {
       "id": "mcp_server_interface",
       "name": "Codex MCP Server Interface (codex mcp-server)",
-      "description": "Codex itself exposes an experimental MCP server interface via `codex mcp-server` (or `codex-mcp-server`). This runs a JSON-RPC 2.0 server over stdio using the MCP transport protocol, exposing v2 RPCs for thread management (thread/start, thread/resume, thread/fork, thread/read, thread/list), turn control (turn/start, turn/steer, turn/interrupt), account management, config read/write, model listing, and collaboration modes. It also serves v1 compatibility methods and sends live event stream notifications via codex/event/* channels. This is distinct from consuming MCP servers — it makes Codex itself controllable as an MCP server.",
+      "summary": "Codex exposes itself as an MCP server via `codex mcp-server` (JSON-RPC 2.0 over stdio) for thread, turn, config, and event-stream control.",
       "source_ref": "codex_mcp_interface.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "mcp_enabled_disabled_tools",
       "name": "MCP Tool Allowlist and Blocklist",
-      "description": "Each MCP server entry in config.toml supports enabled_tools (allowlist) and disabled_tools (blocklist) arrays. When enabled_tools is set, only the listed tools are exposed from that server. disabled_tools removes specific tools from the server's offering. This allows users to surface only the relevant subset of a server's tools.",
+      "summary": "Per-server enabled_tools (allowlist) and disabled_tools (blocklist) arrays restrict which tools an MCP server exposes.",
       "source_ref": "config.schema.json (RawMcpServerConfig.enabled_tools, disabled_tools)",
-      "required": null
+      "required": null,
+      "provider_field": "enabled_tools",
+      "conversion": "translated"
     }
   ]
 }

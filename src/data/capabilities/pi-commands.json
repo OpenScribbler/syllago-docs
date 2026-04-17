@@ -25,23 +25,27 @@
     {
       "id": "pi_prompt_template_arguments",
       "name": "Positional argument expansion in templates",
-      "description": "Prompt templates support positional argument substitution: $1, $2, ... for specific positions; $@ or $ARGUMENTS for all arguments joined; ${@:N} for args from position N (1-indexed); ${@:N:L} for L args starting at N. Arguments are passed after the command name (e.g., /component Button 'click handler'). This enables parameterized prompts that expand with user-supplied values.",
+      "summary": "Templates expand $1/$2 (positional), $@ or $ARGUMENTS (all joined), and ${@:N} / ${@:N:L} slices for parameterized prompts.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
-      "required": null
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "pi_prompt_template_description_frontmatter",
       "name": "Optional description frontmatter for autocomplete",
-      "description": "Templates accept an optional YAML frontmatter block with a description field. The description is shown in autocomplete when the user types /. If the description is omitted, the first non-empty line of the template body is used as the description. The filename (without .md) becomes the command name.",
+      "summary": "Optional YAML frontmatter description shown in / autocomplete; falls back to the first non-empty body line if omitted.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
-      "required": null
+      "required": null,
+      "provider_field": "description",
+      "conversion": "embedded"
     },
     {
       "id": "pi_prompt_template_discovery",
       "name": "Multi-source template discovery matching skills pattern",
-      "description": "Pi discovers prompt templates from: global ~/.pi/agent/prompts/*.md; project-local .pi/prompts/*.md; package.json pi.prompts entries or prompts/ directories in npm packages; settings.json prompts array (files or directories); --prompt-template CLI flag (repeatable). Discovery in prompts/ directories is non-recursive — subdirectories must be added explicitly. --no-prompt-templates disables all default discovery.",
+      "summary": "Templates load from global, project, package.json, settings.json prompts array, and --prompt-template CLI flag (non-recursive).",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

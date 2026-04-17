@@ -25,23 +25,26 @@
     {
       "id": "two_command_types",
       "name": "Two Command Types",
-      "description": "Commands come in two types: Markdown (.md files — prompt templates injected into the conversation, support $ARGUMENTS substitution) and Executable (scripts — run as shell commands with stdout fed into the conversation). Both share the same discovery directories.",
+      "summary": "Commands are either Markdown templates (with $ARGUMENTS substitution) or Executable scripts whose stdout is injected into the conversation.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "command_discovery_paths",
       "name": "Command Discovery Paths",
-      "description": "Commands are discovered from .factory/commands/ (project) or ~/.factory/commands/ (personal). The filename (without extension) becomes the slash command name. Project commands override personal commands with the same slug.",
+      "summary": "Commands are discovered from .factory/commands/ (project) or ~/.factory/commands/ (personal); filename becomes the slash command name.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "skills_supersede_commands",
       "name": "Skills Supersede Commands",
-      "description": "Factory's own docs note that skills are now user-invokable via slash commands and recommend skills over commands for new work. Commands remain supported for backwards compatibility but are considered a legacy mechanism relative to skills.",
+      "summary": "Factory's docs recommend skills over commands for new work; commands remain supported only for backwards compatibility.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

@@ -55,30 +55,36 @@
     {
       "id": "supporting_resource_files",
       "name": "Supporting resource files",
-      "description": "A skill directory may contain arbitrary additional files alongside SKILL.md (e.g., shell scripts, markdown checklists, config templates, test templates, environment files). These files become available to Cascade when the skill is invoked. There is no restriction on file type or count. The skill directory is effectively a mini-bundle of everything needed to execute a multi-step workflow. This is the primary structural differentiator between Skills (folder-based bundles) and Rules/Workflows (single-file). Examples from docs: deployment-checklist.md, rollback-procedure.md, config-template.yaml, pre-deploy-checks.sh, security-checklist.md, review-template.md, test-template.py, coverage-config.json.",
+      "summary": "Arbitrary additional files alongside SKILL.md (scripts, checklists, templates) bundle a multi-step workflow into a single skill directory.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/skills.md#adding-supporting-resources",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "name_format_constraint",
       "name": "Skill name format constraint",
-      "description": "Skill names (the `name` frontmatter field) must be unique per scope and use only lowercase letters, numbers, and hyphens. This constraint is enforced by the UI wizard and documented as a requirement. Invalid names are not accepted. Examples of valid names: deploy-to-staging, code-review, setup-dev-environment.",
+      "summary": "The `name` frontmatter field must be unique per scope and contain only lowercase letters, numbers, and hyphens.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/skills.md#required-frontmatter-fields",
-      "required": null
+      "required": null,
+      "provider_field": "name",
+      "conversion": "embedded"
     },
     {
       "id": "auto_invocation",
       "name": "Automatic model-driven invocation",
-      "description": "Beyond explicit @mention, Cascade automatically invokes skills when the user's request semantically matches a skill's description. This is described as the most common invocation path. The description frontmatter field is the key signal: it tells Cascade when to invoke the skill. This is distinct from user_invocable (@mention) and is driven entirely by model inference against the description field. Users simply describe what they want and Cascade selects relevant skills without any explicit invocation syntax.",
+      "summary": "Cascade auto-invokes a skill when the user's request semantically matches its `description` frontmatter field.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/skills.md#automatic-invocation",
-      "required": null
+      "required": null,
+      "provider_field": "description",
+      "conversion": "not-portable"
     },
     {
       "id": "ui_creation",
       "name": "UI-based skill creation",
-      "description": "Skills can be created through the Cascade panel UI without manual file creation. Flow: open Cascade panel → three dots (top right) → customizations menu → Skills section → click \"+ Workspace\" (project-specific) or \"+ Global\" (all workspaces) → enter name. The UI enforces the name format constraint (lowercase, numbers, hyphens).",
+      "summary": "Skills can be created through the Cascade panel UI (Workspace or Global) without manually authoring files.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/skills.md#using-the-ui-easiest",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

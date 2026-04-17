@@ -42,23 +42,29 @@
     {
       "id": "agents_md_filename",
       "name": "AGENTS.md Filename",
-      "description": "Codex loads AI instruction rules from a file named AGENTS.md (or a configurable fallback list of filenames set via config.toml's project_doc_fallback_filenames). The file is discovered by walking up from the current working directory. Multiple AGENTS.md files can exist in a hierarchy — project root, subdirectory, and home directory — and their contents are combined. The primary file is AGENTS.md; fallbacks (e.g. .agents.md, CLAUDE.md) are checked when AGENTS.md is absent.",
+      "summary": "Native rules filename is AGENTS.md, with configurable fallback list via config.toml project_doc_fallback_filenames.",
       "source_ref": "config.schema.json (project_doc_fallback_filenames, project_doc_max_bytes)",
-      "required": null
+      "required": null,
+      "provider_field": "project_doc_fallback_filenames",
+      "conversion": "translated"
     },
     {
       "id": "hierarchical_agents_md",
       "name": "Hierarchical AGENTS.md (child_agents_md feature flag)",
-      "description": "When the child_agents_md feature flag is enabled (via [features] in config.toml), Codex appends additional guidance about AGENTS.md scope and precedence to the user instructions message, and emits that message even when no AGENTS.md is present. This implements a multi-file hierarchical rules model where rules from parent directories, project root, and home directory can be combined with scoped precedence.",
+      "summary": "When features.child_agents_md is enabled, Codex emits scope/precedence guidance and combines AGENTS.md files across a directory hierarchy.",
       "source_ref": "docs/agents_md.md (Hierarchical agents message section)",
-      "required": null
+      "required": null,
+      "provider_field": "features.child_agents_md",
+      "conversion": "not-portable"
     },
     {
       "id": "project_doc_max_bytes",
       "name": "Project Doc Max Bytes",
-      "description": "A configurable cap on how many bytes are read from an AGENTS.md file, set via project_doc_max_bytes in config.toml. Prevents oversized rules files from consuming excessive context window.",
+      "summary": "Configurable byte cap on AGENTS.md reads via config.toml project_doc_max_bytes; prevents oversized rules files from blowing the context window.",
       "source_ref": "config.schema.json (project_doc_max_bytes)",
-      "required": null
+      "required": null,
+      "provider_field": "project_doc_max_bytes",
+      "conversion": "dropped"
     }
   ]
 }

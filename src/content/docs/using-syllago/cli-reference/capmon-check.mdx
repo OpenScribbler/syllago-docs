@@ -1,0 +1,56 @@
+---
+title: "syllago capmon check"
+description: "Check for content drift in provider format docs"
+---
+
+## Synopsis
+
+```
+syllago capmon check [flags]
+```
+
+## Description
+
+Fetch each source URI in provider format docs, compare content hashes, and create or append GitHub issues when content has changed.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--all` | `bool` | — | No | Check all providers |
+| `--cache-root` | `string` | `.capmon-cache` | No | Root directory for capmon cache |
+| `--canonical-keys` | `string` | `docs/spec/canonical-keys.yaml` | No | Path to canonical-keys.yaml |
+| `--dry-run` | `bool` | — | No | Log actions without creating GitHub issues |
+| `--formats-dir` | `string` | `docs/provider-formats` | No | Directory containing provider format docs |
+| `--provider` | `string` | — | No | Check only this provider slug |
+| `--providers-json` | `string` | `providers.json` | No | Path to providers.json |
+| `--sources-dir` | `string` | `docs/provider-sources` | No | Directory containing provider source manifests |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago capmon](/using-syllago/cli-reference/capmon/)
+- [syllago capmon derive](/using-syllago/cli-reference/capmon-derive/)
+- [syllago capmon diff](/using-syllago/cli-reference/capmon-diff/)
+- [syllago capmon extract](/using-syllago/cli-reference/capmon-extract/)
+- [syllago capmon fetch](/using-syllago/cli-reference/capmon-fetch/)
+- [syllago capmon generate](/using-syllago/cli-reference/capmon-generate/)
+- [syllago capmon onboard](/using-syllago/cli-reference/capmon-onboard/)
+- [syllago capmon run](/using-syllago/cli-reference/capmon-run/)
+- [syllago capmon seed](/using-syllago/cli-reference/capmon-seed/)
+- [syllago capmon test-fixtures](/using-syllago/cli-reference/capmon-test-fixtures/)
+- [syllago capmon validate-format-doc](/using-syllago/cli-reference/capmon-validate-format-doc/)
+- [syllago capmon validate-sources](/using-syllago/cli-reference/capmon-validate-sources/)
+- [syllago capmon verify](/using-syllago/cli-reference/capmon-verify/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/capmon_cmd.go)</small>

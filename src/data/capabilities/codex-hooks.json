@@ -128,79 +128,98 @@
     {
       "id": "hook_events",
       "name": "Hook Events",
-      "description": "Codex supports five hook events: PreToolUse, PostToolUse, SessionStart, UserPromptSubmit, and Stop. Event names use PascalCase in the config.toml hooks file (under [hooks.PreToolUse], etc.) and camelCase in the TypeScript app-server protocol (preToolUse, postToolUse, sessionStart, userPromptSubmit, stop). In the Rust wire payload, event names serialize as PascalCase strings (HookEventNameWire enum).",
+      "summary": "Five hook events: PreToolUse, PostToolUse, SessionStart, UserPromptSubmit, Stop (PascalCase in config.toml, camelCase in TS protocol).",
       "source_ref": "config.rs (HookEvents struct), HookEventName.ts",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "hook_handler_types",
       "name": "Hook Handler Types",
-      "description": "Each hook entry specifies a handler type via the type field. Three types are supported: command (runs a shell command), prompt (invokes a prompt), and agent (delegates to a sub-agent). The command type is the primary type for external scripts. Command handlers support: command (required string), timeout/timeoutSec (optional duration in seconds), async (bool, default false — runs hook asynchronously without blocking the operation), and statusMessage (optional display string).",
+      "summary": "Each hook entry has a type: command (shell), prompt (LLM prompt), or agent (sub-agent delegation).",
       "source_ref": "config.rs (HookHandlerConfig enum), HookHandlerType.ts",
-      "required": null
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
     },
     {
       "id": "hook_matcher",
       "name": "Tool Matcher (PreToolUse / PostToolUse)",
-      "description": "PreToolUse and PostToolUse hook entries can include an optional matcher field (a string pattern) that filters which tool calls trigger the hook. When absent, the hook fires for all tool calls. This allows attaching hooks to specific tools by name.",
+      "summary": "Optional matcher string on PreToolUse/PostToolUse entries filters which tool calls trigger the hook (absent = all tools).",
       "source_ref": "config.rs (MatcherGroup.matcher)",
-      "required": null
+      "required": null,
+      "provider_field": "matcher",
+      "conversion": "translated"
     },
     {
       "id": "hook_execution_mode",
       "name": "Hook Execution Mode (sync / async)",
-      "description": "Hook handlers can run synchronously (blocking the current operation until the hook completes) or asynchronously (fire-and-forget, does not block). Exposed in the TypeScript protocol as HookExecutionMode with values sync and async. In the Rust config, the async field on HookHandlerConfig::Command controls this for command handlers.",
+      "summary": "Hook handlers run sync (blocking) or async (fire-and-forget) via the async flag on command handlers / HookExecutionMode.",
       "source_ref": "HookExecutionMode.ts, config.rs (HookHandlerConfig::Command.async)",
-      "required": null
+      "required": null,
+      "provider_field": "async",
+      "conversion": "translated"
     },
     {
       "id": "hook_scope",
       "name": "Hook Scope (thread / turn)",
-      "description": "Hooks can be scoped to a thread (lifetime of the entire session) or a turn (single request/response cycle). Exposed in the TypeScript app-server protocol as HookScope with values thread and turn.",
+      "summary": "Hooks scoped to a thread (whole session) or a turn (one request/response cycle) via the HookScope value.",
       "source_ref": "HookScope.ts",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "hook_result_abort",
       "name": "Hook Result Abort vs Continue",
-      "description": "The Rust hook engine distinguishes three outcomes: Success, FailedContinue (hook failed but subsequent hooks and the operation continue), and FailedAbort (hook failed and the operation is aborted, no further hooks run). This tri-state is more expressive than a simple pass/fail. For command hooks, the JSON output schema supports a continue boolean (default true) and a decision field (approve/block for PreToolUse, block for PostToolUse) to control operation flow.",
+      "summary": "Tri-state hook outcome: Success, FailedContinue, FailedAbort; output JSON also supports continue and decision (approve/block) fields.",
       "source_ref": "types.rs (HookResult enum), pre-tool-use.command.output.schema.json",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "hook_suppress_output",
       "name": "Suppress Output Flag",
-      "description": "Hook command output schemas include a suppressOutput boolean (default false). When true, the hook's stdout/stderr is not surfaced to the user. Available on all five event output schemas.",
+      "summary": "Hook output suppressOutput boolean (default false) hides stdout/stderr from the user; available on all five event schemas.",
       "source_ref": "pre-tool-use.command.output.schema.json (suppressOutput)",
-      "required": null
+      "required": null,
+      "provider_field": "suppressOutput",
+      "conversion": "dropped"
     },
     {
       "id": "hook_system_message",
       "name": "System Message Injection",
-      "description": "Hook command output schemas include a systemMessage field. When set, the hook can inject additional context into the system message for the current turn. Available on all five event output schemas.",
+      "summary": "Hook output systemMessage field injects extra context into the current turn's system message; available on all five event schemas.",
       "source_ref": "pre-tool-use.command.output.schema.json (systemMessage)",
-      "required": null
+      "required": null,
+      "provider_field": "systemMessage",
+      "conversion": "translated"
     },
     {
       "id": "hook_turn_id",
       "name": "Turn ID in Hook Payload",
-      "description": "The hook input schemas (pre-tool-use, post-tool-use) include a turn_id field marked as a Codex extension. This exposes the active turn ID to internal turn-scoped hooks, allowing hooks to correlate their actions with specific model turns.",
+      "summary": "PreToolUse/PostToolUse input payload includes a turn_id field (marked Codex extension) so hooks can correlate with model turns.",
       "source_ref": "pre-tool-use.command.input.schema.json (turn_id description)",
-      "required": null
+      "required": null,
+      "provider_field": "turn_id",
+      "conversion": "not-portable"
     },
     {
       "id": "hook_updated_input",
       "name": "Updated Tool Input (PreToolUse)",
-      "description": "The PreToolUse hook output schema includes an updatedInput field. When set by the hook, the tool's input is replaced with the hook-provided value before the tool executes. This allows hooks to modify or sanitize tool arguments before execution.",
+      "summary": "PreToolUse output updatedInput field replaces the tool's arguments before execution, allowing hooks to modify or sanitize input.",
       "source_ref": "pre-tool-use.command.output.schema.json (hookSpecificOutput.updatedInput)",
-      "required": null
+      "required": null,
+      "provider_field": "hookSpecificOutput.updatedInput",
+      "conversion": "translated"
     },
     {
       "id": "hook_permission_decision",
       "name": "Permission Decision (PreToolUse)",
-      "description": "The PreToolUse hook output schema includes a permissionDecision field (allow, deny, ask) within hookSpecificOutput. This gives hooks the ability to make fine-grained permission decisions about tool execution, separate from the top-level approve/block decision.",
+      "summary": "PreToolUse output permissionDecision (allow/deny/ask) gives fine-grained tool permission control separate from the top-level decision.",
       "source_ref": "pre-tool-use.command.output.schema.json (PreToolUsePermissionDecisionWire)",
-      "required": null
+      "required": null,
+      "provider_field": "hookSpecificOutput.permissionDecision",
+      "conversion": "translated"
     }
   ]
 }

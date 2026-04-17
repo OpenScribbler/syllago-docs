@@ -62,37 +62,42 @@
     {
       "id": "mcp_bundling",
       "name": "MCP server bundling",
-      "description": "Skills can include an mcp.json file to bundle an MCP server. The server starts when Amp launches but its tools remain hidden until the skill is loaded, keeping the tool list clean. Supports local command-based servers (command, args, env fields) and remote HTTP servers (url, headers fields). The optional includeTools field filters which tools are exposed.",
+      "summary": "Bundle an MCP server with the skill via mcp.json (local command or remote URL); tools stay hidden until skill loads.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "toolbox_bundling",
       "name": "Executable tool bundling via toolbox/",
-      "description": "Skills can bundle executable tools by placing them in a toolbox/ subdirectory within the skill directory. These executables are auto-discovered and registered as tools when the skill is loaded. They follow the same stdin/stdout JSON contract as standalone toolbox tools. Tools from skills are hidden until the skill is loaded.",
+      "summary": "Auto-register executables placed in skill's toolbox/ subdirectory as tools (stdin/stdout JSON contract).",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "bundled_resources",
       "name": "Bundled passive resources",
-      "description": "Skills can include arbitrary files (scripts, templates, config files, etc.) in the same directory as SKILL.md. The agent can access these files at paths relative to the skill file. This is distinct from toolbox/ executables — bundled resources are passive files read by the agent, not registered tools.",
+      "summary": "Include arbitrary files (scripts, templates, configs) alongside SKILL.md; agent reads them by relative path.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "skill_cli",
       "name": "CLI and command palette skill management",
-      "description": "Skills are managed via the 'amp skill' CLI command and the command palette (Ctrl+O in CLI, Cmd+Shift+P in VS Code). Supported operations: 'skill: add' (install from GitHub URL, git URL, or local path), 'skill: list' (view installed skills), 'skill: remove' (remove a skill). The add command accepts shorthand GitHub paths (e.g., ampcode/amp-contrib/tmux).",
+      "summary": "Manage skills via 'amp skill' CLI or command palette (add/list/remove); supports GitHub shorthand paths.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "auto_invocation",
       "name": "Automatic model-driven invocation",
-      "description": "The model automatically invokes a skill when the user's request matches the skill's name and description. Both frontmatter fields are always visible to the model at startup and determine when it selects the skill — the full SKILL.md body is only loaded once invoked. This is the primary invocation path; users describe what they want and the model selects the matching skill without explicit syntax.",
+      "summary": "Model auto-selects skill by matching user request against frontmatter name/description; SKILL.md body loads on demand.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
-      "required": null
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

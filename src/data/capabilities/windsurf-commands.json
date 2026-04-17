@@ -25,23 +25,26 @@
     {
       "id": "command_inline_editor",
       "name": "Windsurf Command: inline natural language code editing (Cmd/Ctrl+I)",
-      "description": "Windsurf Command is an inline AI code generation and editing feature invoked via Cmd+I (Mac) or Ctrl+I (Windows/Linux) directly in the editor. It is distinct from Cascade (the agentic chat panel). Command is scoped to the current file: if code is highlighted it edits the selection; otherwise it generates at cursor position. Does NOT consume premium model credits. Uses a separate set of models optimized for current-file edits. Diffs are shown inline with accept/reject code lenses.",
+      "summary": "Inline AI code editing in the editor via Cmd+I/Ctrl+I, scoped to the current file with accept/reject diff lenses; distinct from Cascade chat.",
       "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "terminal_command",
       "name": "Terminal Command via Cmd/Ctrl+I in terminal",
-      "description": "Command is also available in the integrated terminal (Cmd+I / Ctrl+I) to generate CLI syntax from natural language prompts. This is a separate invocation surface from the editor Command — it generates shell commands rather than code edits.",
+      "summary": "Cmd+I/Ctrl+I in the integrated terminal generates shell commands from natural language prompts, separate from the editor surface.",
       "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md#terminal-command",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "workflows_slash_commands",
       "name": "Workflows: slash-command-invoked prompt templates",
-      "description": "Windsurf Workflows are single .md files stored in .windsurf/workflows/ (workspace) or ~/.codeium/windsurf/workflows/ (global) that serve as reusable prompt templates for multi-step tasks. Invoked via /[workflow-name] slash command in the Cascade input. Workflows are manual-only — they are never auto-invoked by the model. This is the closest Windsurf equivalent to slash commands as defined by other providers.",
+      "summary": "Single .md files in .windsurf/workflows/ that serve as manual-only `/[name]` prompt templates invoked from the Cascade input.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     }
   ]
 }

@@ -63,8 +63,8 @@ function getHookCategoryDisplay(category: string | undefined): string {
 }
 
 // Helper extracted from ProviderConventions.astro:
-// Normalizes discovery/install paths by stripping common prefixes.
-function normalizePath(path: string): string {
+// Strips `{project}/` and replaces `{home}/` with `~/` for display.
+function stripPathVars(path: string): string {
   return path.replace('{project}/', '').replace('{home}/', '~/');
 }
 
@@ -141,20 +141,20 @@ describe('getHookCategoryDisplay', () => {
   });
 });
 
-describe('normalizePath', () => {
+describe('stripPathVars', () => {
   it('strips {project}/ prefix', () => {
-    expect(normalizePath('{project}/.cursorrules')).toBe('.cursorrules');
+    expect(stripPathVars('{project}/.cursorrules')).toBe('.cursorrules');
   });
 
   it('replaces {home}/ with ~/', () => {
-    expect(normalizePath('{home}/.config/rules')).toBe('~/.config/rules');
+    expect(stripPathVars('{home}/.config/rules')).toBe('~/.config/rules');
   });
 
   it('leaves paths without tokens unchanged', () => {
-    expect(normalizePath('/etc/ai/settings.json')).toBe('/etc/ai/settings.json');
+    expect(stripPathVars('/etc/ai/settings.json')).toBe('/etc/ai/settings.json');
   });
 
   it('handles a path with no prefix tokens', () => {
-    expect(normalizePath('.claude/settings.json')).toBe('.claude/settings.json');
+    expect(stripPathVars('.claude/settings.json')).toBe('.claude/settings.json');
   });
 });

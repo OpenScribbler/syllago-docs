@@ -49,16 +49,18 @@
     {
       "id": "mcp_manager_ui",
       "name": "MCP Manager UI",
-      "description": "Factory added a dedicated MCP Manager UI in release 1.10, providing a graphical interface for connecting and managing MCP servers without manual JSON editing.",
+      "summary": "Dedicated MCP Manager UI introduced in release 1.10 for connecting and managing MCP servers graphically without manual JSON editing.",
       "source_ref": "https://docs.factory.ai/llms.txt",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "factory_as_mcp_server",
       "name": "Factory as MCP Server",
-      "description": "Factory CLI can itself act as an MCP server, enabling programmatic control and integration with other tools that speak the MCP client protocol.",
+      "summary": "The Factory CLI can itself run as an MCP server, exposing its capabilities to other tools that speak the MCP client protocol.",
       "source_ref": "https://docs.factory.ai/llms.txt",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

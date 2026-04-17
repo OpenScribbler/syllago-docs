@@ -59,51 +59,63 @@
     {
       "id": "transport_types",
       "name": "Three transport mechanisms",
-      "description": "Gemini CLI supports three MCP transport types: stdio (spawns a subprocess, communicates via stdin/stdout, configured via command + optional args/cwd), SSE (Server-Sent Events, configured via url), and Streamable HTTP (configured via httpUrl). The transport type can be set explicitly via the type field (stdio/sse/http) or inferred from which connection property is present.",
+      "summary": "Supports stdio, SSE, and Streamable HTTP transports — set explicitly via the type field or inferred from the connection property used.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
     },
     {
       "id": "tool_filtering",
       "name": "Per-server tool allowlist and blocklist",
-      "description": "Each MCP server config supports includeTools (string[]) to allowlist specific tools from that server, and excludeTools (string[]) to blocklist tools. excludeTools takes precedence over includeTools — if a tool appears in both, it is excluded. When includeTools is omitted, all tools from the server are available.",
+      "summary": "Per-server includeTools and excludeTools arrays filter which MCP tools are exposed; excludeTools takes precedence on overlap.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
-      "required": null
+      "required": null,
+      "provider_field": "includeTools",
+      "conversion": "translated"
     },
     {
       "id": "server_trust",
       "name": "Per-server trust flag",
-      "description": "The trust boolean on an MCP server configuration bypasses all tool call confirmations for that server when set to true (default: false). Trusted servers execute tools without prompting the user for approval.",
+      "summary": "Boolean trust field on a server config bypasses all tool call confirmations for that server when set to true.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "provider_field": "trust",
+      "conversion": "embedded"
     },
     {
       "id": "global_mcp_settings",
       "name": "Global MCP allowed/excluded lists",
-      "description": "The top-level mcp object in settings.json provides global rules across all servers: mcp.allowed (string[]) allowlists server names so only listed servers connect; mcp.excluded (string[]) blocklists server names to prevent connection. These are global filters applied before per-server configuration.",
+      "summary": "Top-level mcp.allowed and mcp.excluded arrays in settings.json globally allowlist or blocklist server names before per-server config.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "provider_field": "mcp.allowed",
+      "conversion": "not-portable"
     },
     {
       "id": "env_variable_expansion",
       "name": "Environment variable expansion in env blocks",
-      "description": "Gemini CLI automatically expands environment variables in the env block of MCP server configs. Supports POSIX/Bash syntax ($VAR or ${VAR}) on all platforms and Windows syntax (%VAR%) on Windows. This allows referencing secrets from the shell environment without hardcoding them in settings.json.",
+      "summary": "Automatically expands $VAR, ${VAR}, and %VAR% in MCP server env blocks so secrets can be referenced from the shell environment.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "provider_field": "env",
+      "conversion": "preserved"
     },
     {
       "id": "server_management_commands",
       "name": "CLI commands for MCP server management",
-      "description": "MCP servers can be managed via gemini mcp subcommands: mcp add (add a server), mcp remove (delete from config), mcp list (view status of all servers), mcp enable/disable (toggle without removing, with optional --session flag for session-only changes). Enable/disable state is persisted to ~/.gemini/mcp-server-enablement.json. In-session equivalents: /mcp list, /mcp enable <name>, /mcp disable <name>, /mcp reload.",
+      "summary": "gemini mcp subcommands and /mcp slash commands add, remove, list, enable, and disable servers without editing settings.json.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "resource_referencing",
       "name": "MCP resource referencing via @ syntax",
-      "description": "Gemini CLI discovers MCP server resources (via resources/list) at connection time and exposes them alongside filesystem paths in the @ completion menu. Resources are referenced with @server://resource/path syntax in conversation. The CLI calls resources/read and injects the content into the conversation when referenced.",
+      "summary": "MCP server resources are exposed in the @ completion menu and inlined into prompts via @server://resource/path references.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

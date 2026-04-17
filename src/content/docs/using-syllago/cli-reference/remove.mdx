@@ -1,0 +1,53 @@
+---
+title: "syllago remove"
+description: "Remove content from your library and uninstall from providers"
+---
+
+## Synopsis
+
+```
+syllago remove <name> [flags]
+```
+
+## Description
+
+Removes a content item from your library (~/.syllago/content/) and
+uninstalls it from any providers where it is currently installed.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `-n`, `--dry-run` | `bool` | — | No | Show what would happen without making changes |
+| `-f`, `--force` | `bool` | — | No | Skip confirmation prompt |
+| `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
+| `--type` | `string` | — | No | Disambiguate when name exists in multiple types |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Remove a skill from library and all providers
+  syllago remove my-skill
+
+  # Disambiguate by type when name exists in multiple types
+  syllago remove my-rule --type rules
+
+  # Skip confirmation prompt
+  syllago remove my-skill --force
+
+  # Preview what would happen
+  syllago remove my-skill --dry-run
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/remove.go)</small>

@@ -66,30 +66,35 @@
     {
       "id": "supporting_files",
       "name": "Supporting Files in Skill Directory",
-      "description": "A skill directory may contain optional subdirectories alongside SKILL.md: docs/ for additional documentation (advanced config, troubleshooting guides, platform-specific instructions), templates/ for config files or code scaffolding, and scripts/ for deterministic operations like validation or data processing. Cline loads these files on demand via read_file or direct execution; only their output enters the context window, not the source code itself. This allows skills to reference large reference material without loading it at startup.",
+      "summary": "Optional docs/, templates/, scripts/ subdirectories under SKILL.md, loaded on demand so source bytes never enter context.",
       "source_ref": "https://docs.cline.bot/customization/skills.md#bundling-supporting-files",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "description_based_auto_invocation",
       "name": "Description-Based Auto-Invocation via use_skill Tool",
-      "description": "When the user sends a message, Cline sees all available skills with their name and description (~100 tokens per skill). If the request matches a skill's description, Cline activates it by calling the use_skill tool, which loads the full SKILL.md body. The description field is therefore a trigger specification: it should start with action verbs, include trigger phrases, and mention specific file types, tools, or domains. Cline's invocation decision is made by the model based solely on the description text — there is no explicit user @-mention syntax.",
+      "summary": "Cline auto-invokes skills by matching user message against the description field; no explicit @-mention syntax exists.",
       "source_ref": "https://docs.cline.bot/customization/skills.md#how-skills-work",
-      "required": null
+      "required": null,
+      "provider_field": "description",
+      "conversion": "not-portable"
     },
     {
       "id": "skill_toggle",
       "name": "Per-Skill Enable/Disable Toggle",
-      "description": "Each skill has a toggle to enable or disable it without deleting the skill directory. Skills are enabled by default when discovered. This allows users to deactivate skills (e.g., disable a CI/CD skill during local development) without losing the skill definition.",
+      "summary": "UI toggle to enable or disable each skill without deleting its directory.",
       "source_ref": "https://docs.cline.bot/customization/skills.md#toggling-skills",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "global_precedence_over_project",
       "name": "Global Skill Takes Precedence Over Project Skill",
-      "description": "When a global skill and a project skill share the same name, the global skill takes precedence. This is the inverse of typical scope-override behavior (where project overrides global) and is notable for syllago import/export conflict resolution. Documented as intentional: global skills are general-purpose while project skills are team-specific.",
+      "summary": "On name collision, the global skill wins over the project skill — the inverse of typical scope-override behavior.",
       "source_ref": "https://docs.cline.bot/customization/skills.md#where-skills-live",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

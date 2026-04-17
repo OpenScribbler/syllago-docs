@@ -50,37 +50,43 @@
     {
       "id": "agent_profile_format",
       "name": "Agent Profile File Format",
-      "description": "Custom agents are defined as Markdown files with a `.agent.md` extension (e.g., `security-expert.agent.md`). The file has a YAML frontmatter block followed by free-form Markdown instructions (max 30,000 characters). Required frontmatter field: `description`. Optional fields include: `name` (display name), `target` (environment restriction: `vscode` or `github-copilot`), `tools` (list of allowed tools or `[\"*\"]` for all), `model` (override default model), `disable-model-invocation` (boolean, prevents auto-selection by the agent), `user-invocable` (boolean, controls manual selectability), `mcp-servers` (inline MCP server config, cloud agent only), and `metadata` (annotation key-value pairs, cloud agent only).",
+      "summary": "Agents are .agent.md files with YAML frontmatter (description required) plus up to 30,000 chars of Markdown instructions as the system prompt.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/custom-agents-configuration.md",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "agent_scopes",
       "name": "Project and Personal Agent Scopes",
-      "description": "Agents can be placed at project scope (`.github/agents/` or `.claude/agents/` in the repository) or personal scope (`~/.copilot/agents/`). When naming conflicts exist between scopes, the personal scope (`~/.copilot/agents/`) takes precedence over project scope. Agent identity for deduplication is the filename without the `.agent.md` extension. Plugins can also provide agents via their `agents/` directory, but project and personal agents take precedence over plugin agents (first-found-wins).",
+      "summary": "Agents can live at project scope (.github/agents/, .claude/agents/) or personal scope (~/.copilot/agents/), with personal taking precedence on conflict.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli.md",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "agent_invocation_modes",
       "name": "Multiple Agent Invocation Modes",
-      "description": "Custom agents can be invoked four ways: (1) `/agent` slash command in interactive mode to select from a list; (2) explicit natural language instruction (\"Use the security-auditor agent on...\"); (3) inference — Copilot auto-selects an agent based on task context and the agent's description; (4) programmatic invocation via `--agent AGENT-NAME` command-line option. Auto-inference can be suppressed per agent with `disable-model-invocation: true` in the agent profile.",
+      "summary": "Agents are invoked four ways: /agent slash command, natural language instruction, auto-inference, or --agent CLI flag.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli.md",
-      "required": null
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "tool_aliases",
       "name": "Cross-Provider Tool Aliases",
-      "description": "The `tools` property in agent profiles uses a normalized alias system to abstract tool names across providers. Aliases include: `execute`/`shell`/`Bash` (shell execution), `read`/`Read`/`NotebookRead` (file reading), `edit`/`Edit`/ `Write`/`MultiEdit`/`NotebookEdit` (file editing), `search`/`Grep`/`Glob` (file search), `agent`/`custom-agent`/`Task` (subagent delegation), `web`/ `WebSearch`/`WebFetch` (web access), `todo`/`TodoWrite` (task lists). All aliases are case-insensitive. Unrecognized tool names are silently ignored to allow cross-provider profile sharing without errors.",
+      "summary": "The tools field accepts case-insensitive aliases (execute/shell/Bash, read/Read, edit/Edit/Write, etc.); unknown names are silently ignored for portability.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/custom-agents-configuration.md",
-      "required": null
+      "required": null,
+      "provider_field": "tools",
+      "conversion": "translated"
     },
     {
       "id": "subagent_execution",
       "name": "Subagent Execution Model",
-      "description": "When Copilot delegates work to a custom agent, the agent runs as a subagent with its own isolated context window. This allows large or specialized tasks to be offloaded without polluting the main agent's context. The main agent handles high-level planning and coordination while subagents handle execution. Versioning is Git-SHA-based: the agent profile in use when a task is assigned remains the active version for the lifetime of that task (pull request interactions use the same version for consistency).",
+      "summary": "Delegated agents run as subagents with isolated context windows; Git-SHA-based versioning pins the active profile for a task's lifetime.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-custom-agents-for-cli.md",
-      "required": null
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

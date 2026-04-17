@@ -1,17 +1,17 @@
 ---
 /**
- * ProviderConventions.astro — Per-(provider, contentType) conventions page (D11).
+ * ProviderConventions.astro — Per-(provider, contentType) conventions page.
  *
- * Orchestrates: SourcesTable → Native Format prose → ProviderCanonicalMappings
- * → ProviderExtensionsList.
+ * Three sections:
+ *   1. At-a-Glance card (format, discovery paths, install method, frontmatter)
+ *   2. Features — unified conversion-aware table via ProviderFeaturesTable
+ *   3. Sources — SourcesTable at the bottom
  *
- * Data comes from the `capabilities` Astro content collection entry for this
- * (provider, contentType) pair and from the `providers` collection for
- * native-format fields.
+ * Hooks content type renders an extra "Hook events" sub-section between
+ * At-a-Glance and Features.
  */
 import SourcesTable from './SourcesTable.astro';
-import ProviderCanonicalMappings from './ProviderCanonicalMappings.astro';
-import ProviderExtensionsList from './ProviderExtensionsList.astro';
+import ProviderFeaturesTable from './ProviderFeaturesTable.astro';
 
 interface CapSource {
   uri: string;
@@ -24,6 +24,8 @@ interface CapMapping {
   supported: boolean;
   mechanism: string;
   paths?: string[];
+  provider_field?: string | null;
+  extension_id?: string;
 }
 
 interface Example {
@@ -33,13 +35,22 @@ interface Example {
   note?: string;
 }
 
+type ConversionFate =
+  | 'translated'
+  | 'embedded'
+  | 'dropped'
+  | 'preserved'
+  | 'not-portable';
+
 interface CapExtension {
   id: string;
   name: string;
-  description: string;
+  summary: string;
   source_ref?: string;
   required?: boolean | null;
   value_type?: string;
+  provider_field?: string | null;
+  conversion: ConversionFate;
   examples?: Example[];
 }
 
@@ -66,16 +77,14 @@ interface Props {
   extensions: CapExtension[];
 }
 
-const { providerName, contentType, capability, sources, canonicalMappings, extensions } = Astro.props;
-
-const CT_DISPLAY: Record<string, string> = {
-  rules: 'Rules',
-  hooks: 'Hooks',
-  mcp: 'MCP Configs',
-  skills: 'Skills',
-  agents: 'Agents',
-  commands: 'Commands',
-};
+const {
+  providerName,
+  contentType,
+  capability,
+  sources,
+  canonicalMappings,
+  extensions,
+} = Astro.props;
 
 const FORMAT_DISPLAY: Record<string, string> = {
   md: 'Markdown',
@@ -105,110 +114,173 @@ const HOOK_CATEGORY_DISPLAY: Record<string, string> = {
   model: 'Model',
 };
 
-const ctDisplay = CT_DISPLAY[contentType] ?? contentType;
-const fileFormat = FORMAT_DISPLAY[capability.fileFormat ?? ''] ?? capability.fileFormat ?? '—';
-const installMethod = METHOD_DISPLAY[capability.installMethod ?? ''] ?? capability.installMethod ?? '—';
+const fileFormat = capability.fileFormat
+  ? (FORMAT_DISPLAY[capability.fileFormat] ?? capability.fileFormat)
+  : null;
+const installMethod = capability.installMethod
+  ? (METHOD_DISPLAY[capability.installMethod] ?? capability.installMethod)
+  : null;
+
+function stripPathVars(p: string): string {
+  return p.replace('{project}/', '').replace('{home}/', '~/');
+}
+
+interface GlanceItem {
+  label: string;
+  value: string | string[];
+  mono?: boolean;
+}
+
+const glanceItems: GlanceItem[] = [];
+if (fileFormat) glanceItems.push({ label: 'File format', value: fileFormat });
+if (capability.discoveryPaths?.length) {
+  glanceItems.push({
+    label: capability.discoveryPaths.length > 1 ? 'Discovery paths' : 'Discovery path',
+    value: capability.discoveryPaths.map(stripPathVars),
+    mono: true,
+  });
+}
+if (capability.installPath) {
+  glanceItems.push({
+    label: 'Global install path',
+    value: stripPathVars(capability.installPath),
+    mono: true,
+  });
+}
+if (installMethod) glanceItems.push({ label: 'Syllago install method', value: installMethod });
+glanceItems.push({
+  label: 'Symlink support',
+  value: capability.symlinkSupport ? 'Yes' : 'No',
+});
+if ((contentType === 'hooks' || contentType === 'mcp') && capability.configLocation) {
+  glanceItems.push({ label: 'Config file', value: capability.configLocation, mono: true });
+}
+if (contentType === 'hooks' && capability.hookTypes?.length) {
+  glanceItems.push({ label: 'Handler types', value: capability.hookTypes, mono: true });
+}
+if (contentType === 'mcp' && capability.mcpTransports?.length) {
+  glanceItems.push({ label: 'Transports', value: capability.mcpTransports, mono: true });
+}
+if (capability.frontmatterFields?.length) {
+  glanceItems.push({
+    label: 'Native frontmatter fields',
+    value: capability.frontmatterFields,
+    mono: true,
+  });
+}
 ---
 
-<SourcesTable sources={sources} />
-
-<section class="native-format not-content">
-  <h2 class="native-format__heading">Native Format</h2>
-  <ul class="native-format__list">
-    {capability.fileFormat && <li><strong>File format:</strong> {fileFormat}</li>}
-    {capability.discoveryPaths?.map((p) => (
-      <li><strong>Discovery path:</strong> <code>{p.replace('{project}/', '').replace('{home}/', '~/')}</code></li>
+<section class="at-a-glance not-content" aria-label="At a glance">
+  <h2 class="at-a-glance__heading">At a glance</h2>
+  <dl class="at-a-glance__grid">
+    {glanceItems.map((item) => (
+      <>
+        <dt>{item.label}</dt>
+        <dd>
+          {Array.isArray(item.value) ? (
+            item.value.map((v, i) => (
+              <>
+                {i > 0 && ', '}
+                {item.mono ? <code>{v}</code> : v}
+              </>
+            ))
+          ) : item.mono ? (
+            <code>{item.value}</code>
+          ) : (
+            item.value
+          )}
+        </dd>
+      </>
     ))}
-    {capability.installPath && (
-      <li><strong>Global install path:</strong> <code>{capability.installPath.replace('{home}/', '~/')}</code></li>
-    )}
-    {capability.installMethod && <li><strong>Syllago install method:</strong> {installMethod}</li>}
-    <li><strong>Symlink support:</strong> {capability.symlinkSupport ? 'Yes' : 'No'}</li>
-    {contentType === 'hooks' && capability.configLocation && (
-      <li><strong>Config file:</strong> <code>{capability.configLocation}</code></li>
-    )}
-    {contentType === 'hooks' && capability.hookTypes?.length && (
-      <li><strong>Handler types:</strong> {capability.hookTypes.map((t) => <code>{t}</code>).reduce((acc, el, i) => i === 0 ? [el] : [...acc, ', ', el], [] as any[])}</li>
-    )}
-    {contentType === 'mcp' && capability.configLocation && (
-      <li><strong>Config file:</strong> <code>{capability.configLocation}</code></li>
-    )}
-    {contentType === 'mcp' && capability.mcpTransports?.length && (
-      <li><strong>Transports:</strong> {capability.mcpTransports.map((t) => <code>{t}</code>).reduce((acc, el, i) => i === 0 ? [el] : [...acc, ', ', el], [] as any[])}</li>
-    )}
-    {capability.frontmatterFields?.length && (
-      <li>
-        <strong>Native frontmatter fields:</strong>{' '}
-        {capability.frontmatterFields.map((f) => <code>{f}</code>).reduce((acc, el, i) => i === 0 ? [el] : [...acc, ', ', el], [] as any[])}
-      </li>
-    )}
-  </ul>
-
-  {contentType === 'hooks' && capability.hookEvents?.length && (
-    <table class="hook-events-table">
-      <thead>
-        <tr>
-          <th>Canonical Event</th>
-          <th>Native Name</th>
-          <th>Category</th>
-        </tr>
-      </thead>
-      <tbody>
-        {capability.hookEvents.map((ev) => (
-          <tr>
-            <td><code>{ev.canonical}</code></td>
-            <td><code>{ev.nativeName}</code></td>
-            <td>{ev.category ? (HOOK_CATEGORY_DISPLAY[ev.category] ?? ev.category) : '—'}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  )}
-
-  {contentType === 'hooks' && !capability.hookEvents?.length && (
-    <p class="native-format__note">
-      {providerName} supports hooks, but syllago does not yet map its hook event names.
-      Hook conversion to and from {providerName} is best-effort.
-    </p>
-  )}
+  </dl>
 </section>
 
-<ProviderCanonicalMappings
-  canonicalMappings={canonicalMappings}
-  providerName={providerName}
-  contentTypeDisplay={ctDisplay}
-/>
+{contentType === 'hooks' && (
+  <section class="hook-events">
+    <h2 id="hook-events">Hook events</h2>
+    {capability.hookEvents?.length ? (
+      <table class="hook-events-table">
+        <thead>
+          <tr>
+            <th>Canonical Event</th>
+            <th>Native Name</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {capability.hookEvents.map((ev) => (
+            <tr>
+              <td><code>{ev.canonical}</code></td>
+              <td><code>{ev.nativeName}</code></td>
+              <td>
+                {ev.category
+                  ? (HOOK_CATEGORY_DISPLAY[ev.category] ?? ev.category)
+                  : '—'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <p class="hook-events__note">
+        {providerName} supports hooks, but syllago does not yet map its hook event
+        names. Hook conversion to and from {providerName} is best-effort.
+      </p>
+    )}
+  </section>
+)}
 
-<ProviderExtensionsList
-  extensions={extensions}
-  providerName={providerName}
-  contentTypeDisplay={ctDisplay}
-/>
+<section class="features">
+  <h2 id="features">Features</h2>
+  <ProviderFeaturesTable
+    canonicalMappings={canonicalMappings}
+    extensions={extensions}
+    contentType={contentType}
+  />
+</section>
+
+<section class="sources">
+  <h2 id="sources">Sources</h2>
+  <SourcesTable sources={sources} />
+</section>
 
 <style>
-  .native-format {
-    margin-top: 0;
+  .at-a-glance {
+    margin: 0 0 1.5rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-bg-nav);
   }
 
-  .native-format__heading {
-    font-size: var(--sl-text-h3);
+  .at-a-glance__heading {
+    font-size: var(--sl-text-h4);
     font-weight: 600;
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.625rem;
     color: var(--sl-color-text);
   }
 
-  .native-format__list {
-    margin: 0 0 1rem;
-    padding-left: 1.25rem;
+  .at-a-glance__grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 0.875rem;
+    margin: 0;
     font-size: var(--sl-text-sm);
-    line-height: 1.75;
+    line-height: 1.55;
   }
 
-  .native-format__note {
-    font-size: var(--sl-text-sm);
+  .at-a-glance__grid dt {
+    font-weight: 600;
     color: var(--sl-color-gray-2);
-    font-style: italic;
-    margin: 0 0 1rem;
+  }
+
+  .at-a-glance__grid dd {
+    margin: 0;
+    color: var(--sl-color-text);
+  }
+
+  .at-a-glance__grid code {
+    font-size: 0.875em;
   }
 
   .hook-events-table {
@@ -235,5 +307,12 @@ const installMethod = METHOD_DISPLAY[capability.installMethod ?? ''] ?? capabili
 
   .hook-events-table tr:last-child td {
     border-bottom: none;
+  }
+
+  .hook-events__note {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    font-style: italic;
+    margin: 0 0 1.5rem;
   }
 </style>

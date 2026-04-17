@@ -5,17 +5,124 @@ description: How syllago converts content between AI coding tool formats.
 
 ## How Conversion Works
 
-Syllago uses a hub-and-spoke model. Content in your library is stored in syllago format — a provider-neutral representation that syllago converts to and from each provider's native format:
+Syllago uses a hub-and-spoke model. Content in your library is stored in syllago's canonical format — a provider-neutral representation. Every conversion passes through it:
 
 ```
-Source Provider -> syllago format -> Target Provider
+Source Provider → syllago canonical format → Target Provider
 ```
 
-When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to windsurf`, syllago:
+When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to windsurf`, syllago reads the canonical content, then converts it to the target provider's native format — translating fields, metadata, tool names, and content syntax automatically.
 
-1. Reads the content from your library (already in syllago format)
-2. Converts to the target provider's format
-3. Translates tool names, metadata, and frontmatter automatically
+### The three conversion fates
+
+Every field and feature in a provider's native format has one of three fates during conversion:
+
+**Translated** — The field has a canonical equivalent. Syllago actively maps it to/from the target provider's equivalent.
+
+| Source | Canonical | Target |
+|---|---|---|
+| Claude Code `name` frontmatter | `display_name` | Codex `name` field |
+| Claude Code `user-invocable` | `user_invocable` | target equivalent |
+| Cline `paths` | `globs` | target equivalent (field renamed) |
+| OpenCode `enabled: false` | `disabled: true` | target equivalent (polarity flip) |
+
+**Embedded as prose** — The field has no canonical equivalent. Syllago appends it to the content body in a [conversion notes block](#conversion-notes) so nothing is silently lost.
+
+| Field | Embedded as |
+|---|---|
+| Claude Code `allowed-tools` | "**Tool restriction:** Use only Read, Grep tools." |
+| Claude Code `context: fork` | "Run in an isolated context." |
+| Any unsupported metadata or behavioral hint | Natural language description |
+
+**Dropped with warning** — The field can't be meaningfully preserved. Syllago removes it from the output and emits a [portability warning](#portability-warnings).
+
+| Field | Warning |
+|---|---|
+| Windsurf `trigger: manual` | "rule will only activate when explicitly requested" |
+| Roo Code mode-based globs | "Roo Code uses mode-based scoping, not glob scoping" |
+| Zed rules with globs | "Zed does not support glob-scoped rules" |
+| MCP `autoApprove` on unsupported provider | "dropped autoApprove" |
+
+**No silent data loss:** every field either maps to canonical, embeds as prose, or generates a warning. All converters return a result containing `Content`, `Filename`, `Warnings`, and `ExtraFiles` — the `Warnings` array is always populated when something can't be preserved.
+
+## What Gets Translated
+
+### Canonical field mapping
+
+Frontmatter fields, metadata keys, and structural properties are mapped through syllago's canonical schema. Field names may change, data types may adapt, and polarity may flip — but the semantic value is preserved.
+
+See each provider's conventions pages under [Providers](/using-syllago/providers/) for the exact field mappings.
+
+### Tool name translation
+
+The canonical format uses provider-neutral tool names. Translation happens automatically during conversion.
+
+| Canonical | Claude Code | Gemini CLI | Cursor |
+|-----------|-------------|------------|--------|
+| `file_read` | Read | read_file | read_file |
+| `file_write` | Write | write_file | edit_file |
+| `file_edit` | Edit | replace | edit_file |
+| `shell` | Bash | run_shell_command | run_terminal_cmd |
+| `search` | Grep | grep_search | grep_search |
+| `find` | Glob | glob | file_search |
+| `web_fetch` | WebFetch | web_fetch | — |
+| `agent` | Agent | — | — |
+
+### Argument substitution
+
+Argument placeholder syntax is actively translated between providers:
+
+| Canonical (Claude Code) | Gemini CLI | VS Code Copilot | Cursor |
+|---|---|---|---|
+| `$ARGUMENTS` | `{{args}}` | `${input:args}` | `$1` |
+| `$ARGUMENTS[N]` / `$N` | — | — | — |
+
+Lossy translations generate warnings:
+- **VS Code Copilot named variables** (`${input:firstName}`) collapse to `$ARGUMENTS` during canonicalization — warning: "named → positional, lossy"
+- **Providers without placeholder support** (Windsurf, Cline) receive literal text describing the expected arguments, plus a warning
+
+## What Gets Preserved
+
+### Conversion notes
+
+When a field has no canonical equivalent, syllago embeds it as prose at the end of the content body:
+
+```markdown
+---
+<!-- syllago:converted from="claude-code" -->
+**Tool restriction:** Use only Read, Grep tools.
+Run in an isolated context.
+```
+
+These blocks are:
+- Appended after a `---` separator at the end of the content body
+- Marked with `<!-- syllago:converted from="provider-slug" -->`
+- Written as natural language descriptions of the original fields
+- **Stripped automatically** during re-conversion (`StripConversionNotes()`) to prevent layering — the regex pattern matches `\n---\n<!-- syllago:converted[^>]*-->\n.*$`
+
+### Preserved but may not work
+
+Some content syntax survives conversion but the target provider may not interpret it. This is different from "translated" (actively mapped) and "dropped" (removed entirely) — the text is present in the output but potentially inert.
+
+**Shell injection syntax** — `` !`command` `` inline syntax and `` ```! `` fenced blocks survive in the content body. The target provider may not execute them. An info-level warning is generated. Gemini CLI template directives (`!{...}`, `@{...}`) are similarly preserved with a warning.
+
+**Provider-specific variables** — `${CLAUDE_SKILL_DIR}`, `${CLAUDE_SESSION_ID}`, and similar tokens remain as literal text. The target provider will not expand them.
+
+## Portability Warnings
+
+Both `syllago convert` and `syllago install` surface warnings when content uses features unsupported by the target provider. Warnings appear inline in text mode and in the `warnings` array in `--json` mode.
+
+Common warnings include:
+- Unsupported hook events (e.g., Gemini's `before_model` has no Claude Code equivalent)
+- Missing capability support (e.g., `input_rewrite` not available on target)
+- Fields dropped during conversion (e.g., `disabledTools` on MCP servers)
+- Lossy syntax translation (e.g., named variables → positional)
+- Preserved-but-inert content syntax (shell injection, provider variables)
+
+```bash
+# See warnings in structured format
+syllago convert my-skill --to cursor --json
+```
 
 ## Compatibility Matrix
 
@@ -29,7 +136,7 @@ When you run `syllago install my-skill --to cursor` or `syllago convert my-rule 
 | Commands | Many providers | Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode |
 | Loadouts | Claude Code (v1) | Additional provider emitters planned |
 
-## Provider-Specific Format Notes
+## Provider-Specific Notes
 
 ### Cursor
 Rules are converted to MDC (Markdown Component) format with `.mdc` extension. Frontmatter fields map to MDC metadata headers.
@@ -49,40 +156,14 @@ MCP server configs use the `context_servers` key instead of `mcpServers`. Syllag
 ### OpenCode
 Rules use YAML format. Syllago strips Markdown frontmatter and converts to OpenCode's YAML structure.
 
-## What Gets Preserved
+## Hook Conversion
 
-- **Content body** -- always preserved in full
-- **Metadata** -- mapped to provider-equivalent fields where possible
-- **Tool names** -- automatically translated (e.g., Claude Code's `Read` becomes Gemini's `read_file`)
-- **Frontmatter** -- converted to provider-appropriate format (YAML, TOML, JSON, or embedded as prose)
+For hooks specifically, syllago uses the [Hook Interchange Format](/reference/hooks-v1/) as the canonical representation. This handles:
 
-When metadata can't be represented in the target format, it's either embedded as a comment or note in the content body, or reported as a **portability warning** during conversion.
-
-## Portability Warnings
-
-Both `syllago convert` and `syllago install` surface warnings when content uses features unsupported by the target provider. Warnings appear inline in text mode and in the `warnings` array in JSON mode.
-
-Common warnings include:
-- Unsupported hook events (e.g., Gemini's `before_model` has no Claude Code equivalent)
-- Missing capability support (e.g., `input_rewrite` not available on target)
-- Fields dropped during conversion (e.g., `disabledTools` on MCP servers)
-
-## Canonical Tool Names
-
-The canonical format uses provider-neutral tool names:
-
-| Canonical | Claude Code | Gemini CLI | Cursor |
-|-----------|-------------|------------|--------|
-| `file_read` | Read | read_file | read_file |
-| `file_write` | Write | write_file | edit_file |
-| `file_edit` | Edit | replace | edit_file |
-| `shell` | Bash | run_shell_command | run_terminal_cmd |
-| `search` | Grep | grep_search | grep_search |
-| `find` | Glob | glob | file_search |
-| `web_fetch` | WebFetch | web_fetch | — |
-| `agent` | Agent | — | — |
-
-Translation happens automatically during conversion. You never need to manually adjust tool names.
+- Event name translation between providers
+- Matcher type conversion (tool vocabulary, regex, MCP targeting)
+- Timeout unit normalization (seconds canonical, auto-converts to/from milliseconds)
+- Capability degradation (block, warn, or exclude based on target support)
 
 ## Using the Convert Command
 
@@ -99,15 +180,6 @@ syllago convert my-skill --to cursor --json
 # Check compatibility across all providers
 syllago compat my-skill
 ```
-
-## Hook Conversion
-
-For hooks specifically, syllago uses the [Hook Interchange Format](/reference/hooks-v1/) as the canonical representation. This handles:
-
-- Event name translation between providers
-- Matcher type conversion (tool vocabulary, regex, MCP targeting)
-- Timeout unit normalization (seconds canonical, auto-converts to/from milliseconds)
-- Capability degradation (block, warn, or exclude based on target support)
 
 ## See Also
 
