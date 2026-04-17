@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI does not have an in-IDE MCP marketplace"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not have an in-IDE MCP marketplace"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI does not have an in-IDE MCP marketplace"

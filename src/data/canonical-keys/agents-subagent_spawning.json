@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
+    },
     "kiro": {
       "supported": false,
       "mechanism": "no subagent spawning mechanism documented for Kiro custom agents"

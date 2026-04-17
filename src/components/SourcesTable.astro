@@ -2,15 +2,11 @@
 /**
  * SourcesTable.astro — Top-of-page sources table (D7).
  *
- * Two columns: linked source name + human-readable purpose derived from `type`.
- * Name falls back to the last URI path segment (title-cased).
+ * Single column: the raw source URL rendered as its own link text.
  */
 
 interface CapSource {
   uri: string;
-  type?: string;
-  fetched_at?: string;
-  name?: string;
 }
 
 interface Props {
@@ -18,59 +14,23 @@ interface Props {
 }
 
 const { sources } = Astro.props;
-
-const TYPE_LABELS: Record<string, string> = {
-  documentation: 'Documentation',
-  reference: 'Reference',
-  source_code: 'Source code',
-  json_schema: 'Schema definition',
-  example: 'Usage example',
-  index: 'Index',
-};
-
-function deriveSourceName(uri: string): string {
-  try {
-    const path = new URL(uri).pathname;
-    const segment = path.split('/').filter(Boolean).pop() ?? uri;
-    const withoutExt = segment.replace(/\.[^.]+$/, '');
-    return withoutExt
-      .replace(/[-_]/g, ' ')
-      .replace(/\b\w/g, (c) => c.toUpperCase());
-  } catch {
-    return uri;
-  }
-}
-
-interface SourceRow {
-  name: string;
-  uri: string;
-  purpose: string;
-}
-
-const rows: SourceRow[] = sources.map((s) => ({
-  name: s.name ?? deriveSourceName(s.uri),
-  uri: s.uri,
-  purpose: TYPE_LABELS[s.type ?? ''] ?? s.type ?? '—',
-}));
 ---
 
-{rows.length > 0 && (
+{sources.length > 0 && (
   <table class="sources-table not-content">
     <thead>
       <tr>
         <th>Source</th>
-        <th>Used for</th>
       </tr>
     </thead>
     <tbody>
-      {rows.map((row) => (
+      {sources.map((s) => (
         <tr>
           <td>
-            <a href={row.uri} target="_blank" rel="noopener noreferrer">
-              {row.name}
+            <a href={s.uri} target="_blank" rel="noopener noreferrer">
+              {s.uri}
             </a>
           </td>
-          <td class="sources-table__purpose">{row.purpose}</td>
         </tr>
       ))}
     </tbody>
@@ -112,10 +72,5 @@ const rows: SourceRow[] = sources.map((s) => ({
 
   .sources-table a:hover {
     text-decoration: underline;
-  }
-
-  .sources-table__purpose {
-    color: var(--sl-color-gray-3);
-    white-space: nowrap;
   }
 </style>

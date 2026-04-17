@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "hook_io_protocol: Gemini CLI hooks receive event data as JSON on stdin and return structured JSON responses on stdout"
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks communicate via TypeScript extension API; no JSON stdin/stdout protocol for shell hooks"
     },
     "windsurf": {
       "supported": true,

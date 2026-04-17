@@ -22,7 +22,8 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required)"
+      "mechanism": "yaml frontmatter key: description (required)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": false,
@@ -30,7 +31,8 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required)"
+      "mechanism": "yaml frontmatter key: name (required)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,

@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "project scope (.github/agents/ or .claude/agents/), personal (~/.copilot/agents/), plugin (agents/); personal takes precedence over project"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
+    },
     "kiro": {
       "supported": true,
       "mechanism": "project (.kiro/agents/) + global (~/.kiro/agents/); global overrides local on name collision — reverse of most Kiro content types"

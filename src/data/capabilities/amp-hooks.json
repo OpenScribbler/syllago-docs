@@ -94,7 +94,7 @@
     {
       "id": "hook_config_location",
       "name": "Hook configuration in settings file",
-      "summary": "Hooks live under the 'amp.hooks' array in Amp settings files (.amp/settings.json or user-scope settings).",
+      "summary": "Hook definitions live as an array in Amp settings files (.amp/settings.json or user-scope settings).",
       "source_ref": "https://ampcode.com/manual/hooks.md",
       "required": null,
       "provider_field": "amp.hooks",
@@ -130,7 +130,7 @@
     {
       "id": "permissions_context_restriction",
       "name": "Permission context restriction (thread vs subagent)",
-      "summary": "Optional 'context' field scopes a rule to main thread, sub-agent only, or both (omitted); defaults differ by context.",
+      "summary": "Optionally scopes a rule to main thread, sub-agent only, or both (omitted); defaults differ by context.",
       "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "required": null,
       "provider_field": "context",

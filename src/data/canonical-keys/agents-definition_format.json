@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": ".agent.md files with YAML frontmatter (description required); up to 30,000 chars of Markdown instructions as agent system prompt"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with system prompt, model preference, and tooling policy"
+    },
     "kiro": {
       "supported": true,
       "mechanism": "JSON config files in .kiro/agents/ (project) or ~/.kiro/agents/ (global); prompt field accepts inline string or file:// URI to external .md file"

@@ -86,7 +86,7 @@
     {
       "id": "agent_persistent_memory",
       "name": "Persistent Cross-Session Memory",
-      "summary": "Frontmatter memory field gives an agent a persistent directory (user/project/local scope) seeded with MEMORY.md and Read/Write/Edit tools.",
+      "summary": "Gives an agent a persistent directory (user/project/local scope) seeded with MEMORY.md and Read/Write/Edit tools.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#enable-persistent-memory",
       "required": null,
       "provider_field": "memory",
@@ -104,7 +104,7 @@
     {
       "id": "agent_isolation_worktree",
       "name": "Isolated Git Worktree Execution",
-      "summary": "Setting isolation: worktree runs the agent in a temporary git worktree, auto-cleaned if no changes are made.",
+      "summary": "Runs the agent in a temporary git worktree when set to worktree, auto-cleaned if no changes are made.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
       "required": null,
       "provider_field": "isolation",
@@ -129,7 +129,7 @@
     {
       "id": "agent_mcp_scoping",
       "name": "Per-Agent MCP Server Scoping",
-      "summary": "Frontmatter mcpServers gives an agent inline or referenced MCP servers; inline definitions keep tool descriptions out of the parent context.",
+      "summary": "Gives an agent inline or referenced MCP servers; inline definitions keep tool descriptions out of the parent context.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#scope-mcp-servers-to-a-subagent",
       "required": null,
       "provider_field": "mcpServers",

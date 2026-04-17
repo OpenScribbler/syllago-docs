@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "No @-import or file inclusion syntax documented for Copilot CLI rule files"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Factory Droid rule files"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "file_imports extension: Gemini CLI supports including external file content into rule files via import directives"
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": true,
       "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Pi rule files"
     },
     "windsurf": {
       "supported": false,

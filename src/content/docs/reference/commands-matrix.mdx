@@ -19,6 +19,8 @@ How each provider stores and installs commands.
 | [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
 | [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Symlink | Yes |
+| [Pi](/using-syllago/providers/pi/) | Markdown | Symlink | Yes |
 
 ## Discovery Paths
 
@@ -32,28 +34,30 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 | [Codex](/using-syllago/providers/codex/) | `.codex/commands` | `~/.codex` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/commands` | `~/.copilot/commands` |
 | [OpenCode](/using-syllago/providers/opencode/) | `.opencode/commands` | `~/.config/opencode/commands` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `.factory/commands` | `~/.factory/commands` |
+| [Pi](/using-syllago/providers/pi/) | `.pi/prompts` | `~/.pi/agent/prompts` |
 
 ## Frontmatter Fields
 
 Which frontmatter fields each provider recognizes in commands files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | OpenCode |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|
-| `agent` | ✓ | — | — | — | ✓ | ✓ |
-| `allowed-tools` | ✓ | — | — | — | — | — |
-| `argument-hint` | ✓ | — | — | ✓ | ✓ | — |
-| `context` | ✓ | — | — | — | — | — |
-| `description` | ✓ | ✓ | — | ✓ | ✓ | ✓ |
-| `disable-model-invocation` | ✓ | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — |
-| `model` | ✓ | — | — | — | ✓ | ✓ |
-| `name` | ✓ | ✓ | — | — | ✓ | — |
-| `prompt` | — | ✓ | — | — | — | — |
-| `subtask` | — | — | — | — | — | ✓ |
-| `tools` | — | — | — | — | ✓ | — |
-| `user-invocable` | ✓ | — | — | — | — | — |
+| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | OpenCode | Factory Droid | Pi |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | ✓ | ✓ | — | — |
+| `allowed-tools` | ✓ | — | — | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | ✓ | ✓ | — | — | — |
+| `context` | ✓ | — | — | — | — | — | — | — |
+| `description` | ✓ | ✓ | — | ✓ | ✓ | ✓ | — | — |
+| `disable-model-invocation` | ✓ | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — |
+| `model` | ✓ | — | — | — | ✓ | ✓ | — | — |
+| `name` | ✓ | ✓ | — | — | ✓ | — | — | — |
+| `prompt` | — | ✓ | — | — | — | — | — | — |
+| `subtask` | — | — | — | — | — | ✓ | — | — |
+| `tools` | — | — | — | — | ✓ | — | — | — |
+| `user-invocable` | ✓ | — | — | — | — | — | — | — |
 
-**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Roo Code](/using-syllago/providers/roo-code/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/).
+**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Roo Code](/using-syllago/providers/roo-code/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/), [Crush](/using-syllago/providers/crush/).
 
 ## See Also
 
@@ -61,4 +65,4 @@ Which frontmatter fields each provider recognizes in commands files. A checkmark
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.7.1 on 2026-04-17.*
+*Generated from syllago 0.8.0 on 2026-04-17.*

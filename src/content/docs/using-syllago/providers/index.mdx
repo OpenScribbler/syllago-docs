@@ -33,6 +33,9 @@ Not every provider supports every content type. The matrix below shows what each
 | [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio |
 | [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — | 10 | stdio, sse |
 | [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — | — | stdio, sse |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `factory-droid` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 9 | stdio, http |
+| [Pi](/using-syllago/providers/pi/) | `pi` | ✅ | ✅ | — | — | ✅ | ✅ | 15 | — |
+| [Crush](/using-syllago/providers/crush/) | `crush` | ✅ | ✅ | — | ✅ | — | — | — | stdio, http, sse |
 
 Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
 
@@ -54,4 +57,4 @@ syllago install my-rule --to gemini-cli
 
 If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.
 
-*Generated from syllago 0.7.1 on 2026-04-17.*
+*Generated from syllago 0.8.0 on 2026-04-17.*

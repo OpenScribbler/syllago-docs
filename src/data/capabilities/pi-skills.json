@@ -23,7 +23,8 @@
     },
     "compatibility": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: compatibility (optional, max 500 chars)"
+      "mechanism": "yaml frontmatter key: compatibility (optional, max 500 chars)",
+      "provider_field": "compatibility"
     },
     "custom_filename": {
       "supported": true,
@@ -31,15 +32,18 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required, max 1024 chars)"
+      "mechanism": "yaml frontmatter key: description (required, max 1024 chars)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool); confirmed in SkillFrontmatter TypeScript interface as disable-model-invocation?: boolean"
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool); confirmed in SkillFrontmatter TypeScript interface as disable-model-invocation?: boolean",
+      "provider_field": "disable-model-invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required, max 64 chars, lowercase a-z/0-9/hyphens, must match parent directory name)"
+      "mechanism": "yaml frontmatter key: name (required, max 64 chars, lowercase a-z/0-9/hyphens, must match parent directory name)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -51,11 +55,13 @@
     },
     "license": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: license (optional)"
+      "mechanism": "yaml frontmatter key: license (optional)",
+      "provider_field": "license"
     },
     "metadata_map": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: metadata (optional, arbitrary key-value mapping)"
+      "mechanism": "yaml frontmatter key: metadata (optional, arbitrary key-value mapping)",
+      "provider_field": "metadata"
     },
     "project_scope": {
       "supported": true,

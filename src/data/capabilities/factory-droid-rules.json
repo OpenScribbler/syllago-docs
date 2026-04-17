@@ -53,7 +53,7 @@
     {
       "id": "custom_instructions_setting",
       "name": "Custom Instructions Setting",
-      "summary": "Personal settings file customInstructions key provides always-on guidance regardless of which project is open.",
+      "summary": "Provides always-on guidance to the Droid regardless of which project is open, configured via the personal settings file's customInstructions key.",
       "source_ref": "https://docs.factory.ai/cli/configuration",
       "required": null,
       "provider_field": "customInstructions",

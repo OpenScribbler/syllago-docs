@@ -103,7 +103,7 @@ const FETCH_TIMEOUT_MS = 15_000;
 // Providers present in capabilities.json but not yet public. Their capability
 // JSON files stay on disk for future use; they're excluded from matrix pages,
 // MetaBox counts, and canonical-key provider maps.
-const EXCLUDED_PROVIDERS = new Set(["factory-droid", "pi"]);
+const EXCLUDED_PROVIDERS = new Set<string>();
 
 // GitHub issue URL base for "Report issue" links in MetaBox.
 const ISSUE_REPO = "OpenScribbler/syllago";
@@ -390,6 +390,63 @@ function generateCanonicalKeyPages(manifest: CapabilitiesManifest): void {
 }
 
 // ---------------------------------------------------------------------------
+// MDX generation — Canonical keys index page
+// ---------------------------------------------------------------------------
+
+const CONTENT_TYPE_HEADING: Record<string, string> = {
+  mcp: "MCP",
+};
+
+function contentTypeHeading(ct: string): string {
+  return CONTENT_TYPE_HEADING[ct] ?? ct.charAt(0).toUpperCase() + ct.slice(1);
+}
+
+function generateCanonicalKeysIndex(manifest: CapabilitiesManifest): void {
+  const escapeMdx = (s: string) =>
+    s.replace(/\{/g, "\\{").replace(/\}/g, "\\}").replace(/\|/g, "\\|");
+
+  const lines: string[] = [
+    "---",
+    "title: Canonical Keys",
+    "description: Cross-provider canonical keys for AI coding tool content, grouped by content type.",
+    "---",
+    "",
+    "{/* AUTO-GENERATED — do not edit. Source: capabilities.json via sync-capabilities.ts */}",
+    "",
+    "Canonical keys are syllago's cross-provider equivalents — the normalized names for fields, behaviors, and conventions that different AI coding tools express in their own ways. Each key below links to a detail page showing how every provider implements (or does not implement) that concept.",
+    "",
+    "See [format conversion](/using-syllago/format-conversion/) for how keys translate between providers.",
+    "",
+  ];
+
+  const contentTypes = Object.keys(manifest.canonical_keys).sort();
+
+  for (const contentType of contentTypes) {
+    const keys = manifest.canonical_keys[contentType];
+    const keyNames = Object.keys(keys).sort();
+    if (keyNames.length === 0) continue;
+
+    lines.push(`## ${contentTypeHeading(contentType)}`, "");
+    lines.push("| Key | Description |");
+    lines.push("|-----|-------------|");
+
+    for (const keyName of keyNames) {
+      const slug = keyName.replace(/_/g, "-");
+      const meta = keys[keyName];
+      const firstSentence = meta.description.split(".")[0].trim();
+      lines.push(
+        `| [\`${keyName}\`](/reference/canonical-keys/${slug}/) | ${escapeMdx(firstSentence)} |`
+      );
+    }
+    lines.push("");
+  }
+
+  const outputPath = join(CANONICAL_KEYS_MDX_DIR, "index.mdx");
+  writeFileSync(outputPath, lines.join("\n"));
+  console.log("  MDX: reference/canonical-keys/index.mdx");
+}
+
+// ---------------------------------------------------------------------------
 // MDX generation — Capabilities matrix page
 // ---------------------------------------------------------------------------
 
@@ -416,7 +473,7 @@ function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
   for (const [contentType, keys] of Object.entries(manifest.canonical_keys)) {
     const keyNames = Object.keys(keys).sort();
 
-    lines.push(`## ${contentType.charAt(0).toUpperCase() + contentType.slice(1)}`, "");
+    lines.push(`## ${contentTypeHeading(contentType)}`, "");
 
     // Header row.
     const providerCols = providerSlugs.join(" | ");
@@ -536,6 +593,7 @@ async function main() {
   writeCanonicalKeysDataFiles(manifest);
   writeDataQualityFiles(manifest);
   generateCanonicalKeyPages(manifest);
+  generateCanonicalKeysIndex(manifest);
   generateCapabilitiesMatrix(manifest);
 }
 

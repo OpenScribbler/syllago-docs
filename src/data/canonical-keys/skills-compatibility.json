@@ -12,6 +12,10 @@
     "opencode": {
       "supported": true,
       "mechanism": "yaml frontmatter key: compatibility (optional)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional, max 500 chars)"
     }
   }
 }

@@ -12,15 +12,18 @@
     },
     "compatibility": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: compatibility (optional)"
+      "mechanism": "yaml frontmatter key: compatibility (optional)",
+      "provider_field": "compatibility"
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required)"
+      "mechanism": "yaml frontmatter key: description (required)",
+      "provider_field": "description"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required)"
+      "mechanism": "yaml frontmatter key: name (required)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -31,11 +34,13 @@
     },
     "license": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: license (optional)"
+      "mechanism": "yaml frontmatter key: license (optional)",
+      "provider_field": "license"
     },
     "metadata_map": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: metadata (optional map)"
+      "mechanism": "yaml frontmatter key: metadata (optional map)",
+      "provider_field": "metadata"
     },
     "project_scope": {
       "supported": true,

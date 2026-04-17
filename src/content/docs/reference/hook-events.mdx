@@ -17,103 +17,110 @@ Syllago maps each provider's native hook event names to **canonical events** —
 
 Multi-agent coordination events. Fires when teammate agents become idle or available.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `teammate_idle` | `TeammateIdle` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `teammate_idle` | `TeammateIdle` | — | — | — | — | — | — | — |
 
 ## Config
 
 Configuration file change detection. Fires when settings files are modified during a session.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `config_change` | `ConfigChange` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `config_change` | `ConfigChange` | — | — | — | — | — | — | — |
 
 ## Context
 
 Events related to context management — compaction, instruction loading, and context window maintenance.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `after_compact` | `PostCompact` | — | — | — | — | — |
-| `before_compact` | `PreCompact` | `PreCompress` | `PreCompact` | — | — | — |
-| `instructions_loaded` | `InstructionsLoaded` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `after_compact` | `PostCompact` | — | — | — | — | — | — | — |
+| `before_compact` | `PreCompact` | `PreCompress` | `PreCompact` | — | — | — | `PreCompact` | `session_before_compact` |
+| `context_update` | — | — | — | — | — | — | — | `context` |
+| `instructions_loaded` | `InstructionsLoaded` | — | — | — | — | — | — | — |
 
 ## Interaction
 
 User-facing prompts and dialogs. Fires when the agent asks questions or presents choices.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `elicitation` | `Elicitation` | — | — | — | — | — |
-| `elicitation_result` | `ElicitationResult` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `elicitation` | `Elicitation` | — | — | — | — | — | — | — |
+| `elicitation_result` | `ElicitationResult` | — | — | — | — | — | — | — |
 
 ## Lifecycle
 
 Session and agent lifecycle boundaries — start, stop, errors, subagents, and task completion.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `after_task` | — | — | — | — | — | `Post Task Execution` |
-| `agent_stop` | `Stop` | `AfterAgent` | `Stop` | `post_cascade_response` | `agentStop` | `stop` |
-| `before_prompt` | `UserPromptSubmit` | `BeforeAgent` | `UserPromptSubmit` | `pre_user_prompt` | `userPromptSubmitted` | `userPromptSubmit` |
-| `before_task` | — | — | — | — | — | `Pre Task Execution` |
-| `error_occurred` | `ErrorOccurred` | — | — | — | `errorOccurred` | — |
-| `session_end` | `SessionEnd` | `SessionEnd` | `SessionEnd` | `session_end` | `sessionEnd` | — |
-| `session_start` | `SessionStart` | `SessionStart` | `SessionStart` | `session_start` | `sessionStart` | `agentSpawn` |
-| `stop_failure` | `StopFailure` | — | — | — | — | — |
-| `subagent_start` | `SubagentStart` | — | `SubagentStart` | — | — | — |
-| `subagent_stop` | `SubagentStop` | — | `SubagentStop` | — | `subagentStop` | — |
-| `task_completed` | `TaskCompleted` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `after_task` | — | — | — | — | — | `Post Task Execution` | — | — |
+| `agent_stop` | `Stop` | `AfterAgent` | `Stop` | `post_cascade_response` | `agentStop` | `stop` | `Stop` | `agent_end` |
+| `before_prompt` | `UserPromptSubmit` | `BeforeAgent` | `UserPromptSubmit` | `pre_user_prompt` | `userPromptSubmitted` | `userPromptSubmit` | `UserPromptSubmit` | `input` |
+| `before_task` | — | — | — | — | — | `Pre Task Execution` | — | — |
+| `error_occurred` | `ErrorOccurred` | — | — | — | `errorOccurred` | — | — | — |
+| `session_end` | `SessionEnd` | `SessionEnd` | `SessionEnd` | `session_end` | `sessionEnd` | — | `SessionEnd` | `session_shutdown` |
+| `session_start` | `SessionStart` | `SessionStart` | `SessionStart` | `session_start` | `sessionStart` | `agentSpawn` | `SessionStart` | `session_start` |
+| `stop_failure` | `StopFailure` | — | — | — | — | — | — | — |
+| `subagent_start` | `SubagentStart` | — | `SubagentStart` | — | — | — | `SubagentStart` | `before_agent_start` |
+| `subagent_stop` | `SubagentStop` | — | `SubagentStop` | — | `subagentStop` | — | `SubagentStop` | — |
+| `task_completed` | `TaskCompleted` | — | — | — | — | — | — | — |
 
 ## Model
 
 Model invocation boundaries. Fires before/after LLM calls and tool selection decisions.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `after_model` | — | `AfterModel` | `afterAgentResponse` | — | — | — |
-| `before_model` | — | `BeforeModel` | `beforeAgentResponse` | — | — | — |
-| `before_tool_selection` | — | `BeforeToolSelection` | `beforeToolSelection` | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `after_model` | — | `AfterModel` | `afterAgentResponse` | — | — | — | — | — |
+| `before_model` | — | `BeforeModel` | `beforeAgentResponse` | — | — | — | — | — |
+| `before_tool_selection` | — | `BeforeToolSelection` | `beforeToolSelection` | — | — | — | — | — |
+| `message_end` | — | — | — | — | — | — | — | `message_end` |
+| `message_start` | — | — | — | — | — | — | — | `message_start` |
+| `model_select` | — | — | — | — | — | — | — | `model_select` |
+| `turn_end` | — | — | — | — | — | — | — | `turn_end` |
+| `turn_start` | — | — | — | — | — | — | — | `turn_start` |
 
 ## Output
 
 Events for agent output like notifications and status messages.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `notification` | `Notification` | `Notification` | — | — | — | — |
-| `transcript_export` | — | — | — | `post_cascade_response_with_transcript` | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `notification` | `Notification` | `Notification` | — | — | — | — | — | — |
+| `transcript_export` | — | — | — | `post_cascade_response_with_transcript` | — | — | — | — |
 
 ## Security
 
 Permission and authorization checkpoints. Fires when the agent requests elevated permissions.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `permission_request` | `PermissionRequest` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `permission_request` | `PermissionRequest` | — | — | — | — | — | — | — |
 
 ## Tool
 
 Fired before and after tool/function calls. Use these to validate, log, or transform tool inputs and outputs.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `after_tool_execute` | `PostToolUse` | `AfterTool` | `PostToolUse` | — | `postToolUse` | `postToolUse` |
-| `before_tool_execute` | `PreToolUse` | `BeforeTool` | `PreToolUse` | — | `preToolUse` | `preToolUse` |
-| `tool_use_failure` | `PostToolUseFailure` | — | `postToolUseFailure` | — | `errorOccurred` | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `after_tool_execute` | `PostToolUse` | `AfterTool` | `PostToolUse` | — | `postToolUse` | `postToolUse` | `PostToolUse` | `tool_result` |
+| `before_tool_execute` | `PreToolUse` | `BeforeTool` | `PreToolUse` | — | `preToolUse` | `preToolUse` | `PreToolUse` | `tool_call` |
+| `tool_use_failure` | `PostToolUseFailure` | — | `postToolUseFailure` | — | `errorOccurred` | — | — | — |
+| `user_bash` | — | — | — | — | — | — | — | `user_bash` |
 
 ## Workspace
 
 Git worktree creation and removal. Fires when the agent manages isolated working copies.
 
-| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro |
-|-----------------|---|---|---|---|---|---|
-| `file_changed` | `FileChanged` | — | `afterFileEdit` | — | — | `File Save` |
-| `file_created` | — | — | — | — | — | `File Create` |
-| `file_deleted` | — | — | — | — | — | `File Delete` |
-| `worktree_create` | `WorktreeCreate` | — | — | `post_setup_worktree` | — | — |
-| `worktree_remove` | `WorktreeRemove` | — | — | — | — | — |
+| Canonical Event | Claude Code | Gemini CLI | Cursor | Windsurf | Copilot CLI | Kiro | Factory Droid | Pi |
+|-----------------|---|---|---|---|---|---|---|---|
+| `file_changed` | `FileChanged` | — | `afterFileEdit` | — | — | `File Save` | — | — |
+| `file_created` | — | — | — | — | — | `File Create` | — | — |
+| `file_deleted` | — | — | — | — | — | `File Delete` | — | — |
+| `worktree_create` | `WorktreeCreate` | — | — | `post_setup_worktree` | — | — | — | — |
+| `worktree_remove` | `WorktreeRemove` | — | — | — | — | — | — | — |
 
 ## Coverage Summary
 
@@ -125,6 +132,8 @@ Git worktree creation and removal. Fires when the agent manages isolated working
 | [Windsurf](/using-syllago/providers/windsurf/) | 6 | `command` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | 9 | `command` |
 | [Kiro](/using-syllago/providers/kiro/) | 10 | `command` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | 9 | `command` |
+| [Pi](/using-syllago/providers/pi/) | 15 | `command` |
 
 **Hooks supported, event mappings pending:** [Codex](/using-syllago/providers/codex/), [Cline](/using-syllago/providers/cline/). These providers support hooks, but syllago does not yet map their event names. Hook conversion is best-effort.
 
@@ -133,4 +142,4 @@ Git worktree creation and removal. Fires when the agent manages isolated working
 - [Hooks Content Type](/using-syllago/content-types/hooks/)
 - [Providers Overview](/using-syllago/providers/)
 
-*Generated from syllago 0.7.1 on 2026-04-17.*
+*Generated from syllago 0.8.0 on 2026-04-17.*

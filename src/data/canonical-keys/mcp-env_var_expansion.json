@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI MCP configuration does not document environment variable expansion"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP configuration does not document environment variable expansion"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "env_variable_expansion: Gemini CLI MCP configuration supports environment variable expansion for secrets and paths"

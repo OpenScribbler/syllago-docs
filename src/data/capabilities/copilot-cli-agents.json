@@ -31,11 +31,13 @@
     },
     "model_selection": {
       "supported": true,
-      "mechanism": "model field in frontmatter overrides default model for that agent"
+      "mechanism": "model field in frontmatter overrides default model for that agent",
+      "provider_field": "model"
     },
     "per_agent_mcp": {
       "supported": true,
-      "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default"
+      "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default",
+      "provider_field": "mcp-servers"
     },
     "subagent_spawning": {
       "supported": true,
@@ -43,7 +45,9 @@
     },
     "tool_restrictions": {
       "supported": true,
-      "mechanism": "tools field with cross-provider alias system (execute/shell/Bash, read/Read, edit/Edit, etc.); [\"*\"] grants all tools; unrecognized names silently ignored"
+      "mechanism": "tools field with cross-provider alias system (execute/shell/Bash, read/Read, edit/Edit, etc.); [\"*\"] grants all tools; unrecognized names silently ignored",
+      "provider_field": "tools",
+      "extension_id": "tool_aliases"
     }
   },
   "providerExtensions": [
@@ -74,7 +78,7 @@
     {
       "id": "tool_aliases",
       "name": "Cross-Provider Tool Aliases",
-      "summary": "The tools field accepts case-insensitive aliases (execute/shell/Bash, read/Read, edit/Edit/Write, etc.); unknown names are silently ignored for portability.",
+      "summary": "Restricts available tools using case-insensitive aliases (execute/shell/Bash, read/Read, edit/Edit/Write, etc.); unknown names are silently ignored for portability.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/custom-agents-configuration.md",
       "required": null,
       "provider_field": "tools",

@@ -12,6 +12,10 @@
     "opencode": {
       "supported": true,
       "mechanism": "yaml frontmatter key: license (optional)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: license (optional)"
     }
   }
 }

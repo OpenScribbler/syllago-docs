@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "/agent slash command, natural language instruction, auto-inference (suppressible with disable-model-invocation), or --agent flag; 4 patterns"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "exposed as subagent_type targets for the Task tool; droids enabled by default with live progress reporting in UI"
+    },
     "kiro": {
       "supported": true,
       "mechanism": "keyboard shortcut binding for IDE invocation; welcomeMessage shown on agent start; manual selection via agent picker"

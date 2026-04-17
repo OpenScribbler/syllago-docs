@@ -25,11 +25,19 @@
       "supported": false,
       "mechanism": "organization-level and enterprise-level skills explicitly stated as 'coming soon' in source"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": ""
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": ""
     },
     "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "pi": {
       "supported": false,
       "mechanism": ""
     },

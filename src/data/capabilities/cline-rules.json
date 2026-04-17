@@ -53,7 +53,7 @@
     {
       "id": "conditional_rules_paths",
       "name": "Conditional Rules via YAML Frontmatter paths",
-      "summary": "YAML frontmatter `paths` (glob array) gates rule activation to matching files; empty array disables, missing frontmatter is always-on.",
+      "summary": "Gates rule activation to files matching a glob array; empty array disables, missing frontmatter is always-on.",
       "source_ref": "https://docs.cline.bot/customization/rules#conditional-rules",
       "required": null,
       "provider_field": "paths",

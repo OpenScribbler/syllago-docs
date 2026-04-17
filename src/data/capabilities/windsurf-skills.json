@@ -18,11 +18,15 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching."
+      "mechanism": "yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching.",
+      "provider_field": "description",
+      "extension_id": "auto_invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions."
+      "mechanism": "yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions.",
+      "provider_field": "name",
+      "extension_id": "name_format_constraint"
     },
     "global_scope": {
       "supported": true,
@@ -63,7 +67,7 @@
     {
       "id": "name_format_constraint",
       "name": "Skill name format constraint",
-      "summary": "The `name` frontmatter field must be unique per scope and contain only lowercase letters, numbers, and hyphens.",
+      "summary": "Skill identifiers must be unique per scope and contain only lowercase letters, numbers, and hyphens.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/skills.md#required-frontmatter-fields",
       "required": null,
       "provider_field": "name",

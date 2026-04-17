@@ -85,7 +85,7 @@
     {
       "id": "transcript_hook",
       "name": "Full conversation transcript hook variant",
-      "summary": "post_cascade_response_with_transcript writes a structured JSONL transcript to ~/.windsurf/transcripts/ and delivers the file path instead of inline markdown.",
+      "summary": "A transcript-aware post-response hook variant writes structured JSONL to ~/.windsurf/transcripts/ and delivers the file path instead of inline markdown.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#post_cascade_response_with_transcript",
       "required": null,
       "provider_field": "post_cascade_response_with_transcript",

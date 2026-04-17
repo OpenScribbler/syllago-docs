@@ -50,6 +50,17 @@ export const sidebar: SidebarItem[] = [
         items: [
           { label: 'Overview', slug: 'using-syllago/providers' },
           {
+            label: 'Amp',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/amp/' },
+              { label: 'Skills', link: '/using-syllago/providers/amp/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/amp/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/amp/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/amp/mcp/' },
+            ],
+          },
+          {
             label: 'Claude Code',
             collapsed: true,
             items: [
@@ -63,40 +74,6 @@ export const sidebar: SidebarItem[] = [
             ],
           },
           {
-            label: 'Cursor',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/cursor/' },
-              { label: 'Skills', link: '/using-syllago/providers/cursor/skills/' },
-            ],
-          },
-          {
-            label: 'Windsurf',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/windsurf/' },
-              { label: 'Skills', link: '/using-syllago/providers/windsurf/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/windsurf/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/windsurf/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/windsurf/mcp/' },
-              { label: 'Commands', link: '/using-syllago/providers/windsurf/commands/' },
-              { label: 'Agents', link: '/using-syllago/providers/windsurf/agents/' },
-            ],
-          },
-          {
-            label: 'Copilot CLI',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/copilot-cli/' },
-              { label: 'Skills', link: '/using-syllago/providers/copilot-cli/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/copilot-cli/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/copilot-cli/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/copilot-cli/mcp/' },
-              { label: 'Commands', link: '/using-syllago/providers/copilot-cli/commands/' },
-              { label: 'Agents', link: '/using-syllago/providers/copilot-cli/agents/' },
-            ],
-          },
-          {
             label: 'Cline',
             collapsed: true,
             items: [
@@ -106,54 +83,6 @@ export const sidebar: SidebarItem[] = [
               { label: 'Rules', link: '/using-syllago/providers/cline/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/cline/mcp/' },
               { label: 'Commands', link: '/using-syllago/providers/cline/commands/' },
-            ],
-          },
-          {
-            label: 'Roo Code',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/roo-code/' },
-              { label: 'Skills', link: '/using-syllago/providers/roo-code/skills/' },
-            ],
-          },
-          {
-            label: 'Kiro',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/kiro/' },
-              { label: 'Skills', link: '/using-syllago/providers/kiro/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/kiro/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/kiro/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/kiro/mcp/' },
-              { label: 'Agents', link: '/using-syllago/providers/kiro/agents/' },
-            ],
-          },
-          {
-            label: 'Zed',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/zed/' },
-              { label: 'Skills', link: '/using-syllago/providers/zed/skills/' },
-            ],
-          },
-          {
-            label: 'Gemini CLI',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/gemini-cli/' },
-              { label: 'Skills', link: '/using-syllago/providers/gemini-cli/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/gemini-cli/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/gemini-cli/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/gemini-cli/mcp/' },
-              { label: 'Commands', link: '/using-syllago/providers/gemini-cli/commands/' },
-            ],
-          },
-          {
-            label: 'OpenCode',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/opencode/' },
-              { label: 'Skills', link: '/using-syllago/providers/opencode/skills/' },
             ],
           },
           {
@@ -170,14 +99,119 @@ export const sidebar: SidebarItem[] = [
             ],
           },
           {
-            label: 'Amp',
+            label: 'Copilot CLI',
             collapsed: true,
             items: [
-              { label: 'Overview', link: '/using-syllago/providers/amp/' },
-              { label: 'Skills', link: '/using-syllago/providers/amp/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/amp/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/amp/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/amp/mcp/' },
+              { label: 'Overview', link: '/using-syllago/providers/copilot-cli/' },
+              { label: 'Skills', link: '/using-syllago/providers/copilot-cli/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/copilot-cli/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/copilot-cli/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/copilot-cli/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/copilot-cli/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/copilot-cli/agents/' },
+            ],
+          },
+          {
+            label: 'Crush',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/crush/' },
+              { label: 'Skills', link: '/using-syllago/providers/crush/skills/' },
+              { label: 'Rules', link: '/using-syllago/providers/crush/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/crush/mcp/' },
+            ],
+          },
+          {
+            label: 'Cursor',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/cursor/' },
+              { label: 'Skills', link: '/using-syllago/providers/cursor/skills/' },
+            ],
+          },
+          {
+            label: 'Factory Droid',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/factory-droid/' },
+              { label: 'Skills', link: '/using-syllago/providers/factory-droid/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/factory-droid/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/factory-droid/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/factory-droid/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/factory-droid/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/factory-droid/agents/' },
+            ],
+          },
+          {
+            label: 'Gemini CLI',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/gemini-cli/' },
+              { label: 'Skills', link: '/using-syllago/providers/gemini-cli/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/gemini-cli/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/gemini-cli/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/gemini-cli/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/gemini-cli/commands/' },
+            ],
+          },
+          {
+            label: 'Kiro',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/kiro/' },
+              { label: 'Skills', link: '/using-syllago/providers/kiro/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/kiro/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/kiro/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/kiro/mcp/' },
+              { label: 'Agents', link: '/using-syllago/providers/kiro/agents/' },
+            ],
+          },
+          {
+            label: 'OpenCode',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/opencode/' },
+              { label: 'Skills', link: '/using-syllago/providers/opencode/skills/' },
+            ],
+          },
+          {
+            label: 'Pi',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/pi/' },
+              { label: 'Skills', link: '/using-syllago/providers/pi/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/pi/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/pi/rules/' },
+              { label: 'Commands', link: '/using-syllago/providers/pi/commands/' },
+            ],
+          },
+          {
+            label: 'Roo Code',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/roo-code/' },
+              { label: 'Skills', link: '/using-syllago/providers/roo-code/skills/' },
+            ],
+          },
+          {
+            label: 'Windsurf',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/windsurf/' },
+              { label: 'Skills', link: '/using-syllago/providers/windsurf/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/windsurf/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/windsurf/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/windsurf/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/windsurf/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/windsurf/agents/' },
+            ],
+          },
+          {
+            label: 'Zed',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/zed/' },
+              { label: 'Skills', link: '/using-syllago/providers/zed/skills/' },
             ],
           },
         ],
@@ -190,6 +224,7 @@ export const sidebar: SidebarItem[] = [
     label: 'Reference',
     collapsed: true,
     items: [
+      { label: 'Canonical Keys', slug: 'reference/canonical-keys' },
       { label: 'Compare Providers', slug: 'reference/compare-providers' },
       { label: 'Hook Event Matrix', slug: 'reference/hook-events' },
       { label: 'Rules Matrix', slug: 'reference/rules-matrix' },

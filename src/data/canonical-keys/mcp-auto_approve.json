@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI does not document pre-configured auto-approval for MCP tools"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document pre-configured auto-approval for MCP tools"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI does not document pre-configured auto-approval for specific MCP tools"

@@ -25,11 +25,19 @@
       "supported": true,
       "mechanism": "slash-prefixed skill name in user prompt (e.g. /frontend-design)"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": ""
     },
     "kiro": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "pi": {
       "supported": false,
       "mechanism": ""
     },

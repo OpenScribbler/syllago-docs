@@ -147,6 +147,11 @@ const hasAny = hasFields || hasOther;
 {hasFields && (
   <>
     <h3 id="fields" class="features-subheading">Fields</h3>
+    <p class="features-subintro">
+      Native frontmatter or config fields this provider exposes. The first
+      column is the provider's own field name; the canonical key column links
+      to syllago's cross-provider equivalent.
+    </p>
     <table class="features-table">
       <thead>
         <tr>
@@ -185,6 +190,11 @@ const hasAny = hasFields || hasOther;
 {hasOther && (
   <>
     <h3 id="other-features" class="features-subheading">Other features</h3>
+    <p class="features-subintro">
+      Behaviors, conventions, and capabilities that aren't tied to a single
+      named field — things like path-based activation, discovery rules, and
+      lifecycle behavior.
+    </p>
     <table class="features-table">
       <thead>
         <tr>
@@ -230,6 +240,12 @@ const hasAny = hasFields || hasOther;
     font-weight: 600;
     margin: 1.25rem 0 0.5rem;
     color: var(--sl-color-text);
+  }
+
+  .features-subintro {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin: 0 0 0.75rem;
   }
 
   .features-table {

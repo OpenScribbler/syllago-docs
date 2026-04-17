@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
+    },
     "kiro": {
       "supported": true,
       "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"

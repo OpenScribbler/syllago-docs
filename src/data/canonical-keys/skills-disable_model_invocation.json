@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": ""
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": ""
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": false,
       "mechanism": ""
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool); confirmed in SkillFrontmatter TypeScript interface as disable-model-invocation?: boolean"
     }
   }
 }

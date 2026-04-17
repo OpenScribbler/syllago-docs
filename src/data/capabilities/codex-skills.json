@@ -28,7 +28,8 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "YAML frontmatter key: description (required — empty string triggers MissingField error; max 1024 chars enforced after whitespace normalization)"
+      "mechanism": "YAML frontmatter key: description (required — empty string triggers MissingField error; max 1024 chars enforced after whitespace normalization)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
@@ -36,7 +37,8 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "YAML frontmatter key: name (optional — falls back to parent directory name if absent or empty; max 64 chars enforced after whitespace normalization)"
+      "mechanism": "YAML frontmatter key: name (optional — falls back to parent directory name if absent or empty; max 64 chars enforced after whitespace normalization)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,

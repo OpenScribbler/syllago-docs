@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "pre_tool_use_deny: Copilot CLI PreToolUse hooks can deny (block) the tool invocation; no allow or modify documented"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "hook_exit_code_behavior: Factory Droid hooks use exit codes to signal block (non-zero) or allow (zero) decisions on the triggering action"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "exit_code_semantics: Gemini CLI uses exit codes to signal block (non-zero) or allow (zero) decisions; no modify sub-capability documented"
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
     },
     "windsurf": {
       "supported": false,

@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks cannot modify tool input before execution"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot modify tool input before execution"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI hooks cannot modify tool input before execution"
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": false,
       "mechanism": "Kiro hooks cannot modify tool input before execution"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "pi_extension_tool_call_blocking: Pi extensions can intercept and modify tool call inputs before execution"
     },
     "windsurf": {
       "supported": false,

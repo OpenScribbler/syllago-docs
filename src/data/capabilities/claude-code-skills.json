@@ -22,15 +22,19 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (recommended)"
+      "mechanism": "yaml frontmatter key: description (recommended)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)"
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)",
+      "provider_field": "disable-model-invocation",
+      "extension_id": "auto_invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name)"
+      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -52,7 +56,8 @@
     },
     "user_invocable": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true)"
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true)",
+      "provider_field": "user-invocable"
     }
   },
   "providerExtensions": [
@@ -84,7 +89,7 @@
     {
       "id": "argument_hint",
       "name": "Argument Hint",
-      "summary": "Frontmatter argument-hint shows expected argument format during autocomplete (purely presentational).",
+      "summary": "Shows expected argument format during autocomplete (purely presentational).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "argument-hint",
@@ -93,7 +98,7 @@
     {
       "id": "allowed_tools",
       "name": "Allowed Tools Pre-Approval",
-      "summary": "Frontmatter allowed-tools pre-approves tool calls while the skill is active (does not restrict availability).",
+      "summary": "Pre-approves tool calls while the skill is active; does not restrict tool availability.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#pre-approve-tools-for-a-skill",
       "required": null,
       "provider_field": "allowed-tools",
@@ -102,7 +107,7 @@
     {
       "id": "model_override",
       "name": "Per-Skill Model Override",
-      "summary": "Frontmatter model overrides the session model while this skill is active.",
+      "summary": "Overrides the session model while this skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "model",
@@ -111,7 +116,7 @@
     {
       "id": "effort_override",
       "name": "Per-Skill Effort Level",
-      "summary": "Frontmatter effort overrides the session effort level (low/medium/high/max) while the skill is active.",
+      "summary": "Overrides the session effort level (low/medium/high/max) while the skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "effort",
@@ -120,7 +125,7 @@
     {
       "id": "subagent_execution",
       "name": "Subagent Execution via context fork",
-      "summary": "Frontmatter context: fork runs the skill in an isolated subagent with no conversation history; companion agent field selects the subagent type.",
+      "summary": "Runs the skill in an isolated subagent with no conversation history when set to fork; companion agent field selects the subagent type.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#run-skills-in-a-subagent",
       "required": null,
       "provider_field": "context",
@@ -129,7 +134,7 @@
     {
       "id": "skill_scoped_hooks",
       "name": "Skill-Scoped Lifecycle Hooks",
-      "summary": "Frontmatter hooks attaches lifecycle hooks that fire only while this skill is active.",
+      "summary": "Attaches lifecycle hooks that fire only while this skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "hooks",
@@ -138,7 +143,7 @@
     {
       "id": "path_activation_filter",
       "name": "Path-Based Activation Filter",
-      "summary": "Frontmatter paths globs limit auto-activation to file matches; explicit /skill-name invocation is unrestricted.",
+      "summary": "Limits auto-activation to file glob matches; explicit /skill-name invocation remains unrestricted.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "paths",
@@ -147,7 +152,7 @@
     {
       "id": "shell_selection",
       "name": "Per-Skill Shell Selection",
-      "summary": "Frontmatter shell selects bash (default) or powershell for inline command execution blocks within the skill.",
+      "summary": "Selects bash (default) or powershell for inline command execution blocks within the skill.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "shell",
@@ -212,7 +217,7 @@
     {
       "id": "disable_skill_shell_execution_policy",
       "name": "Organization Policy to Disable Shell Execution in Skills",
-      "summary": "Managed setting disableSkillShellExecution disables inline shell command injection for user/project/plugin/added-directory skills.",
+      "summary": "Disables inline shell command injection for user/project/plugin/added-directory skills.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#inject-dynamic-context",
       "required": null,
       "provider_field": "disableSkillShellExecution",

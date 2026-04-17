@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required per Agent Skills open standard)"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (recommended, not required)"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Gemini should use it — drives auto-invocation decisions"
@@ -36,6 +40,10 @@
     "opencode": {
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required, max 1024 chars)"
     },
     "windsurf": {
       "supported": true,

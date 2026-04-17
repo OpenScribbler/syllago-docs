@@ -42,7 +42,7 @@
     {
       "id": "activation_modes",
       "name": "Four activation modes via trigger frontmatter",
-      "summary": "The `trigger` frontmatter field selects one of four activation modes: always_on, model_decision, glob, or manual.",
+      "summary": "Rules select one of four activation modes (always_on, model_decision, glob, or manual) via frontmatter.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#activation-modes",
       "required": null,
       "provider_field": "trigger",

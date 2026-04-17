@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI MCP transport types not documented"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP transport types not documented beyond basic MCP support"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "transport_types: Gemini CLI documents supported MCP transport protocols including stdio and HTTP"

@@ -33,7 +33,7 @@
     {
       "id": "pi_prompt_template_description_frontmatter",
       "name": "Optional description frontmatter for autocomplete",
-      "summary": "Optional YAML frontmatter description shown in / autocomplete; falls back to the first non-empty body line if omitted.",
+      "summary": "Shown in / autocomplete to describe the template; falls back to the first non-empty body line if omitted.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
       "required": null,
       "provider_field": "description",

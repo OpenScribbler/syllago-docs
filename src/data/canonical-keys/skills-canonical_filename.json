@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "SKILL.md (fixed filename per Agent Skills open standard)"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "SKILL.md (fixed, required filename within the skill directory)"
+    },
     "gemini-cli": {
       "supported": true,
       "mechanism": "SKILL.md (required, fixed name)"
@@ -36,6 +40,10 @@
     "opencode": {
       "supported": true,
       "mechanism": "Fixed filename SKILL.md inside skill directory (Agent Skills spec)"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed filename for directory-form skills)"
     },
     "windsurf": {
       "supported": true,

@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI rules load unconditionally at session start; no conditional or manual activation modes documented"
     },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid rule files load unconditionally; no conditional or model-decision activation documented"
+    },
     "gemini-cli": {
       "supported": false,
       "mechanism": "Gemini CLI rule files load unconditionally; no conditional activation syntax documented"
@@ -32,6 +36,10 @@
     "kiro": {
       "supported": true,
       "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi rule files load unconditionally; no conditional or model-decision activation documented"
     },
     "windsurf": {
       "supported": true,

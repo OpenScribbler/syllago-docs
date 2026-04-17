@@ -147,7 +147,16 @@ if (capability.installPath) {
     mono: true,
   });
 }
-if (installMethod) glanceItems.push({ label: 'Syllago install method', value: installMethod });
+const supportsDirectCopy = contentType !== 'hooks' && contentType !== 'mcp';
+const installMethods: string[] = [];
+if (installMethod) installMethods.push(installMethod);
+if (supportsDirectCopy) installMethods.push('Direct copy');
+if (installMethods.length > 0) {
+  glanceItems.push({
+    label: 'Syllago install method',
+    value: installMethods.length === 1 ? installMethods[0] : installMethods,
+  });
+}
 glanceItems.push({
   label: 'Symlink support',
   value: capability.symlinkSupport ? 'Yes' : 'No',
@@ -171,7 +180,6 @@ if (capability.frontmatterFields?.length) {
 ---
 
 <section class="at-a-glance not-content" aria-label="At a glance">
-  <h2 class="at-a-glance__heading">At a glance</h2>
   <dl class="at-a-glance__grid">
     {glanceItems.map((item) => (
       <>
@@ -253,13 +261,6 @@ if (capability.frontmatterFields?.length) {
     background-color: var(--sl-color-bg-nav);
   }
 
-  .at-a-glance__heading {
-    font-size: var(--sl-text-h4);
-    font-weight: 600;
-    margin: 0 0 0.625rem;
-    color: var(--sl-color-text);
-  }
-
   .at-a-glance__grid {
     display: grid;
     grid-template-columns: max-content 1fr;
@@ -281,6 +282,9 @@ if (capability.frontmatterFields?.length) {
 
   .at-a-glance__grid code {
     font-size: 0.875em;
+    background-color: var(--sl-color-bg-inline-code);
+    padding: 0.125em 0.375em;
+    border-radius: 0.1875rem;
   }
 
   .hook-events-table {

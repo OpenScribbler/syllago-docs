@@ -22,7 +22,8 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Gemini should use it — drives auto-invocation decisions"
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Gemini should use it — drives auto-invocation decisions",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": false,
@@ -30,7 +31,8 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required); value should match the skill's directory name"
+      "mechanism": "yaml frontmatter key: name (required); value should match the skill's directory name",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,

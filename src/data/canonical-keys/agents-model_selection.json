@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "model field in frontmatter overrides default model for that agent"
     },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "per-droid model preference field independent of global model setting; enables mixed-model agent compositions"
+    },
     "kiro": {
       "supported": true,
       "mechanism": "model field in agent JSON config overrides workspace default for that agent"

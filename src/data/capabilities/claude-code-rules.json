@@ -70,7 +70,7 @@
     {
       "id": "claude_md_excludes",
       "name": "Exclude CLAUDE.md Files by Pattern",
-      "summary": "Setting claudeMdExcludes skips ancestor CLAUDE.md or rules files by path/glob; managed CLAUDE.md cannot be excluded.",
+      "summary": "Skips ancestor CLAUDE.md or rules files by path/glob; managed CLAUDE.md cannot be excluded.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#exclude-specific-claude-md-files",
       "required": null,
       "provider_field": "claudeMdExcludes",

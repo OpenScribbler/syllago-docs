@@ -22,15 +22,18 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (recommended, not required)"
+      "mechanism": "yaml frontmatter key: description (recommended, not required)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)",
+      "provider_field": "disable-model-invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
+      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -53,7 +56,8 @@
     },
     "user_invocable": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)",
+      "provider_field": "user-invocable"
     }
   },
   "providerExtensions": [
