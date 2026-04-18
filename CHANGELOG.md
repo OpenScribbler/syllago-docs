@@ -2,6 +2,21 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-17 (sidebar codegen)
+
+### Added
+- `scripts/sync-providers.ts` — automated provider sidebar generation. New `generateProvidersSidebarBlock` and `writeProvidersSidebarBlock` functions regenerate the Supported Providers section of `sidebar.ts` between `// AUTO-GENERATED:PROVIDERS START` / `END` markers on every sync. Provider entries are sorted alphabetically; content type entries follow the canonical order (Skills → Hooks → Rules → MCP Configs → Commands → Agents) and only appear when `content[ct].supported === true` in the manifest. Prevents future drift between sidebar and provider data.
+- `sidebar.ts` — `// AUTO-GENERATED:PROVIDERS START` / `END` managed-block markers wrapping the provider entries.
+
+### Fixed
+- `sidebar.ts` — restored missing sidebar entries that had drifted from the v0.8.0/v0.9.0 manifest data:
+  - **Cursor**: added Hooks, Rules, MCP Configs, Commands, Agents (was Skills-only)
+  - **OpenCode**: added Rules, MCP Configs, Commands, Agents (was Skills-only)
+  - **Roo Code**: added Rules, MCP Configs, Commands, Agents (was Skills-only)
+  - **Gemini CLI**: added Agents (added to the manifest in v0.9.0; codegen catch)
+  - **Windsurf**: removed stale Agents entry (Windsurf does not support agents)
+  - **Zed**: replaced incorrect Skills entry with Rules + MCP Configs (Zed's actual supported types)
+
 ## 2026-04-17 (v0.9.0 sync)
 
 ### Changed

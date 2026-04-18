@@ -65,7 +65,13 @@ const MDX_OUTPUT_DIR = join(ROOT_DIR, "src/content/docs/using-syllago/providers"
 const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
 const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
+const SIDEBAR_PATH = join(ROOT_DIR, "sidebar.ts");
 const FETCH_TIMEOUT_MS = 15_000;
+
+// Canonical content type order in the sidebar (Skills first, Agents last).
+const SIDEBAR_CT_ORDER = ["skills", "hooks", "rules", "mcp", "commands", "agents"];
+const SIDEBAR_START_MARKER = "// AUTO-GENERATED:PROVIDERS START";
+const SIDEBAR_END_MARKER = "// AUTO-GENERATED:PROVIDERS END";
 
 // Display names for content types (used in tables).
 const CT_DISPLAY: Record<string, string> = {
@@ -246,6 +252,70 @@ function writeProviderDataFiles(providers: ProviderCapEntry[]): void {
   }
 
   console.log(`  Data: ${providers.length} JSON files in ${DATA_OUTPUT_DIR}`);
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar generation — Providers section
+// ---------------------------------------------------------------------------
+
+// Renders the providers block as it appears between AUTO-GENERATED markers in
+// sidebar.ts. Indentation matches the surrounding Starlight config: 10 spaces
+// for marker + provider entry braces, 12 for entry properties, 14 for items.
+function generateProvidersSidebarBlock(providers: ProviderCapEntry[]): string {
+  const sorted = [...providers].sort((a, b) => a.name.localeCompare(b.name));
+  const lines: string[] = [
+    `          ${SIDEBAR_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand.`,
+  ];
+  for (const prov of sorted) {
+    const safeName = prov.name.replace(/'/g, "\\'");
+    lines.push(
+      `          {`,
+      `            label: '${safeName}',`,
+      `            collapsed: true,`,
+      `            items: [`,
+      `              { label: 'Overview', link: '/using-syllago/providers/${prov.slug}/' },`,
+    );
+    for (const ct of SIDEBAR_CT_ORDER) {
+      if (prov.content[ct]?.supported) {
+        const label = CT_DISPLAY[ct] ?? ct;
+        lines.push(
+          `              { label: '${label}', link: '/using-syllago/providers/${prov.slug}/${ct}/' },`,
+        );
+      }
+    }
+    lines.push(`            ],`, `          },`);
+  }
+  lines.push(`          ${SIDEBAR_END_MARKER}`);
+  return lines.join("\n");
+}
+
+function writeProvidersSidebarBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(SIDEBAR_PATH)) {
+    throw new Error(`sidebar.ts not found at ${SIDEBAR_PATH}`);
+  }
+  const current = readFileSync(SIDEBAR_PATH, "utf-8");
+  const startIdx = current.indexOf(SIDEBAR_START_MARKER);
+  const endIdx = current.indexOf(SIDEBAR_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `sidebar.ts is missing AUTO-GENERATED:PROVIDERS markers. ` +
+      `Add the START/END comment block inside the 'Supported Providers' items array.`
+    );
+  }
+  // Replace from start of the marker line through end of the END marker line.
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + SIDEBAR_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`sidebar.ts END marker has no trailing newline`);
+  }
+  const block = generateProvidersSidebarBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Sidebar: no changes");
+    return;
+  }
+  writeFileSync(SIDEBAR_PATH, updated);
+  console.log("  Sidebar: providers section regenerated");
 }
 
 // ---------------------------------------------------------------------------
@@ -686,7 +756,10 @@ async function main() {
   // 1. Write per-provider JSON data files for Astro data collection.
   writeProviderDataFiles(manifest.providers);
 
-  // 2. Generate MDX pages.
+  // 2. Regenerate the providers section of sidebar.ts (managed-block codegen).
+  writeProvidersSidebarBlock(manifest.providers);
+
+  // 3. Generate MDX pages.
   rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });
   mkdirSync(MDX_OUTPUT_DIR, { recursive: true });
 

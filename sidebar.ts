@@ -49,6 +49,7 @@ export const sidebar: SidebarItem[] = [
         collapsed: true,
         items: [
           { label: 'Overview', slug: 'using-syllago/providers' },
+          // AUTO-GENERATED:PROVIDERS START — managed by scripts/sync-providers.ts. Do not edit by hand.
           {
             label: 'Amp',
             collapsed: true,
@@ -127,6 +128,11 @@ export const sidebar: SidebarItem[] = [
             items: [
               { label: 'Overview', link: '/using-syllago/providers/cursor/' },
               { label: 'Skills', link: '/using-syllago/providers/cursor/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/cursor/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/cursor/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/cursor/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/cursor/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/cursor/agents/' },
             ],
           },
           {
@@ -152,6 +158,7 @@ export const sidebar: SidebarItem[] = [
               { label: 'Rules', link: '/using-syllago/providers/gemini-cli/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/gemini-cli/mcp/' },
               { label: 'Commands', link: '/using-syllago/providers/gemini-cli/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/gemini-cli/agents/' },
             ],
           },
           {
@@ -172,6 +179,10 @@ export const sidebar: SidebarItem[] = [
             items: [
               { label: 'Overview', link: '/using-syllago/providers/opencode/' },
               { label: 'Skills', link: '/using-syllago/providers/opencode/skills/' },
+              { label: 'Rules', link: '/using-syllago/providers/opencode/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/opencode/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/opencode/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/opencode/agents/' },
             ],
           },
           {
@@ -191,6 +202,10 @@ export const sidebar: SidebarItem[] = [
             items: [
               { label: 'Overview', link: '/using-syllago/providers/roo-code/' },
               { label: 'Skills', link: '/using-syllago/providers/roo-code/skills/' },
+              { label: 'Rules', link: '/using-syllago/providers/roo-code/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/roo-code/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/roo-code/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/roo-code/agents/' },
             ],
           },
           {
@@ -203,7 +218,6 @@ export const sidebar: SidebarItem[] = [
               { label: 'Rules', link: '/using-syllago/providers/windsurf/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/windsurf/mcp/' },
               { label: 'Commands', link: '/using-syllago/providers/windsurf/commands/' },
-              { label: 'Agents', link: '/using-syllago/providers/windsurf/agents/' },
             ],
           },
           {
@@ -211,9 +225,11 @@ export const sidebar: SidebarItem[] = [
             collapsed: true,
             items: [
               { label: 'Overview', link: '/using-syllago/providers/zed/' },
-              { label: 'Skills', link: '/using-syllago/providers/zed/skills/' },
+              { label: 'Rules', link: '/using-syllago/providers/zed/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/zed/mcp/' },
             ],
           },
+          // AUTO-GENERATED:PROVIDERS END
         ],
       },
       { label: '.syllago.yaml Format', slug: 'using-syllago/syllago-yaml' },
