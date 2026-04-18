@@ -22,6 +22,7 @@ All notable changes to the syllago documentation site.
 - `src/content/docs/using-syllago/collections/loadouts.mdx` — top note rewritten from "currently emit configuration for Claude Code only" to clarify `--to <provider>` works for any target (Claude Code is the default).
 - `src/content/docs/using-syllago/format-conversion.mdx` — Compatibility Matrix loadouts row updated: "Multi-provider (Claude Code default)" with note about `--to <provider>`.
 - `src/content/docs/using-syllago/syllago-yaml.mdx` — removed `promoted_at` and `pr_branch` rows from Lifecycle timestamps table (legacy fields tied to the removed `syllago promote` command; struct retains them for backward-compat reads but they're never written).
+- `src/content/docs/errors/privacy-001.mdx` — full page rewrite from `publish` → `share` throughout (title, description, What This Means, Common Causes, How to Fix steps, Example Output). Earlier surgical edit had only caught the `syllago publish` command references and was reverted by a linter for inconsistency with surrounding prose; this pass covers every "publish/published/publishing" verb and the simulated CLI error message.
 
 ## 2026-04-17 (provider overview tweaks)
 
