@@ -7,6 +7,8 @@
  * Rows within each group sort by conversion fate (translated first).
  */
 
+import ConversionBadge from './ConversionBadge.astro';
+
 interface Example {
   title?: string;
   lang: string;
@@ -55,14 +57,6 @@ const CONVERSION_ORDER: Record<ConversionFate, number> = {
   dropped: 2,
   preserved: 3,
   'not-portable': 4,
-};
-
-const CONVERSION_LABEL: Record<ConversionFate, string> = {
-  translated: 'Translated',
-  embedded: 'Embedded',
-  dropped: 'Dropped',
-  preserved: 'Preserved',
-  'not-portable': 'Not portable',
 };
 
 // Per-content-type label for the first column in the Fields table.
@@ -166,9 +160,7 @@ const hasAny = hasFields || hasOther;
           <tr>
             <td><code>{r.providerField}</code></td>
             <td>
-              <span class={`conv conv-${r.conversion}`}>
-                {CONVERSION_LABEL[r.conversion]}
-              </span>
+              <ConversionBadge conversion={r.conversion} />
             </td>
             <td>
               {r.canonicalKey ? (
@@ -216,9 +208,7 @@ const hasAny = hasFields || hasOther;
               )}
             </td>
             <td>
-              <span class={`conv conv-${r.conversion}`}>
-                {CONVERSION_LABEL[r.conversion]}
-              </span>
+              <ConversionBadge conversion={r.conversion} />
             </td>
             <td>{r.summary}</td>
           </tr>
@@ -290,39 +280,5 @@ const hasAny = hasFields || hasOther;
 
   .muted {
     color: var(--sl-color-gray-4);
-  }
-
-  .conv {
-    display: inline-block;
-    padding: 0.1rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: var(--sl-text-xs);
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  .conv-translated {
-    background-color: var(--sl-color-green-low);
-    color: var(--sl-color-green-high);
-  }
-
-  .conv-embedded {
-    background-color: var(--sl-color-blue-low);
-    color: var(--sl-color-blue-high);
-  }
-
-  .conv-dropped {
-    background-color: var(--sl-color-red-low);
-    color: var(--sl-color-red-high);
-  }
-
-  .conv-preserved {
-    background-color: var(--sl-color-orange-low);
-    color: var(--sl-color-orange-high);
-  }
-
-  .conv-not-portable {
-    background-color: var(--sl-color-gray-6);
-    color: var(--sl-color-gray-2);
   }
 </style>

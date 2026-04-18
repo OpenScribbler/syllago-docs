@@ -2,6 +2,16 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-18 (conversion badges + canonical-keys sidebar)
+
+### Added
+- `src/components/ConversionBadge.astro` — new reusable component for the five conversion fates (`translated`, `embedded`, `dropped`, `preserved`, `not-portable`). Renders a flexoki-colored pill with a hover/focus tooltip describing what the fate means, and deep-links to the relevant anchor on `/using-syllago/format-conversion/`. Tooltip is positioned below the badge to avoid clipping by the ancestor table's `overflow: hidden` rule.
+- `sidebar.ts` — **Canonical Keys** now expands into a nested section: an Overview entry plus six alphabetized content-type groups (Agents, Commands, Hooks, MCP, Rules, Skills) with 44 individual key entries linking directly to each detail page. Section is wrapped in `// AUTO-GENERATED:CANONICAL-KEYS START` / `END` markers.
+- `scripts/sync-capabilities.ts` — new `generateCanonicalKeysSidebarBlock` and `writeCanonicalKeysSidebarBlock` functions regenerate the Canonical Keys sidebar section from `capabilities.json` on every sync. Mirrors the `sync-providers.ts` managed-block pattern so the sidebar cannot drift from the manifest. Sorting matches `generateCanonicalKeysIndex` byte-for-byte (content types alphabetical, keys alphabetical within each group).
+
+### Changed
+- `src/components/ProviderFeaturesTable.astro` — refactored to import and use `ConversionBadge` in both the Fields and Other features tables. Inline `<span class="conv conv-*">` markup, the `CONVERSION_LABEL` map, and all six `.conv-*` CSS blocks moved into `ConversionBadge.astro`. Every provider features page now has interactive conversion badges instead of static pills.
+
 ## 2026-04-17 (audit punch list)
 
 ### Fixed

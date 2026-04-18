@@ -98,7 +98,13 @@ const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const CANONICAL_KEYS_DATA_DIR = join(ROOT_DIR, "src/data/canonical-keys");
 const CANONICAL_KEYS_MDX_DIR = join(ROOT_DIR, "src/content/docs/reference/canonical-keys");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
+const SIDEBAR_PATH = join(ROOT_DIR, "sidebar.ts");
 const FETCH_TIMEOUT_MS = 15_000;
+
+// Managed-block markers inside sidebar.ts. The block between them is fully
+// regenerated from the manifest on every sync — hand edits will be overwritten.
+const CANONICAL_KEYS_START_MARKER = "// AUTO-GENERATED:CANONICAL-KEYS START";
+const CANONICAL_KEYS_END_MARKER = "// AUTO-GENERATED:CANONICAL-KEYS END";
 
 // Providers present in capabilities.json but not yet public. Their capability
 // JSON files stay on disk for future use; they're excluded from matrix pages,
@@ -563,6 +569,71 @@ function writeDataQualityFiles(manifest: CapabilitiesManifest): void {
 }
 
 // ---------------------------------------------------------------------------
+// Sidebar generation — Canonical Keys section
+// ---------------------------------------------------------------------------
+
+// Renders the canonical-keys block as it appears between AUTO-GENERATED markers
+// in sidebar.ts. Indentation mirrors the surrounding Starlight config: 10 spaces
+// for the marker lines and content-type entry braces, 12 for entry properties,
+// 14 for items. Content types and keys are both sorted alphabetically — the
+// same order the index page uses — so sidebar and index stay in sync.
+function generateCanonicalKeysSidebarBlock(manifest: CapabilitiesManifest): string {
+  const contentTypes = Object.keys(manifest.canonical_keys).sort();
+  const lines: string[] = [
+    `          ${CANONICAL_KEYS_START_MARKER} — managed by scripts/sync-capabilities.ts. Do not edit by hand.`,
+  ];
+  for (const contentType of contentTypes) {
+    const keys = manifest.canonical_keys[contentType];
+    const keyNames = Object.keys(keys).sort();
+    if (keyNames.length === 0) continue;
+    const label = contentTypeHeading(contentType);
+    lines.push(
+      `          {`,
+      `            label: '${label}',`,
+      `            collapsed: true,`,
+      `            items: [`,
+    );
+    for (const keyName of keyNames) {
+      const slug = keyName.replace(/_/g, "-");
+      lines.push(
+        `              { label: '${keyName}', slug: 'reference/canonical-keys/${slug}' },`,
+      );
+    }
+    lines.push(`            ],`, `          },`);
+  }
+  lines.push(`          ${CANONICAL_KEYS_END_MARKER}`);
+  return lines.join("\n");
+}
+
+function writeCanonicalKeysSidebarBlock(manifest: CapabilitiesManifest): void {
+  if (!existsSync(SIDEBAR_PATH)) {
+    throw new Error(`sidebar.ts not found at ${SIDEBAR_PATH}`);
+  }
+  const current = readFileSync(SIDEBAR_PATH, "utf-8");
+  const startIdx = current.indexOf(CANONICAL_KEYS_START_MARKER);
+  const endIdx = current.indexOf(CANONICAL_KEYS_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `sidebar.ts is missing AUTO-GENERATED:CANONICAL-KEYS markers. ` +
+      `Add the START/END comment block inside the 'Canonical Keys' items array.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + CANONICAL_KEYS_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`sidebar.ts END marker has no trailing newline`);
+  }
+  const block = generateCanonicalKeysSidebarBlock(manifest);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Sidebar: no changes");
+    return;
+  }
+  writeFileSync(SIDEBAR_PATH, updated);
+  console.log("  Sidebar: canonical-keys section regenerated");
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -591,6 +662,7 @@ async function main() {
 
   writeCapabilitiesDataFiles(manifest);
   writeCanonicalKeysDataFiles(manifest);
+  writeCanonicalKeysSidebarBlock(manifest);
   writeDataQualityFiles(manifest);
   generateCanonicalKeyPages(manifest);
   generateCanonicalKeysIndex(manifest);
