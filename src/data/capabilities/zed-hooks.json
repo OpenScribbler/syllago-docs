@@ -1,0 +1,10 @@
+{
+  "id": "zed-hooks",
+  "provider": "zed",
+  "contentType": "hooks",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

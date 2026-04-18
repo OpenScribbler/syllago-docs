@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI rules load unconditionally at session start; no conditional or manual activation modes documented"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush rule files (AGENTS.md) load unconditionally as project context; no conditional activation syntax documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Auto-Attached (globs frontmatter matches edited files), Agent Requested (description frontmatter triggers model to pull in the rule), and Manual (no frontmatter triggers, referenced explicitly with @ruleName)."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid rule files load unconditionally; no conditional or model-decision activation documented"
@@ -37,13 +45,25 @@
       "supported": true,
       "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
     },
+    "opencode": {
+      "supported": false,
+      "mechanism": "OpenCode rule files load unconditionally as context; no conditional activation syntax documented"
+    },
     "pi": {
       "supported": false,
       "mechanism": "Pi rule files load unconditionally; no conditional or model-decision activation documented"
     },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "mode_partitioned_activation: rule files in mode-specific directories (.roo/rules-<mode-slug>/) activate only when that mode is active; files in .roo/rules/ activate for all modes"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle)"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed rule files load unconditionally when present at project root; no conditional activation syntax documented"
     }
   }
 }

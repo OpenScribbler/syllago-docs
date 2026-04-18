@@ -2,61 +2,9 @@
   "id": "windsurf-agents",
   "provider": "windsurf",
   "contentType": "agents",
-  "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
-  "sources": [
-    {
-      "uri": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
-      "type": "documentation",
-      "fetched_at": "2026-04-11T21:48:31.830747939Z"
-    }
-  ],
-  "canonicalMappings": {
-    "agent_scopes": {
-      "supported": true,
-      "mechanism": "scope from file location: root-level = workspace-wide always-on, subdirectory = subtree glob; git root discovery extends scope to parent directories within the repo"
-    },
-    "definition_format": {
-      "supported": true,
-      "mechanism": "AGENTS.md (or agents.md) plain markdown files with no frontmatter; scope inferred from directory location (root = always-on, subdirectory = auto-glob subtree)"
-    },
-    "invocation_patterns": {
-      "supported": false,
-      "mechanism": "AGENTS.md files are always-on rule injection, not invocable agents; no manual invocation or delegation mechanism"
-    },
-    "model_selection": {
-      "supported": false,
-      "mechanism": "AGENTS.md has no frontmatter; no per-agent model selection"
-    },
-    "per_agent_mcp": {
-      "supported": false,
-      "mechanism": "AGENTS.md has no structured config; MCP is workspace-wide only, not per-agent"
-    },
-    "subagent_spawning": {
-      "supported": false,
-      "mechanism": "no structured agent orchestration; AGENTS.md is rules injection piggybacking on the Rules engine, not an agent harness"
-    },
-    "tool_restrictions": {
-      "supported": false,
-      "mechanism": "AGENTS.md contains free-form instructions only; no structured tool restriction mechanism — it is a rules delivery format, not an agent harness"
-    }
-  },
-  "providerExtensions": [
-    {
-      "id": "agents_md_format",
-      "name": "AGENTS.md: plain markdown with location-inferred scope",
-      "summary": "AGENTS.md (case-insensitive) is a plain markdown file with no frontmatter; scope is inferred from file location (root = always-on, subdir = auto-glob).",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
-      "required": null,
-      "conversion": "not-portable"
-    },
-    {
-      "id": "git_root_discovery",
-      "name": "Discovery up to git root across parent directories",
-      "summary": "For git repos, Windsurf searches parent directories up to the git root when discovering AGENTS.md files, deduplicating across open folders.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md#discovery-and-scoping",
-      "required": null,
-      "conversion": "not-portable"
-    }
-  ]
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
 }

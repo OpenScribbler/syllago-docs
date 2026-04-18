@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI does not document MCP resource referencing"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "MCP resource referencing (as distinct from tool calls) not documented in Crush"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor's MCP documentation does not describe referencing MCP resources by URI."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid does not document MCP resource referencing"
@@ -37,9 +45,17 @@
       "supported": false,
       "mechanism": "Kiro does not document MCP resource referencing"
     },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "MCP resource referencing is not documented as a first-class feature in Roo Code"
+    },
     "windsurf": {
       "supported": false,
       "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "MCP resource referencing via @-style syntax is not documented"
     }
   }
 }

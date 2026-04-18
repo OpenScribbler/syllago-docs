@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "SKILL.md (fixed filename per Agent Skills open standard)"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per the Agent Skills standard)"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per Agent Skills convention)."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "SKILL.md (fixed, required filename within the skill directory)"
@@ -44,6 +52,10 @@
     "pi": {
       "supported": true,
       "mechanism": "SKILL.md (required, fixed filename for directory-form skills)"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per Agent Skills standard)"
     },
     "windsurf": {
       "supported": true,

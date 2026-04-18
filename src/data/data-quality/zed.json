@@ -1,10 +1,10 @@
 {
   "id": "zed",
   "provider": "zed",
-  "totalExtensions": 0,
-  "unspecifiedRequiredCount": 0,
-  "unspecifiedValueTypeCount": 0,
-  "unspecifiedExamplesCount": 0,
+  "totalExtensions": 4,
+  "unspecifiedRequiredCount": 4,
+  "unspecifiedValueTypeCount": 4,
+  "unspecifiedExamplesCount": 4,
   "trackingIssue": null,
-  "generatedAt": "2026-04-17T20:14:24Z"
+  "generatedAt": "2026-04-18T04:04:56Z"
 }

@@ -1,0 +1,89 @@
+{
+  "id": "cursor-agents",
+  "provider": "cursor",
+  "contentType": "agents",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://cursor.com/docs/agents",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.cursor/agents/) and user-global (~/.cursor/agents/)."
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "Markdown files with YAML frontmatter in .cursor/agents/ (project) or ~/.cursor/agents/ (user); the frontmatter declares name, description, model, readonly, and is_background, and the Markdown body becomes the agent's system prompt."
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI."
+    },
+    "model_selection": {
+      "supported": true,
+      "mechanism": "model frontmatter field selects a specific model for the agent, overriding the session default.",
+      "provider_field": "model"
+    },
+    "per_agent_mcp": {
+      "supported": false,
+      "mechanism": "Cursor custom agents do not document a per-agent mcpServers field; they inherit the workspace MCP configuration."
+    },
+    "subagent_spawning": {
+      "supported": false,
+      "mechanism": "Cursor custom agent files do not document spawning additional subagents from a user-defined agent; the three built-in subagents (Explore, Bash, Browser) are harness-provided, not file-overridable."
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "readonly frontmatter flag restricts an agent to read-only tools; fine-grained per-tool allow/deny lists are not documented."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agent_file_format",
+      "name": "Markdown + YAML frontmatter agent files",
+      "summary": "Custom agents are .md files with YAML frontmatter (name, description, model, readonly, is_background) and a Markdown system-prompt body.",
+      "source_ref": "https://cursor.com/docs/agents",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "readonly_flag",
+      "name": "readonly frontmatter flag",
+      "summary": "readonly: true restricts the agent to read-only tools so it cannot edit files or run mutating commands.",
+      "source_ref": "https://cursor.com/docs/agents",
+      "required": null,
+      "provider_field": "readonly",
+      "conversion": "embedded"
+    },
+    {
+      "id": "is_background_flag",
+      "name": "is_background frontmatter flag",
+      "summary": "is_background: true marks the agent as eligible to run in Cursor's background agents queue for concurrent execution.",
+      "source_ref": "https://cursor.com/docs/agents",
+      "required": null,
+      "provider_field": "is_background",
+      "conversion": "embedded"
+    },
+    {
+      "id": "builtin_subagents",
+      "name": "Built-in Explore, Bash, and Browser subagents",
+      "summary": "Cursor ships three built-in subagents (Explore, Bash, Browser) that are harness-provided and not overridable via files; only user-authored agents under .cursor/agents/ or ~/.cursor/agents/ are portable.",
+      "source_ref": "https://cursor.com/docs/agents",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agent_scopes",
+      "name": "Project and user-global agent scopes",
+      "summary": "Custom agents live in .cursor/agents/ at the project root or ~/.cursor/agents/ for user-global scope, following the same layout as Cursor's other content types.",
+      "source_ref": "https://cursor.com/docs/agents",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
+}

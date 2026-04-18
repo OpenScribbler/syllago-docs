@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": false,
-      "mechanism": "Amp hooks are project-scoped; no multi-scope configuration documented"
+      "mechanism": "Project only: hooks live in a single 'amp.hooks' array inside '.amp/settings.json' (or user-scope settings); no multi-scope layering documented"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks are configured at a single scope level; no multi-scope configuration documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Project-scope hooks live under .cursor/hooks/ and are wired through .cursor/settings.json; user-global hooks live under ~/.cursor/ using the same shape."
     },
     "factory-droid": {
       "supported": false,

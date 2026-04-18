@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": false,
-      "mechanism": "Amp hooks cannot modify tool input before execution"
+      "mechanism": "Amp hooks cannot modify tool input before execution; only substring match and cancel-with-message are documented"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks cannot modify tool input before execution"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks are not documented to rewrite tool input before execution."
     },
     "factory-droid": {
       "supported": false,

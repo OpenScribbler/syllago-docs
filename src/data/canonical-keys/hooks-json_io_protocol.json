@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": false,
-      "mechanism": "Amp hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+      "mechanism": "Amp hooks signal decisions via exit codes and declarative action types; no JSON stdin/stdout protocol documented"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Command hooks receive event data as JSON on stdin and may return structured JSON on stdout to signal decisions and supply output fields."
     },
     "factory-droid": {
       "supported": false,

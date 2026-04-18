@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "/agent slash command, natural language instruction, auto-inference (suppressible with disable-model-invocation), or --agent flag; 4 patterns"
     },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "exposed as subagent_type targets for the Task tool; droids enabled by default with live progress reporting in UI"
@@ -25,9 +29,13 @@
       "supported": true,
       "mechanism": "keyboard shortcut binding for IDE invocation; welcomeMessage shown on agent start; manual selection via agent picker"
     },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "AGENTS.md files are always-on rule injection, not invocable agents; no manual invocation or delegation mechanism"
+    "opencode": {
+      "supported": true,
+      "mechanism": "Agent name derives from the filename (configEntryNameFromPath). Agents with mode: primary can be selected as the session agent; agents with mode: subagent are invoked by other agents via description-driven matching; mode: all allows both."
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "Users switch modes via the mode selector or /mode command; each mode is a distinct operating persona with its own roleDefinition and tool groups"
     }
   }
 }

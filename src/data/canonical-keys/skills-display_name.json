@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required per Agent Skills open standard)"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); matches the skill directory name per the Agent Skills convention."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
@@ -44,6 +52,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required, max 64 chars, lowercase a-z/0-9/hyphens, must match parent directory name)"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); identifies the skill and typically matches the directory name"
     },
     "windsurf": {
       "supported": true,

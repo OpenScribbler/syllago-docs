@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": false,
-      "mechanism": "Amp hooks cannot inject context into the agent session"
+      "mechanism": "Amp hooks cannot inject context into the agent session beyond the pre-execute 'send-user-message' action that cancels the tool call"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks cannot inject context into the agent session"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks do not document a mechanism to inject additional context into the agent session."
     },
     "factory-droid": {
       "supported": false,

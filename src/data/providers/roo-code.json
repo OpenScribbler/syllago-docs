@@ -20,8 +20,15 @@
       ]
     },
     "commands": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.roo/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.roo/commands",
+        "{home}/.roo/commands"
+      ]
     },
     "hooks": {
       "supported": false,

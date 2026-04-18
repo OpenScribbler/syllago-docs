@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks run synchronously; no async execution documented"
     },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Hooks run synchronously; no async/background flag documented."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid hooks run synchronously; no async execution documented"

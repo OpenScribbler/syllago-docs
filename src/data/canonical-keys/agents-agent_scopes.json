@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "project scope (.github/agents/ or .claude/agents/), personal (~/.copilot/agents/), plugin (agents/); personal takes precedence over project"
     },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.cursor/agents/) and user-global (~/.cursor/agents/)."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
@@ -25,9 +29,13 @@
       "supported": true,
       "mechanism": "project (.kiro/agents/) + global (~/.kiro/agents/); global overrides local on name collision — reverse of most Kiro content types"
     },
-    "windsurf": {
+    "opencode": {
       "supported": true,
-      "mechanism": "scope from file location: root-level = workspace-wide always-on, subdirectory = subtree glob; git root discovery extends scope to parent directories within the repo"
+      "mechanism": "Two scopes: project (.opencode/agents/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.roomodes at the project root) and global (custom_modes.yaml in Roo Code's settings dir); project entries override global entries with the same slug"
     }
   }
 }

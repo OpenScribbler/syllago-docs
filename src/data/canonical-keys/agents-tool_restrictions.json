@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "tools field with cross-provider alias system (execute/shell/Bash, read/Read, edit/Edit, etc.); [\"*\"] grants all tools; unrecognized names silently ignored"
     },
+    "cursor": {
+      "supported": true,
+      "mechanism": "readonly frontmatter flag restricts an agent to read-only tools; fine-grained per-tool allow/deny lists are not documented."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "categorical tool policy using named categories (filesystem, shell, search, browser, web_fetch); differs from per-tool allowlists used by other providers"
@@ -25,9 +29,13 @@
       "supported": true,
       "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"
     },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "AGENTS.md contains free-form instructions only; no structured tool restriction mechanism — it is a rules delivery format, not an agent harness"
+    "opencode": {
+      "supported": true,
+      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool, replacing the deprecated tools allow/deny map."
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "groups array declares which tool groups (e.g., read, edit, browser, command, mcp) the mode may use; group entries may be strings or objects with fileRegex restrictions"
     }
   }
 }

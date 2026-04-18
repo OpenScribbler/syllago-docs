@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI does not document organization-level MCP management"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush does not document organization-level MCP management"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor does not document organization-level managed MCP policy controls."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid does not document organization-level MCP management"
@@ -37,9 +45,21 @@
       "supported": false,
       "mechanism": "Kiro does not document organization-level MCP management"
     },
+    "opencode": {
+      "supported": false,
+      "mechanism": "No organization-level MCP management documented"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No organization-level MCP management documented"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed does not document org-level MCP management"
     }
   }
 }

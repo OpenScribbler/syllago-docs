@@ -10,8 +10,15 @@
       "symlinkSupport": false
     },
     "commands": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.codeium/windsurf/global_workflows",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.windsurf/workflows",
+        "{home}/.codeium/windsurf/global_workflows"
+      ]
     },
     "hooks": {
       "supported": true,

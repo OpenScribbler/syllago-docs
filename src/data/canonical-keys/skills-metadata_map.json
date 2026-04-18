@@ -5,6 +5,10 @@
   "description": "Arbitrary key-value metadata attached to the skill. Provider-specific semantics; often used for tooling or automation metadata.",
   "type": "object",
   "providers": {
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: metadata (optional map of arbitrary key/value pairs)."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "yaml frontmatter key: metadata (optional map)"
@@ -16,6 +20,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: metadata (optional, arbitrary key-value mapping)"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No metadata frontmatter key observed in Roo Code skill examples"
     }
   }
 }

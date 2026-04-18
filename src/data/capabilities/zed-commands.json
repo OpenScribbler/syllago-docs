@@ -1,0 +1,10 @@
+{
+  "id": "zed-commands",
+  "provider": "zed",
+  "contentType": "commands",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks can deny tool invocations (decision_control) but do not govern tool availability"
     },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks control allow/block via exit codes but do not govern tool availability through permission rule updates."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"

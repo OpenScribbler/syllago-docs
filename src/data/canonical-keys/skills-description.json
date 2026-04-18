@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required per Agent Skills open standard)"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Crush should invoke it"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when to use it."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: description (recommended, not required)"
@@ -44,6 +52,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required, max 1024 chars)"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Roo should load it"
     },
     "windsurf": {
       "supported": true,

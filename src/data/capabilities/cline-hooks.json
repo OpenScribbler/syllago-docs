@@ -3,7 +3,7 @@
   "provider": "cline",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/customization/hooks",

@@ -3,48 +3,56 @@
   "provider": "windsurf",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
-      "uri": "https://docs.windsurf.com/command/windsurf-overview.md",
+      "uri": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:51:02.329185401Z"
+      "fetched_at": "2026-04-17T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "argument_substitution": {
       "supported": false,
-      "mechanism": "Windsurf Workflows (.windsurf/workflows/*.md) are plain Markdown prompt templates with no documented argument substitution mechanism"
+      "mechanism": "Cascade Workflows are plain Markdown prompt templates; no `{{args}}` or equivalent placeholder syntax is documented for user-provided arguments"
     },
     "builtin_commands": {
-      "supported": false,
-      "mechanism": "no built-in slash commands for Workflows; Windsurf Command (Cmd+I) is a UI keyboard shortcut, not a slash command"
+      "supported": true,
+      "mechanism": "Cascade exposes its own built-in chat slash commands (e.g. for conversation control) independently of user-authored Workflows; the `/<workflow-name>` namespace is reserved for user files"
     }
   },
   "providerExtensions": [
     {
-      "id": "command_inline_editor",
-      "name": "Windsurf Command: inline natural language code editing (Cmd/Ctrl+I)",
-      "summary": "Inline AI code editing in the editor via Cmd+I/Ctrl+I, scoped to the current file with accept/reject diff lenses; distinct from Cascade chat.",
-      "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md",
+      "id": "character_limit_12000",
+      "name": "12,000 character per-file limit",
+      "summary": "Each workflow markdown file is capped at 12,000 characters; content beyond the cap fails to load or save.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
       "required": null,
       "conversion": "not-portable"
     },
     {
-      "id": "terminal_command",
-      "name": "Terminal Command via Cmd/Ctrl+I in terminal",
-      "summary": "Cmd+I/Ctrl+I in the integrated terminal generates shell commands from natural language prompts, separate from the editor surface.",
-      "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md#terminal-command",
-      "required": null,
-      "conversion": "not-portable"
-    },
-    {
-      "id": "workflows_slash_commands",
-      "name": "Workflows: slash-command-invoked prompt templates",
-      "summary": "Single .md files in .windsurf/workflows/ that serve as manual-only `/[name]` prompt templates invoked from the Cascade input.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md",
+      "id": "manual_only_invocation",
+      "name": "Manual-only slash-command invocation",
+      "summary": "Workflows never auto-invoke from model decisions or file patterns; the user must explicitly type /<workflow-name> in the Cascade input to run one.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
       "required": null,
       "conversion": "translated"
+    },
+    {
+      "id": "two_scope_loading",
+      "name": "Workspace and global scope loading",
+      "summary": "Workflows load from two scopes: workspace (.windsurf/workflows/) for team-shared commands committed with the repo, and global (~/.codeium/windsurf/global_workflows/) for per-user commands available everywhere.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "filename_as_command_name",
+      "name": "Filename drives slash-command identifier",
+      "summary": "The markdown file basename (minus .md) is the invocation name; no frontmatter or manifest is required to register a workflow.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

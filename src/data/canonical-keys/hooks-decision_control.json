@@ -6,8 +6,8 @@
   "type": "object",
   "providers": {
     "amp": {
-      "supported": false,
-      "mechanism": "Amp hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+      "supported": true,
+      "mechanism": "Pre-execute 'send-user-message' action cancels the pending tool call and injects a user message; exit code 0 = allow, non-zero = block"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": true,
       "mechanism": "pre_tool_use_deny: Copilot CLI PreToolUse hooks can deny (block) the tool invocation; no allow or modify documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Exit codes drive decisions: non-zero blocks the action and surfaces stderr, zero allows it to proceed; JSON on stdout can also return structured decision fields."
     },
     "factory-droid": {
       "supported": true,

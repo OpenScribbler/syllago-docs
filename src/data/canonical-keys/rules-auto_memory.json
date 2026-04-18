@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI does not have an AI-generated persistent memory system for rules"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "No runtime memory/append command documented for Crush rule files"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor does not document an AI-generated auto-memory system distinct from user-authored rules."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid does not have an AI-generated auto-memory system"
@@ -37,13 +45,25 @@
       "supported": false,
       "mechanism": "Kiro does not have an AI-generated auto-memory system separate from user-authored steering files"
     },
+    "opencode": {
+      "supported": false,
+      "mechanism": "No runtime command documented for persisting notes into rule files"
+    },
     "pi": {
       "supported": false,
       "mechanism": "Pi does not have an AI-generated auto-memory system"
     },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No auto-append or persistent memory command documented for rule content"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in .windsurf/memories/ as rule-like files"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed does not document a command that persists agent memory into the rules file"
     }
   }
 }

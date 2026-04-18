@@ -1,0 +1,70 @@
+{
+  "id": "roo-code-commands",
+  "provider": "roo-code",
+  "contentType": "commands",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "argument-hint frontmatter field documents expected arguments; user-supplied arguments are appended to the command body at invocation time"
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "Roo Code commands are user-defined Markdown files in .roo/commands/ — no user-overridable built-in slash-command layer documented"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "markdown_command_format",
+      "name": "Markdown command file format",
+      "summary": "Custom commands are .md files in .roo/commands/ (project) or ~/.roo/commands/ (global); the filename (minus extension) becomes the slash command name.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "required": null,
+      "provider_field": ".roo/commands/",
+      "conversion": "translated"
+    },
+    {
+      "id": "description_frontmatter",
+      "name": "description frontmatter field",
+      "summary": "Optional one-line description in YAML frontmatter is shown in the command picker and /help menu.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "required": null,
+      "provider_field": "description",
+      "conversion": "embedded"
+    },
+    {
+      "id": "argument_hint",
+      "name": "argument-hint frontmatter field",
+      "summary": "Optional argument-hint field documents the expected argument shape for the command in the picker UI.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "required": null,
+      "provider_field": "argument-hint",
+      "conversion": "embedded"
+    },
+    {
+      "id": "mode_binding",
+      "name": "mode frontmatter field",
+      "summary": "Optional mode field binds the command to a specific Roo Code mode (built-in or custom) so it is surfaced only when that mode is active.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "required": null,
+      "provider_field": "mode",
+      "conversion": "embedded"
+    },
+    {
+      "id": "filename_as_command_name",
+      "name": "Filename-as-command-name",
+      "summary": "The Markdown filename (without extension) is the slash command name — /commit.md on disk becomes /commit in the CLI.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/commands/commit.md",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
+}

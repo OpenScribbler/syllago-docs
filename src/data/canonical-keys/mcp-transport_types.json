@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI MCP transport types not documented"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "transport_types: Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Cursor documents three MCP transports: stdio for local processes, sse for Server-Sent Events, and streamable-http for HTTP-based remote servers."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid MCP transport types not documented beyond basic MCP support"
@@ -37,9 +45,21 @@
       "supported": false,
       "mechanism": "Kiro MCP transport types not documented beyond basic MCP support"
     },
+    "opencode": {
+      "supported": true,
+      "mechanism": "transport_types: OpenCode documents stdio transport; remote transports (http/sse) are available on sst/opencode depending on version"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "transport_types: stdio, sse, and streamable-http are supported and selected via the type field on each server entry"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports"
+    },
+    "zed": {
+      "supported": true,
+      "mechanism": "MCP servers are configured with a stdio command under context_servers in settings.json"
     }
   }
 }

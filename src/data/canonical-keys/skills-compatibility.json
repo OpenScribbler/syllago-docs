@@ -5,6 +5,10 @@
   "description": "Provider compatibility constraints — which AI tool versions or providers this skill is compatible with.",
   "type": "object",
   "providers": {
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional)."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "yaml frontmatter key: compatibility (optional)"
@@ -16,6 +20,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: compatibility (optional, max 500 chars)"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No compatibility frontmatter field observed in Roo Code skill examples"
     }
   }
 }

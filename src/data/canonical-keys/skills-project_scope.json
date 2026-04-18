@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "skill directory under .github/skills/<name>/, .claude/skills/<name>/, or .agents/skills/<name>/ in project repository"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": ".crush/skills/<name>/SKILL.md (native) and .agents/skills/<name>/SKILL.md (cross-provider convention)"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": ".cursor/skills/<name>/SKILL.md for Cursor-native project scope; .agents/skills/<name>/SKILL.md is also recognized via the cross-provider Agent Skills convention."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "<repo>/.factory/skills/<skill-name>/SKILL.md"
@@ -44,6 +52,10 @@
     "pi": {
       "supported": true,
       "mechanism": ".pi/skills/<name>/SKILL.md or .agents/skills/<name>/SKILL.md"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": ".roo/skills/<slug>/SKILL.md"
     },
     "windsurf": {
       "supported": true,

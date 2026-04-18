@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "Copilot CLI supports repo-wide instructions plus path-specific and personal instruction layers with defined precedence"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush documents AGENTS.md at the project root only; no hierarchical/subdirectory loading documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "Factory Droid loads global and project rule layers; innermost (most specific) layer takes precedence"
@@ -37,13 +45,25 @@
       "supported": false,
       "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
     },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Project-root AGENTS.md/CLAUDE.md combined with global context files at ~/.config/opencode/"
+    },
     "pi": {
       "supported": false,
       "mechanism": "Pi rule files are not documented as supporting multi-level directory loading"
     },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "mode_scoped_loading: files under .roo/rules/ load universally; files under .roo/rules-<mode>/ load conditionally based on the active mode"
+    },
     "windsurf": {
       "supported": false,
       "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed loads rule files from the project root only; no multi-tier hierarchical loading documented"
     }
   }
 }

@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "No @-import or file inclusion syntax documented for Copilot CLI rule files"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "No file import directive documented for AGENTS.md in Crush"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "MDC rule bodies may reference other files via @path syntax that inlines the referenced file into the rule context."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "No file import syntax documented for Factory Droid rule files"
@@ -37,13 +45,25 @@
       "supported": true,
       "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
     },
+    "opencode": {
+      "supported": false,
+      "mechanism": "No documented import directive for rule files"
+    },
     "pi": {
       "supported": false,
       "mechanism": "No file import syntax documented for Pi rule files"
     },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No import directive syntax documented — rule files are loaded as plain markdown bodies"
+    },
     "windsurf": {
       "supported": false,
       "mechanism": "No @-import or file inclusion syntax documented for Windsurf rule files"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "no import directive documented for Zed's .rules file"
     }
   }
 }

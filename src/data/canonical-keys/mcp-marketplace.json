@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI does not have an in-IDE MCP marketplace"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush does not have an in-app MCP marketplace"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Cursor ships an in-IDE MCP directory for discovering and installing community MCP servers."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid does not have an in-IDE MCP marketplace"
@@ -37,9 +45,17 @@
       "supported": false,
       "mechanism": "Kiro does not have an in-IDE MCP marketplace"
     },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No in-app MCP marketplace documented"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
+    },
+    "zed": {
+      "supported": true,
+      "mechanism": "Zed exposes an in-app MCP server gallery where servers can be browsed and installed"
     }
   }
 }

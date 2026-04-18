@@ -6,8 +6,8 @@
   "type": "object",
   "providers": {
     "amp": {
-      "supported": false,
-      "mechanism": "Amp hooks execute shell commands only; no other handler types documented"
+      "supported": true,
+      "mechanism": "command-only: hook 'action' field runs a shell command; no HTTP, LLM, or agent handler types documented"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks execute shell commands only (type: command); no HTTP, LLM prompt, or agent handler types documented."
     },
     "factory-droid": {
       "supported": false,

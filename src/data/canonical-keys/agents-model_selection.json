@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "model field in frontmatter overrides default model for that agent"
     },
+    "cursor": {
+      "supported": true,
+      "mechanism": "model frontmatter field selects a specific model for the agent, overriding the session default."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "per-droid model preference field independent of global model setting; enables mixed-model agent compositions"
@@ -25,9 +29,13 @@
       "supported": true,
       "mechanism": "model field in agent JSON config overrides workspace default for that agent"
     },
-    "windsurf": {
+    "opencode": {
+      "supported": true,
+      "mechanism": "Frontmatter model field selects a specific model alias or full model string for the agent, overriding the session default."
+    },
+    "roo-code": {
       "supported": false,
-      "mechanism": "AGENTS.md has no frontmatter; no per-agent model selection"
+      "mechanism": "No per-mode model selection field documented in the mode schema"
     }
   }
 }

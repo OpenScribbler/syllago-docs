@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
     },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor custom agent files do not document spawning additional subagents from a user-defined agent; the three built-in subagents (Explore, Bash, Browser) are harness-provided, not file-overridable."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
@@ -25,9 +29,13 @@
       "supported": false,
       "mechanism": "no subagent spawning mechanism documented for Kiro custom agents"
     },
-    "windsurf": {
+    "opencode": {
+      "supported": true,
+      "mechanism": "Agents with mode: subagent (or mode: all) can be invoked from other agents; delegation is driven by the callee's description field."
+    },
+    "roo-code": {
       "supported": false,
-      "mechanism": "no structured agent orchestration; AGENTS.md is rules injection piggybacking on the Rules engine, not an agent harness"
+      "mechanism": "Custom modes are switched-to by the user rather than spawned as subagents; Roo Code's orchestrator mode delegates to other modes at runtime but mode files themselves do not spawn peers"
     }
   }
 }

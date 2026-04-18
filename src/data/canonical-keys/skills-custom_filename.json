@@ -21,6 +21,14 @@
       "supported": false,
       "mechanism": "not observed — Agent Skills standard uses fixed SKILL.md filename"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "filename is fixed as SKILL.md per the Agent Skills standard"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Not observed — the skill filename is fixed as SKILL.md."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "skill.mdx is accepted as an alternative to SKILL.md within the skill directory"
@@ -36,6 +44,10 @@
     "pi": {
       "supported": true,
       "mechanism": "Any .md filename at root of ~/.pi/agent/skills/ or .pi/skills/ (shorthand single-file form)"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "Filename is fixed as SKILL.md — no alternate filenames observed"
     }
   }
 }

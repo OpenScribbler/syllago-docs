@@ -1,0 +1,60 @@
+{
+  "id": "opencode-mcp",
+  "provider": "opencode",
+  "contentType": "mcp",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://opencode.ai/docs/mcp-servers/",
+      "type": "documentation",
+      "fetched_at": ""
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/sst/opencode/dev/schema.json",
+      "type": "schema",
+      "fetched_at": ""
+    }
+  ],
+  "canonicalMappings": {
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "No organization-level MCP management documented"
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: environment variables configured in server env blocks"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "No OAuth 2.0 authentication for remote MCP servers documented"
+    },
+    "tool_filtering": {
+      "supported": false,
+      "mechanism": "No per-server tool allowlist/blocklist documented"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "transport_types: OpenCode documents stdio transport; remote transports (http/sse) are available on sst/opencode depending on version"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "stdio_transport",
+      "name": "stdio MCP transport",
+      "summary": "Local MCP servers launched via command/args/env and communicate over stdio.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
+    },
+    {
+      "id": "jsonc_config",
+      "name": "JSONC config file format",
+      "summary": "MCP servers are configured in opencode.json or opencode.jsonc at the project root; JSONC allows comments.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
+}

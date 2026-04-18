@@ -17,6 +17,10 @@
       "supported": true,
       "mechanism": "mcp-servers inline config in frontmatter; available for cloud agent only; workspace MCP config shared by default"
     },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor custom agents do not document a per-agent mcpServers field; they inherit the workspace MCP configuration."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
@@ -25,9 +29,13 @@
       "supported": true,
       "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"
     },
-    "windsurf": {
+    "opencode": {
       "supported": false,
-      "mechanism": "AGENTS.md has no structured config; MCP is workspace-wide only, not per-agent"
+      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration."
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "Custom modes do not declare their own MCP server lists — MCP configuration is global per the .roo/mcp.json and global MCP settings"
     }
   }
 }

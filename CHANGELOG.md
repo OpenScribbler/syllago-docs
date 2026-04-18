@@ -2,6 +2,17 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-17 (v0.9.0 sync)
+
+### Changed
+- Synced data from syllago 0.9.0 release. Provider capability updates reflect the upstream provider-coverage-reconciliation work:
+  - **Amp**: `hooks` now supported (JSON merge into `.amp/settings.json` under `amp.hooks`, hook type `command`); `amp hooks` file format reported as `json` (was incorrectly `md`)
+  - **Cline**: `commands` now supported (Workflows; install to `.clinerules/workflows/` project or `~/Documents/Cline/Workflows/` global, symlink, md); `skills` now supported (install to `~/.cline/skills/<slug>/SKILL.md`, symlink, md, frontmatter `name`+`description`)
+  - **Windsurf**: `commands` now supported (Cascade Workflows; install to `.windsurf/workflows/` project or `~/.codeium/windsurf/global_workflows/` global, symlink, md)
+  - **Roo Code**: `commands` now supported (install to `.roo/commands/`, symlink, md)
+  - **Cursor**: capability data filled in for all 6 supported content types (previously skills-only)
+- 4 provider JSONs updated (amp, cline, roo-code, windsurf); 27 capability/data-quality JSONs refreshed; 44 canonical-key pages and all 7 content-type matrix pages regenerated from the new manifest.
+
 ## 2026-04-17
 
 ### Added

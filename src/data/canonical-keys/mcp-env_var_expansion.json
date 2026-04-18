@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "Copilot CLI MCP configuration does not document environment variable expansion"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: Crush MCP configuration supports environment variable references in server env blocks"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Server env blocks reference environment variables so secrets can be read from the shell environment rather than hardcoded."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid MCP configuration does not document environment variable expansion"
@@ -37,9 +45,21 @@
       "supported": false,
       "mechanism": "Kiro MCP configuration does not document environment variable expansion"
     },
+    "opencode": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: environment variables configured in server env blocks"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: server env blocks accept environment variables so secrets can be referenced from the shell environment"
+    },
     "windsurf": {
       "supported": true,
       "mechanism": "config_interpolation: Windsurf MCP configuration supports ${VAR} interpolation for environment variables"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "no automatic environment variable expansion documented in Zed MCP env blocks"
     }
   }
 }

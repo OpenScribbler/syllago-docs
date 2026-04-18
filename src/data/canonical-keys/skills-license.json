@@ -5,6 +5,10 @@
   "description": "SPDX license identifier for the skill content. Typically \"MIT\", \"Apache-2.0\", etc.",
   "type": "string",
   "providers": {
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: license (optional)."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "yaml frontmatter key: license (optional)"
@@ -16,6 +20,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: license (optional)"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No license frontmatter field observed in Roo Code skill examples"
     }
   }
 }

@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": "organization-level and enterprise-level skills explicitly stated as 'coming soon' in source"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": ""
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": ""
@@ -40,6 +48,10 @@
     "pi": {
       "supported": false,
       "mechanism": ""
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": ".agents/skills/<slug>/SKILL.md cross-provider convention directory read alongside .roo/skills/"
     },
     "windsurf": {
       "supported": true,

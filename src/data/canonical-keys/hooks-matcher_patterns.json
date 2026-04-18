@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": true,
-      "mechanism": "hook_match_input_contains: Amp hooks can match on input content containing specific strings"
+      "mechanism": "Amp hooks filter firing via 'input.contains' — exact literal substring match against tool input"
     },
     "claude-code": {
       "supported": true,
@@ -24,6 +24,10 @@
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks fire on all events of their configured type; no per-tool filtering documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Hook entries accept a matcher string that filters which tool or event fires the hook (for example a specific shell command or tool name)."
     },
     "factory-droid": {
       "supported": false,

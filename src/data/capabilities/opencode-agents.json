@@ -1,0 +1,115 @@
+{
+  "id": "opencode-agents",
+  "provider": "opencode",
+  "contentType": "agents",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://opencode.ai/docs/agents/",
+      "type": "documentation",
+      "fetched_at": ""
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
+      "type": "source_code",
+      "fetched_at": ""
+    }
+  ],
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.opencode/agents/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "Markdown files with YAML frontmatter loaded from .opencode/agents/*.md (project) and ~/.config/opencode/agents/*.md (global). The loader glob accepts both agent/ and agents/ directory names and recurses. Frontmatter declares description (required), mode, model, permission, steps, temperature, top_p, color, and hidden; the markdown body becomes the system prompt."
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "Agent name derives from the filename (configEntryNameFromPath). Agents with mode: primary can be selected as the session agent; agents with mode: subagent are invoked by other agents via description-driven matching; mode: all allows both."
+    },
+    "model_selection": {
+      "supported": true,
+      "mechanism": "Frontmatter model field selects a specific model alias or full model string for the agent, overriding the session default.",
+      "provider_field": "model"
+    },
+    "per_agent_mcp": {
+      "supported": false,
+      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration."
+    },
+    "subagent_spawning": {
+      "supported": true,
+      "mechanism": "Agents with mode: subagent (or mode: all) can be invoked from other agents; delegation is driven by the callee's description field."
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool, replacing the deprecated tools allow/deny map."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agent_mode",
+      "name": "Agent mode (primary / subagent / all)",
+      "summary": "Frontmatter mode field selects whether the agent is a root primary agent, a subagent invoked by another agent, or both.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "mode",
+      "conversion": "translated"
+    },
+    {
+      "id": "temperature",
+      "name": "Sampling temperature override",
+      "summary": "Per-agent sampling temperature via frontmatter temperature field.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "temperature",
+      "conversion": "translated"
+    },
+    {
+      "id": "top_p",
+      "name": "top_p sampling override",
+      "summary": "Per-agent nucleus sampling top_p value via frontmatter.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "top_p",
+      "conversion": "translated"
+    },
+    {
+      "id": "steps",
+      "name": "Per-step iteration limit",
+      "summary": "Frontmatter steps field caps the number of model steps for this agent. Replaces the deprecated maxSteps field.",
+      "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
+      "required": null,
+      "provider_field": "steps",
+      "conversion": "translated"
+    },
+    {
+      "id": "permission_map",
+      "name": "Per-tool permission overrides",
+      "summary": "Frontmatter permission map configures ask/allow/deny behavior per tool, replacing the deprecated tools allow/deny map.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "permission",
+      "conversion": "translated"
+    },
+    {
+      "id": "color",
+      "name": "Agent color tag",
+      "summary": "Optional color hint for UI display of the agent.",
+      "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
+      "required": null,
+      "provider_field": "color",
+      "conversion": "embedded"
+    },
+    {
+      "id": "hidden",
+      "name": "Hidden from pickers",
+      "summary": "Boolean hidden flag excludes the agent from interactive selection UIs while still allowing programmatic invocation.",
+      "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
+      "required": null,
+      "provider_field": "hidden",
+      "conversion": "embedded"
+    }
+  ]
+}
