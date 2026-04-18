@@ -2,6 +2,35 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-17 (audit punch list)
+
+### Fixed
+- `src/content/docs/getting-started/core-concepts.mdx` — replaced `syllago publish --registry` with `syllago share --to <registry>` (the `publish` command no longer exists; `share` is the unified entry point).
+- `src/content/docs/using-syllago/collections/registries.mdx` — same replacement; consolidated the publish/share split into a single `share` workflow with `--to` for registries.
+- `src/content/docs/advanced/team-setup.mdx` — same `publish` → `share --to` purge in Contributing back + Related sections.
+- `src/content/docs/advanced/registry-privacy.mdx` — Four Gates table: G1 now references `syllago share --to <registry>` (was `syllago publish`); See Also link updated.
+- `src/content/docs/using-syllago/collections/index.mdx` — Registries section description updated to `syllago share --to <registry>`.
+- `src/pages/index.astro` — landing page command example switched from `syllago publish ... --registry` to `syllago share ... --to`.
+- `src/content/docs/using-syllago/content-types/agents.mdx`, `skills.mdx`, `commands.mdx` — `effort` enum corrected from `min`/`moderate`/`large`/`max` to canonical `low`/`medium`/`high`/`max` (matches `cli/internal/converter/commands.go`).
+- `src/content/docs/using-syllago/content-types/agents.mdx` — Kiro agents section rewritten from "JSON-based steering files" to accurate "Markdown with rich YAML frontmatter" (`name`, `description`, `model`, `tools`, `allowedTools`, `mcpServers`, `hooks`, etc.).
+- `src/content/docs/using-syllago/content-types/skills.mdx` — Kiro skills line corrected: Markdown steering files in `.kiro/steering/`, not JSON-wrapped.
+- `src/content/docs/using-syllago/content-types/commands.mdx` — replaced fictional TOML Codex command example with a Claude Code-style Markdown-with-frontmatter example. Codex commands are `.md`, not `.toml`. `source_format` corrected from `toml` to `md` in the catalog example.
+- `src/content/docs/using-syllago/content-types/rules.mdx` — replaced incorrect "OpenCode (YAML format)" section with accurate "OpenCode (Markdown)" — OpenCode reads rules from `AGENTS.md`/`CLAUDE.md` at the project root, not custom YAML.
+- `src/content/docs/using-syllago/content-types/hooks.mdx` — Gemini CLI hook event names corrected to match upstream (v0.9.0): `BeforeTool`/`AfterTool`/`BeforeAgent`/`AfterAgent` (was old hypothetical `before_tool_call`/`after_tool_call`/`before_send`/`on_complete`).
+- `src/content/docs/using-syllago/content-types/index.mdx` — Provider Compatibility Matrix updated: added Factory Droid, Pi, Crush columns (3 new providers from v0.8.0 that hadn't been added to this matrix); fixed cells: Cline Skills + Commands → ✅, Roo Code Commands → ✅, Amp Hooks → ✅, Windsurf Commands → ✅.
+- `src/content/docs/getting-started/core-concepts.mdx` — provider list extended with Factory Droid, Crush, Pi (was missing the v0.8.0 additions).
+- `src/content/docs/using-syllago/collections/loadouts.mdx` — top note rewritten from "currently emit configuration for Claude Code only" to clarify `--to <provider>` works for any target (Claude Code is the default).
+- `src/content/docs/using-syllago/format-conversion.mdx` — Compatibility Matrix loadouts row updated: "Multi-provider (Claude Code default)" with note about `--to <provider>`.
+- `src/content/docs/using-syllago/syllago-yaml.mdx` — removed `promoted_at` and `pr_branch` rows from Lifecycle timestamps table (legacy fields tied to the removed `syllago promote` command; struct retains them for backward-compat reads but they're never written).
+
+## 2026-04-17 (provider overview tweaks)
+
+### Changed
+- `ProviderOverview.astro` — Provider Details table now includes a **Detection** row ("Filesystem check — `~/{configDir}` exists") and the standalone "Detection" h2/paragraph below the tables has been removed (folded into the table for scannability).
+
+### Removed
+- `ProviderOverview.astro` — **Supported content types** row from the Provider Details table. Redundant with the Supported Content Types section/table immediately below it.
+
 ## 2026-04-17 (sidebar codegen)
 
 ### Added

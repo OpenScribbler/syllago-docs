@@ -34,8 +34,8 @@ These fields persist through the content's entire lifecycle in your library. The
 
 | Gate | Command | Behavior |
 |------|---------|----------|
-| G1 | `syllago publish` | **Blocks** publishing tainted content to public registries |
-| G2 | `syllago share` | **Blocks** sharing tainted content to public repos |
+| G1 | `syllago share --to <registry>` | **Blocks** sharing tainted content to public registries |
+| G2 | `syllago share` | **Blocks** sharing tainted content to public team repos |
 | G3 | `syllago loadout create` | **Warns** when loadout contains private items |
 | G4 | `syllago loadout publish` | **Blocks** publishing loadouts with private items to public registries |
 
@@ -90,5 +90,5 @@ syllago inspect my-skill --json | jq '.source_visibility'
 ## See Also
 
 - [Registries](/using-syllago/collections/registries/) — managing git-based registries
-- `syllago publish` — contributing to registries
+- `syllago share` — contributing to registries or team repos
 - [Team Setup](/advanced/team-setup/) — configuring syllago for team use

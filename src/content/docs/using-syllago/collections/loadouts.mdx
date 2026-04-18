@@ -5,7 +5,7 @@ description: Bundle and apply curated sets of AI coding tool content as named co
 
 Loadouts are bundled sets of content — rules, skills, agents, hooks, MCP configs — that apply as a unit. Think of them as named configuration profiles: instead of adding content piece by piece, you define a loadout once and apply everything in a single command.
 
-Loadouts currently emit configuration for **Claude Code** only. Additional provider emitters are planned.
+Loadouts emit Claude Code configuration by default. Use `--to <provider>` on `syllago loadout apply` to target a different provider — the loadout's constituent items install through that provider's normal converter.
 
 ## How loadouts fit in
 

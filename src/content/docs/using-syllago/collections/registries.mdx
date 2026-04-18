@@ -3,7 +3,7 @@ title: Registries
 description: Share and consume content through git-based registries.
 ---
 
-Registries are git repositories that hold shared syllago content. Teams publish content to a registry, and consumers add, sync, and browse it locally. Unlike a read-only package feed, registries support contributing back — `syllago publish` opens a pull request against the registry repo.
+Registries are git repositories that hold shared syllago content. Teams share content into a registry, and consumers add, sync, and browse it locally. Unlike a read-only package feed, registries support contributing back — `syllago share --to <registry>` opens a pull request against the registry repo.
 
 ## How registries work
 
@@ -89,19 +89,15 @@ syllago registry remove team-rules
 
 ## Contributing back
 
-Registries are not read-only. If you have content in your library that belongs in a shared registry, publish it:
+Registries are not read-only. If you have content in your library that belongs in a shared registry, share it:
 
 ```bash
-syllago publish my-skill --registry team-rules
+syllago share my-skill --to team-rules
 ```
 
 This opens a pull request against the registry's git repo. The registry maintainers review and merge through their normal PR workflow — no special tooling required on their end.
 
-For team repos (non-registry), use `syllago share` instead:
-
-```bash
-syllago share my-skill
-```
+`syllago share` works for both registries and arbitrary team repos. Pass `--to <registry>` to target a registered registry; omit it to share into a default team repo.
 
 ## Privacy gate
 
@@ -144,5 +140,4 @@ Registries feed your library. You browse what is available, install what you nee
 - [`syllago registry list`](/using-syllago/cli-reference/registry-list/)
 - [`syllago registry remove`](/using-syllago/cli-reference/registry-remove/)
 - `syllago registry create`
-- `syllago publish`
 - `syllago share`

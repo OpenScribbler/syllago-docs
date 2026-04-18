@@ -28,12 +28,12 @@ Hook events use provider-neutral names in the canonical format:
 
 | Canonical Event | Claude Code | Gemini CLI |
 |---|---|---|
-| `before_tool_execute` | `PreToolUse` | `before_tool_call` |
-| `after_tool_execute` | `PostToolUse` | `after_tool_call` |
-| `before_prompt` | `UserPromptSubmit` | `before_send` |
-| `agent_stop` | `Stop` | `on_complete` |
-| `session_start` | `SessionStart` | `session_start` |
-| `session_end` | `SessionEnd` | `session_end` |
+| `before_tool_execute` | `PreToolUse` | `BeforeTool` |
+| `after_tool_execute` | `PostToolUse` | `AfterTool` |
+| `before_prompt` | `UserPromptSubmit` | `BeforeAgent` |
+| `agent_stop` | `Stop` | `AfterAgent` |
+| `session_start` | `SessionStart` | `SessionStart` |
+| `session_end` | `SessionEnd` | `SessionEnd` |
 
 Syllago translates event names automatically when converting between providers.
 

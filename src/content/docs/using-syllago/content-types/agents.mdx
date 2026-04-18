@@ -16,7 +16,7 @@ Agents support the following metadata fields:
 | `name` | Agent name (required) | All providers |
 | `description` | What the agent does (required) | All providers |
 | `permissionMode` | Permission level (5 values) | Claude Code (all 5); others as prose |
-| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as prose |
+| `effort` | Time/complexity: `low`, `medium`, `high`, `max` | Claude Code (native); others as prose |
 
 ### Permission Modes
 
@@ -88,9 +88,9 @@ Return consistent error shapes with appropriate status codes.
 
 When you import a Codex agent, syllago parses the TOML and stores it as standard Markdown with frontmatter. When you install to Codex, syllago converts back. No manual format handling needed.
 
-### Kiro (JSON)
+### Kiro (Markdown with rich frontmatter)
 
-Kiro uses JSON-based steering files. Syllago embeds the Markdown content into Kiro's JSON structure automatically during install.
+Kiro uses Markdown agent files with extensive YAML frontmatter — `name`, `description`, `model`, `tools`, `allowedTools`, `mcpServers`, `hooks`, and more. Syllago maps the canonical agent fields onto Kiro's frontmatter on install.
 
 ## Workflow
 

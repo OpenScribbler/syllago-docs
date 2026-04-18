@@ -62,17 +62,8 @@ const supportedTypes = CT_SECTION_ORDER.filter((ct) => content[ct]?.supported);
         </tr>
       )}
       <tr>
-        <th>Supported content types</th>
-        <td>
-          {supportedTypes.length > 0
-            ? supportedTypes.map((ct, i) => (
-                <>
-                  <a href={`/using-syllago/providers/${slug}/${ct}/`}>{CT_DISPLAY[ct] ?? ct}</a>
-                  {i < supportedTypes.length - 1 ? ', ' : ''}
-                </>
-              ))
-            : '—'}
-        </td>
+        <th>Detection</th>
+        <td>Filesystem check — <code>~/{configDir}</code> exists</td>
       </tr>
     </tbody>
   </table>
@@ -104,9 +95,6 @@ const supportedTypes = CT_SECTION_ORDER.filter((ct) => content[ct]?.supported);
       })}
     </tbody>
   </table>
-
-  <h2>Detection</h2>
-  <p>Syllago detects {name} by checking for the <code>~/{configDir}</code> directory.</p>
 
   <h2>Working with {name}</h2>
   <pre><code>{`# Add content from ${name}
