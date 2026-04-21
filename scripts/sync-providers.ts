@@ -66,12 +66,41 @@ const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
 const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
 const SIDEBAR_PATH = join(ROOT_DIR, "sidebar.ts");
+const COMPAT_MATRIX_PATH = join(
+  ROOT_DIR,
+  "src/content/docs/using-syllago/content-types/index.mdx"
+);
 const FETCH_TIMEOUT_MS = 15_000;
 
 // Canonical content type order in the sidebar (Skills first, Agents last).
 const SIDEBAR_CT_ORDER = ["skills", "hooks", "rules", "mcp", "commands", "agents"];
 const SIDEBAR_START_MARKER = "// AUTO-GENERATED:PROVIDERS START";
 const SIDEBAR_END_MARKER = "// AUTO-GENERATED:PROVIDERS END";
+
+// Compatibility-matrix row order on the content-types landing page.
+// Loadouts are intentionally NOT included: they're a syllago-specific
+// bundling concept, not an upstream provider content type.
+const COMPAT_MATRIX_CT_ORDER = [
+  "rules",
+  "skills",
+  "agents",
+  "mcp",
+  "hooks",
+  "commands",
+];
+const COMPAT_MATRIX_START_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX START";
+const COMPAT_MATRIX_END_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX END */}";
+
+// Short column labels for the compatibility matrix. The table is 15 columns
+// wide; the short forms keep every cell legible. Providers not in this map
+// fall back to the first word of their display name.
+const COMPAT_MATRIX_SHORT: Record<string, string> = {
+  "claude-code": "Claude",
+  "gemini-cli": "Gemini",
+  "copilot-cli": "Copilot",
+  "factory-droid": "Factory",
+  "roo-code": "Roo",
+};
 
 // Display names for content types (used in tables).
 const CT_DISPLAY: Record<string, string> = {
@@ -316,6 +345,69 @@ function writeProvidersSidebarBlock(providers: ProviderCapEntry[]): void {
   }
   writeFileSync(SIDEBAR_PATH, updated);
   console.log("  Sidebar: providers section regenerated");
+}
+
+// ---------------------------------------------------------------------------
+// Compatibility-matrix codegen (content-types landing page)
+// ---------------------------------------------------------------------------
+
+// Column label for a provider in the 15-wide matrix. Falls back to the first
+// word of the display name when the provider isn't in the short-name map —
+// a reasonable default for future additions like single-word provider names.
+function compatMatrixLabel(prov: ProviderCapEntry): string {
+  return COMPAT_MATRIX_SHORT[prov.slug] ?? prov.name.split(" ")[0];
+}
+
+// Renders the compatibility-matrix managed block. Columns are sorted
+// alphabetically by provider name so the column order is stable as new
+// providers are added or removed. Rows follow COMPAT_MATRIX_CT_ORDER.
+function generateCompatMatrixBlock(providers: ProviderCapEntry[]): string {
+  const sorted = [...providers].sort((a, b) => a.name.localeCompare(b.name));
+  const headerLabels = sorted.map(compatMatrixLabel);
+
+  const lines: string[] = [
+    `${COMPAT_MATRIX_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand. */}`,
+    `| Content Type | ${headerLabels.join(" | ")} |`,
+    `|${"---|".repeat(headerLabels.length + 1)}`,
+  ];
+
+  for (const ct of COMPAT_MATRIX_CT_ORDER) {
+    const cells = sorted.map((p) =>
+      p.content[ct]?.supported ? "✅" : "—"
+    );
+    lines.push(`| ${CT_DISPLAY[ct] ?? ct} | ${cells.join(" | ")} |`);
+  }
+
+  lines.push(COMPAT_MATRIX_END_MARKER);
+  return lines.join("\n");
+}
+
+function writeCompatMatrixBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(COMPAT_MATRIX_PATH)) {
+    throw new Error(`content-types/index.mdx not found at ${COMPAT_MATRIX_PATH}`);
+  }
+  const current = readFileSync(COMPAT_MATRIX_PATH, "utf-8");
+  const startIdx = current.indexOf(COMPAT_MATRIX_START_MARKER);
+  const endIdx = current.indexOf(COMPAT_MATRIX_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `content-types/index.mdx is missing AUTO-GENERATED:COMPAT-MATRIX markers. ` +
+      `Add the START/END block around the Provider Compatibility Matrix table.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + COMPAT_MATRIX_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`content-types/index.mdx END marker has no trailing newline`);
+  }
+  const block = generateCompatMatrixBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Compat matrix: no changes");
+    return;
+  }
+  writeFileSync(COMPAT_MATRIX_PATH, updated);
+  console.log("  Compat matrix: regenerated from provider data");
 }
 
 // ---------------------------------------------------------------------------
@@ -758,6 +850,9 @@ async function main() {
 
   // 2. Regenerate the providers section of sidebar.ts (managed-block codegen).
   writeProvidersSidebarBlock(manifest.providers);
+
+  // 2a. Regenerate the Provider Compatibility Matrix (managed-block codegen).
+  writeCompatMatrixBlock(manifest.providers);
 
   // 3. Generate MDX pages.
   rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });

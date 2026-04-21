@@ -2,6 +2,17 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-21 (compat-matrix codegen + MOAT docs rewrite)
+
+### Added
+- `scripts/sync-providers.ts` — new `generateCompatMatrixBlock` and `writeCompatMatrixBlock` functions regenerate the Provider Compatibility Matrix on `content-types/index.mdx` from `src/data/providers/*.json` on every sync. Columns sort alphabetically by provider name for stable output; rows follow the canonical content-type order (Rules → Skills → Agents → MCP Configs → Hooks → Commands). Mirrors the `writeProvidersSidebarBlock` pattern (commit 576dd6c). Bead syllago-docs-xzw.
+- `scripts/regen-compat-matrix.ts` — standalone regenerator that reads the per-provider JSON files and updates only the matrix block. Lets a doc contributor refresh the matrix from local provider data without fetching providers.json from GitHub or rewriting other generated output.
+- `src/content/docs/using-syllago/content-types/index.mdx` — `{/* AUTO-GENERATED:COMPAT-MATRIX START */}` / `END` markers wrap the matrix table so the codegen has a managed-block target.
+
+### Changed
+- `src/content/docs/using-syllago/content-types/index.mdx` — Provider Compatibility Matrix column order changed from historical insertion order to alphabetical by provider name (Amp, Claude, Cline, Codex, Copilot, Crush, Cursor, Factory, Gemini, Kiro, OpenCode, Pi, Roo, Windsurf, Zed). Every data cell is unchanged — this is purely a one-time column re-order to establish a stable, predictable order now that the table is generated. Claude Code is now labeled **Claude** (previously abbreviated **CC**) since the two-letter form wasn't decipherable. Short labels are set in the `COMPAT_MATRIX_SHORT` map in `sync-providers.ts`.
+- `src/content/docs/using-syllago/content-types/index.mdx` — Loadouts row removed from the matrix. Loadouts are a syllago-specific bundling concept, not an upstream provider content type, so the row doesn't belong in a cross-provider compatibility view. The Loadouts entry in the **Content Type Reference** list below the table is unchanged.
+
 ## 2026-04-21 (MOAT docs — rewrite + protocol-name fix)
 
 ### Added
