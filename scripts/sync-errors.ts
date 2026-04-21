@@ -178,6 +178,16 @@ function extractDescription(content: string): string {
   return sentence.length > 150 ? sentence.slice(0, 147) + "..." : sentence;
 }
 
+/**
+ * Strip CommonMark autolink wrappers (`<https://...>`) from upstream markdown.
+ * MDX reserves `<tag>` for components and rejects `/` inside the tag name.
+ * remark-gfm autolinks bare URLs, so dropping the angle brackets preserves
+ * clickability without needing a full markdown-link rewrite.
+ */
+function sanitizeForMdx(markdown: string): string {
+  return markdown.replace(/<(https?:\/\/[^\s>]+)>/g, "$1");
+}
+
 function generateErrorMdx(doc: ErrorDoc, info: ErrorCodeInfo | undefined): string {
   const code = info?.code ?? doc.slug.toUpperCase().replace(/-/g, "_");
   const humanName = info?.humanName ?? doc.slug;
@@ -190,7 +200,7 @@ sidebar:
   label: "${code}"
 ---
 
-${doc.content}`;
+${sanitizeForMdx(doc.content)}`;
 }
 
 // ---------------------------------------------------------------------------

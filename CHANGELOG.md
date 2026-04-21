@@ -2,6 +2,23 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-21 (MOAT docs — rewrite + protocol-name fix)
+
+### Added
+- `src/content/docs/moat/index.mdx` — **MOAT overview page** written against upstream v0.6.x Draft. Briefly frames MOAT (Model for Origin Attestation and Trust) and why syllago adopts it, then describes the pieces syllago implements: trust tiers + five-outcome install gate (Proceed / HardBlock / PublisherWarn / PrivatePrompt / TierBelowPolicy), registry signing-identity pinning, trusted-root lifecycle (`syllago moat trust status` exit 0/1/2), registry sync with the four non-interactive exit codes (10 TOFU / 11 profile-change / 12 publisher-revocation / 13 stale), the TUI Trust Inspector modal in both item and registry scopes, and the MOAT_* structured error band. Matter-of-fact voice — describes behavior that exists today without "coming soon" framing.
+- `src/content/docs/moat/trust-tiers.mdx` — **Trust Tiers reference page**. Covers the three MOAT tiers (Unsigned / Signed / Dual-Attested) with the field-presence derivation rules from `cli/internal/moat/manifest.go` including the `attestation_hash_mismatch` downgrade path; syllago's catalog-layer `Unknown` label for non-MOAT content; three-state badge collapse (`Verified` `✓` / `Recalled` `R` / none) with an Aside explaining why the recall glyph is ASCII `R` rather than `✗` (cross-context overloading with the converter compat matrix); Trust Inspector field lists for both scopes; revocation two-tier contract (registry hard-block vs publisher warn-with-exit-12); private-repo prompt semantics; and the tier-policy floor.
+
+### Fixed
+- `src/content/docs/moat/registry-add-signing-identity.mdx` — corrected the MOAT protocol name from "Manifest-Oriented Attestation Transport" to "Model for Origin Attestation and Trust" on line 8. The earlier wording was an interpolation that never matched the upstream spec.
+
+## 2026-04-20 (MOAT sidebar wiring + sync-errors MDX fix)
+
+### Added
+- `sidebar.ts` — new top-level **MOAT** section with Overview, Trust Tiers, and Registry Signing Identity. The existing `registry-add-signing-identity.mdx` page was previously orphaned from the sidebar; this wires it in alongside the two new pages. Placed after Advanced and before Error Codes so it groups with security-adjacent content without overloading Advanced.
+
+### Fixed
+- `scripts/sync-errors.ts` — added `sanitizeForMdx` step that strips CommonMark autolink wrappers (`<https://...>`) from upstream error-doc markdown before it lands in generated MDX. MDX reserves `<tag>` for components and rejects `/` inside the tag name, which broke `astro build` once upstream added `moat-001.md` containing an autolinked docs URL. `remark-gfm` autolinks bare URLs, so the fix drops the angle brackets and preserves clickability without rewriting to explicit `[text](url)` form. Applies to every upstream error doc generated through the sync pipeline.
+
 ## 2026-04-18 (conversion badges + canonical-keys sidebar)
 
 ### Added

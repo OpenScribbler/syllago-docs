@@ -349,6 +349,15 @@ export const sidebar: SidebarItem[] = [
     ],
   },
   {
+    label: 'MOAT',
+    collapsed: true,
+    items: [
+      { label: 'Overview', slug: 'moat' },
+      { label: 'Trust Tiers', slug: 'moat/trust-tiers' },
+      { label: 'Registry Signing Identity', slug: 'moat/registry-add-signing-identity' },
+    ],
+  },
+  {
     label: 'Error Codes',
     collapsed: true,
     autogenerate: { directory: 'errors' },

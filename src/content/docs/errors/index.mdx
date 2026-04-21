@@ -86,6 +86,18 @@ When syllago encounters an error, it displays a structured error with a code, me
 | [LOADOUT_004](/errors/loadout-004/) | Loadout Provider | loadout references unknown provider |
 | [LOADOUT_005](/errors/loadout-005/) | Loadout No Items | no items selected for loadout |
 
+## Moat Errors
+
+| Code | Name | Description |
+|------|------|-------------|
+| [MOAT_001](/errors/moat-001/) | Moat Identity Unpinned | registry add has neither allowlist match nor --signing-identity |
+| [MOAT_002](/errors/moat-002/) | Moat Identity Invalid | --signing-* flags are incomplete or malformed |
+| [MOAT_003](/errors/moat-003/) | Moat Identity Mismatch | manifest cert does not match pinned profile (numeric ID, issuer, or subject) |
+| [MOAT_004](/errors/moat-004/) | Moat Invalid | manifest or bundle malformed, missing, or unreadable |
+| [MOAT_005](/errors/moat-005/) | Moat Trusted Root Stale | bundled trusted root exceeded its 365-day cliff |
+| [MOAT_006](/errors/moat-006/) | Moat Unsigned With Pin | registry has a pinned profile but no manifest/bundle found in checkout |
+| [MOAT_007](/errors/moat-007/) | Moat Trusted Root Override | operator-supplied trusted_root.json path (--trusted-root or reg.trusted_root) unusable |
+
 ## Privacy Errors
 
 | Code | Name | Description |
