@@ -8,6 +8,7 @@ import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import astroD2 from 'astro-d2';
 import { sidebar } from './sidebar.ts';
+import remarkWrapTables from './scripts/remark-wrap-tables.mjs';
 import { execSync } from 'child_process';
 
 // Smart D2 detection — auto-enable when D2 is available.
@@ -87,4 +88,7 @@ if (shouldGenerateD2()) {
 export default defineConfig({
   site: 'https://syllago.dev',
   integrations,
+  markdown: {
+    remarkPlugins: [remarkWrapTables],
+  },
 });

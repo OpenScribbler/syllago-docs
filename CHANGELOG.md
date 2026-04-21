@@ -2,6 +2,17 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-21 (site-wide table overflow + ProviderCompare mobile rewrite)
+
+### Added
+- `scripts/remark-wrap-tables.mjs` — new remark plugin that wraps every markdown `<table>` in a `<div class="table-wrap">` as an MDX JSX flow element. Wired into `astro.config.mjs` as `markdown.remarkPlugins`. The wrapper becomes the scroll container for wide and tall tables, keeping tables inside the site's content width on mobile and desktop. Bead syllago-docs-bgt.
+- `src/styles/tables.css` — `.table-wrap` rules: `max-height: 40rem` (≈20 rows at current line-height), `overflow: auto`, `border`, `border-radius`. Sticky header (`thead th { position: sticky; top: 0 }`) keeps column labels visible during vertical scroll; sticky first column (`tbody tr :is(th, td):first-child { position: sticky; left: 0 }`) keeps row labels visible during horizontal scroll. The top-left corner cell uses `z-index: 3` so it stacks above both sticky layers. Per-row background overrides (default / striped / hover) on the sticky cells prevent content bleed-through during scroll.
+- `src/components/ProviderCompare.astro` — new mobile tabbed view for viewports ≤600px. Selected providers become a tab strip; the active tab renders a vertical `<dl>` feature list grouped by section (General / Content Type Support / Hooks / MCP / Rules). Desktop keeps the existing side-by-side matrix. Both views render from the same state via a new `renderAll()` entry point. Media query in `tables.css` decides which view is visible; both remain in the DOM so no re-render is needed on resize.
+
+### Changed
+- `src/styles/tables.css` — the global `.sl-markdown-content table` rule is unchanged for custom components (CanonicalSupportTable, DataQualityTable, ProviderConventions, etc.) that render raw tables outside the remark pipeline. New sticky/border/radius styles are scoped to `.table-wrap > table` so custom components keep their existing styling.
+- `src/components/ProviderCompare.astro` — dropped the Loadouts row from the compare feature list (both the SSR template and the client-side renderer). Same rationale as the earlier Provider Compatibility Matrix cleanup: loadouts are syllago-specific bundling, not an upstream provider content type, so they don't belong in a cross-provider view.
+
 ## 2026-04-21 (compat-matrix codegen + MOAT docs rewrite)
 
 ### Added
