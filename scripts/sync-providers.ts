@@ -70,6 +70,10 @@ const COMPAT_MATRIX_PATH = join(
   ROOT_DIR,
   "src/content/docs/using-syllago/content-types/index.mdx"
 );
+const HOOKS_MDX_PATH = join(
+  ROOT_DIR,
+  "src/content/docs/using-syllago/content-types/hooks.mdx"
+);
 const FETCH_TIMEOUT_MS = 15_000;
 
 // Canonical content type order in the sidebar (Skills first, Agents last).
@@ -90,6 +94,14 @@ const COMPAT_MATRIX_CT_ORDER = [
 ];
 const COMPAT_MATRIX_START_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX START";
 const COMPAT_MATRIX_END_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX END */}";
+
+// Canonical-event summary block in the hooks content-type page. The block
+// shows events supported by both Claude Code and Gemini CLI (the two
+// featured providers in the intro docs). The full cross-provider matrix
+// lives at /reference/hook-events/ (also auto-generated).
+const HOOKS_EVENTS_START_MARKER = "{/* AUTO-GENERATED:HOOKS-EVENTS START";
+const HOOKS_EVENTS_END_MARKER = "{/* AUTO-GENERATED:HOOKS-EVENTS END */}";
+const HOOKS_SUMMARY_PROVIDER_SLUGS = ["claude-code", "gemini-cli"];
 
 // Short column labels for the compatibility matrix. The table is 15 columns
 // wide; the short forms keep every cell legible. Providers not in this map
@@ -408,6 +420,81 @@ function writeCompatMatrixBlock(providers: ProviderCapEntry[]): void {
   }
   writeFileSync(COMPAT_MATRIX_PATH, updated);
   console.log("  Compat matrix: regenerated from provider data");
+}
+
+// ---------------------------------------------------------------------------
+// Hooks content-type page: canonical-event summary block
+// ---------------------------------------------------------------------------
+
+// Builds the 3-column Canonical | Claude Code | Gemini CLI table shown in
+// the intro hooks docs. The event list is derived from the intersection of
+// canonical events supported by both featured providers, so new events
+// added upstream flow through on the next sync without any hand editing.
+function generateHooksEventsBlock(providers: ProviderCapEntry[]): string {
+  const featured = HOOKS_SUMMARY_PROVIDER_SLUGS.map((slug) =>
+    providers.find((p) => p.slug === slug)
+  );
+  if (featured.some((p) => !p)) {
+    throw new Error(
+      `Hooks summary block: missing one of ${HOOKS_SUMMARY_PROVIDER_SLUGS.join(", ")} in providers.json`
+    );
+  }
+
+  const eventMaps = featured.map((p) => {
+    const map = new Map<string, string>();
+    for (const ev of p!.content.hooks?.hookEvents ?? []) {
+      map.set(ev.canonical, ev.nativeName);
+    }
+    return map;
+  });
+
+  // Intersection across all featured providers, sorted alphabetically.
+  const shared = [...eventMaps[0].keys()]
+    .filter((canonical) => eventMaps.every((m) => m.has(canonical)))
+    .sort();
+
+  const headers = featured.map((p) => p!.name);
+  const lines: string[] = [
+    `${HOOKS_EVENTS_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand. */}`,
+    `| Canonical Event | ${headers.join(" | ")} |`,
+    `|${"---|".repeat(headers.length + 1)}`,
+  ];
+
+  for (const canonical of shared) {
+    const cells = eventMaps.map((m) => `\`${m.get(canonical)}\``);
+    lines.push(`| \`${canonical}\` | ${cells.join(" | ")} |`);
+  }
+
+  lines.push(HOOKS_EVENTS_END_MARKER);
+  return lines.join("\n");
+}
+
+function writeHooksEventsBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(HOOKS_MDX_PATH)) {
+    throw new Error(`hooks.mdx not found at ${HOOKS_MDX_PATH}`);
+  }
+  const current = readFileSync(HOOKS_MDX_PATH, "utf-8");
+  const startIdx = current.indexOf(HOOKS_EVENTS_START_MARKER);
+  const endIdx = current.indexOf(HOOKS_EVENTS_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `hooks.mdx is missing AUTO-GENERATED:HOOKS-EVENTS markers. ` +
+      `Add the START/END block around the Canonical Events table.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + HOOKS_EVENTS_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`hooks.mdx END marker has no trailing newline`);
+  }
+  const block = generateHooksEventsBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Hooks events summary: no changes");
+    return;
+  }
+  writeFileSync(HOOKS_MDX_PATH, updated);
+  console.log("  Hooks events summary: regenerated from provider data");
 }
 
 // ---------------------------------------------------------------------------
@@ -853,6 +940,9 @@ async function main() {
 
   // 2a. Regenerate the Provider Compatibility Matrix (managed-block codegen).
   writeCompatMatrixBlock(manifest.providers);
+
+  // 2b. Regenerate the canonical-event summary table in hooks.mdx.
+  writeHooksEventsBlock(manifest.providers);
 
   // 3. Generate MDX pages.
   rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });

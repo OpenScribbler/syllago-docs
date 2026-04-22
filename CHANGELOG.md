@@ -2,6 +2,16 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-21 (hooks canonical-event summary codegen)
+
+### Added
+- `scripts/sync-providers.ts` — new `generateHooksEventsBlock` and `writeHooksEventsBlock` functions regenerate the Canonical Event summary table in `using-syllago/content-types/hooks.mdx` on every sync. The row set is derived from the intersection of canonical events supported by both featured providers (Claude Code and Gemini CLI) via the `HOOKS_SUMMARY_PROVIDER_SLUGS` map, so new shared events flow through on the next sync without hand editing. Bead syllago-docs-5rm.
+- `scripts/regen-hooks-events.ts` — standalone regenerator that reads the per-provider JSON files under `src/data/providers/` and updates only the hooks summary block. Mirrors `regen-compat-matrix.ts` for local use without a network sync.
+- `src/content/docs/using-syllago/content-types/hooks.mdx` — `{/* AUTO-GENERATED:HOOKS-EVENTS START */}` / `END` markers wrap the Canonical Event table so the codegen has a managed-block target.
+
+### Changed
+- `src/content/docs/using-syllago/content-types/hooks.mdx` — Canonical Event table is now codegen output. Row set expanded from the previous 6 events to 8 (adds `before_compact` and `notification` — both already supported by Claude Code and Gemini CLI). A pointer to the full [Hook Event Matrix](/reference/hook-events/) was added so readers can jump to the complete cross-provider view. Native names are sourced from `content.hooks.hookEvents[*].nativeName` in each provider's JSON, replacing the hand-maintained values that had gone stale once before.
+
 ## 2026-04-21 (site-wide table overflow + ProviderCompare mobile rewrite)
 
 ### Added
