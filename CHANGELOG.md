@@ -2,6 +2,21 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-22 (docs accuracy review — 170 files verified against syllago source)
+
+### Added
+- `docs/reviews/2026-04-21/` — full accuracy review output: per-section reports (advanced, errors, getting-started, moat, reference, using-syllago, cli-reference a–l, cli-reference m–z, root) plus a consolidated index with 22 applied fixes, 6 flagged items, and 7 design decisions for follow-up.
+
+### Changed
+- `src/content/docs/getting-started/installation.mdx` — Go version requirement corrected 1.25 → 1.26 in three places (requirements table, `go install` section, from-source section). `cli/go.mod` declares `go 1.26`; installs with Go 1.25 fail at compile time.
+- `src/content/docs/reference/hooks-v1.mdx` — spec drift corrected against canonical spec source: version `1.0.0-draft` → `0.1.0`, `hooks/1.0` → `hooks/0.1`, platform key `osx` → `darwin`, handler type description clarified to `command`-only core requirement, `timeout_action` field added, `status_message` field added.
+- `src/content/docs/using-syllago/tui.mdx` — five keybinding corrections: `u` (uninstall) → `x`; `r` (remove) → `d`; removed non-existent `c` (copy), `H` (toggle hidden), and `Ctrl+N`/`Ctrl+P` bindings. Verified against `cli/internal/tui/keys.go`.
+- `src/content/docs/using-syllago/collections/loadouts.mdx` — `syllago loadout create <name>` → `syllago loadout create` (cobra `NoArgs`; the command is interactive).
+- `src/content/docs/using-syllago/collections/index.mdx` — same `loadout remove <name>` → `loadout remove` correction.
+- `src/content/docs/using-syllago/cli-reference/sandbox.mdx` — `env` subcommand description corrected: "Add an env var to the sandbox allowlist" → "List allowed env vars" (matches `sandboxEnvCmd.Short` in `sandbox_cmd.go`).
+- `src/content/docs/using-syllago/cli-reference/` (9 files) — stale source footer links corrected to actual filenames: `moat-trust-status.mdx` (`trust_cmd.go` → `moat_cmd.go`), `remove.mdx`, `rename.mdx`, `share.mdx`, `sync-and-export.mdx`, `uninstall.mdx`, `update.mdx`, `version.mdx`.
+- `src/content/docs/errors/moat-001.mdx` — URL bracketing fix.
+
 ## 2026-04-21 (stale CLI reference lint + MOAT docs/cli-reference cleanup)
 
 ### Added
