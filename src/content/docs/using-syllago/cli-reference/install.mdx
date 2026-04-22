@@ -23,6 +23,8 @@ Use --method copy to place a standalone copy instead.
 | `--all` | `bool` | — | No | Install all library content (cannot combine with a positional name) |
 | `--base-dir` | `string` | — | No | Override base directory for content installation |
 | `-n`, `--dry-run` | `bool` | — | No | Show what would happen without making changes |
+| `--force` | `bool` | — | No | Proceed past high-severity scanner findings |
+| `--hook-scanner` | `stringSlice` | — | No | Path to external hook scanner binary (repeatable) |
 | `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
 | `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
 | `--to` | `string` | — | No | Provider to install into |

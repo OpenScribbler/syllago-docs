@@ -6,7 +6,7 @@ description: "Pull latest content from one or all registries"
 ## Synopsis
 
 ```
-syllago registry sync [name]
+syllago registry sync [name] [flags]
 ```
 
 ## Description
@@ -16,6 +16,12 @@ Runs git pull on registry clones to fetch the latest content.
 Sync updates the local clone only — it does not modify your library or
 installed provider content. Use "syllago registry items" to see what changed,
 and "syllago install" to activate updated content.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--yes` | `bool` | — | No | Auto-accept TOFU (trust-on-first-use) for MOAT registries with no pinned signing profile |
 
 ## Global Options
 

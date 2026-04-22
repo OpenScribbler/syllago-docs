@@ -1,0 +1,46 @@
+---
+title: "syllago moat trust status"
+description: "Report the bundled Sigstore trusted root's freshness"
+---
+
+## Synopsis
+
+```
+syllago moat trust status [flags]
+```
+
+## Description
+
+Print the source and calendar age of the bundled Sigstore trusted root,
+then exit with a stable code CI pipelines can gate on:
+
+  0  fresh       (age &lt; 90 days)
+  1  warn        (90–179 days)  — verification still runs
+  1  escalated   (180–364 days) — verification still runs
+  2  expired     (365+ days)    — verification refuses
+  2  missing     (embed is empty — build-time bug)
+  2  corrupt     (issued-at constant malformed — build-time bug)
+
+Use --json to emit a single JSON line for scripts.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Emit a single JSON line instead of key=value lines |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago moat trust](/using-syllago/cli-reference/moat-trust/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/trust_cmd.go)</small>

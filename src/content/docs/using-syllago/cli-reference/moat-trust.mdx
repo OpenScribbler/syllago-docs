@@ -1,0 +1,25 @@
+---
+title: "syllago moat trust"
+description: "Trusted-root lifecycle (status, refresh)"
+---
+
+Operate on the Sigstore trusted-root bundle used to verify signed registry manifests.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`status`](/using-syllago/cli-reference/moat-trust-status/) | Report the bundled Sigstore trusted root's freshness |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/moat_cmd.go)</small>

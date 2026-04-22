@@ -11,6 +11,7 @@
     "sync:commands": "bun scripts/sync-commands.ts",
     "sync:errors": "bun scripts/sync-errors.ts",
     "sync:providers": "bun scripts/sync-providers.ts",
+    "lint:cli-refs": "bun scripts/lint-cli-refs.ts",
     "postinstall": "node scripts/patch-starlight-llms-txt.js",
     "prebuild": "bun scripts/sync-capabilities.ts && bun scripts/sync-commands.ts && bun scripts/sync-errors.ts && bun scripts/sync-providers.ts && bun scripts/sync-telemetry.ts",
     "build": "astro build",

@@ -2,6 +2,19 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-21 (stale CLI reference lint + MOAT docs/cli-reference cleanup)
+
+### Added
+- `scripts/lint-cli-refs.ts` — new standalone bun lint that scans every `.mdx` file under `src/` for `syllago <command>` references inside inline code spans and fenced code blocks, and fails when the command isn't a valid stem under `src/content/docs/using-syllago/cli-reference/`. The cli-reference directory is one cache hop downstream of upstream `commands.json`, so it serves as the source of truth without a hand-maintained removed-commands map. The regex is anchored to the start of the trimmed code span/line, which filters out prose-in-code false positives like `Source Provider → syllago format → Target Provider` and version labels (`syllago v0.9.0`). Fenced-block comment lines (`#`, `//`) are skipped to avoid bash/yaml/js example narration. `.astro` files are excluded from the scan because their JSX template literals look like inline code spans to the regex. Exit codes: 0 clean, 1 stale references, 2 internal error. Bead syllago-docs-atn.
+- `package.json` — `lint:cli-refs` script entry exposes the linter for direct invocation. Not yet wired into `astro build` because in-flight WIP on `errors/privacy-001.mdx` (which depends on upstream syllago bead `qn4n1` to fix the underlying error message text) would block builds. Build-hook integration follows once that upstream change lands.
+- `src/content/docs/using-syllago/cli-reference/moat.mdx`, `moat-trust.mdx`, `moat-trust-status.mdx` — new pages added by re-running `bun scripts/sync-commands.ts --local /home/hhewett/.local/src/syllago/commands.json` against the sibling syllago repo (84 commands, syllago v0.9.0). The `syllago moat trust status` chain was already documented in prose on `moat/index.mdx` but had no cli-reference entries; the lint surfaced the gap.
+
+### Changed
+- `src/content/docs/errors/moat-005.mdx` — replaced `syllago self-update` with `syllago update` (the actual command name in upstream syllago) and reworded "Run the self-updater" → "Run the updater" in the prose. The `self-update` command was caught by the new lint; no such command exists.
+- `src/content/docs/moat/registry-add-signing-identity.mdx`, `src/content/docs/moat/index.mdx` — same `syllago self-update` → `syllago update` fix.
+- `src/content/docs/moat/index.mdx`, `src/content/docs/moat/trust-tiers.mdx` — replaced `` `syllago tui` interface `` (no such command exists) with the unbacktick'd phrase **syllago TUI interface**. The TUI is part of the binary, not an invokable subcommand, so the backtick code styling was misleading.
+- `src/content/docs/using-syllago/cli-reference/add.mdx`, `index.mdx`, `install.mdx`, `registry-add.mdx`, `registry-sync.mdx` — regenerated as a side effect of the `sync-commands.ts --local` run; flag/option text now reflects upstream syllago v0.9.0.
+
 ## 2026-04-21 (hooks canonical-event summary codegen)
 
 ### Added

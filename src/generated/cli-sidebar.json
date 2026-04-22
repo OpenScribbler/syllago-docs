@@ -216,6 +216,20 @@
     ]
   },
   {
+    "label": "moat",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "moat",
+        "slug": "using-syllago/cli-reference/moat"
+      },
+      {
+        "label": "trust",
+        "slug": "using-syllago/cli-reference/moat-trust"
+      }
+    ]
+  },
+  {
     "label": "registry",
     "collapsed": true,
     "items": [
