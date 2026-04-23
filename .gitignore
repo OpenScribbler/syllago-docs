@@ -19,3 +19,6 @@ Thumbs.db
 
 # Handoff state (personal, not shared)
 .claude/projects/
+
+# bv (beads viewer) local config and caches
+.bv/

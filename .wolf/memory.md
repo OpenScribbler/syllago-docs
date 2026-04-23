@@ -719,3 +719,5 @@
 | 06:52 | Edited docs/reviews/2026-04-21/index.md | 11→10 lines | ~117 |
 | 06:52 | Edited CHANGELOG.md | expanded (+15 lines) | ~577 |
 | 06:30 | Docs accuracy review: 9 sub-agents verified 170 manually-authored mdx files against syllago source. 22 obvious fixes applied (Go version, hooks-v1 spec drift, TUI keybindings, loadout args, 9 source footer links, sandbox env desc, moat-001 URL). 6 flagged, 7 design decisions. Reports in docs/reviews/2026-04-21/. Caught and reverted agent error: self-update vs update reversal. | docs/reviews/2026-04-21/, src/content/docs/ (18 files), CHANGELOG.md | all fixes applied, reports written, committed | ~8000 |
+| 06:54 | Session end: 37 writes across 27 files (root.md, moat-001.mdx, moat-005.mdx, errors.md, installation.mdx) | 167 reads | ~68706 tok |
+| 08:36 | Created beads for 3 error-message inconsistencies: syllago-ir5t4 (self-update Suggestion strings), syllago-b0gf1 (registry approve not implemented), syllago-docs-r2d (MOAT_008/009 missing pages). Reverted sub-agent unauthorized edits to privacy-001.mdx and format-conversion.mdx. | syllago/.beads/, syllago-docs/.beads/ | beads created, files restored | ~2000 |
