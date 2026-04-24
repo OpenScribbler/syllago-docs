@@ -1,0 +1,84 @@
+name: Bug Report
+description: Something in the docs is wrong, broken, or misleading
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Describe what you saw and what felt wrong.
+        If you have ideas about the cause, explain your thinking — no code needed.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe what you saw on the docs site — a wrong instruction, a broken link, a confusing explanation, a page that didn't load, etc.
+      placeholder: "On the page ... I saw ..."
+    validations:
+      required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL or path
+      description: Where on the site did you see this? Paste the URL or path under `src/content/docs/`.
+      placeholder: "https://docs.syllago.dev/... or src/content/docs/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: What should the docs have said or done instead?
+      placeholder: "I expected ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: How did you get there?
+      description: Walk us through the steps, context, or conditions that led to it — in your own words.
+      placeholder: |
+        1. I was trying to ...
+        2. Then I clicked/searched/navigated to ...
+        3. That's when ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the docs?
+      description: What area does this relate to?
+      options:
+        - Getting started / tutorials
+        - Using syllago (how-to guides)
+        - Advanced / internals
+        - Reference (commands, errors, capabilities, providers, telemetry)
+        - Moat / loadouts
+        - For AI assistants
+        - Search / navigation / sidebar
+        - Site theme / layout / rendering
+        - Build or CI pipeline
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: theories
+    attributes:
+      label: Any theories?
+      description: If you have a hunch about why this happened, share it in your own words. No code — just your thinking.
+      placeholder: "I think it might be because ..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Links, screenshots, related issues, or anything else that might help.
+    validations:
+      required: false

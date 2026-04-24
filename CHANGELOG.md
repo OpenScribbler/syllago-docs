@@ -2,6 +2,23 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-24
+
+### Added
+- `CONTRIBUTING.md` — contribution guide adapted from syllago. Preserves the ideas-first philosophy and vouch model; replaces the Go/Make development section with an Astro/Starlight section (bun scripts, Vale, `lint:cli-refs`, link validation) and explains the hand-authored vs. auto-synced content split.
+- `CODE_OF_CONDUCT.md` — Contributor Covenant 2.1, matching the main syllago repo.
+- `SECURITY.md` — security policy scoped to a docs repo: content injection, credential leakage, npm supply chain, CI abuse, build-time execution. Out-of-scope section explicitly punts CLI vulnerabilities to the syllago repo.
+- `.github/PULL_REQUEST_TEMPLATE.md` — PR checklist aligned with this repo's actual gates (`bun run build`, `lint:cli-refs`, Vale, `CHANGELOG.md`, auto-synced content guardrail).
+- `.github/ISSUE_TEMPLATE/{bug-report,feature-idea,improvement,content-request}.yml` — structured issue forms adapted to docs-site areas (guides, reference, navigation, build pipeline) instead of CLI subsystems.
+- `.github/ISSUE_TEMPLATE/config.yml` — blank issues disabled; contact links point to syllago discussions and the syllago issue tracker for CLI bugs.
+- `.github/workflows/pr-policy.yml` — Vouch `check-pr` action that auto-closes PRs from non-vouched authors using the response template below. `vouched-repo: OpenScribbler/syllago` so this repo shares a single vouched list with the CLI repo — getting vouched in syllago also lets you PR here.
+- `.github/workflows/vouch-manage.yml` — Vouch `manage-by-issue` action that processes `!vouch`, `!unvouch`, and `!denounce` comments on issues. Makes the vouch workflow actually usable, not just documented.
+- `.github/vouch-pr-response.md` — template comment posted when a PR is auto-closed for being unvouched; explains the vouch path without hostility.
+
+### Changed
+- GitHub repo settings for `OpenScribbler/syllago-docs`: enabled secret scanning, secret scanning push protection, Dependabot security updates, auto-merge, and delete-branch-on-merge.
+- Branch protection on `main`: require PR before merge (0 approvals, solo-dev friendly), require `Validate Actions` status check to pass on an up-to-date branch, require resolved conversations, block force-push and branch deletion, dismiss stale reviews. Admin bypass enabled — direct pushes from maintainers still work when needed.
+
 ## 2026-04-22 (docs accuracy review — 170 files verified against syllago source)
 
 ### Added

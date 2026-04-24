@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussion (syllago)
+    url: https://github.com/OpenScribbler/syllago/discussions
+    about: Have a question or want to talk through an idea before opening an issue? Start a discussion in the main syllago repo.
+  - name: Report a CLI bug
+    url: https://github.com/OpenScribbler/syllago/issues/new/choose
+    about: Bugs in the syllago CLI itself belong in the main repo, not this docs repo.

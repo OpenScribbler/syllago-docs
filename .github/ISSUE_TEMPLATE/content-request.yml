@@ -1,0 +1,73 @@
+name: Content Request
+description: Suggest a specific topic you want covered in the docs
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Is there a how-to, reference page, or concept explainer you wish existed?
+        Describe what you want to learn and why — no code needed.
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: What kind of page?
+      description: Which kind of documentation would serve this best?
+      options:
+        - Tutorial (learning-oriented, step-by-step)
+        - How-to guide (task-oriented, get something done)
+        - Reference (lookup, technical detail)
+        - Explanation (concepts, design, the "why")
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-should-it-help-with
+    attributes:
+      label: What should it help readers do or understand?
+      description: What part of using or understanding syllago would this address?
+      placeholder: "This would help readers ..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: who-benefits
+    attributes:
+      label: Who benefits?
+      description: Who is the primary audience for this content?
+      options:
+        - New users learning syllago
+        - Power users optimizing workflows
+        - Content authors building on syllago
+        - AI assistants working with syllago
+        - Everyone
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: gap
+    attributes:
+      label: What gap exists today?
+      description: What's confusing, undocumented, or hard to find that this would fix?
+      placeholder: "Right now there's no good way to learn/find ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-should-it-work
+    attributes:
+      label: What should the page cover?
+      description: Describe the shape of the page in your own words — what sections it has, what examples it includes, what it explicitly does or doesn't cover.
+      placeholder: "The page should walk through ... and also cover ..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Links, screenshots, related issues, existing examples to model after, or anything else that might help.
+    validations:
+      required: false
