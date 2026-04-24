@@ -1,0 +1,73 @@
+---
+title: "syllago add"
+description: "Add content to your library from a provider"
+---
+
+## Synopsis
+
+```
+syllago add [<type>[/<name>]] --from <provider> [flags]
+```
+
+## Description
+
+Discovers content from a provider and adds it to your library (~/.syllago/content/).
+
+Without a positional argument, shows what content is available (discovery mode).
+Provide a type or type/name to add content.
+
+Syllago handles format conversion automatically. Once added, content can be
+installed to any supported provider with "syllago install --to &lt;provider&gt;".
+
+After adding, use "syllago install" to activate content in a provider.
+
+Hooks-specific flags (--exclude, --scope) are only meaningful when adding hooks.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--all` | `bool` | — | No | Add all discovered content (cannot combine with positional target) |
+| `--base-dir` | `string` | — | No | Override base directory for content discovery |
+| `--dry-run` | `bool` | — | No | Show what would be written without actually writing |
+| `--exclude` | `stringArray` | — | No | Skip hooks by auto-derived name (hooks only) |
+| `-f`, `--force` | `bool` | — | No | Overwrite existing item without prompting |
+| `--from` | `string` | — | Yes | Provider to add from (required) |
+| `--name` | `string` | — | No | Display name for hooks/MCP (stored in .syllago.yaml metadata) |
+| `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
+| `--scope` | `string` | `all` | No | Settings scope to read from: global, project, or all (hooks/mcp only) |
+| `--source-registry` | `string` | — | No | Registry name for taint tracking |
+| `--source-visibility` | `string` | — | No | Source registry visibility (public, private, unknown) |
+| `--trusted-root` | `string` | — | No | Path to Sigstore trusted_root.json (overrides registry config and the bundled default) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Discover available content (read-only)
+  syllago add --from claude-code
+
+  # Add all rules from a provider
+  syllago add rules --from claude-code
+
+  # Add a specific rule by name
+  syllago add rules/security --from claude-code
+
+  # Add everything
+  syllago add --all --from claude-code
+
+  # Preview what would be written
+  syllago add --from claude-code --dry-run
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/add.go)</small>

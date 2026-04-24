@@ -1,0 +1,60 @@
+---
+title: "syllago convert"
+description: "Convert content between provider formats"
+---
+
+## Synopsis
+
+```
+syllago convert <file-or-name> [flags]
+```
+
+## Description
+
+Transform content between provider formats using syllago's hub-and-spoke
+conversion model (source -&gt; canonical -&gt; target).
+
+Accepts either a file path or a library item name:
+  - File path: reads the file directly (requires --from and --to)
+  - Library name: looks up the item in your library (--from is optional)
+
+Output goes to stdout by default, or to a file with --output.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--diff` | `bool` | — | No | Show unified diff between source and converted output |
+| `--from` | `string` | — | No | Source provider (required for file input, optional for library items) |
+| `-o`, `--output` | `string` | — | No | Write output to this file path (default: stdout) |
+| `--to` | `string` | — | Yes | Target provider (required) |
+| `--type` | `string` | `rules` | No | Content type for file input (rules, hooks, skills, agents, commands, mcp) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Convert a Cursor rule to Claude Code format
+  syllago convert ./my-rule.mdc --from cursor --to claude-code
+
+  # Convert a library item to Windsurf format
+  syllago convert my-rule --to windsurf
+
+  # Convert and save to a file
+  syllago convert my-rule --to cursor --output ./cursor-rule.mdc
+
+  # Convert a Copilot instructions file to Cursor
+  syllago convert ./.github/copilot-instructions.md --from copilot-cli --to cursor --type rules
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/convert.go)</small>

@@ -1,0 +1,86 @@
+{
+  "id": "crush-skills",
+  "provider": "crush",
+  "contentType": "skills",
+  "status": "supported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
+      "type": "source_code",
+      "fetched_at": "2026-04-17T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/builtin/crush-config/SKILL.md",
+      "type": "source_code",
+      "fetched_at": "2026-04-17T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "canonical_filename": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per the Agent Skills standard)"
+    },
+    "custom_filename": {
+      "supported": false,
+      "mechanism": "filename is fixed as SKILL.md per the Agent Skills standard"
+    },
+    "description": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Crush should invoke it",
+      "provider_field": "description"
+    },
+    "disable_model_invocation": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard",
+      "provider_field": "disable-model-invocation"
+    },
+    "display_name": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard",
+      "provider_field": "name"
+    },
+    "global_scope": {
+      "supported": true,
+      "mechanism": "~/.config/crush/skills/<name>/SKILL.md (XDG-compliant native path) and ~/.agents/skills/<name>/SKILL.md (cross-provider convention)",
+      "paths": [
+        "~/.config/crush/skills/<name>/SKILL.md",
+        "~/.agents/skills/<name>/SKILL.md"
+      ]
+    },
+    "project_scope": {
+      "supported": true,
+      "mechanism": ".crush/skills/<name>/SKILL.md (native) and .agents/skills/<name>/SKILL.md (cross-provider convention)",
+      "paths": [
+        ".crush/skills/<name>/SKILL.md",
+        ".agents/skills/<name>/SKILL.md"
+      ]
+    },
+    "shared_scope": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "user_invocable": {
+      "supported": false,
+      "mechanism": ""
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agent_skills_standard",
+      "name": "Anthropic Agent Skills standard frontmatter",
+      "summary": "Frontmatter follows the Agent Skills open standard (agentskills.io) with name, description, license, compatibility, metadata, and disable-model-invocation fields.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "cross_provider_discovery",
+      "name": "Cross-provider skill discovery",
+      "summary": "Crush discovers skills from .agents/skills/ (cross-provider convention) in addition to .crush/skills/ (native) and ~/.config/crush/skills/ (user global).",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
+      "required": null,
+      "conversion": "preserved"
+    }
+  ]
+}

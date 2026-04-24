@@ -1,0 +1,41 @@
+{
+  "id": "agents-agent_scopes",
+  "key": "agent_scopes",
+  "contentType": "agents",
+  "description": "Where agent definitions can live and the priority ordering when definitions exist at multiple levels. Common scopes: project, user/personal, managed/enterprise, CLI-defined.",
+  "type": "object",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "5 scopes (highest-first): managed settings (org-wide), CLI --agents flag (session), project (.claude/agents/), user (~/.claude/agents/), plugin; highest-priority wins on name collision"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "built-in roles always available; user-defined roles in config.toml [agents] section; user-defined roles override built-in roles of same name"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "project scope (.github/agents/ or .claude/agents/), personal (~/.copilot/agents/), plugin (agents/); personal takes precedence over project"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.cursor/agents/) and user-global (~/.cursor/agents/)."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "project (.kiro/agents/) + global (~/.kiro/agents/); global overrides local on name collision — reverse of most Kiro content types"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.opencode/agents/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.roomodes at the project root) and global (custom_modes.yaml in Roo Code's settings dir); project entries override global entries with the same slug"
+    }
+  }
+}

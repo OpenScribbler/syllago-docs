@@ -1,0 +1,84 @@
+{
+  "id": "cursor-mcp",
+  "provider": "cursor",
+  "contentType": "mcp",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://cursor.com/docs/mcp",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Cursor does not document pre-configured auto-approval for specific MCP tools."
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Cursor does not document organization-level managed MCP policy controls."
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "Server env blocks reference environment variables so secrets can be read from the shell environment rather than hardcoded."
+    },
+    "marketplace": {
+      "supported": true,
+      "mechanism": "Cursor ships an in-IDE MCP directory for discovering and installing community MCP servers."
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Cursor's MCP documentation does not describe OAuth 2.0 flows for remote servers."
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Cursor's MCP documentation does not describe referencing MCP resources by URI."
+    },
+    "tool_filtering": {
+      "supported": false,
+      "mechanism": "Cursor does not document per-server tool allowlists or blocklists for MCP servers."
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "Cursor documents three MCP transports: stdio for local processes, sse for Server-Sent Events, and streamable-http for HTTP-based remote servers."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "mcp_transport_types",
+      "name": "Three MCP transport mechanisms",
+      "summary": "Supports stdio, sse, and streamable-http transports chosen by the server configuration.",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
+    },
+    {
+      "id": "project_and_global_configs",
+      "name": "Project and global MCP config files",
+      "summary": "Project-scope servers live in .cursor/mcp.json at the repo root; user-global servers live in ~/.cursor/mcp.json.",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "env_variable_passthrough",
+      "name": "Environment variables in server env blocks",
+      "summary": "Per-server env maps pass environment variables (including secrets sourced from the user's shell) to stdio servers.",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "provider_field": "env",
+      "conversion": "preserved"
+    },
+    {
+      "id": "mcp_directory",
+      "name": "In-IDE MCP directory",
+      "summary": "Cursor exposes an MCP directory inside the IDE for browsing and installing community MCP servers without editing mcp.json by hand.",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "conversion": "not-portable"
+    }
+  ]
+}

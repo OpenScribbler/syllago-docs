@@ -7,25 +7,81 @@ description: Cross-provider support matrix for canonical skill frontmatter keys.
 
 This matrix shows which providers support each canonical skill key and where to find details. Each key name links to a detail page with the mechanism each provider uses.
 
-*Generated from capabilities.json on 2026-04-13.*
+*Generated from capabilities.json on 2026-04-18.*
+
+## Agents
+
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [agent_scopes](/reference/canonical-keys/agent-scopes/) | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | — | — |
+| [definition_format](/reference/canonical-keys/definition-format/) | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | — | — |
+| [invocation_patterns](/reference/canonical-keys/invocation-patterns/) | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | — | — |
+| [model_selection](/reference/canonical-keys/model-selection/) | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✗ | — | — |
+| [per_agent_mcp](/reference/canonical-keys/per-agent-mcp/) | — | ✓ | — | ✗ | ✓ | — | ✗ | ✗ | — | ✓ | ✗ | — | ✗ | — | — |
+| [subagent_spawning](/reference/canonical-keys/subagent-spawning/) | — | ✓ | — | ✓ | ✓ | — | ✗ | ✓ | — | ✗ | ✓ | — | ✗ | — | — |
+| [tool_restrictions](/reference/canonical-keys/tool-restrictions/) | — | ✓ | — | ✗ | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ | — | — |
+
+## Commands
+
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [argument_substitution](/reference/canonical-keys/argument-substitution/) | — | ✓ | ✗ | ✗ | ✗ | — | ✗ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✗ | — |
+| [builtin_commands](/reference/canonical-keys/builtin-commands/) | — | ✓ | ✓ | ✗ | ✗ | — | ✓ | ✗ | ✓ | — | ✗ | ✗ | ✗ | ✓ | — |
+
+## Hooks
+
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [async_execution](/reference/canonical-keys/async-execution/) | ✗ | ✓ | ✗ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✗ | — | ✗ | — | ✗ | — |
+| [context_injection](/reference/canonical-keys/context-injection/) | ✗ | ✓ | ✓ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✗ | — | ✗ | — | ✗ | — |
+| [decision_control](/reference/canonical-keys/decision-control/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✗ | — | ✗ | — | ✗ | — |
+| [handler_types](/reference/canonical-keys/handler-types/) | ✓ | ✓ | ✗ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✗ | — | ✓ | — | ✗ | — |
+| [hook_scopes](/reference/canonical-keys/hook-scopes/) | ✗ | ✓ | ✓ | ✓ | ✗ | — | ✓ | ✗ | ✗ | ✗ | — | ✗ | — | ✓ | — |
+| [input_modification](/reference/canonical-keys/input-modification/) | ✗ | ✓ | ✓ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✗ | — | ✓ | — | ✗ | — |
+| [json_io_protocol](/reference/canonical-keys/json-io-protocol/) | ✗ | ✓ | ✗ | ✗ | ✗ | — | ✓ | ✗ | ✓ | ✗ | — | ✗ | — | ✓ | — |
+| [matcher_patterns](/reference/canonical-keys/matcher-patterns/) | ✓ | ✓ | ✗ | ✓ | ✗ | — | ✓ | ✗ | ✓ | ✗ | — | ✗ | — | ✗ | — |
+| [permission_control](/reference/canonical-keys/permission-control/) | ✓ | ✓ | ✗ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✗ | — | ✗ | — | ✗ | — |
+
+## MCP
+
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [auto_approve](/reference/canonical-keys/auto-approve/) | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | — | — | ✓ | ✗ | ✗ |
+| [enterprise_management](/reference/canonical-keys/enterprise-management/) | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — | ✗ | ✓ | ✗ |
+| [env_var_expansion](/reference/canonical-keys/env-var-expansion/) | ✗ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ | — | ✓ | ✓ | ✗ |
+| [marketplace](/reference/canonical-keys/marketplace/) | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | — | — | ✗ | ✓ | ✓ |
+| [oauth_support](/reference/canonical-keys/oauth-support/) | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — | ✗ | ✗ | ✗ |
+| [resource_referencing](/reference/canonical-keys/resource-referencing/) | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | — | — | ✗ | ✗ | ✗ |
+| [tool_filtering](/reference/canonical-keys/tool-filtering/) | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | — | ✓ | ✗ | ✗ |
+| [transport_types](/reference/canonical-keys/transport-types/) | ✗ | ✓ | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ | — | ✓ | ✓ | ✓ |
+
+## Rules
+
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [activation_mode](/reference/canonical-keys/activation-mode/) | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✓ | ✗ |
+| [auto_memory](/reference/canonical-keys/auto-memory/) | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ |
+| [cross_provider_recognition](/reference/canonical-keys/cross-provider-recognition/) | ✗ | ✗ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ |
+| [file_imports](/reference/canonical-keys/file-imports/) | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| [hierarchical_loading](/reference/canonical-keys/hierarchical-loading/) | ✗ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✓ | ✗ | ✓ | ✗ | ✗ |
 
 ## Skills
 
-| Key | amp | claude-code | cline | codex | copilot-cli | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
-|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| [canonical_filename](/reference/canonical-keys/canonical-filename/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | — |
-| [compatibility](/reference/canonical-keys/compatibility/) | — | — | — | — | — | — | — | — | ✓ | ✓ | ✓ | — | — | — |
-| [custom_filename](/reference/canonical-keys/custom-filename/) | ✗ | ✓ | ✗ | — | ✗ | — | ✓ | ✗ | ✗ | — | ✓ | — | — | — |
-| [description](/reference/canonical-keys/description/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | — |
-| [disable_model_invocation](/reference/canonical-keys/disable-model-invocation/) | ✗ | ✓ | ✗ | ✓ | ✗ | — | ✓ | ✗ | ✗ | — | ✓ | — | — | — |
-| [display_name](/reference/canonical-keys/display-name/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | — |
-| [global_scope](/reference/canonical-keys/global-scope/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✗ | ✓ | ✓ | — | ✓ | — |
-| [license](/reference/canonical-keys/license/) | — | — | — | — | — | — | — | — | ✓ | ✓ | ✓ | — | — | — |
-| [metadata_map](/reference/canonical-keys/metadata-map/) | — | — | — | — | — | — | — | — | ✓ | ✓ | ✓ | — | — | — |
-| [project_scope](/reference/canonical-keys/project-scope/) | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | — |
-| [shared_scope](/reference/canonical-keys/shared-scope/) | ✗ | ✓ | ✗ | ✓ | ✗ | — | ✗ | ✗ | ✗ | — | ✗ | — | ✓ | — |
-| [user_invocable](/reference/canonical-keys/user-invocable/) | ✗ | ✓ | ✗ | ✗ | ✓ | — | ✓ | ✗ | ✗ | — | ✗ | — | ✓ | — |
-| [version](/reference/canonical-keys/version/) | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| Key | amp | claude-code | cline | codex | copilot-cli | crush | cursor | factory-droid | gemini-cli | kiro | opencode | pi | roo-code | windsurf | zed |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| [canonical_filename](/reference/canonical-keys/canonical-filename/) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| [compatibility](/reference/canonical-keys/compatibility/) | — | — | — | — | — | — | ✓ | — | — | ✓ | ✓ | ✓ | ✗ | — | — |
+| [custom_filename](/reference/canonical-keys/custom-filename/) | ✗ | ✓ | ✗ | — | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | — | ✓ | ✗ | — | — |
+| [description](/reference/canonical-keys/description/) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| [disable_model_invocation](/reference/canonical-keys/disable-model-invocation/) | ✗ | ✓ | ✗ | ✓ | ✗ | ✓ | ✓ | ✓ | ✗ | ✗ | — | ✓ | ✗ | — | — |
+| [display_name](/reference/canonical-keys/display-name/) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| [global_scope](/reference/canonical-keys/global-scope/) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | — |
+| [license](/reference/canonical-keys/license/) | — | — | — | — | — | — | ✓ | — | — | ✓ | ✓ | ✓ | ✗ | — | — |
+| [metadata_map](/reference/canonical-keys/metadata-map/) | — | — | — | — | — | — | ✓ | — | — | ✓ | ✓ | ✓ | ✗ | — | — |
+| [project_scope](/reference/canonical-keys/project-scope/) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — |
+| [shared_scope](/reference/canonical-keys/shared-scope/) | ✗ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | — | ✗ | ✓ | ✓ | — |
+| [user_invocable](/reference/canonical-keys/user-invocable/) | ✗ | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | ✓ | ✗ | ✗ | — | ✗ | ✗ | ✓ | — |
+| [version](/reference/canonical-keys/version/) | — | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
 
 ## See Also
 

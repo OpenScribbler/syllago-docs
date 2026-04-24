@@ -3,7 +3,7 @@
   "provider": "cline",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/mcp/configuring-mcp-servers",
@@ -16,37 +16,82 @@
       "fetched_at": "2026-04-11T21:49:56.739049379Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": true,
+      "mechanism": "always_allow_tools (execution-gating scope): Cline's always_allow list suppresses per-invocation confirmation prompts for listed tools that are already visible"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Cline does not document organization-level MCP configuration management"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Cline MCP configuration does not document environment variable expansion syntax"
+    },
+    "marketplace": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Cline has an in-IDE MCP server discovery and installation experience"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Cline MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Cline does not document @-mention or equivalent access to MCP resources"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "always_allow_tools (visibility scope): Cline's always_allow list controls which MCP tools are exposed in the agent's available tool set without per-invocation prompts"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "sse_transport_support: Cline supports SSE transport alongside stdio; HTTP transport support follows MCP protocol adoption"
+    }
+  },
   "providerExtensions": [
     {
       "id": "mcp_marketplace",
       "name": "Built-In MCP Marketplace for Server Discovery and Installation",
-      "description": "Cline includes a dedicated MCP Marketplace UI accessible from the MCP Servers icon in the top navigation bar. Users can browse and install MCP servers directly from within the tool without visiting external sites. This is in addition to community directories like mcpservers.org, mcp.so, and the official MCP GitHub repo.",
-      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#finding-mcp-servers"
+      "summary": "In-IDE Marketplace UI for browsing and installing MCP servers directly from the MCP Servers panel.",
+      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#finding-mcp-servers",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "ai_assisted_server_setup",
       "name": "AI-Assisted MCP Server Setup via Conversation",
-      "description": "Users can add MCP servers by providing Cline with a GitHub repo URL (optionally with README contents). Cline clones the repo, builds it, and adds the configuration automatically, asking clarifying questions (e.g., about API keys, build commands) as needed. This conversational setup flow is unique to Cline and reduces manual JSON editing.",
-      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#adding-servers-with-cline"
+      "summary": "Conversational setup flow: paste a GitHub repo URL and Cline clones, builds, and configures the MCP server with clarifying questions.",
+      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#adding-servers-with-cline",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "always_allow_tools",
       "name": "alwaysAllow List for Auto-Approving Specific MCP Tools",
-      "description": "Each server entry in cline_mcp_settings.json supports an alwaysAllow array of tool names. Tools in this list are executed without user confirmation. This is server-scoped and tool-name-specific — it does not blanket-allow all tools on a server. Complements the global auto-approval feature.",
-      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#stdio-transport-local-servers"
+      "summary": "Per-server `alwaysAllow` array of tool names that execute without user confirmation; server-scoped, tool-name-specific.",
+      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#stdio-transport-local-servers",
+      "required": null,
+      "provider_field": "alwaysAllow",
+      "conversion": "translated"
     },
     {
       "id": "global_mcp_mode",
       "name": "Global MCP Mode Setting for Token Usage Control",
-      "description": "A Cline>Mcp:Mode setting controls how MCP servers affect token usage globally. Accessible via the MCP Servers icon > Configure tab > Advanced MCP Settings. The exact mode options are not detailed in the documentation source, but the setting targets token efficiency for users with many MCP servers.",
-      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#global-mcp-mode"
+      "summary": "Global Cline>Mcp:Mode setting in Advanced MCP Settings that tunes token usage across all MCP servers.",
+      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#global-mcp-mode",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "sse_transport_support",
       "name": "SSE Transport Support for Remote MCP Servers",
-      "description": "In addition to STDIO (local child process), Cline supports SSE transport for remote MCP servers over HTTP/HTTPS. SSE server config uses a url field instead of command/args, plus optional headers (e.g., Authorization). This enables centrally-hosted MCP servers shared across multiple users without per-user installation.",
-      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#sse-transport-remote-servers"
+      "summary": "SSE transport for remote MCP servers over HTTP/HTTPS, configured via `url` + optional `headers` instead of command/args.",
+      "source_ref": "https://docs.cline.bot/mcp/configuring-mcp-servers#sse-transport-remote-servers",
+      "required": null,
+      "provider_field": "url",
+      "conversion": "translated"
     }
   ]
 }

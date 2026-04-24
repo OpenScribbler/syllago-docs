@@ -1,0 +1,107 @@
+---
+/**
+ * DataQualityTable.astro — Full data-completeness table for all providers.
+ *
+ * Shows per-provider extension counts and field-specification percentages.
+ * Providers with zero extensions are shown with dashes. Sorted by total
+ * extensions descending (most data first).
+ */
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('data-quality');
+
+function pct(unspecified: number, total: number): string {
+  if (total === 0) return '—';
+  return Math.round(((total - unspecified) / total) * 100) + '%';
+}
+
+function tier(unspecified: number, total: number): string {
+  if (total === 0) return '';
+  const p = Math.round(((total - unspecified) / total) * 100);
+  return p >= 80 ? 'high' : p >= 40 ? 'mid' : 'low';
+}
+
+const sorted = [...entries].sort((a, b) => b.data.totalExtensions - a.data.totalExtensions);
+const generatedAt = entries[0]?.data.generatedAt?.split('T')[0] ?? '';
+---
+
+<div class="dq-table-wrapper">
+  <table class="dq-table">
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Extensions</th>
+        <th><code>required</code></th>
+        <th><code>value_type</code></th>
+        <th><code>examples</code></th>
+      </tr>
+    </thead>
+    <tbody>
+      {sorted.map((e) => {
+        const d = e.data;
+        const t = d.totalExtensions;
+        return (
+          <tr>
+            <td>{d.provider}</td>
+            <td class="num">{t || '—'}</td>
+            <td class={`num ${tier(d.unspecifiedRequiredCount, t)}`}>
+              {pct(d.unspecifiedRequiredCount, t)}
+            </td>
+            <td class={`num ${tier(d.unspecifiedValueTypeCount, t)}`}>
+              {pct(d.unspecifiedValueTypeCount, t)}
+            </td>
+            <td class={`num ${tier(d.unspecifiedExamplesCount, t)}`}>
+              {pct(d.unspecifiedExamplesCount, t)}
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+  {generatedAt && (
+    <p class="dq-footer">
+      <small>Data from capabilities.json generated {generatedAt}.</small>
+    </p>
+  )}
+</div>
+
+<style>
+  .dq-table-wrapper {
+    overflow-x: auto;
+  }
+  .dq-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  .dq-table th,
+  .dq-table td {
+    padding: 0.4em 0.75em;
+    border-bottom: 1px solid var(--sl-color-gray-5, #e5e7eb);
+    text-align: left;
+  }
+  .dq-table th {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--sl-color-gray-3, #6b7280);
+  }
+  .num {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .high {
+    color: var(--sl-color-green-high, #065f46);
+  }
+  .mid {
+    color: var(--sl-color-orange-high, #92400e);
+  }
+  .low {
+    color: var(--sl-color-gray-3, #6b7280);
+  }
+  .dq-footer {
+    margin-top: 0.5rem;
+    color: var(--sl-color-gray-3, #6b7280);
+  }
+</style>

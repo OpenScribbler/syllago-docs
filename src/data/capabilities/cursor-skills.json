@@ -2,9 +2,94 @@
   "id": "cursor-skills",
   "provider": "cursor",
   "contentType": "skills",
-  "status": "unsupported",
+  "status": "supported",
   "lastChangedAt": "2026-04-11T00:00:00Z",
-  "sources": [],
-  "canonicalMappings": {},
-  "providerExtensions": []
+  "sources": [
+    {
+      "uri": "https://cursor.com/docs/skills",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "canonical_filename": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per Agent Skills convention)."
+    },
+    "compatibility": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: compatibility (optional).",
+      "provider_field": "compatibility"
+    },
+    "custom_filename": {
+      "supported": false,
+      "mechanism": "Not observed — the skill filename is fixed as SKILL.md."
+    },
+    "description": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when to use it.",
+      "provider_field": "description"
+    },
+    "disable_model_invocation": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false).",
+      "provider_field": "disable-model-invocation"
+    },
+    "display_name": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); matches the skill directory name per the Agent Skills convention.",
+      "provider_field": "name"
+    },
+    "global_scope": {
+      "supported": true,
+      "mechanism": "~/.agents/skills/<name>/SKILL.md for user-global scope via the cross-provider Agent Skills convention.",
+      "paths": [
+        "~/.agents/skills/<name>/SKILL.md"
+      ]
+    },
+    "license": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: license (optional).",
+      "provider_field": "license"
+    },
+    "metadata_map": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: metadata (optional map of arbitrary key/value pairs).",
+      "provider_field": "metadata"
+    },
+    "project_scope": {
+      "supported": true,
+      "mechanism": ".cursor/skills/<name>/SKILL.md for Cursor-native project scope; .agents/skills/<name>/SKILL.md is also recognized via the cross-provider Agent Skills convention.",
+      "paths": [
+        ".cursor/skills/<name>/SKILL.md",
+        ".agents/skills/<name>/SKILL.md"
+      ]
+    },
+    "shared_scope": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "user_invocable": {
+      "supported": false,
+      "mechanism": ""
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "supporting_files",
+      "name": "Supporting file directories",
+      "summary": "Optional sibling files and directories alongside SKILL.md (scripts/, references/, assets/) hold executable scripts, static references, and templates used while the skill is active.",
+      "source_ref": "https://cursor.com/docs/skills",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "agents_skills_directory",
+      "name": "Cross-provider .agents/skills/ directory",
+      "summary": "Cursor also recognizes the cross-provider Agent Skills convention at .agents/skills/<name>/SKILL.md and ~/.agents/skills/<name>/SKILL.md so skills can be shared across agent harnesses.",
+      "source_ref": "https://cursor.com/docs/skills",
+      "required": null,
+      "conversion": "preserved"
+    }
+  ]
 }

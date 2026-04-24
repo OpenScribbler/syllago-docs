@@ -1,0 +1,53 @@
+{
+  "id": "hooks-handler_types",
+  "key": "handler_types",
+  "contentType": "hooks",
+  "description": "What kinds of executors hooks support beyond shell commands. May include HTTP endpoints, LLM prompt evaluation, multi-turn agent handlers, or TypeScript extensions.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "command-only: hook 'action' field runs a shell command; no HTTP, LLM, or agent handler types documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Four types: command (shell), http (POST to URL), prompt (LLM evaluation), agent (subagent with tools); prompt/agent restricted to subset of events"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_handler_types: Codex supports shell command and LLM prompt handler types; TypeScript extension type also documented"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks execute shell commands only (type: command); no HTTP, LLM prompt, or agent handler types documented."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks execute shell commands only; no other handler types documented"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "pi_extension_typescript_native: Pi hooks support TypeScript/native extension handler type beyond shell commands"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+    }
+  }
+}

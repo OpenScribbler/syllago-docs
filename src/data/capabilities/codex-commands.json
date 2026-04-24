@@ -11,6 +11,15 @@
       "fetched_at": "2026-04-11T21:46:20.726110295Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": false,
+      "mechanism": "no implementation details captured; only source is a redirect stub to external docs — cannot confirm argument substitution support"
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "no implementation details captured; slash commands feature exists but format and capabilities are undocumented in cached sources"
+    }
+  },
   "providerExtensions": []
 }

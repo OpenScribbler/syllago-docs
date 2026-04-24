@@ -1,0 +1,53 @@
+{
+  "id": "commands-builtin_commands",
+  "key": "builtin_commands",
+  "contentType": "commands",
+  "description": "Whether the provider ships default/built-in commands alongside user-defined custom commands.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "Built-in slash commands (e.g., /newtask, /smol alias /compact, /newrule, /deep-planning, /explain-changes in VS Code, /reportbug) are hardcoded and not user-modifiable; user-authored workflows are additive, invoked alongside built-ins"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "no implementation details captured; slash commands feature exists but format and capabilities are undocumented in cached sources"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI has no standalone slash-command mechanism; extensibility is via plugins that bundle agents/skills/hooks; command format within plugins is undocumented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Cursor ships built-in slash commands in the IDE; user-authored commands live alongside them and do not override the built-in set."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "no built-in slash commands documented; Factory commands are user-defined Markdown templates or executables"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "built-in slash commands include /commands reload (reload command files without restart) and /help; user-defined commands supplement but do not replace built-ins"
+    },
+    "opencode": {
+      "supported": false,
+      "mechanism": "OpenCode documentation describes only user-authored slash commands loaded from .opencode/commands/ and ~/.config/opencode/commands/; no built-in commands are documented for this namespace."
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "pi prompt templates are entirely user-defined; no built-in slash commands documented"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "Roo Code commands are user-defined Markdown files in .roo/commands/ — no user-overridable built-in slash-command layer documented"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Cascade exposes its own built-in chat slash commands (e.g. for conversation control) independently of user-authored Workflows; the `/<workflow-name>` namespace is reserved for user files"
+    }
+  }
+}

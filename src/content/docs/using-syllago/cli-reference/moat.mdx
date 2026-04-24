@@ -1,0 +1,28 @@
+---
+title: "syllago moat"
+description: "Manage MOAT registry trust and verification"
+---
+
+Inspect and manage the MOAT (Model for Origin Attestation and Trust) subsystem.
+
+Slice 1 surface: trusted-root lifecycle via `moat trust status`.
+Later slices will add manifest verification, tier policy, and revocation.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`trust`](/using-syllago/cli-reference/moat-trust/) | Trusted-root lifecycle (status, refresh) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/moat_cmd.go)</small>

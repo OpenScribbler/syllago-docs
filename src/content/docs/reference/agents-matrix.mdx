@@ -21,6 +21,7 @@ How each provider stores and installs agents.
 | [Roo Code](/using-syllago/providers/roo-code/) | YAML | Project scope | Yes |
 | [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
 | [Kiro](/using-syllago/providers/kiro/) | Markdown | Symlink | Yes |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Symlink | Yes |
 
 ## Discovery Paths
 
@@ -36,52 +37,53 @@ Where each provider looks for agents files. Paths with `~/` are relative to the 
 | [Roo Code](/using-syllago/providers/roo-code/) | — | — |
 | [OpenCode](/using-syllago/providers/opencode/) | `.opencode/agents` | `~/.config/opencode/agents` |
 | [Kiro](/using-syllago/providers/kiro/) | `.kiro/agents` | `~/.kiro/agents` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `.factory/droids` | `~/.factory/droids` |
 
 ## Frontmatter Fields
 
 Which frontmatter fields each provider recognizes in agents files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | Roo Code | OpenCode | Kiro |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `allowedTools` | — | — | — | — | — | — | — | ✓ |
-| `background` | ✓ | — | — | — | — | — | — | — |
-| `color` | ✓ | — | — | — | — | — | ✓ | — |
-| `customInstructions` | — | — | — | — | — | ✓ | — | — |
-| `description` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ |
-| `disallowedTools` | ✓ | — | — | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — | — | — |
-| `groups` | — | — | — | — | — | ✓ | — | — |
-| `hooks` | ✓ | — | — | — | — | — | — | ✓ |
-| `includeMcpJson` | — | — | — | — | — | — | — | ✓ |
-| `includePowers` | — | — | — | — | — | — | — | ✓ |
-| `is_background` | — | — | ✓ | — | — | — | — | — |
-| `isolation` | ✓ | — | — | — | — | — | — | — |
-| `keyboardShortcut` | — | — | — | — | — | — | — | ✓ |
-| `kind` | ✓ | ✓ | — | — | — | — | — | — |
-| `maxTurns` | ✓ | — | — | — | — | — | — | — |
-| `max_turns` | — | ✓ | — | — | — | — | — | — |
-| `mcp-servers` | — | — | — | — | ✓ | — | — | — |
-| `mcpServers` | ✓ | — | — | — | — | — | — | ✓ |
-| `memory` | ✓ | — | — | — | — | — | — | — |
-| `model` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ |
-| `name` | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ |
-| `permissionMode` | ✓ | — | — | — | — | — | — | — |
-| `readonly` | — | — | ✓ | — | — | — | — | — |
-| `resources` | — | — | — | — | — | — | — | ✓ |
-| `roleDefinition` | — | — | — | — | — | ✓ | — | — |
-| `skills` | ✓ | — | — | — | — | — | — | — |
-| `slug` | — | — | — | — | — | ✓ | — | — |
-| `steps` | — | — | — | — | — | — | ✓ | — |
-| `target` | — | — | — | — | ✓ | — | — | — |
-| `temperature` | ✓ | ✓ | — | — | — | — | ✓ | — |
-| `timeout_mins` | ✓ | ✓ | — | — | — | — | — | — |
-| `toolAliases` | — | — | — | — | — | — | — | ✓ |
-| `tools` | ✓ | ✓ | — | — | ✓ | — | ✓ | ✓ |
-| `toolsSettings` | — | — | — | — | — | — | — | ✓ |
-| `welcomeMessage` | — | — | — | — | — | — | — | ✓ |
-| `whenToUse` | — | — | — | — | — | ✓ | — | — |
+| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | Roo Code | OpenCode | Kiro | Factory Droid |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `allowedTools` | — | — | — | — | — | — | — | ✓ | — |
+| `background` | ✓ | — | — | — | — | — | — | — | — |
+| `color` | ✓ | — | — | — | — | — | ✓ | — | — |
+| `customInstructions` | — | — | — | — | — | ✓ | — | — | — |
+| `description` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
+| `disallowedTools` | ✓ | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — |
+| `groups` | — | — | — | — | — | ✓ | — | — | — |
+| `hooks` | ✓ | — | — | — | — | — | — | ✓ | — |
+| `includeMcpJson` | — | — | — | — | — | — | — | ✓ | — |
+| `includePowers` | — | — | — | — | — | — | — | ✓ | — |
+| `is_background` | — | — | ✓ | — | — | — | — | — | — |
+| `isolation` | ✓ | — | — | — | — | — | — | — | — |
+| `keyboardShortcut` | — | — | — | — | — | — | — | ✓ | — |
+| `kind` | ✓ | ✓ | — | — | — | — | — | — | — |
+| `maxTurns` | ✓ | — | — | — | — | — | — | — | — |
+| `max_turns` | — | ✓ | — | — | — | — | — | — | — |
+| `mcp-servers` | — | — | — | — | ✓ | — | — | — | — |
+| `mcpServers` | ✓ | — | — | — | — | — | — | ✓ | — |
+| `memory` | ✓ | — | — | — | — | — | — | — | — |
+| `model` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
+| `name` | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `permissionMode` | ✓ | — | — | — | — | — | — | — | — |
+| `readonly` | — | — | ✓ | — | — | — | — | — | — |
+| `resources` | — | — | — | — | — | — | — | ✓ | — |
+| `roleDefinition` | — | — | — | — | — | ✓ | — | — | — |
+| `skills` | ✓ | — | — | — | — | — | — | — | — |
+| `slug` | — | — | — | — | — | ✓ | — | — | — |
+| `steps` | — | — | — | — | — | — | ✓ | — | — |
+| `target` | — | — | — | — | ✓ | — | — | — | — |
+| `temperature` | ✓ | ✓ | — | — | — | — | ✓ | — | — |
+| `timeout_mins` | ✓ | ✓ | — | — | — | — | — | — | — |
+| `toolAliases` | — | — | — | — | — | — | — | ✓ | — |
+| `tools` | ✓ | ✓ | — | — | ✓ | — | ✓ | ✓ | ✓ |
+| `toolsSettings` | — | — | — | — | — | — | — | ✓ | — |
+| `welcomeMessage` | — | — | — | — | — | — | — | ✓ | — |
+| `whenToUse` | — | — | — | — | — | ✓ | — | — | — |
 
-**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Amp](/using-syllago/providers/amp/).
+**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Amp](/using-syllago/providers/amp/), [Pi](/using-syllago/providers/pi/), [Crush](/using-syllago/providers/crush/).
 
 ## See Also
 
@@ -89,4 +91,4 @@ Which frontmatter fields each provider recognizes in agents files. A checkmark m
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.9.0 on 2026-04-18.*

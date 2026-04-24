@@ -1,0 +1,53 @@
+{
+  "id": "opencode-commands",
+  "provider": "opencode",
+  "contentType": "commands",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://opencode.ai/docs/commands/",
+      "type": "documentation",
+      "fetched_at": ""
+    }
+  ],
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "Named arguments via $VAR tokens substituted from user input at invocation (pattern observed in custom_commands.go — e.g. $ISSUE_NUMBER)."
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "OpenCode documentation describes only user-authored slash commands loaded from .opencode/commands/ and ~/.config/opencode/commands/; no built-in commands are documented for this namespace."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agent_binding",
+      "name": "Per-command agent binding",
+      "summary": "Frontmatter agent field routes the command to a specific named agent.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "provider_field": "agent",
+      "conversion": "translated"
+    },
+    {
+      "id": "model_override",
+      "name": "Per-command model override",
+      "summary": "Frontmatter model field overrides the default model for this command invocation.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "provider_field": "model",
+      "conversion": "translated"
+    },
+    {
+      "id": "subtask",
+      "name": "Subtask execution flag",
+      "summary": "Frontmatter subtask field runs the command as an isolated subtask rather than in the current session.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "provider_field": "subtask",
+      "conversion": "embedded"
+    }
+  ]
+}

@@ -97,9 +97,9 @@ Use strict TypeScript with explicit return types.
 
 The structure looks similar, but the file extension and how the metadata is parsed differs. Cursor expects `.mdc` and interprets the header block as MDC metadata rather than YAML frontmatter.
 
-### OpenCode (YAML format)
+### OpenCode (Markdown)
 
-OpenCode stores rules as YAML files. Syllago strips the Markdown frontmatter and converts the content into OpenCode's YAML structure.
+OpenCode reads rules from `AGENTS.md` or `CLAUDE.md` at the project root. Syllago installs the rule body as Markdown into one of those files — frontmatter is folded into the content because OpenCode doesn't read structured rule metadata.
 
 **syllago format** (Markdown):
 
@@ -112,15 +112,14 @@ globs: "**/*.ts"
 Use strict TypeScript with explicit return types.
 ```
 
-**OpenCode output** (`.yaml`):
+**OpenCode output** (`AGENTS.md`):
 
-```yaml
-name: typescript
-description: TypeScript coding conventions
-globs:
-  - "**/*.ts"
-content: |
-  Use strict TypeScript with explicit return types.
+```markdown
+## TypeScript coding conventions
+
+Applies to: `**/*.ts`
+
+Use strict TypeScript with explicit return types.
 ```
 
 ## Working with Rules

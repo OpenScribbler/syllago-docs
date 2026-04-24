@@ -1,0 +1,43 @@
+---
+title: "syllago manifest generate"
+description: "Generate a registry.yaml for this repository"
+---
+
+## Synopsis
+
+```
+syllago manifest generate [dir] [flags]
+```
+
+## Description
+
+Analyze the current repository and generate a registry.yaml manifest.
+Run with --force to overwrite an existing registry.yaml. When overwriting,
+a diff of added/removed/changed items is displayed before writing.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--debug-skips` | `bool` | — | No | show per-file skip reasons for content-signal classification |
+| `--force` | `bool` | — | No | overwrite existing registry.yaml |
+| `--no-config` | `bool` | — | No | suppress .syllago.yaml loading (use with --strict for fully explicit CI control) |
+| `--scan-as` | `stringArray` | — | No | scan path as content type: type:path (e.g. skills:Packs/) |
+| `--strict` | `bool` | — | No | disable content-signal fallback; fatal on missing scan-as paths |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago manifest](/using-syllago/cli-reference/manifest/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/manifest_cmd.go)</small>

@@ -18,7 +18,8 @@
     },
     "compatibility": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: compatibility (optional)"
+      "mechanism": "yaml frontmatter key: compatibility (optional)",
+      "provider_field": "compatibility"
     },
     "custom_filename": {
       "supported": false,
@@ -26,7 +27,8 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required)"
+      "mechanism": "yaml frontmatter key: description (required)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": false,
@@ -34,7 +36,8 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required, slug-style identifier)"
+      "mechanism": "yaml frontmatter key: name (required, slug-style identifier)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": false,
@@ -42,11 +45,13 @@
     },
     "license": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: license (optional)"
+      "mechanism": "yaml frontmatter key: license (optional)",
+      "provider_field": "license"
     },
     "metadata_map": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: metadata (optional map)"
+      "mechanism": "yaml frontmatter key: metadata (optional map)",
+      "provider_field": "metadata"
     },
     "project_scope": {
       "supported": true,
@@ -65,32 +70,44 @@
     {
       "id": "kiro_displayname",
       "name": "displayName frontmatter field",
-      "description": "A human-readable label separate from the slug-style 'name' field. Kiro uses both: 'name' as the slug identifier and 'displayName' for UI display.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "summary": "Human-readable label distinct from the slug-style 'name' field; used by Kiro for UI display.",
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null,
+      "provider_field": "displayName",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_keywords",
       "name": "keywords frontmatter field",
-      "description": "An array of activation trigger words used by Kiro's automatic power-loading system (e.g. [\"database\", \"postgres\", \"auth\"]).",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "summary": "Array of activation trigger words used by Kiro's automatic power-loading system.",
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null,
+      "provider_field": "keywords",
+      "conversion": "embedded"
     },
     {
       "id": "steering_files",
       "name": "steering/ directory",
-      "description": "An optional steering/ subdirectory inside the power directory containing workflow-specific guidance files (.md). For complex powers, the POWER.md maps each workflow to a specific steering file (e.g., 'Setting up a database → database-setup-workflow.md'). Kiro loads only the relevant steering file on-demand based on what the user is working on, preventing context overload. Simple powers include all guidance directly in POWER.md instead.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "summary": "Optional steering/ subdirectory containing workflow-specific guidance files loaded on-demand.",
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "bundled_mcp_config",
       "name": "mcp.json bundled in power directory",
-      "description": "An optional mcp.json file inside the power directory that declares MCP server configurations for tool integrations (mcpServers map with command, args, and env). Server names in POWER.md must match the mcpServers keys in mcp.json. During installation, Kiro automatically namespaces server names to avoid conflicts (e.g., supabase-local becomes power-supabase-supabase-local). Environment variables are used for API keys and secrets.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "summary": "Optional mcp.json inside the power directory declaring MCP servers; server names in POWER.md must match keys.",
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "onboarding_section",
       "name": "Onboarding section in POWER.md",
-      "description": "A dedicated # Onboarding section in POWER.md whose instructions run when a power is first activated. Used to validate dependencies (e.g., check Docker is installed and running), explain setup steps, or create workspace hooks. Kiro executes these instructions automatically — for example, checking if Docker is running, validating CLI installation, and creating hook files in .kiro/hooks/.",
-      "source_ref": "https://kiro.dev/docs/powers/create/"
+      "summary": "Dedicated '# Onboarding' section whose instructions Kiro runs automatically on first activation.",
+      "source_ref": "https://kiro.dev/docs/powers/create/",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

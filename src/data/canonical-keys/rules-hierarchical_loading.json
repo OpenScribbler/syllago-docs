@@ -1,0 +1,69 @@
+{
+  "id": "rules-hierarchical_loading",
+  "key": "hierarchical_loading",
+  "contentType": "rules",
+  "description": "Whether rules load from multiple directory levels with defined precedence. Enables project-root rules plus subdirectory-scoped overrides.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp rule files are project-scoped; no subdirectory hierarchy documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root; .claude/rules/ files discovered recursively; user-level rules load before project rules"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline rules are project-scoped or global; no per-subdirectory loading hierarchy documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hierarchical_agents_md: Codex loads AGENTS.md from subdirectories with defined precedence (deeper overrides higher)"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "Copilot CLI supports repo-wide instructions plus path-specific and personal instruction layers with defined precedence"
+    },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush documents AGENTS.md at the project root only; no hierarchical/subdirectory loading documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "Factory Droid loads global and project rule layers; innermost (most specific) layer takes precedence"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "hierarchical_context_loading: Gemini CLI loads GEMINI.md files from multiple directory levels with defined precedence"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Project-root AGENTS.md/CLAUDE.md combined with global context files at ~/.config/opencode/"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi rule files are not documented as supporting multi-level directory loading"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "mode_scoped_loading: files under .roo/rules/ load universally; files under .roo/rules-<mode>/ load conditionally based on the active mode"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed loads rule files from the project root only; no multi-tier hierarchical loading documented"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "factory-droid",
+  "name": "Factory Droid",
+  "slug": "factory-droid",
+  "configDir": ".factory",
+  "emitPath": "{project}/AGENTS.md",
+  "content": {
+    "agents": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.factory/droids",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.factory/droids"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "model",
+        "tools"
+      ]
+    },
+    "commands": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.factory/commands",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.factory/commands"
+      ]
+    },
+    "hooks": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.factory/settings.json"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "after_tool_execute",
+          "nativeName": "PostToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "agent_stop",
+          "nativeName": "Stop",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_compact",
+          "nativeName": "PreCompact",
+          "category": "context"
+        },
+        {
+          "canonical": "before_prompt",
+          "nativeName": "UserPromptSubmit",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "PreToolUse",
+          "category": "tool"
+        },
+        {
+          "canonical": "session_end",
+          "nativeName": "SessionEnd",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "session_start",
+          "nativeName": "SessionStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_start",
+          "nativeName": "SubagentStart",
+          "category": "lifecycle"
+        },
+        {
+          "canonical": "subagent_stop",
+          "nativeName": "SubagentStop",
+          "category": "lifecycle"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".factory/settings.json"
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.factory/mcp.json"
+      ],
+      "configLocation": ".factory/mcp.json",
+      "mcpTransports": [
+        "stdio",
+        "http"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/AGENTS.md"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.factory/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.factory/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata"
+      ]
+    }
+  }
+}

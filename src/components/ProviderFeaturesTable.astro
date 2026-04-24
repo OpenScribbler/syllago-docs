@@ -1,0 +1,284 @@
+---
+/**
+ * ProviderFeaturesTable.astro — Unified conversion-aware features table.
+ *
+ * Merges canonical mappings and provider extensions into a single view,
+ * grouped by whether each feature surfaces as a native provider field.
+ * Rows within each group sort by conversion fate (translated first).
+ */
+
+import ConversionBadge from './ConversionBadge.astro';
+
+interface Example {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
+}
+
+type ConversionFate =
+  | 'translated'
+  | 'embedded'
+  | 'dropped'
+  | 'preserved'
+  | 'not-portable';
+
+interface CapMapping {
+  supported: boolean;
+  mechanism: string;
+  paths?: string[];
+  provider_field?: string | null;
+  extension_id?: string;
+}
+
+interface CapExtension {
+  id: string;
+  name: string;
+  summary: string;
+  source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  provider_field?: string | null;
+  conversion: ConversionFate;
+  examples?: Example[];
+}
+
+interface Props {
+  canonicalMappings: Record<string, CapMapping>;
+  extensions: CapExtension[];
+  contentType: string;
+}
+
+const { canonicalMappings, extensions, contentType } = Astro.props;
+
+const CONVERSION_ORDER: Record<ConversionFate, number> = {
+  translated: 0,
+  embedded: 1,
+  dropped: 2,
+  preserved: 3,
+  'not-portable': 4,
+};
+
+// Per-content-type label for the first column in the Fields table.
+const FIELD_COLUMN_LABEL: Record<string, string> = {
+  mcp: 'Config key',
+};
+const fieldColumnLabel = FIELD_COLUMN_LABEL[contentType] ?? 'Provider field';
+
+function keyToSlug(key: string): string {
+  return key.replace(/_/g, '-');
+}
+
+interface Row {
+  label: string;
+  canonicalKey: string | null;
+  providerField: string | null;
+  conversion: ConversionFate;
+  summary: string;
+}
+
+// Build merged rows. Supported canonical mappings come first; mappings with an
+// extension_id absorb the linked extension's summary + conversion. Remaining
+// extensions (not absorbed) contribute standalone rows.
+const rows: Row[] = [];
+const mergedExtensionIds = new Set<string>();
+
+for (const [canonicalKey, mapping] of Object.entries(canonicalMappings)) {
+  if (!mapping.supported) continue;
+
+  const linkedExt = mapping.extension_id
+    ? extensions.find((e) => e.id === mapping.extension_id)
+    : null;
+  if (linkedExt) mergedExtensionIds.add(linkedExt.id);
+
+  const providerField =
+    linkedExt?.provider_field ?? mapping.provider_field ?? null;
+
+  rows.push({
+    label: providerField ?? canonicalKey,
+    canonicalKey,
+    providerField,
+    conversion: linkedExt?.conversion ?? 'translated',
+    summary: linkedExt?.summary ?? mapping.mechanism,
+  });
+}
+
+for (const ext of extensions) {
+  if (mergedExtensionIds.has(ext.id)) continue;
+  rows.push({
+    label: ext.provider_field ?? ext.name,
+    canonicalKey: null,
+    providerField: ext.provider_field ?? null,
+    conversion: ext.conversion,
+    summary: ext.summary,
+  });
+}
+
+function sortRows(a: Row, b: Row): number {
+  const c = CONVERSION_ORDER[a.conversion] - CONVERSION_ORDER[b.conversion];
+  if (c !== 0) return c;
+  return a.label.localeCompare(b.label);
+}
+
+const fieldRows = rows.filter((r) => r.providerField !== null).sort(sortRows);
+const otherRows = rows.filter((r) => r.providerField === null).sort(sortRows);
+
+const hasFields = fieldRows.length > 0;
+const hasOther = otherRows.length > 0;
+const hasAny = hasFields || hasOther;
+---
+
+{hasAny && (
+  <p class="features-intro">
+    How each feature converts to syllago's canonical format. See{' '}
+    <a href="/using-syllago/format-conversion/#the-three-conversion-fates">
+      format conversion
+    </a>{' '}
+    for what these statuses mean.
+  </p>
+)}
+
+{hasFields && (
+  <>
+    <h3 id="fields" class="features-subheading">Fields</h3>
+    <p class="features-subintro">
+      Native frontmatter or config fields this provider exposes. The first
+      column is the provider's own field name; the canonical key column links
+      to syllago's cross-provider equivalent.
+    </p>
+    <table class="features-table">
+      <thead>
+        <tr>
+          <th>{fieldColumnLabel}</th>
+          <th>Conversion</th>
+          <th>Canonical key</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {fieldRows.map((r) => (
+          <tr>
+            <td><code>{r.providerField}</code></td>
+            <td>
+              <ConversionBadge conversion={r.conversion} />
+            </td>
+            <td>
+              {r.canonicalKey ? (
+                <a href={`/reference/canonical-keys/${keyToSlug(r.canonicalKey)}/`}>
+                  <code>{r.canonicalKey}</code>
+                </a>
+              ) : (
+                <span class="muted">—</span>
+              )}
+            </td>
+            <td>{r.summary}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </>
+)}
+
+{hasOther && (
+  <>
+    <h3 id="other-features" class="features-subheading">Other features</h3>
+    <p class="features-subintro">
+      Behaviors, conventions, and capabilities that aren't tied to a single
+      named field — things like path-based activation, discovery rules, and
+      lifecycle behavior.
+    </p>
+    <table class="features-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Conversion</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {otherRows.map((r) => (
+          <tr>
+            <td>
+              {r.canonicalKey ? (
+                <a href={`/reference/canonical-keys/${keyToSlug(r.canonicalKey)}/`}>
+                  <code>{r.canonicalKey}</code>
+                </a>
+              ) : (
+                r.label
+              )}
+            </td>
+            <td>
+              <ConversionBadge conversion={r.conversion} />
+            </td>
+            <td>{r.summary}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </>
+)}
+
+<style>
+  .features-intro {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin: 0 0 1rem;
+  }
+
+  .features-subheading {
+    font-size: var(--sl-text-h4);
+    font-weight: 600;
+    margin: 1.25rem 0 0.5rem;
+    color: var(--sl-color-text);
+  }
+
+  .features-subintro {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin: 0 0 0.75rem;
+  }
+
+  .features-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--sl-text-sm);
+    margin: 0 0 1.5rem;
+  }
+
+  .features-table th,
+  .features-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .features-table th {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .features-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .features-table code {
+    font-size: 0.875em;
+  }
+
+  .features-table a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+
+  .features-table a:hover {
+    text-decoration: underline;
+  }
+
+  .muted {
+    color: var(--sl-color-gray-4);
+  }
+</style>

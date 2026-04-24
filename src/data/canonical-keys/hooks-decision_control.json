@@ -1,0 +1,53 @@
+{
+  "id": "hooks-decision_control",
+  "key": "decision_control",
+  "contentType": "hooks",
+  "description": "Which decision actions hooks can take on the triggering action. Contents: {block: bool, allow: bool, modify: bool}. Mechanisms include exit code contracts, JSON decision fields, or cancel flags. Boundary: decision_control governs whether a tool invocation proceeds; see permission_control for whether a tool is available at all.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "Pre-execute 'send-user-message' action cancels the pending tool call and injects a user message; exit code 0 = allow, non-zero = block"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "block: exit code 2 or decision=block; allow: permissionDecision=allow in hookSpecificOutput; modify: updatedInput replaces tool input before execution"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "pre_tool_use_cancellation: PreToolUse hooks can cancel (block) the tool invocation; no allow or modify sub-capabilities documented"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_result_abort: Codex hooks can abort (block) the triggering action; allow and modify sub-capabilities documented via hook result schema"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "pre_tool_use_deny: Copilot CLI PreToolUse hooks can deny (block) the tool invocation; no allow or modify documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Exit codes drive decisions: non-zero blocks the action and surfaces stderr, zero allows it to proceed; JSON on stdout can also return structured decision fields."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "hook_exit_code_behavior: Factory Droid hooks use exit codes to signal block (non-zero) or allow (zero) decisions on the triggering action"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "exit_code_semantics: Gemini CLI uses exit codes to signal block (non-zero) or allow (zero) decisions; no modify sub-capability documented"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks are observational; no mechanism to block, allow, or modify the triggering action documented"
+    }
+  }
+}

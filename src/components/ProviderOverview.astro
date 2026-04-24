@@ -1,0 +1,189 @@
+---
+/**
+ * ProviderOverview.astro — Provider identity and overview (D11, D6).
+ *
+ * Shown at /using-syllago/providers/<slug>/.
+ * Displays: identity table, detection method, supported CT summary, install examples.
+ * Does NOT embed ProviderConventions — per-CT pages own their conventions.
+ */
+
+interface ContentCapability {
+  supported: boolean;
+  installMethod?: string;
+  symlinkSupport: boolean;
+}
+
+interface Props {
+  name: string;
+  slug: string;
+  configDir: string;
+  emitPath?: string;
+  content: Record<string, ContentCapability>;
+}
+
+const { name, slug, configDir, emitPath, content } = Astro.props;
+
+const CT_DISPLAY: Record<string, string> = {
+  rules: 'Rules',
+  hooks: 'Hooks',
+  mcp: 'MCP Configs',
+  skills: 'Skills',
+  agents: 'Agents',
+  commands: 'Commands',
+};
+
+const CT_SECTION_ORDER = ['skills', 'hooks', 'rules', 'mcp', 'commands', 'agents'];
+
+const METHOD_DISPLAY: Record<string, string> = {
+  filesystem: 'Symlink',
+  'json-merge': 'JSON merge',
+  'project-scope': 'Project scope',
+};
+
+const supportedTypes = CT_SECTION_ORDER.filter((ct) => content[ct]?.supported);
+---
+
+<section class="provider-overview not-content">
+  <h2>Provider Details</h2>
+  <table class="overview-table">
+    <tbody>
+      <tr>
+        <th>Slug</th>
+        <td><code>{slug}</code></td>
+      </tr>
+      <tr>
+        <th>Config directory</th>
+        <td><code>~/{configDir}</code></td>
+      </tr>
+      {emitPath && (
+        <tr>
+          <th>Emit path</th>
+          <td><code>{emitPath.replace('{project}/', '')}</code></td>
+        </tr>
+      )}
+      <tr>
+        <th>Detection</th>
+        <td>Filesystem check — <code>~/{configDir}</code> exists</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Supported Content Types</h2>
+  <table class="ct-table">
+    <thead>
+      <tr>
+        <th>Content Type</th>
+        <th>Syllago Install Method</th>
+        <th>Symlink</th>
+      </tr>
+    </thead>
+    <tbody>
+      {supportedTypes.map((ct) => {
+        const cap = content[ct]!;
+        const method = METHOD_DISPLAY[cap.installMethod ?? ''] ?? cap.installMethod ?? '—';
+        return (
+          <tr>
+            <td>
+              <a href={`/using-syllago/providers/${slug}/${ct}/`}>
+                {CT_DISPLAY[ct] ?? ct}
+              </a>
+            </td>
+            <td>{method}</td>
+            <td>{cap.symlinkSupport ? 'Yes' : 'No'}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+
+  <h2>Working with {name}</h2>
+  <pre><code>{`# Add content from ${name}
+syllago add --from ${slug}
+
+# Install content to ${name}
+syllago install my-rule --to ${slug}`}</code></pre>
+
+  <h2>See Also</h2>
+  <ul>
+    <li><a href="/using-syllago/providers/">Providers Overview</a></li>
+    <li><a href="/using-syllago/format-conversion/">Format Conversion</a></li>
+  </ul>
+</section>
+
+<style>
+  .provider-overview h2 {
+    font-size: var(--sl-text-h3);
+    font-weight: 600;
+    margin: 1.5rem 0 0.75rem;
+    color: var(--sl-color-text);
+  }
+
+  .overview-table,
+  .ct-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--sl-text-sm);
+    margin-bottom: 1rem;
+  }
+
+  .overview-table th,
+  .overview-table td,
+  .ct-table th,
+  .ct-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .overview-table th {
+    width: 11rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    vertical-align: top;
+  }
+
+  .ct-table th {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .overview-table tr:last-child td,
+  .ct-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .provider-overview a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+
+  .provider-overview a:hover {
+    text-decoration: underline;
+  }
+
+  .provider-overview pre {
+    font-size: var(--sl-text-sm);
+    background-color: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.375rem;
+    padding: 0.875rem 1rem;
+    overflow-x: auto;
+    margin: 0 0 1rem;
+  }
+
+  .provider-overview pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .provider-overview ul {
+    font-size: var(--sl-text-sm);
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+</style>

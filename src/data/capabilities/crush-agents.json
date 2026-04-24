@@ -1,0 +1,10 @@
+{
+  "id": "crush-agents",
+  "provider": "crush",
+  "contentType": "agents",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

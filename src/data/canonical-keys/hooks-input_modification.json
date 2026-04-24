@@ -1,0 +1,53 @@
+{
+  "id": "hooks-input_modification",
+  "key": "input_modification",
+  "contentType": "hooks",
+  "description": "Whether hooks can modify tool input arguments before the tool executes. Safety-critical capability — silent degradation creates false security. Minimum qualification: supported when the provider provides any mechanism to modify tool input arguments before execution (e.g., hookSpecificOutput.updatedInput, plugin-mutable args, or equivalent).",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp hooks cannot modify tool input before execution; only substring match and cancel-with-message are documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "hook_input_modification: PreToolUse returns updatedInput in hookSpecificOutput; entire input object replaced; compatible with all permissionDecision values except defer"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "context_modification_output: Cline PreToolUse hooks can return modified context/input before tool execution"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_updated_input: Codex PreToolUse hooks return modified input arguments that replace the original tool input"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks cannot modify tool input before execution"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks are not documented to rewrite tool input before execution."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot modify tool input before execution"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks cannot modify tool input before execution"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks cannot modify tool input before execution"
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "pi_extension_tool_call_blocking: Pi extensions can intercept and modify tool call inputs before execution"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks cannot modify tool input arguments before execution"
+    }
+  }
+}

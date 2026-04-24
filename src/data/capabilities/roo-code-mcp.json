@@ -1,0 +1,114 @@
+{
+  "id": "roo-code-mcp",
+  "provider": "roo-code",
+  "contentType": "mcp",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/src/services/mcp/McpHub.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/src/shared/globalFileNames.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": true,
+      "mechanism": "always_allow_list: alwaysAllow tool names bypass confirmation prompts for that server"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "No organization-level MCP management documented"
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: server env blocks accept environment variables so secrets can be referenced from the shell environment"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "No in-app MCP marketplace documented"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "No OAuth 2.0 authentication flow documented for Roo Code MCP servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "MCP resource referencing is not documented as a first-class feature in Roo Code"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "per_server_tool_filtering: alwaysAllow and disabledTools arrays on each server entry filter which MCP tools are exposed and which bypass confirmation"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "transport_types: stdio, sse, and streamable-http are supported and selected via the type field on each server entry"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "transport_types",
+      "name": "Three transport mechanisms",
+      "summary": "stdio, SSE, and streamable-http transports are selected via the type field on each server entry — note streamable-http is kebab-case, distinct from Cline's streamableHttp camelCase.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/src/services/mcp/McpHub.ts",
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
+    },
+    {
+      "id": "always_allow",
+      "name": "alwaysAllow per-server allowlist",
+      "summary": "Array of tool names that skip the user confirmation prompt for that server; distinct from Cline's autoApprove field name.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "required": null,
+      "provider_field": "alwaysAllow",
+      "conversion": "translated"
+    },
+    {
+      "id": "disabled_tools",
+      "name": "disabledTools per-server blocklist",
+      "summary": "Array of tool names hidden from the agent, applied alongside alwaysAllow on each server entry.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "required": null,
+      "provider_field": "disabledTools",
+      "conversion": "translated"
+    },
+    {
+      "id": "watch_paths",
+      "name": "watchPaths config-reload triggers",
+      "summary": "Array of filesystem paths that trigger a server reload when their contents change, useful for development iteration on stdio server binaries.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "required": null,
+      "provider_field": "watchPaths",
+      "conversion": "embedded"
+    },
+    {
+      "id": "disabled_flag",
+      "name": "Per-server disabled flag",
+      "summary": "Boolean disabled field on a server entry turns that server off without removing its configuration.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "required": null,
+      "provider_field": "disabled",
+      "conversion": "embedded"
+    },
+    {
+      "id": "server_timeout",
+      "name": "Per-server timeout override",
+      "summary": "Numeric timeout field overrides the default MCP request timeout per server.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mcp.ts",
+      "required": null,
+      "provider_field": "timeout",
+      "conversion": "embedded"
+    }
+  ]
+}

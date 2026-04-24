@@ -1,0 +1,53 @@
+{
+  "id": "hooks-context_injection",
+  "key": "context_injection",
+  "contentType": "hooks",
+  "description": "Whether hooks can inject messages, system prompts, or conversation context into the agent's active session.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp hooks cannot inject context into the agent session beyond the pre-execute 'send-user-message' action that cancels the tool call"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Hooks return systemMessage field in JSON output to inject context into agent's active session"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "context_modification_output: Cline hooks can inject additional context into the agent's session via hook output"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_system_message: Codex hooks can inject a system message into the agent's active session context"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks cannot inject context into the agent session"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks do not document a mechanism to inject additional context into the agent session."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot inject context into the agent session"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks cannot inject context into the agent session"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks cannot inject context into the agent session"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks cannot inject context into the agent session via hook output"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks cannot inject context into the agent's active session"
+    }
+  }
+}

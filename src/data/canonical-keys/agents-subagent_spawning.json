@@ -1,0 +1,41 @@
+{
+  "id": "agents-subagent_spawning",
+  "key": "subagent_spawning",
+  "contentType": "agents",
+  "description": "Whether agents can spawn, delegate to, or resume other agents. Enables multi-agent coordination patterns.",
+  "type": "bool",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "main-thread agents spawn subagents via Agent tool; subagents cannot spawn further subagents; Agent(type) in tools allowlist restricts which subagent types are allowed"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "multi-agent V2 feature flag; max_threads controls concurrent agent count, max_depth controls nesting depth; spawn-agent tool initiates delegation"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor custom agent files do not document spawning additional subagents from a user-defined agent; the three built-in subagents (Explore, Bash, Browser) are harness-provided, not file-overridable."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "no subagent spawning mechanism documented for Kiro custom agents"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Agents with mode: subagent (or mode: all) can be invoked from other agents; delegation is driven by the callee's description field."
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "Custom modes are switched-to by the user rather than spawned as subagents; Roo Code's orchestrator mode delegates to other modes at runtime but mode files themselves do not spawn peers"
+    }
+  }
+}

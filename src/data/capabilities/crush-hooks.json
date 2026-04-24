@@ -1,0 +1,10 @@
+{
+  "id": "crush-hooks",
+  "provider": "crush",
+  "contentType": "hooks",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

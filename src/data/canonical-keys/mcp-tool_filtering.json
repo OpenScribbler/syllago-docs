@@ -1,0 +1,65 @@
+{
+  "id": "mcp-tool_filtering",
+  "key": "tool_filtering",
+  "contentType": "mcp",
+  "description": "Which per-server tool filtering mechanisms the provider supports. Contents: {allowlist: bool, blocklist: bool, disable_flag: bool}. Controls which server tools are exposed to the agent. Boundary: tool_filtering governs tool visibility (what appears in the agent's available tool set); see auto_approve for execution gating of visible tools.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "per_tool_enable_disable: Amp supports per-tool enable/disable configuration to control which MCP tools are exposed to the agent"
+    },
+    "claude-code": {
+      "supported": false,
+      "mechanism": "Claude Code exposes all tools from connected MCP servers; no per-server tool allowlist or blocklist for individual tool visibility"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "always_allow_tools (visibility scope): Cline's always_allow list controls which MCP tools are exposed in the agent's available tool set without per-invocation prompts"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "mcp_enabled_disabled_tools: Codex supports per-server tool enable/disable configuration controlling which tools are exposed to the agent"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "mcp_tool_allow_deny_flags: Copilot CLI supports per-tool allow and deny flags to control which MCP tools are exposed"
+    },
+    "crush": {
+      "supported": false,
+      "mechanism": "Per-server tool allow/block list not documented in the Crush MCP schema"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor does not document per-server tool allowlists or blocklists for MCP servers."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid does not document per-server MCP tool filtering"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "tool_filtering: Gemini CLI supports per-server tool filtering to control which MCP tools are exposed to the agent"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "kiro_mcp_disabled_tools: Kiro supports per-server tool disable configuration to control which MCP tools are available to the agent"
+    },
+    "opencode": {
+      "supported": false,
+      "mechanism": "No per-server tool allowlist/blocklist documented"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "per_server_tool_filtering: alwaysAllow and disabledTools arrays on each server entry filter which MCP tools are exposed and which bypass confirmation"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf exposes all tools from connected MCP servers; no per-server tool allowlist or blocklist documented"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "no per-server include/exclude tool filter documented in Zed MCP configuration"
+    }
+  }
+}

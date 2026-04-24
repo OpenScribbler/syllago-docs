@@ -1,0 +1,53 @@
+{
+  "id": "hooks-permission_control",
+  "key": "permission_control",
+  "contentType": "hooks",
+  "description": "Whether hooks can make or influence permission decisions determining whether a tool is available for invocation. Minimum qualification: supported when the provider allows hooks to return permission decisions of any kind (grant, deny, or ask). Boundary: permission_control governs whether a tool is available; see decision_control for invocation-flow control.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "permissions_system: Amp has a permissions system that hooks interact with to make tool availability decisions"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "hook_permission_update_entries: PermissionRequest hooks return updatedPermissions with addRules/replaceRules/removeRules/setMode entries"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline hooks can cancel tool invocations (decision_control) but cannot grant/deny tool availability"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_permission_decision: Codex hooks can return permission decisions that grant or deny tool availability"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks can deny tool invocations (decision_control) but do not govern tool availability"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor hooks control allow/block via exit codes but do not govern tool availability through permission rule updates."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks control invocation flow via exit codes but do not govern tool availability"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks do not participate in permission decisions"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks cannot make permission decisions about tool availability"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf hooks do not participate in permission decisions"
+    }
+  }
+}

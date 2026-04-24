@@ -1,0 +1,46 @@
+{
+  "id": "crush-rules",
+  "provider": "crush",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/AGENTS.md",
+      "type": "source_code",
+      "fetched_at": "2026-04-17T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Crush rule files (AGENTS.md) load unconditionally as project context; no conditional activation syntax documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "No runtime memory/append command documented for Crush rule files"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "cross_provider_convention: Crush reads AGENTS.md, the cross-provider rules convention shared across multiple agents"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import directive documented for AGENTS.md in Crush"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Crush documents AGENTS.md at the project root only; no hierarchical/subdirectory loading documented"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "crush_md_variant",
+      "name": "CRUSH.md Crush-specific variant",
+      "summary": "Crush additionally recognizes a project-scope CRUSH.md file as a Crush-specific rules variant alongside the cross-provider AGENTS.md convention.",
+      "source_ref": "https://github.com/charmbracelet/crush",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
+}

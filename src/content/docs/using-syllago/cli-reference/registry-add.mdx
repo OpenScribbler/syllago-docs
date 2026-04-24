@@ -13,8 +13,13 @@ syllago registry add <git-url> [flags]
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
+| `--moat` | `bool` | — | No | Add as a MOAT-signed registry (required when URL is not in the bundled allowlist and no --signing-identity is passed) |
 | `--name` | `string` | — | No | Override the registry name (default: derived from URL) |
 | `--ref` | `string` | — | No | Branch, tag, or commit to checkout (default: repo default branch) |
+| `--signing-identity` | `string` | — | No | Workflow subject SAN (e.g. https://github.com/OWNER/REPO/.github/workflows/moat.yml@refs/heads/main) — implies --moat |
+| `--signing-issuer` | `string` | — | No | OIDC issuer URL (default: GitHub Actions issuer) |
+| `--signing-repository-id` | `string` | — | No | GitHub numeric repository ID (required for GitHub Actions issuer) |
+| `--signing-repository-owner-id` | `string` | — | No | GitHub numeric repository-owner ID (required for GitHub Actions issuer) |
 
 ## Global Options
 
@@ -25,9 +30,23 @@ syllago registry add <git-url> [flags]
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
 
+## Examples
+
+```bash
+  # Add a registry by URL
+  syllago registry add https://github.com/team/rules.git
+
+  # Add with a custom name
+  syllago registry add https://github.com/team/rules.git --name team-rules
+
+  # Pin to a specific branch
+  syllago registry add https://github.com/team/rules.git --ref main
+```
+
 ## See Also
 
 - [syllago registry](/using-syllago/cli-reference/registry/)
+- [syllago registry create](/using-syllago/cli-reference/registry-create/)
 - [syllago registry items](/using-syllago/cli-reference/registry-items/)
 - [syllago registry list](/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/using-syllago/cli-reference/registry-remove/)

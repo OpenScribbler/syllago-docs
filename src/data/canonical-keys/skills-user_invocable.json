@@ -25,6 +25,14 @@
       "supported": true,
       "mechanism": "slash-prefixed skill name in user prompt (e.g. /frontend-design)"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": ""
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": ""
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
@@ -40,6 +48,10 @@
     "pi": {
       "supported": false,
       "mechanism": ""
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No user-invocation flag observed — skills are auto-loaded based on description matching"
     },
     "windsurf": {
       "supported": true,

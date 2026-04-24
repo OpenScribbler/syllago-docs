@@ -3,21 +3,50 @@ title: CLI Reference
 description: Complete reference for all syllago commands and flags.
 ---
 
-Auto-generated from syllago 0.6.1 on 2026-03-01.
+Auto-generated from syllago 0.9.0 on 2026-04-20.
 
 ### Core Commands
 
 | Command | Description |
 |---------|-------------|
-| [`syllago create`](/using-syllago/cli-reference/create/) | Scaffold a new content item in local/ |
-| [`syllago export`](/using-syllago/cli-reference/export/) | Export content to a provider's install location |
-| [`syllago import`](/using-syllago/cli-reference/import/) | Bring content into syllago from a provider, path, or git URL |
+| [`syllago add`](/using-syllago/cli-reference/add/) | Add content to your library from a provider |
+| [`syllago compat`](/using-syllago/cli-reference/compat/) | Show provider compatibility matrix for a content item |
+| [`syllago convert`](/using-syllago/cli-reference/convert/) | Convert content between provider formats |
+| [`syllago create`](/using-syllago/cli-reference/create/) | Scaffold a new content item in the global library |
+| [`syllago doctor`](/using-syllago/cli-reference/doctor/) | Check your syllago setup for problems |
+| [`syllago explain`](/using-syllago/cli-reference/explain/) | Show detailed documentation for an error code |
 | [`syllago init`](/using-syllago/cli-reference/init/) | Initialize syllago for this project |
 | [`syllago inspect`](/using-syllago/cli-reference/inspect/) | Show details about a content item |
-| [`syllago list`](/using-syllago/cli-reference/list/) | List content items in the catalog |
+| [`syllago install`](/using-syllago/cli-reference/install/) | Activate library content in a provider |
+| [`syllago list`](/using-syllago/cli-reference/list/) | List content items in the library |
+| [`syllago remove`](/using-syllago/cli-reference/remove/) | Remove content from your library and uninstall from providers |
+| [`syllago rename`](/using-syllago/cli-reference/rename/) | Set a human-readable display name for a content item |
+| [`syllago share`](/using-syllago/cli-reference/share/) | Contribute library content to a team repo or registry |
 | [`syllago sync-and-export`](/using-syllago/cli-reference/sync-and-export/) | Sync registries then export content to a provider |
+| [`syllago uninstall`](/using-syllago/cli-reference/uninstall/) | Deactivate content from a provider |
+| [`syllago update`](/using-syllago/cli-reference/update/) | Check for and apply content updates from registries |
 | [`syllago update`](/using-syllago/cli-reference/update/) | Update syllago to the latest release |
 | [`syllago version`](/using-syllago/cli-reference/version/) | Print syllago version |
+
+### [`syllago capmon`](/using-syllago/cli-reference/capmon/)
+
+Capability monitor pipeline
+
+| Command | Description |
+|---------|-------------|
+| [`syllago capmon check`](/using-syllago/cli-reference/capmon-check/) | Check for content drift in provider format docs |
+| [`syllago capmon derive`](/using-syllago/cli-reference/capmon-derive/) | Derive a seeder spec from a provider format doc |
+| [`syllago capmon diff`](/using-syllago/cli-reference/capmon-diff/) | Show field-level changes in provider-capabilities since a git ref |
+| [`syllago capmon extract`](/using-syllago/cli-reference/capmon-extract/) | Run extraction on cached sources |
+| [`syllago capmon fetch`](/using-syllago/cli-reference/capmon-fetch/) | Fetch source URLs and update hash cache |
+| [`syllago capmon generate`](/using-syllago/cli-reference/capmon-generate/) | Regenerate per-content-type views and spec tables from provider-capabilities YAML |
+| [`syllago capmon onboard`](/using-syllago/cli-reference/capmon-onboard/) | Bootstrap a new provider into the capmon pipeline |
+| [`syllago capmon run`](/using-syllago/cli-reference/capmon-run/) | Run the full capability monitor pipeline |
+| [`syllago capmon seed`](/using-syllago/cli-reference/capmon-seed/) | Bootstrap or re-seed provider capability YAML from extracted data |
+| [`syllago capmon test-fixtures`](/using-syllago/cli-reference/capmon-test-fixtures/) | Report fixture staleness or update fixtures for a provider |
+| [`syllago capmon validate-format-doc`](/using-syllago/cli-reference/capmon-validate-format-doc/) | Validate a provider format doc against the canonical keys vocabulary |
+| [`syllago capmon validate-sources`](/using-syllago/cli-reference/capmon-validate-sources/) | Validate a provider's source manifest has URIs for all supported content types |
+| [`syllago capmon verify`](/using-syllago/cli-reference/capmon-verify/) | Validate provider-capabilities YAML against JSON Schema |
 
 ### [`syllago completion`](/using-syllago/cli-reference/completion/)
 
@@ -38,6 +67,7 @@ View and edit syllago configuration
 |---------|-------------|
 | [`syllago config add`](/using-syllago/cli-reference/config-add/) | Add a provider to the configuration |
 | [`syllago config list`](/using-syllago/cli-reference/config-list/) | List current configuration |
+| [`syllago config paths`](/using-syllago/cli-reference/config-paths/) | Manage custom provider path overrides |
 | [`syllago config remove`](/using-syllago/cli-reference/config-remove/) | Remove a provider from the configuration |
 
 ### [`syllago info`](/using-syllago/cli-reference/info/)
@@ -47,7 +77,7 @@ Show syllago capabilities
 | Command | Description |
 |---------|-------------|
 | [`syllago info formats`](/using-syllago/cli-reference/info-formats/) | List supported file formats |
-| [`syllago info providers`](/using-syllago/cli-reference/info-providers/) | List all known providers |
+| [`syllago info providers`](/using-syllago/cli-reference/info-providers/) | List providers or show data quality for a specific slug |
 
 ### [`syllago loadout`](/using-syllago/cli-reference/loadout/)
 
@@ -61,13 +91,21 @@ Apply, create, and manage loadouts
 | [`syllago loadout remove`](/using-syllago/cli-reference/loadout-remove/) | Remove the active loadout and restore original configuration |
 | [`syllago loadout status`](/using-syllago/cli-reference/loadout-status/) | Show active loadout status |
 
-### [`syllago promote`](/using-syllago/cli-reference/promote/)
+### [`syllago manifest`](/using-syllago/cli-reference/manifest/)
 
-Promote content to shared or registry
+Manage registry manifests
 
 | Command | Description |
 |---------|-------------|
-| [`syllago promote to-registry`](/using-syllago/cli-reference/promote-to-registry/) | Contribute content to a registry via PR |
+| [`syllago manifest generate`](/using-syllago/cli-reference/manifest-generate/) | Generate a registry.yaml for this repository |
+
+### [`syllago moat`](/using-syllago/cli-reference/moat/)
+
+Manage MOAT registry trust and verification
+
+| Command | Description |
+|---------|-------------|
+| [`syllago moat trust`](/using-syllago/cli-reference/moat-trust/) | Trusted-root lifecycle (status, refresh) |
 
 ### [`syllago registry`](/using-syllago/cli-reference/registry/)
 
@@ -76,6 +114,7 @@ Manage git-based content registries
 | Command | Description |
 |---------|-------------|
 | [`syllago registry add`](/using-syllago/cli-reference/registry-add/) | Add a git registry |
+| [`syllago registry create`](/using-syllago/cli-reference/registry-create/) | Create a new registry |
 | [`syllago registry items`](/using-syllago/cli-reference/registry-items/) | Browse content available in registries |
 | [`syllago registry list`](/using-syllago/cli-reference/registry-list/) | List registered registries |
 | [`syllago registry remove`](/using-syllago/cli-reference/registry-remove/) | Remove a registry and delete its local clone |
@@ -99,3 +138,14 @@ Run and manage AI CLI tools in bubblewrap sandboxes
 | [`syllago sandbox info`](/using-syllago/cli-reference/sandbox-info/) | Show effective sandbox configuration |
 | [`syllago sandbox ports`](/using-syllago/cli-reference/sandbox-ports/) | List allowed localhost ports |
 | [`syllago sandbox run`](/using-syllago/cli-reference/sandbox-run/) | Run a provider in a sandbox |
+
+### [`syllago telemetry`](/using-syllago/cli-reference/telemetry/)
+
+Manage usage analytics settings
+
+| Command | Description |
+|---------|-------------|
+| [`syllago telemetry off`](/using-syllago/cli-reference/telemetry-off/) | Disable telemetry |
+| [`syllago telemetry on`](/using-syllago/cli-reference/telemetry-on/) | Enable telemetry |
+| [`syllago telemetry reset`](/using-syllago/cli-reference/telemetry-reset/) | Generate a new anonymous ID |
+| [`syllago telemetry status`](/using-syllago/cli-reference/telemetry-status/) | Show telemetry state and anonymous ID |

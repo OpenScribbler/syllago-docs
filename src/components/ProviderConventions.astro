@@ -1,0 +1,322 @@
+---
+/**
+ * ProviderConventions.astro — Per-(provider, contentType) conventions page.
+ *
+ * Three sections:
+ *   1. At-a-Glance card (format, discovery paths, install method, frontmatter)
+ *   2. Features — unified conversion-aware table via ProviderFeaturesTable
+ *   3. Sources — SourcesTable at the bottom
+ *
+ * Hooks content type renders an extra "Hook events" sub-section between
+ * At-a-Glance and Features.
+ */
+import SourcesTable from './SourcesTable.astro';
+import ProviderFeaturesTable from './ProviderFeaturesTable.astro';
+
+interface CapSource {
+  uri: string;
+  type?: string;
+  fetched_at?: string;
+  name?: string;
+}
+
+interface CapMapping {
+  supported: boolean;
+  mechanism: string;
+  paths?: string[];
+  provider_field?: string | null;
+  extension_id?: string;
+}
+
+interface Example {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
+}
+
+type ConversionFate =
+  | 'translated'
+  | 'embedded'
+  | 'dropped'
+  | 'preserved'
+  | 'not-portable';
+
+interface CapExtension {
+  id: string;
+  name: string;
+  summary: string;
+  source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  provider_field?: string | null;
+  conversion: ConversionFate;
+  examples?: Example[];
+}
+
+interface ContentCapability {
+  supported: boolean;
+  fileFormat?: string;
+  installMethod?: string;
+  installPath?: string;
+  symlinkSupport: boolean;
+  discoveryPaths?: string[];
+  hookEvents?: Array<{ canonical: string; nativeName: string; category?: string }>;
+  hookTypes?: string[];
+  configLocation?: string;
+  mcpTransports?: string[];
+  frontmatterFields?: string[];
+}
+
+interface Props {
+  providerName: string;
+  contentType: string;
+  capability: ContentCapability;
+  sources: CapSource[];
+  canonicalMappings: Record<string, CapMapping>;
+  extensions: CapExtension[];
+}
+
+const {
+  providerName,
+  contentType,
+  capability,
+  sources,
+  canonicalMappings,
+  extensions,
+} = Astro.props;
+
+const FORMAT_DISPLAY: Record<string, string> = {
+  md: 'Markdown',
+  mdc: 'MDC (Markdown + frontmatter)',
+  json: 'JSON',
+  jsonc: 'JSON with comments',
+  yaml: 'YAML',
+  toml: 'TOML',
+};
+
+const METHOD_DISPLAY: Record<string, string> = {
+  filesystem: 'Symlink',
+  'json-merge': 'JSON merge',
+  'project-scope': 'Project scope',
+};
+
+const HOOK_CATEGORY_DISPLAY: Record<string, string> = {
+  tool: 'Tool',
+  lifecycle: 'Lifecycle',
+  context: 'Context',
+  output: 'Output',
+  security: 'Security',
+  config: 'Config',
+  workspace: 'Workspace',
+  interaction: 'Interaction',
+  collaboration: 'Collaboration',
+  model: 'Model',
+};
+
+const fileFormat = capability.fileFormat
+  ? (FORMAT_DISPLAY[capability.fileFormat] ?? capability.fileFormat)
+  : null;
+const installMethod = capability.installMethod
+  ? (METHOD_DISPLAY[capability.installMethod] ?? capability.installMethod)
+  : null;
+
+function stripPathVars(p: string): string {
+  return p.replace('{project}/', '').replace('{home}/', '~/');
+}
+
+interface GlanceItem {
+  label: string;
+  value: string | string[];
+  mono?: boolean;
+}
+
+const glanceItems: GlanceItem[] = [];
+if (fileFormat) glanceItems.push({ label: 'File format', value: fileFormat });
+if (capability.discoveryPaths?.length) {
+  glanceItems.push({
+    label: capability.discoveryPaths.length > 1 ? 'Discovery paths' : 'Discovery path',
+    value: capability.discoveryPaths.map(stripPathVars),
+    mono: true,
+  });
+}
+if (capability.installPath) {
+  glanceItems.push({
+    label: 'Global install path',
+    value: stripPathVars(capability.installPath),
+    mono: true,
+  });
+}
+const supportsDirectCopy = contentType !== 'hooks' && contentType !== 'mcp';
+const installMethods: string[] = [];
+if (installMethod) installMethods.push(installMethod);
+if (supportsDirectCopy) installMethods.push('Direct copy');
+if (installMethods.length > 0) {
+  glanceItems.push({
+    label: 'Syllago install method',
+    value: installMethods.length === 1 ? installMethods[0] : installMethods,
+  });
+}
+glanceItems.push({
+  label: 'Symlink support',
+  value: capability.symlinkSupport ? 'Yes' : 'No',
+});
+if ((contentType === 'hooks' || contentType === 'mcp') && capability.configLocation) {
+  glanceItems.push({ label: 'Config file', value: capability.configLocation, mono: true });
+}
+if (contentType === 'hooks' && capability.hookTypes?.length) {
+  glanceItems.push({ label: 'Handler types', value: capability.hookTypes, mono: true });
+}
+if (contentType === 'mcp' && capability.mcpTransports?.length) {
+  glanceItems.push({ label: 'Transports', value: capability.mcpTransports, mono: true });
+}
+if (capability.frontmatterFields?.length) {
+  glanceItems.push({
+    label: 'Native frontmatter fields',
+    value: capability.frontmatterFields,
+    mono: true,
+  });
+}
+---
+
+<section class="at-a-glance not-content" aria-label="At a glance">
+  <dl class="at-a-glance__grid">
+    {glanceItems.map((item) => (
+      <>
+        <dt>{item.label}</dt>
+        <dd>
+          {Array.isArray(item.value) ? (
+            item.value.map((v, i) => (
+              <>
+                {i > 0 && ', '}
+                {item.mono ? <code>{v}</code> : v}
+              </>
+            ))
+          ) : item.mono ? (
+            <code>{item.value}</code>
+          ) : (
+            item.value
+          )}
+        </dd>
+      </>
+    ))}
+  </dl>
+</section>
+
+{contentType === 'hooks' && (
+  <section class="hook-events">
+    <h2 id="hook-events">Hook events</h2>
+    {capability.hookEvents?.length ? (
+      <table class="hook-events-table">
+        <thead>
+          <tr>
+            <th>Canonical Event</th>
+            <th>Native Name</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {capability.hookEvents.map((ev) => (
+            <tr>
+              <td><code>{ev.canonical}</code></td>
+              <td><code>{ev.nativeName}</code></td>
+              <td>
+                {ev.category
+                  ? (HOOK_CATEGORY_DISPLAY[ev.category] ?? ev.category)
+                  : '—'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <p class="hook-events__note">
+        {providerName} supports hooks, but syllago does not yet map its hook event
+        names. Hook conversion to and from {providerName} is best-effort.
+      </p>
+    )}
+  </section>
+)}
+
+<section class="features">
+  <h2 id="features">Features</h2>
+  <ProviderFeaturesTable
+    canonicalMappings={canonicalMappings}
+    extensions={extensions}
+    contentType={contentType}
+  />
+</section>
+
+<section class="sources">
+  <h2 id="sources">Sources</h2>
+  <SourcesTable sources={sources} />
+</section>
+
+<style>
+  .at-a-glance {
+    margin: 0 0 1.5rem;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--sl-color-hairline-light);
+    border-radius: 0.5rem;
+    background-color: var(--sl-color-bg-nav);
+  }
+
+  .at-a-glance__grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 0.875rem;
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    line-height: 1.55;
+  }
+
+  .at-a-glance__grid dt {
+    font-weight: 600;
+    color: var(--sl-color-gray-2);
+  }
+
+  .at-a-glance__grid dd {
+    margin: 0;
+    color: var(--sl-color-text);
+  }
+
+  .at-a-glance__grid code {
+    font-size: 0.875em;
+    background-color: var(--sl-color-bg-inline-code);
+    padding: 0.125em 0.375em;
+    border-radius: 0.1875rem;
+  }
+
+  .hook-events-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--sl-text-sm);
+    margin-bottom: 1.5rem;
+  }
+
+  .hook-events-table th,
+  .hook-events-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .hook-events-table th {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hook-events-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .hook-events__note {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    font-style: italic;
+    margin: 0 0 1.5rem;
+  }
+</style>

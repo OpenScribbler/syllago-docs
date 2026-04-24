@@ -1,0 +1,148 @@
+---
+title: Registry Signing Identity
+description: How syllago pins cryptographic identities to registries at add-time so repository renames and forgeries cannot silently swap the source of your content.
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Syllago's Model for Origin Attestation and Trust (MOAT) implementation verifies every registry manifest against a pinned cryptographic identity before content transitions into your library. The identity is pinned at registry-add time — not at every verify — so an attacker who later gains control of the registry's repository or CI workflow cannot silently swap the source of your content.
+
+This page covers the operator workflow for `syllago registry add` and the three ways to pin an identity. For deeper protocol detail, see [ADR 0007 in the syllago repo](https://github.com/OpenScribbler/syllago/blob/main/docs/adr/0007-moat-slice-1.md).
+
+## Why Pinning Matters
+
+GitHub lets an organization rename or transfer a repository at any moment, and the new owner inherits the old URL. Sigstore Fulcio certificates embed a **numeric** repository ID and owner ID alongside the human-readable URL. Pinning those numeric IDs at `registry add` time means:
+
+- A repository rename or transfer flips the numeric IDs, verification fails loudly, and syllago refuses to add content.
+- Two orgs with identical URLs (`example/tool` vs `example/tool` under a different parent after a transfer) are cryptographically distinguishable.
+- You commit to a specific publishing identity the day you add the registry. No TOFU (trust-on-first-use) surprises months later.
+
+The identity is persisted to `~/.syllago/config.json` in a `signing_profile` object on the registry entry. Subsequent syncs and adds verify against that pinned profile.
+
+## Three Paths to Pin an Identity
+
+### 1. Well-Known Registries (Nothing to Do)
+
+Syllago ships with a bundled allowlist covering the public meta-registry and a small number of other well-known syllago ecosystem registries. For those, `syllago registry add <url>` just works — the allowlist supplies the signing profile automatically.
+
+```
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry
+  Trust: signed (registry OpenScribbler/syllago-meta-registry, root: bundled)
+```
+
+If the URL matches an allowlist entry, syllago silently adopts its pinned profile. You do not need to pass `--signing-*` flags.
+
+### 2. GitHub-Hosted Registries (Pass Numeric IDs)
+
+For a GitHub-hosted registry not in the bundled allowlist, pass the identity explicitly:
+
+```bash
+syllago registry add https://github.com/acme/tools-registry \
+  --signing-identity 'https://github.com/acme/tools-registry/.github/workflows/moat-registry.yml@refs/heads/main' \
+  --signing-repository-id 1234567890 \
+  --signing-repository-owner-id 987654321
+```
+
+The `--signing-identity` value is the full GitHub Actions workflow identity that publishes the registry's manifest. The numeric IDs come from the GitHub REST API:
+
+```bash
+gh api repos/acme/tools-registry --jq '{id, owner_id: .owner.id}'
+# → {"id": 1234567890, "owner_id": 987654321}
+```
+
+<Aside type="tip">
+Confirm the numeric IDs out-of-band with the registry's publisher before adding. That is the whole point of pinning — if an attacker has already compromised the registry, the published numeric IDs could be wrong.
+</Aside>
+
+### 3. Non-GitHub OIDC Issuers (Slice-2 Scope)
+
+For registries signed against a non-GitHub OIDC issuer, pass `--signing-issuer` alongside `--signing-identity`:
+
+```bash
+syllago registry add https://git.internal.example/team/registry \
+  --signing-issuer https://oidc.internal.example \
+  --signing-identity 'ci@internal.example'
+```
+
+Numeric IDs are optional for non-GitHub issuers at slice-2 scope. Additional issuer support (GitLab, Azure, etc.) arrives in later slices.
+
+## The Trust Label
+
+Every successful `syllago add --from <registry>` against a MOAT registry emits a trust label:
+
+```
+  Trust: signed (registry acme/tools-registry, root: bundled)
+```
+
+The three-state label is intentional:
+
+| Label       | Meaning                                                                          |
+|-------------|----------------------------------------------------------------------------------|
+| `signed`    | Manifest signature valid, pinned identity matched, trusted root fresh.           |
+| `unsigned`  | Registry has no pinned profile and no manifest — slice-1 legacy mode.            |
+| `invalid`   | Verification attempted but rejected. The add aborts and surfaces a `MOAT_*` error. |
+
+The word `verified` is deliberately **not** used at slice 2. It is reserved for when revocation checking lands in a later slice.
+
+## Escape Hatch: `--trusted-root`
+
+For enterprise or air-gapped deployments that pin a specific Sigstore trusted root, pass `--trusted-root` on `syllago add` or persist a `trusted_root` path on the registry in `config.json`:
+
+```bash
+syllago add loadout/daily --from acme/tools-registry \
+  --trusted-root /etc/syllago/corp-trusted-root.json
+```
+
+Precedence: the CLI flag wins over the per-registry config, which wins over the bundled default. Syllago emits an auditor-visible marker on stderr when an override is in use:
+
+```
+moat.trusted_root_path=/etc/syllago/corp-trusted-root.json (registry=acme/tools-registry)
+```
+
+Override roots are **not** staleness-gated — the 365-day cliff only applies to the bundled root that ships with the syllago binary. Operators who supply their own trusted root take responsibility for refreshing it.
+
+## When Verification Fails
+
+If any `--signing-*` flag is passed but verification cannot be satisfied, syllago returns a structured `MOAT_*` error and refuses to add content. No silent fall-back to unsigned mode — a pinned profile means the operator has opted into cryptographic gating.
+
+| Code       | Meaning                                                             |
+|------------|---------------------------------------------------------------------|
+| [`MOAT_001`](/errors/moat-001/) | No allowlist match and no `--signing-identity` supplied.            |
+| [`MOAT_002`](/errors/moat-002/) | `--signing-*` flags are incomplete or malformed.                    |
+| [`MOAT_003`](/errors/moat-003/) | Manifest certificate does not match the pinned profile.             |
+| [`MOAT_004`](/errors/moat-004/) | Manifest or bundle is malformed, missing, or unreadable.            |
+| [`MOAT_005`](/errors/moat-005/) | Bundled trusted root exceeded its 365-day cliff. Run `syllago update`. |
+| [`MOAT_006`](/errors/moat-006/) | Pinned profile but no manifest/bundle in the checkout.              |
+| [`MOAT_007`](/errors/moat-007/) | `--trusted-root` or `reg.trusted_root` path cannot be loaded.       |
+
+## FAQ
+
+### Why not prompt interactively?
+
+Hard-fail is defense-in-depth. An interactive prompt trains operators to mash `y` without actually confirming the numeric IDs out-of-band. A CI pipeline also cannot respond to a prompt — the only way to pass `--signing-*` flags is to hard-code the identity somewhere, which is exactly what you want. The failure is also CI-safe: the exit code is non-zero, so pipelines fail loudly rather than silently proceeding unsigned.
+
+### What happens on registry rename?
+
+Numeric IDs do not change on rename; they change on **transfer** to a new owner. After a rename, verification continues to succeed. After a transfer to a different owner, verification fails with `MOAT_003` and the operator must re-add against the new numeric IDs out-of-band.
+
+### Can I change the pinned identity later?
+
+Yes. Remove the registry and re-add it with updated `--signing-*` flags:
+
+```bash
+syllago registry remove acme/tools-registry
+syllago registry add https://github.com/acme/tools-registry --signing-identity '…' …
+```
+
+There is no in-place edit by design — re-adding forces the operator to re-confirm the identity.
+
+## Contributing to the Bundled Allowlist
+
+If you operate a public registry and want bundled inclusion so users can add your registry without `--signing-*` flags, open an issue on the [syllago repo](https://github.com/OpenScribbler/syllago/issues/new) with:
+
+- Your registry's public repository URL.
+- The numeric repository ID and owner ID.
+- The full signing identity (workflow path + ref).
+- A link to at least one published manifest signed with that identity.
+
+Allowlist inclusion is reviewed against the same ADR 0007 criteria that apply to ad-hoc pinning — the goal is to reduce friction for well-known registries, not to shortcut the trust model.

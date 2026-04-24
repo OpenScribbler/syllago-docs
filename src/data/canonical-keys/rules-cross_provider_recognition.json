@@ -1,0 +1,69 @@
+{
+  "id": "rules-cross_provider_recognition",
+  "key": "cross_provider_recognition",
+  "contentType": "rules",
+  "description": "Which rule file formats from other providers this provider recognizes. Contents: recognized_formats (list of filenames like AGENTS.md, .cursorrules, .windsurfrules). Minimum qualification: supported when the provider reads at least one rule-file format defined by a different provider.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp reads its own rule format; no cross-provider rule file recognition documented"
+    },
+    "claude-code": {
+      "supported": false,
+      "mechanism": "Claude Code does not natively read rule files defined by other providers"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "multi_source_rule_detection: Cline reads .clinerules/, .cursorrules, CLAUDE.md, and other provider rule files automatically"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "agents_md_filename: Codex reads AGENTS.md files using the standard filename used by multiple providers"
+    },
+    "copilot-cli": {
+      "supported": true,
+      "mechanism": "agents_md_instructions: Copilot CLI reads AGENTS.md files following the multi-provider shared format"
+    },
+    "crush": {
+      "supported": true,
+      "mechanism": "cross_provider_convention: Crush reads AGENTS.md, the cross-provider rules convention shared across multiple agents"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor reads its own .cursor/rules/*.mdc and legacy .cursorrules file; no documented recognition of other providers' rule files."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "agents_md_format: Factory Droid reads AGENTS.md files in the shared multi-provider format"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI reads its own GEMINI.md format; no cross-provider rule file recognition documented"
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "kiro_agents_md_recognition: Kiro reads AGENTS.md files from other providers in addition to its own steering files"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "OpenCode reads both AGENTS.md (cross-provider convention) and CLAUDE.md (historical Claude Code convention) from project root"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi reads its own rule format; no cross-provider rule file recognition documented"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "legacy_clinerules_fallback: Roo Code reads .clinerules/ as a backward-compatibility fallback when native .roo/rules/ is absent"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "agents_md_auto_scoping: Windsurf reads AGENTS.md files from other providers and applies them with workspace-aware scoping"
+    },
+    "zed": {
+      "supported": true,
+      "mechanism": "Zed discovers .rules, .cursorrules, and CLAUDE.md at project root, so rule files authored for other agents are picked up"
+    }
+  }
+}

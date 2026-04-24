@@ -1,0 +1,54 @@
+{
+  "id": "opencode-rules",
+  "provider": "opencode",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://opencode.ai/docs/rules/",
+      "type": "documentation",
+      "fetched_at": ""
+    }
+  ],
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "OpenCode rule files load unconditionally as context; no conditional activation syntax documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "No runtime command documented for persisting notes into rule files"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "OpenCode reads both AGENTS.md (cross-provider convention) and CLAUDE.md (historical Claude Code convention) from project root"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No documented import directive for rule files"
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "Project-root AGENTS.md/CLAUDE.md combined with global context files at ~/.config/opencode/"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agents_md_convention",
+      "name": "AGENTS.md cross-provider convention",
+      "summary": "Plain markdown rule file at project root, shared with other agent tools (no frontmatter, context-injected).",
+      "source_ref": "https://opencode.ai/docs/rules/",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "claude_md_compat",
+      "name": "CLAUDE.md compatibility",
+      "summary": "OpenCode also reads CLAUDE.md at project root for compatibility with Claude Code projects.",
+      "source_ref": "https://opencode.ai/docs/rules/",
+      "required": null,
+      "conversion": "preserved"
+    }
+  ]
+}

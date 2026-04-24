@@ -1,0 +1,37 @@
+---
+title: "syllago capmon"
+description: "Capability monitor pipeline"
+---
+
+Fetch, extract, diff, and report on AI provider capability drift.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`check`](/using-syllago/cli-reference/capmon-check/) | Check for content drift in provider format docs |
+| [`derive`](/using-syllago/cli-reference/capmon-derive/) | Derive a seeder spec from a provider format doc |
+| [`diff`](/using-syllago/cli-reference/capmon-diff/) | Show field-level changes in provider-capabilities since a git ref |
+| [`extract`](/using-syllago/cli-reference/capmon-extract/) | Run extraction on cached sources |
+| [`fetch`](/using-syllago/cli-reference/capmon-fetch/) | Fetch source URLs and update hash cache |
+| [`generate`](/using-syllago/cli-reference/capmon-generate/) | Regenerate per-content-type views and spec tables from provider-capabilities YAML |
+| [`onboard`](/using-syllago/cli-reference/capmon-onboard/) | Bootstrap a new provider into the capmon pipeline |
+| [`run`](/using-syllago/cli-reference/capmon-run/) | Run the full capability monitor pipeline |
+| [`seed`](/using-syllago/cli-reference/capmon-seed/) | Bootstrap or re-seed provider capability YAML from extracted data |
+| [`test-fixtures`](/using-syllago/cli-reference/capmon-test-fixtures/) | Report fixture staleness or update fixtures for a provider |
+| [`validate-format-doc`](/using-syllago/cli-reference/capmon-validate-format-doc/) | Validate a provider format doc against the canonical keys vocabulary |
+| [`validate-sources`](/using-syllago/cli-reference/capmon-validate-sources/) | Validate a provider's source manifest has URIs for all supported content types |
+| [`verify`](/using-syllago/cli-reference/capmon-verify/) | Validate provider-capabilities YAML against JSON Schema |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/capmon_cmd.go)</small>

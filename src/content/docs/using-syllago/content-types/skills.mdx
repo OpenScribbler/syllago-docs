@@ -59,7 +59,7 @@ Skills support the following metadata fields in YAML frontmatter:
 | `license` | License identifier (Agent Skills spec) | Claude Code, Cursor |
 | `compatibility` | Tool/version constraints | Claude Code, Cursor |
 | `metadata` | Arbitrary key-value pairs | Claude Code, Cursor |
-| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as prose |
+| `effort` | Time/complexity: `low`, `medium`, `high`, `max` | Claude Code (native); others as prose |
 | `hooks` | Skill-scoped event hooks | Claude Code (native); others warn |
 
 ## Provider Compatibility
@@ -89,7 +89,7 @@ The key conversion challenge for skills is frontmatter. Claude Code uses standar
 
 - **Claude Code** stores `name` and `description` as YAML frontmatter. The AI reads these fields to understand when and how to apply the skill.
 - **Gemini CLI** does not use YAML frontmatter. When converting, syllago either embeds the metadata as a heading/description in the Markdown body or omits it if Gemini can infer the skill's purpose from context.
-- **Kiro** uses JSON-based steering files. Syllago wraps the Markdown content into JSON string fields and maps frontmatter keys to their JSON equivalents.
+- **Kiro** uses Markdown steering files in `.kiro/steering/` with `name`, `description`, and other canonical frontmatter mapped onto Kiro's steering metadata.
 - **OpenCode** uses Markdown-based skills with its own conventions for metadata.
 
 ### Conversion Example

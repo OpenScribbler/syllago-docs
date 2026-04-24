@@ -1,0 +1,65 @@
+{
+  "id": "mcp-oauth_support",
+  "key": "oauth_support",
+  "contentType": "mcp",
+  "description": "Whether the provider supports OAuth 2.0 authentication for remote MCP servers, including token storage and automatic refresh.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "oauth_support: Amp supports OAuth 2.0 authentication for remote MCP servers"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration; token storage in macOS keychain or credentials file; auto-refresh"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "mcp_oauth_support: Codex supports OAuth 2.0 authentication for remote MCP servers"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI MCP does not document OAuth 2.0 authentication"
+    },
+    "crush": {
+      "supported": false,
+      "mechanism": "Crush MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor's MCP documentation does not describe OAuth 2.0 flows for remote servers."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid MCP does not document OAuth 2.0 authentication"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication"
+    },
+    "opencode": {
+      "supported": false,
+      "mechanism": "No OAuth 2.0 authentication for remote MCP servers documented"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No OAuth 2.0 authentication flow documented for Roo Code MCP servers"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Windsurf MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed MCP configuration does not document OAuth 2.0 authentication for MCP servers"
+    }
+  }
+}

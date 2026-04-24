@@ -8,6 +8,7 @@ import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import astroD2 from 'astro-d2';
 import { sidebar } from './sidebar.ts';
+import remarkWrapTables from './scripts/remark-wrap-tables.mjs';
 import { execSync } from 'child_process';
 
 // Smart D2 detection — auto-enable when D2 is available.
@@ -41,6 +42,7 @@ const integrations = [
       starlightThemeFlexoki(),
       starlightLinksValidator({
         errorOnLocalLinks: false,
+        exclude: ['/using-syllago/providers/*', '/using-syllago/providers/*/*'],
       }),
       starlightLlmsTxt(),
       starlightHeadingBadges(),
@@ -49,7 +51,9 @@ const integrations = [
     social: [
       { icon: 'github', label: 'GitHub', href: 'https://github.com/OpenScribbler/syllago' },
     ],
-    customCss: ['./src/styles/tables.css'],
+    customCss: [
+      './src/styles/tables.css',
+    ],
     sidebar,
     head: [
       {
@@ -84,4 +88,7 @@ if (shouldGenerateD2()) {
 export default defineConfig({
   site: 'https://syllago.dev',
   integrations,
+  markdown: {
+    remarkPlugins: [remarkWrapTables],
+  },
 });

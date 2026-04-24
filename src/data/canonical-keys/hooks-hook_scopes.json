@@ -1,0 +1,53 @@
+{
+  "id": "hooks-hook_scopes",
+  "key": "hook_scopes",
+  "contentType": "hooks",
+  "description": "Where hooks can be configured and the precedence model when multiple scopes define hooks for the same event. Common scopes: global/user, project, workspace, managed/enterprise.",
+  "type": "object",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Project only: hooks live in a single 'amp.hooks' array inside '.amp/settings.json' (or user-scope settings); no multi-scope layering documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Six scopes: user (~/.claude/settings.json), project (.claude/settings.json), local (.claude/settings.local.json), managed policy, plugin (hooks/hooks.json), component frontmatter"
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "global_and_project_hooks: Cline supports global (user-wide) and project-level hook configuration"
+    },
+    "codex": {
+      "supported": true,
+      "mechanism": "hook_scope: Codex hooks can be scoped to global/user or project configuration"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks are configured at a single scope level; no multi-scope configuration documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Project-scope hooks live under .cursor/hooks/ and are wired through .cursor/settings.json; user-global hooks live under ~/.cursor/ using the same shape."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Gemini CLI hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks are project-scoped; no multi-scope configuration documented"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "three_config_scopes: global (user-wide), workspace, and managed/enterprise hook configuration scopes"
+    }
+  }
+}

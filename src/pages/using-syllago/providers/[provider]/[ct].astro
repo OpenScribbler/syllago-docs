@@ -1,0 +1,65 @@
+---
+/**
+ * [ct].astro — Per-(provider, contentType) conventions page (D6).
+ *
+ * Generates one page per supported (provider, contentType) pair from the
+ * `capabilities` collection. URL: /using-syllago/providers/<slug>/<ct>/.
+ */
+import { getCollection } from 'astro:content';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import ProviderConventions from '../../../../components/ProviderConventions.astro';
+
+const CT_DISPLAY: Record<string, string> = {
+  rules: 'Rules',
+  hooks: 'Hooks',
+  mcp: 'MCP Configs',
+  skills: 'Skills',
+  agents: 'Agents',
+  commands: 'Commands',
+};
+
+export async function getStaticPaths() {
+  const capabilities = await getCollection('capabilities');
+  const providers = await getCollection('providers');
+
+  // Build a map of slug → provider entry for fast lookup.
+  const providerMap = new Map(providers.map((p) => [p.data.slug, p.data]));
+
+  return capabilities
+    .filter((cap) => {
+      const prov = providerMap.get(cap.data.provider);
+      if (!prov) return false;
+      return prov.content[cap.data.contentType]?.supported ?? false;
+    })
+    .map((cap) => {
+      const prov = providerMap.get(cap.data.provider)!;
+      return {
+        params: {
+          provider: cap.data.provider,
+          ct: cap.data.contentType,
+        },
+        props: { cap, prov },
+      };
+    });
+}
+
+const { cap, prov } = Astro.props;
+const ctDisplay = CT_DISPLAY[cap.data.contentType] ?? cap.data.contentType;
+const provCapability = prov.content[cap.data.contentType];
+---
+
+<StarlightPage
+  frontmatter={{
+    title: `${prov.name} — ${ctDisplay}`,
+    description: `How ${prov.name} implements ${ctDisplay.toLowerCase()} — sources, native format, canonical mappings, and provider-specific extensions.`,
+  }}
+>
+  <ProviderConventions
+    providerName={prov.name}
+    contentType={cap.data.contentType}
+    capability={provCapability}
+    sources={cap.data.sources}
+    canonicalMappings={cap.data.canonicalMappings}
+    extensions={cap.data.providerExtensions}
+  />
+</StarlightPage>

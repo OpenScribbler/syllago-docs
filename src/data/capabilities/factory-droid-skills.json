@@ -22,15 +22,18 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (recommended, not required)"
+      "mechanism": "yaml frontmatter key: description (recommended, not required)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)",
+      "provider_field": "disable-model-invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
+      "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -53,39 +56,50 @@
     },
     "user_invocable": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)",
+      "provider_field": "user-invocable"
     }
   },
   "providerExtensions": [
     {
       "id": "supporting_files",
       "name": "Supporting Files",
-      "description": "Optional supporting files (scripts, schemas, checklists, etc.) can be co-located in the skill directory alongside SKILL.md. The Droid can reference these files when executing the skill. This enables self-contained skill packages that bundle their own tooling assets.",
-      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+      "summary": "Co-located scripts, schemas, or checklists alongside SKILL.md that the Droid can reference, enabling self-contained skill packages.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "auto_invocation",
       "name": "Auto-Invocation",
-      "description": "The Droid automatically invokes matching skills when they apply to the current task, without explicit user prompting. The skill description is the primary trigger signal — the model uses it to determine whether a skill is relevant to the current context. The user-invocable and disable-model-invocation frontmatter keys control whether auto-invocation is permitted.",
-      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+      "summary": "The Droid automatically invokes matching skills based on the description field; gated by user-invocable and disable-model-invocation flags.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "monorepo_skill_paths",
       "name": "Monorepo Skill Paths",
-      "description": "Skills can be organized per-project within a monorepo using per-project .factory/skills/ directories, or shared across projects via a root-level .factory/skills/ directory. This allows monorepos to maintain project-specific skills alongside shared skills without path conflicts.",
-      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+      "summary": "Skills may live in per-project .factory/skills/ directories or a shared root-level .factory/skills/ for monorepo organization.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "skill_composability",
       "name": "Skill Composability",
-      "description": "The Droid can chain multiple skills inside a single plan, invoking them in sequence as the plan progresses. This enables composite workflows composed of reusable skill primitives without requiring a single monolithic skill.",
-      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+      "summary": "The Droid can chain multiple skills within a single plan, composing reusable primitives instead of building monolithic skills.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "legacy_commands_compatibility",
       "name": "Legacy Commands Compatibility",
-      "description": "Files under .factory/commands/ continue to work and are recognized by the Droid. Skills (under .factory/skills/) supersede commands as the preferred mechanism, but the commands directory is still loaded for backwards compatibility with pre-skills configurations.",
-      "source_ref": "https://docs.factory.ai/cli/configuration/skills"
+      "summary": "Files under .factory/commands/ are still loaded for backwards compatibility, though skills are now the preferred mechanism.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

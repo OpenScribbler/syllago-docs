@@ -1,0 +1,10 @@
+# OpenWolf operational state — local only, not shared
+config.json
+cron-manifest.json
+cron-state.json
+daemon.log
+designqc-captures/
+designqc-report.json
+suggestions.json
+token-ledger.json
+_session.json

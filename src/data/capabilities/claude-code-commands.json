@@ -11,37 +11,56 @@
       "fetched_at": "2026-04-11T21:49:49Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS (all args), $ARGUMENTS[N] (Nth arg), $N (positional), ${CLAUDE_SESSION_ID} and other env vars; shared with skills argument substitution"
+    },
+    "builtin_commands": {
+      "supported": true,
+      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+    }
+  },
   "providerExtensions": [
     {
       "id": "command_file_format",
       "name": "Command File Format (.md in .claude/commands/)",
-      "description": "Custom commands in Claude Code are Markdown files stored in .claude/commands/ (project scope) or ~/.claude/commands/ (user scope). Each file's name becomes the slash command name (e.g., .claude/commands/deploy.md becomes /deploy). The file content becomes the prompt that Claude executes. Commands work identically to skills; if a command and skill share the same name, the skill takes precedence. Custom commands support the same argument substitution as skills: $ARGUMENTS, $ARGUMENTS[N], $N, ${CLAUDE_SESSION_ID}, ${CLAUDE_SKILL_DIR}. The commands reference page notes that commands and skills are listed together and both types appear in the / command menu.",
-      "source_ref": "https://code.claude.com/docs/en/commands.md"
+      "summary": "Custom commands are .md files in .claude/commands/ (project) or ~/.claude/commands/ (user); filename becomes the slash command name.",
+      "source_ref": "https://code.claude.com/docs/en/commands.md",
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "builtin_commands",
       "name": "Built-In Commands",
-      "description": "Claude Code ships approximately 60 built-in commands whose behavior is coded into the CLI. Representative built-ins: /add-dir (add working directory), /agents (manage agents), /autofix-pr (spawn web session watching a PR for CI failures), /btw (side question without adding to conversation), /clear (clear context), /color (set prompt bar color), /compact (compact conversation), /config (/settings, open settings interface), /context (visualize context usage), /copy (copy last response to clipboard), /cost (token usage stats), /debug (enable debug logging), /diff (interactive diff viewer), /doctor (diagnose installation), /effort (set model effort level), /export (export conversation as text), /hooks (read-only hook browser), /init (initialize CLAUDE.md), /insights (session analysis report), /install-github-app, /keybindings, /login, /logout, /mcp (manage MCP connections), /memory (browse/edit CLAUDE.md and auto-memory files), /model (select model), /permissions (/allowed-tools, manage permission rules), /plan (enter plan mode), /plugin, /reload-plugins, /remote-control, /rename (rename session), /resume (resume session by ID or name), /rewind (/checkpoint, rewind conversation), /sandbox, /schedule (cloud scheduled tasks), /security-review, /skills (list skills), /stats, /status, /statusline, /tasks (/bashes, manage background tasks), /teleport (/tp, pull web session to terminal), /theme, /ultraplan, /usage, /voice (push-to-talk dictation), /web-setup. Availability depends on platform, plan, and environment.",
-      "source_ref": "https://code.claude.com/docs/en/commands.md"
+      "summary": "Roughly 60 built-in CLI commands (/clear, /compact, /config, /mcp, /memory, /plan, /agents, /skills, etc.); availability varies by platform and plan.",
+      "source_ref": "https://code.claude.com/docs/en/commands.md",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "bundled_skill_commands",
       "name": "Bundled Skill Commands",
-      "description": "Several commands are implemented as bundled skills rather than hard-coded CLI logic: /batch (orchestrate large-scale parallel changes across a codebase using background agents in isolated git worktrees; decomposes into 5-30 independent units, each opened as a PR), /claude-api (load Claude API reference for the project's language), /debug (enable debug logging and troubleshoot using session debug log), /loop (run a prompt repeatedly on an interval; /loop 5m /foo or self-paced), /simplify (review recently changed files for reuse and quality issues by spawning three parallel review agents). These use the same skill mechanism as user-created skills and can also be auto-invoked by Claude.",
-      "source_ref": "https://code.claude.com/docs/en/commands.md"
+      "summary": "Some commands ship as bundled skills rather than CLI logic (/batch, /claude-api, /debug, /loop, /simplify); use the skill mechanism.",
+      "source_ref": "https://code.claude.com/docs/en/commands.md",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "mcp_prompt_commands",
       "name": "MCP Prompt Commands",
-      "description": "MCP servers can expose prompts that appear as slash commands using the format /mcp__<servername>__<promptname>. These are dynamically discovered from connected servers; server and prompt names are normalized (spaces become underscores). Arguments are passed space-separated after the command. MCP prompt results are injected directly into the conversation.",
-      "source_ref": "https://code.claude.com/docs/en/commands.md#mcp-prompts"
+      "summary": "MCP server prompts appear as /mcp__<servername>__<promptname> slash commands (names normalized; spaces become underscores).",
+      "source_ref": "https://code.claude.com/docs/en/commands.md#mcp-prompts",
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "command_scopes",
       "name": "Command Scopes (project, user)",
-      "description": "Custom commands live in .claude/commands/ (project scope, shareable via version control) or ~/.claude/commands/ (user scope, available in all projects). Skills take precedence over commands when both share a name. Both scopes support symlinks. Path-scoped behavior matching (similar to .claude/rules/ paths frontmatter) is not a documented feature for commands; commands are global within their scope.",
-      "source_ref": "https://code.claude.com/docs/en/commands.md"
+      "summary": "Custom commands live in .claude/commands/ (project) or ~/.claude/commands/ (user); skills take precedence on name collision; symlinks supported.",
+      "source_ref": "https://code.claude.com/docs/en/commands.md",
+      "required": null,
+      "conversion": "translated"
     }
   ]
 }

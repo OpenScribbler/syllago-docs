@@ -2,9 +2,94 @@
   "id": "roo-code-skills",
   "provider": "roo-code",
   "contentType": "skills",
-  "status": "unsupported",
+  "status": "supported",
   "lastChangedAt": "2026-04-11T00:00:00Z",
-  "sources": [],
-  "canonicalMappings": {},
-  "providerExtensions": []
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/skills/roo-translation/SKILL.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "canonical_filename": {
+      "supported": true,
+      "mechanism": "SKILL.md (required, fixed name per Agent Skills standard)"
+    },
+    "compatibility": {
+      "supported": false,
+      "mechanism": "No compatibility frontmatter field observed in Roo Code skill examples"
+    },
+    "custom_filename": {
+      "supported": false,
+      "mechanism": "Filename is fixed as SKILL.md — no alternate filenames observed"
+    },
+    "description": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Roo should load it",
+      "provider_field": "description"
+    },
+    "disable_model_invocation": {
+      "supported": false,
+      "mechanism": "No disable-model-invocation frontmatter field observed"
+    },
+    "display_name": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required); identifies the skill and typically matches the directory name",
+      "provider_field": "name"
+    },
+    "global_scope": {
+      "supported": true,
+      "mechanism": "~/.roo/skills/<slug>/SKILL.md",
+      "paths": [
+        "~/.roo/skills/<slug>/SKILL.md"
+      ]
+    },
+    "license": {
+      "supported": false,
+      "mechanism": "No license frontmatter field observed in Roo Code skill examples"
+    },
+    "metadata_map": {
+      "supported": false,
+      "mechanism": "No metadata frontmatter key observed in Roo Code skill examples"
+    },
+    "project_scope": {
+      "supported": true,
+      "mechanism": ".roo/skills/<slug>/SKILL.md",
+      "paths": [
+        ".roo/skills/<slug>/SKILL.md"
+      ]
+    },
+    "shared_scope": {
+      "supported": true,
+      "mechanism": ".agents/skills/<slug>/SKILL.md cross-provider convention directory read alongside .roo/skills/",
+      "paths": [
+        ".agents/skills/<slug>/SKILL.md",
+        "~/.agents/skills/<slug>/SKILL.md"
+      ]
+    },
+    "user_invocable": {
+      "supported": false,
+      "mechanism": "No user-invocation flag observed — skills are auto-loaded based on description matching"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "agents_skills_shared_dir",
+      "name": ".agents/skills/ cross-provider directory",
+      "summary": "Roo Code reads .agents/skills/ alongside .roo/skills/ so skill content authored under the cross-provider convention can be consumed without duplication.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/skills/roo-translation/SKILL.md",
+      "required": null,
+      "provider_field": ".agents/skills/",
+      "conversion": "preserved"
+    },
+    {
+      "id": "agent_skills_standard",
+      "name": "Agent Skills open standard compliance",
+      "summary": "Roo Code implements the Agent Skills standard — SKILL.md with name and description frontmatter — using a lighter field subset than the full Anthropic spec.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/skills/roo-translation/SKILL.md",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
 }

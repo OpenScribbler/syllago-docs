@@ -16,25 +16,55 @@
       "fetched_at": "2026-04-11T21:50:01.867399674Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Codex AGENTS.md files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Codex does not have an AI-generated auto-memory system"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "agents_md_filename: Codex reads AGENTS.md files using the standard filename used by multiple providers"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Codex AGENTS.md files"
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "hierarchical_agents_md: Codex loads AGENTS.md from subdirectories with defined precedence (deeper overrides higher)"
+    }
+  },
   "providerExtensions": [
     {
       "id": "agents_md_filename",
       "name": "AGENTS.md Filename",
-      "description": "Codex loads AI instruction rules from a file named AGENTS.md (or a configurable fallback list of filenames set via config.toml's project_doc_fallback_filenames). The file is discovered by walking up from the current working directory. Multiple AGENTS.md files can exist in a hierarchy — project root, subdirectory, and home directory — and their contents are combined. The primary file is AGENTS.md; fallbacks (e.g. .agents.md, CLAUDE.md) are checked when AGENTS.md is absent.",
-      "source_ref": "config.schema.json (project_doc_fallback_filenames, project_doc_max_bytes)"
+      "summary": "Native rules filename is AGENTS.md, with configurable fallback list via config.toml project_doc_fallback_filenames.",
+      "source_ref": "config.schema.json (project_doc_fallback_filenames, project_doc_max_bytes)",
+      "required": null,
+      "provider_field": "project_doc_fallback_filenames",
+      "conversion": "translated"
     },
     {
       "id": "hierarchical_agents_md",
       "name": "Hierarchical AGENTS.md (child_agents_md feature flag)",
-      "description": "When the child_agents_md feature flag is enabled (via [features] in config.toml), Codex appends additional guidance about AGENTS.md scope and precedence to the user instructions message, and emits that message even when no AGENTS.md is present. This implements a multi-file hierarchical rules model where rules from parent directories, project root, and home directory can be combined with scoped precedence.",
-      "source_ref": "docs/agents_md.md (Hierarchical agents message section)"
+      "summary": "When features.child_agents_md is enabled, Codex emits scope/precedence guidance and combines AGENTS.md files across a directory hierarchy.",
+      "source_ref": "docs/agents_md.md (Hierarchical agents message section)",
+      "required": null,
+      "provider_field": "features.child_agents_md",
+      "conversion": "not-portable"
     },
     {
       "id": "project_doc_max_bytes",
       "name": "Project Doc Max Bytes",
-      "description": "A configurable cap on how many bytes are read from an AGENTS.md file, set via project_doc_max_bytes in config.toml. Prevents oversized rules files from consuming excessive context window.",
-      "source_ref": "config.schema.json (project_doc_max_bytes)"
+      "summary": "Configurable byte cap on AGENTS.md reads via config.toml project_doc_max_bytes; prevents oversized rules files from blowing the context window.",
+      "source_ref": "config.schema.json (project_doc_max_bytes)",
+      "required": null,
+      "provider_field": "project_doc_max_bytes",
+      "conversion": "dropped"
     }
   ]
 }
