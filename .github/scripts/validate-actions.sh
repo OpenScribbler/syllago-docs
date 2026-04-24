@@ -66,9 +66,15 @@ while IFS= read -r match; do
     continue
   fi
 
-  # Split into action (owner/repo) and version (the part after @)
+  # Split into action (owner/repo[/subpath]) and version (the part after @)
   action="${ref%%@*}"
   version="${ref##*@}"
+
+  # Subpath actions like `owner/repo/path/to/action` host the action.yml in
+  # a subdirectory. The repo-level APIs (git/commits, contents) take only
+  # `owner/repo`; the subpath goes into the contents URL path.
+  repo_slug="$(echo "$action" | cut -d/ -f1-2)"
+  subpath="$(echo "$action" | cut -s -d/ -f3-)"
 
   # ------------------------------------------------------------------
   # Check 1: SHA format — must be exactly 40 hex characters
@@ -82,10 +88,10 @@ while IFS= read -r match; do
   # ------------------------------------------------------------------
   # Check 2: SHA existence — verify the commit exists in the repo
   # ------------------------------------------------------------------
-  api_url="https://api.github.com/repos/${action}/git/commits/${version}"
+  api_url="https://api.github.com/repos/${repo_slug}/git/commits/${version}"
   if ! gh_api "$api_url" > /dev/null 2>&1; then
     annotate_error "$file" "$line" \
-      "SHA '$version' does not exist in '${action}'. The commit may have been force-pushed away or the SHA is wrong."
+      "SHA '$version' does not exist in '${repo_slug}'. The commit may have been force-pushed away or the SHA is wrong."
   fi
 
   # ------------------------------------------------------------------
@@ -93,10 +99,15 @@ while IFS= read -r match; do
   # fetch its action.yml and check that any `uses:` inside also pin
   # to full SHAs.
   # ------------------------------------------------------------------
-  # Try action.yml first, then action.yaml
+  # Try action.yml first, then action.yaml. For subpath actions, the
+  # action.yml lives at `{subpath}/action.yml` inside the repo.
+  yml_prefix=""
+  if [[ -n "$subpath" ]]; then
+    yml_prefix="${subpath}/"
+  fi
   action_yml=""
   for filename in action.yml action.yaml; do
-    contents_url="https://api.github.com/repos/${action}/contents/${filename}?ref=${version}"
+    contents_url="https://api.github.com/repos/${repo_slug}/contents/${yml_prefix}${filename}?ref=${version}"
     action_yml="$(gh_api "$contents_url" 2>/dev/null || true)"
     if [[ -n "$action_yml" ]]; then
       break
