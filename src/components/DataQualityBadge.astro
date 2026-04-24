@@ -1,0 +1,76 @@
+---
+/**
+ * DataQualityBadge.astro — Compact completeness badge for a provider's extension data.
+ *
+ * Shows a percentage of extensions with specified field data (required, value_type,
+ * examples). Uses the data-quality collection. Renders nothing if the provider has
+ * no extensions (cursor, opencode, roo-code, zed).
+ *
+ * Props:
+ *   provider - provider slug (e.g., "claude-code")
+ *   field    - which field to show: "required" | "valueType" | "examples" | "overall"
+ *              "overall" averages all three. Default: "overall".
+ */
+import { getEntry } from 'astro:content';
+
+interface Props {
+  provider: string;
+  field?: 'required' | 'valueType' | 'examples' | 'overall';
+}
+
+const { provider, field = 'overall' } = Astro.props;
+
+const entry = await getEntry('data-quality', provider);
+if (!entry) return;
+
+const d = entry.data;
+if (d.totalExtensions === 0) return;
+
+function pct(unspecified: number, total: number): number {
+  return Math.round(((total - unspecified) / total) * 100);
+}
+
+let percent: number;
+if (field === 'required') {
+  percent = pct(d.unspecifiedRequiredCount, d.totalExtensions);
+} else if (field === 'valueType') {
+  percent = pct(d.unspecifiedValueTypeCount, d.totalExtensions);
+} else if (field === 'examples') {
+  percent = pct(d.unspecifiedExamplesCount, d.totalExtensions);
+} else {
+  const r = pct(d.unspecifiedRequiredCount, d.totalExtensions);
+  const v = pct(d.unspecifiedValueTypeCount, d.totalExtensions);
+  const e = pct(d.unspecifiedExamplesCount, d.totalExtensions);
+  percent = Math.round((r + v + e) / 3);
+}
+
+const tier = percent >= 80 ? 'high' : percent >= 40 ? 'mid' : 'low';
+---
+
+<span class={`dq-badge dq-${tier}`} title={`${percent}% of extension fields specified (${field})`}>
+  {percent}%
+</span>
+
+<style>
+  .dq-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.1em 0.45em;
+    border-radius: 4px;
+    line-height: 1.4;
+    vertical-align: middle;
+  }
+  .dq-high {
+    background: var(--sl-color-green-low, #d1fae5);
+    color: var(--sl-color-green-high, #065f46);
+  }
+  .dq-mid {
+    background: var(--sl-color-orange-low, #fef3c7);
+    color: var(--sl-color-orange-high, #92400e);
+  }
+  .dq-low {
+    background: var(--sl-color-gray-5, #e5e7eb);
+    color: var(--sl-color-gray-3, #6b7280);
+  }
+</style>

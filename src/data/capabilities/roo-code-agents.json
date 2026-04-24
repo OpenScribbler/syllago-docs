@@ -1,0 +1,118 @@
+{
+  "id": "roo-code-agents",
+  "provider": "roo-code",
+  "contentType": "agents",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/src/core/config/CustomModesManager.ts",
+      "type": "source_code",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roomodes",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.roomodes at the project root) and global (custom_modes.yaml in Roo Code's settings dir); project entries override global entries with the same slug"
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "YAML file (.roomodes for project scope, custom_modes.yaml for global scope) containing an array of custom mode entries with slug, name, roleDefinition, groups, and optional whenToUse, description, customInstructions fields"
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "Users switch modes via the mode selector or /mode command; each mode is a distinct operating persona with its own roleDefinition and tool groups"
+    },
+    "model_selection": {
+      "supported": false,
+      "mechanism": "No per-mode model selection field documented in the mode schema"
+    },
+    "per_agent_mcp": {
+      "supported": false,
+      "mechanism": "Custom modes do not declare their own MCP server lists — MCP configuration is global per the .roo/mcp.json and global MCP settings"
+    },
+    "subagent_spawning": {
+      "supported": false,
+      "mechanism": "Custom modes are switched-to by the user rather than spawned as subagents; Roo Code's orchestrator mode delegates to other modes at runtime but mode files themselves do not spawn peers"
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "groups array declares which tool groups (e.g., read, edit, browser, command, mcp) the mode may use; group entries may be strings or objects with fileRegex restrictions"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "custom_modes_yaml_format",
+      "name": "YAML custom mode definitions",
+      "summary": "Custom modes live in .roomodes (project) or custom_modes.yaml (global) as a YAML array of mode entries, not individual Markdown files per mode.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "customModes",
+      "conversion": "translated"
+    },
+    {
+      "id": "role_definition",
+      "name": "roleDefinition field",
+      "summary": "Long-form text defining the mode's persona and system prompt; the primary behavioral instruction channel for a custom mode.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "roleDefinition",
+      "conversion": "translated"
+    },
+    {
+      "id": "when_to_use",
+      "name": "whenToUse field",
+      "summary": "Optional guidance on when the orchestrator or user should switch to this mode; consumed by mode-selection heuristics.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "whenToUse",
+      "conversion": "embedded"
+    },
+    {
+      "id": "custom_instructions",
+      "name": "customInstructions field",
+      "summary": "Additional mode-specific instructions appended to roleDefinition to refine behavior without rewriting the persona.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "customInstructions",
+      "conversion": "embedded"
+    },
+    {
+      "id": "tool_groups",
+      "name": "groups tool-group allowlist",
+      "summary": "Array declaring which Roo Code tool groups (read, edit, browser, command, mcp) the mode may use; edit may also carry a fileRegex restriction object for path-scoped file writes.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "groups",
+      "conversion": "translated"
+    },
+    {
+      "id": "builtin_modes",
+      "name": "Built-in modes (code, architect, ask, debug, orchestrator)",
+      "summary": "Five built-in modes ship with Roo Code; custom mode slugs must not collide with these, and custom-mode rule directories (.roo/rules-<slug>/) extend the same activation model.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/src/core/config/CustomModesManager.ts",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "source_field",
+      "name": "Optional source field",
+      "summary": "Optional source field on a mode entry annotates whether the mode is project-scoped or global-scoped for UI display.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/packages/types/src/mode.ts",
+      "required": null,
+      "provider_field": "source",
+      "conversion": "embedded"
+    }
+  ]
+}

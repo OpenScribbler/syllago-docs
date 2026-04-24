@@ -1,15 +1,15 @@
 ---
 title: Hook Interchange Format Specification
-description: "Provider-neutral interchange format for AI coding tool hooks (v1.0.0-draft)"
+description: "Provider-neutral interchange format for AI coding tool hooks (v0.1.0)"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="note" title="Draft Specification">
-This is a draft specification (v1.0.0-draft). It has not been finalized and is subject to change.
+<Aside type="note" title="Initial Development">
+This specification is in initial development (v0.1.0). Per Semantic Versioning, anything MAY change at any time. The public interface should not be considered stable until version 1.0.
 </Aside>
 
-**Version:** 1.0.0-draft | **License:** CC-BY-4.0
+**Version:** 0.1.0 | **License:** CC-BY-4.0
 
 This specification defines a provider-neutral interchange format for AI coding tool hooks. It enables hook authors to write lifecycle hooks once and deploy them across multiple AI coding tool providers through a canonical representation, capability model, and conversion pipeline.
 
@@ -47,7 +47,7 @@ This specification defines a **canonical hook format** that serves as an interch
 
 ```json
 {
-  "spec": "hooks/1.0",
+  "spec": "hooks/0.1",
   "hooks": [
     {
       "event": "before_tool_execute",
@@ -65,7 +65,7 @@ This specification defines a **canonical hook format** that serves as an interch
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `spec` | string | Yes | Must be `"hooks/1.0"` |
+| `spec` | string | Yes | Must be `"hooks/0.1"` |
 | `hooks` | array | Yes | Non-empty array of hook definitions |
 
 ### Hook Definition
@@ -83,13 +83,15 @@ This specification defines a **canonical hook format** that serves as an interch
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `type` | string | Yes | `"command"`, `"http"`, `"prompt"`, or `"agent"` |
-| `command` | string | Conditional | Shell command (required when type is `"command"`) |
-| `platform` | object | No | Per-OS command overrides: `windows`, `linux`, `osx` |
+| `type` | string | Yes | `"command"` for shell-based handlers. Other types (`"http"`, `"prompt"`, `"agent"`) are defined as capabilities (see Capability Registry) |
+| `command` | string | Conditional | Shell command or script path (required when type is `"command"`) |
+| `platform` | object | No | Per-OS command overrides. Keys MUST be `"windows"`, `"linux"`, or `"darwin"` |
 | `cwd` | string | No | Working directory relative to project root |
 | `env` | object | No | Environment variables for the hook process |
-| `timeout` | number | No | Max execution time in seconds (default: 30) |
+| `timeout` | number | No | Max execution time in seconds (recommended default: 30; `0` means no timeout) |
+| `timeout_action` | string | No | `"warn"` or `"block"` when timeout exceeded. Default: `"warn"` |
 | `async` | boolean | No | Fire-and-forget execution. Default: `false` |
+| `status_message` | string | No | Human-readable status text shown while the hook executes |
 
 ---
 

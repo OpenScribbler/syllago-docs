@@ -30,13 +30,34 @@ interface CapMapping {
   supported: boolean;
   mechanism: string;
   paths?: string[];
+  provider_field?: string | null;
+  extension_id?: string;
+}
+
+type ConversionFate =
+  | 'translated'
+  | 'embedded'
+  | 'dropped'
+  | 'preserved'
+  | 'not-portable';
+
+interface CapExample {
+  title?: string;
+  lang: string;
+  code: string;
+  note?: string;
 }
 
 interface CapExtension {
   id: string;
   name: string;
-  description: string;
+  summary: string;
   source_ref?: string;
+  required?: boolean | null;
+  value_type?: string;
+  provider_field?: string | null;
+  conversion: ConversionFate;
+  examples?: CapExample[];
 }
 
 interface CapContentType {
@@ -52,9 +73,17 @@ interface CanonicalKeyMeta {
   type: string;
 }
 
+interface DataQualityEntry {
+  unspecified_required_count: number;
+  unspecified_value_type_count: number;
+  unspecified_examples_count: number;
+  tracking_issue?: string;
+}
+
 interface CapabilitiesManifest {
   version: string;
   generated_at: string;
+  data_quality?: { providers: Record<string, DataQualityEntry> };
   canonical_keys: Record<string, Record<string, CanonicalKeyMeta>>;
   providers: Record<string, Record<string, CapContentType>>;
 }
@@ -69,7 +98,18 @@ const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const CANONICAL_KEYS_DATA_DIR = join(ROOT_DIR, "src/data/canonical-keys");
 const CANONICAL_KEYS_MDX_DIR = join(ROOT_DIR, "src/content/docs/reference/canonical-keys");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
+const SIDEBAR_PATH = join(ROOT_DIR, "sidebar.ts");
 const FETCH_TIMEOUT_MS = 15_000;
+
+// Managed-block markers inside sidebar.ts. The block between them is fully
+// regenerated from the manifest on every sync — hand edits will be overwritten.
+const CANONICAL_KEYS_START_MARKER = "// AUTO-GENERATED:CANONICAL-KEYS START";
+const CANONICAL_KEYS_END_MARKER = "// AUTO-GENERATED:CANONICAL-KEYS END";
+
+// Providers present in capabilities.json but not yet public. Their capability
+// JSON files stay on disk for future use; they're excluded from matrix pages,
+// MetaBox counts, and canonical-key provider maps.
+const EXCLUDED_PROVIDERS = new Set<string>();
 
 // GitHub issue URL base for "Report issue" links in MetaBox.
 const ISSUE_REPO = "OpenScribbler/syllago";
@@ -221,6 +261,7 @@ function writeCanonicalKeysDataFiles(
   > = {};
 
   for (const [providerSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(providerSlug)) continue;
     for (const [contentType, cap] of Object.entries(contentTypes)) {
       if (!keySupport[contentType]) keySupport[contentType] = {};
       for (const [keyName, mapping] of Object.entries(cap.canonical_mappings)) {
@@ -266,15 +307,18 @@ function generateCanonicalKeyPage(
   meta: CanonicalKeyMeta,
   manifest: CapabilitiesManifest
 ): string {
-  // Compute MetaBox props from the manifest data.
-  const allProviderSlugs = Object.keys(manifest.providers);
+  // Compute MetaBox props from the manifest data (excluding non-public providers).
+  const allProviderSlugs = Object.keys(manifest.providers).filter(
+    (s) => !EXCLUDED_PROVIDERS.has(s)
+  );
   const totalProviders = allProviderSlugs.length;
 
   let providerSupportCount = 0;
   const uniqueSourceUris = new Set<string>();
   let mostRecentDate = "";
 
-  for (const [, contentTypes] of Object.entries(manifest.providers)) {
+  for (const [provSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(provSlug)) continue;
     const cap = contentTypes[contentType];
     if (!cap) continue;
 
@@ -297,7 +341,10 @@ function generateCanonicalKeyPage(
   // Human-readable title from key name: "display_name" → "display_name"
   // (keep as-is; the key name is the canonical identifier).
   const title = keyName;
-  const description = meta.description.split(".")[0].trim(); // first sentence
+  // Escape braces that MDX would otherwise parse as JSX expressions.
+  // Descriptions can contain code syntax like {{args}} or ${@:N}.
+  const escapeMdx = (s: string) => s.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
+  const description = escapeMdx(meta.description.split(".")[0].trim()); // first sentence
 
   const lines: string[] = [
     "---",
@@ -318,7 +365,7 @@ function generateCanonicalKeyPage(
     `  issueUrl="${issueUrl}"`,
     `/>`,
     "",
-    meta.description,
+    escapeMdx(meta.description),
     "",
     `**Type:** \`${meta.type}\`  **Content type:** \`${contentType}\``,
     "",
@@ -349,11 +396,70 @@ function generateCanonicalKeyPages(manifest: CapabilitiesManifest): void {
 }
 
 // ---------------------------------------------------------------------------
+// MDX generation — Canonical keys index page
+// ---------------------------------------------------------------------------
+
+const CONTENT_TYPE_HEADING: Record<string, string> = {
+  mcp: "MCP",
+};
+
+function contentTypeHeading(ct: string): string {
+  return CONTENT_TYPE_HEADING[ct] ?? ct.charAt(0).toUpperCase() + ct.slice(1);
+}
+
+function generateCanonicalKeysIndex(manifest: CapabilitiesManifest): void {
+  const escapeMdx = (s: string) =>
+    s.replace(/\{/g, "\\{").replace(/\}/g, "\\}").replace(/\|/g, "\\|");
+
+  const lines: string[] = [
+    "---",
+    "title: Canonical Keys",
+    "description: Cross-provider canonical keys for AI coding tool content, grouped by content type.",
+    "---",
+    "",
+    "{/* AUTO-GENERATED — do not edit. Source: capabilities.json via sync-capabilities.ts */}",
+    "",
+    "Canonical keys are syllago's cross-provider equivalents — the normalized names for fields, behaviors, and conventions that different AI coding tools express in their own ways. Each key below links to a detail page showing how every provider implements (or does not implement) that concept.",
+    "",
+    "See [format conversion](/using-syllago/format-conversion/) for how keys translate between providers.",
+    "",
+  ];
+
+  const contentTypes = Object.keys(manifest.canonical_keys).sort();
+
+  for (const contentType of contentTypes) {
+    const keys = manifest.canonical_keys[contentType];
+    const keyNames = Object.keys(keys).sort();
+    if (keyNames.length === 0) continue;
+
+    lines.push(`## ${contentTypeHeading(contentType)}`, "");
+    lines.push("| Key | Description |");
+    lines.push("|-----|-------------|");
+
+    for (const keyName of keyNames) {
+      const slug = keyName.replace(/_/g, "-");
+      const meta = keys[keyName];
+      const firstSentence = meta.description.split(".")[0].trim();
+      lines.push(
+        `| [\`${keyName}\`](/reference/canonical-keys/${slug}/) | ${escapeMdx(firstSentence)} |`
+      );
+    }
+    lines.push("");
+  }
+
+  const outputPath = join(CANONICAL_KEYS_MDX_DIR, "index.mdx");
+  writeFileSync(outputPath, lines.join("\n"));
+  console.log("  MDX: reference/canonical-keys/index.mdx");
+}
+
+// ---------------------------------------------------------------------------
 // MDX generation — Capabilities matrix page
 // ---------------------------------------------------------------------------
 
 function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
-  const providerSlugs = Object.keys(manifest.providers).sort();
+  const providerSlugs = Object.keys(manifest.providers)
+    .filter((s) => !EXCLUDED_PROVIDERS.has(s))
+    .sort();
 
   const lines: string[] = [
     "---",
@@ -373,7 +479,7 @@ function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
   for (const [contentType, keys] of Object.entries(manifest.canonical_keys)) {
     const keyNames = Object.keys(keys).sort();
 
-    lines.push(`## ${contentType.charAt(0).toUpperCase() + contentType.slice(1)}`, "");
+    lines.push(`## ${contentTypeHeading(contentType)}`, "");
 
     // Header row.
     const providerCols = providerSlugs.join(" | ");
@@ -412,6 +518,122 @@ function generateCapabilitiesMatrix(manifest: CapabilitiesManifest): void {
 }
 
 // ---------------------------------------------------------------------------
+// Data quality output
+// ---------------------------------------------------------------------------
+
+const DATA_QUALITY_DIR = join(ROOT_DIR, "src/data/data-quality");
+
+function writeDataQualityFiles(manifest: CapabilitiesManifest): void {
+  const dq = manifest.data_quality;
+  if (!dq) {
+    console.log("  Data quality: not present in manifest, skipping.");
+    return;
+  }
+
+  rmSync(DATA_QUALITY_DIR, { recursive: true, force: true });
+  mkdirSync(DATA_QUALITY_DIR, { recursive: true });
+
+  // Count total extensions per provider (for computing % complete).
+  const extensionCounts: Record<string, number> = {};
+  for (const [providerSlug, contentTypes] of Object.entries(manifest.providers)) {
+    if (EXCLUDED_PROVIDERS.has(providerSlug)) continue;
+    let total = 0;
+    for (const cap of Object.values(contentTypes)) {
+      total += cap.provider_extensions.length;
+    }
+    extensionCounts[providerSlug] = total;
+  }
+
+  let count = 0;
+  for (const [slug, entry] of Object.entries(dq.providers)) {
+    if (EXCLUDED_PROVIDERS.has(slug)) continue;
+    const total = extensionCounts[slug] ?? 0;
+    const data = {
+      id: slug,
+      provider: slug,
+      totalExtensions: total,
+      unspecifiedRequiredCount: entry.unspecified_required_count,
+      unspecifiedValueTypeCount: entry.unspecified_value_type_count,
+      unspecifiedExamplesCount: entry.unspecified_examples_count,
+      trackingIssue: entry.tracking_issue || null,
+      generatedAt: manifest.generated_at,
+    };
+    writeFileSync(
+      join(DATA_QUALITY_DIR, `${slug}.json`),
+      JSON.stringify(data, null, 2) + "\n"
+    );
+    count++;
+  }
+
+  console.log(`  Data: ${count} data quality JSON files in ${DATA_QUALITY_DIR}`);
+}
+
+// ---------------------------------------------------------------------------
+// Sidebar generation — Canonical Keys section
+// ---------------------------------------------------------------------------
+
+// Renders the canonical-keys block as it appears between AUTO-GENERATED markers
+// in sidebar.ts. Indentation mirrors the surrounding Starlight config: 10 spaces
+// for the marker lines and content-type entry braces, 12 for entry properties,
+// 14 for items. Content types and keys are both sorted alphabetically — the
+// same order the index page uses — so sidebar and index stay in sync.
+function generateCanonicalKeysSidebarBlock(manifest: CapabilitiesManifest): string {
+  const contentTypes = Object.keys(manifest.canonical_keys).sort();
+  const lines: string[] = [
+    `          ${CANONICAL_KEYS_START_MARKER} — managed by scripts/sync-capabilities.ts. Do not edit by hand.`,
+  ];
+  for (const contentType of contentTypes) {
+    const keys = manifest.canonical_keys[contentType];
+    const keyNames = Object.keys(keys).sort();
+    if (keyNames.length === 0) continue;
+    const label = contentTypeHeading(contentType);
+    lines.push(
+      `          {`,
+      `            label: '${label}',`,
+      `            collapsed: true,`,
+      `            items: [`,
+    );
+    for (const keyName of keyNames) {
+      const slug = keyName.replace(/_/g, "-");
+      lines.push(
+        `              { label: '${keyName}', slug: 'reference/canonical-keys/${slug}' },`,
+      );
+    }
+    lines.push(`            ],`, `          },`);
+  }
+  lines.push(`          ${CANONICAL_KEYS_END_MARKER}`);
+  return lines.join("\n");
+}
+
+function writeCanonicalKeysSidebarBlock(manifest: CapabilitiesManifest): void {
+  if (!existsSync(SIDEBAR_PATH)) {
+    throw new Error(`sidebar.ts not found at ${SIDEBAR_PATH}`);
+  }
+  const current = readFileSync(SIDEBAR_PATH, "utf-8");
+  const startIdx = current.indexOf(CANONICAL_KEYS_START_MARKER);
+  const endIdx = current.indexOf(CANONICAL_KEYS_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `sidebar.ts is missing AUTO-GENERATED:CANONICAL-KEYS markers. ` +
+      `Add the START/END comment block inside the 'Canonical Keys' items array.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + CANONICAL_KEYS_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`sidebar.ts END marker has no trailing newline`);
+  }
+  const block = generateCanonicalKeysSidebarBlock(manifest);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Sidebar: no changes");
+    return;
+  }
+  writeFileSync(SIDEBAR_PATH, updated);
+  console.log("  Sidebar: canonical-keys section regenerated");
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -440,7 +662,10 @@ async function main() {
 
   writeCapabilitiesDataFiles(manifest);
   writeCanonicalKeysDataFiles(manifest);
+  writeCanonicalKeysSidebarBlock(manifest);
+  writeDataQualityFiles(manifest);
   generateCanonicalKeyPages(manifest);
+  generateCanonicalKeysIndex(manifest);
   generateCapabilitiesMatrix(manifest);
 }
 

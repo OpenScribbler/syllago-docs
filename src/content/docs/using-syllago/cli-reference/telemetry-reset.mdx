@@ -1,0 +1,42 @@
+---
+title: "syllago telemetry reset"
+description: "Generate a new anonymous ID"
+---
+
+## Synopsis
+
+```
+syllago telemetry reset
+```
+
+## Description
+
+Generates a new anonymous ID. Previously collected data under your old ID
+is not deleted from PostHog. To request deletion, email privacy@syllago.dev
+with your old ID.
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  syllago telemetry reset
+```
+
+## See Also
+
+- [syllago telemetry](/using-syllago/cli-reference/telemetry/)
+- [syllago telemetry off](/using-syllago/cli-reference/telemetry-off/)
+- [syllago telemetry on](/using-syllago/cli-reference/telemetry-on/)
+- [syllago telemetry status](/using-syllago/cli-reference/telemetry-status/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/telemetry_cmd.go)</small>

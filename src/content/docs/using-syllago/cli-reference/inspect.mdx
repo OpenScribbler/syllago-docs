@@ -6,21 +6,28 @@ description: "Show details about a content item"
 ## Synopsis
 
 ```
-syllago inspect <type>/<name>
+syllago inspect <type>/<name> [flags]
 ```
 
 ## Description
 
 Display full details about a content item for pre-install auditing.
 
+By default, shows metadata and the primary content file. Use --as to preview
+what the content would look like converted to a specific provider's format.
+
 Path formats:
   skills/my-skill                   Universal content (type/name)
   rules/claude-code/my-rule         Provider-specific (type/provider/name)
 
-Examples:
-  syllago inspect skills/my-skill
-  syllago inspect rules/claude-code/my-rule
-  syllago inspect --json skills/my-skill
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--as` | `string` | — | No | Preview content converted to a provider's format |
+| `--compatibility` | `bool` | — | No | Show per-provider compatibility matrix (hooks only) |
+| `--files` | `bool` | — | No | Show file contents |
+| `--risk` | `bool` | — | No | Show detailed risk analysis |
 
 ## Global Options
 
@@ -30,6 +37,23 @@ Examples:
 | `--no-color` | `bool` | — | No | Disable color output |
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Inspect a skill (shows metadata + content)
+  syllago inspect skills/my-skill
+
+  # Preview what a rule looks like in Cursor format
+  syllago inspect rules/coding-standards --as cursor
+
+  # Compare formats side by side
+  syllago inspect rules/coding-standards --as claude-code
+  syllago inspect rules/coding-standards --as cursor
+
+  # JSON output for scripting
+  syllago inspect --json skills/my-skill
+```
 
 ---
 

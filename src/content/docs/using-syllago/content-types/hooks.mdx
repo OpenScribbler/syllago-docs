@@ -24,16 +24,20 @@ Hooks support four handler types:
 
 ### Event Names (Canonical)
 
-Hook events use provider-neutral names in the canonical format:
+Hook events use provider-neutral names in the canonical format. The table below lists events supported by both Claude Code and Gemini CLI; see the [Hook Event Matrix](/reference/hook-events/) for every canonical event across all providers.
 
+{/* AUTO-GENERATED:HOOKS-EVENTS START — managed by scripts/sync-providers.ts. Do not edit by hand. */}
 | Canonical Event | Claude Code | Gemini CLI |
 |---|---|---|
-| `before_tool_execute` | `PreToolUse` | `before_tool_call` |
-| `after_tool_execute` | `PostToolUse` | `after_tool_call` |
-| `before_prompt` | `UserPromptSubmit` | `before_send` |
-| `agent_stop` | `Stop` | `on_complete` |
-| `session_start` | `SessionStart` | `session_start` |
-| `session_end` | `SessionEnd` | `session_end` |
+| `after_tool_execute` | `PostToolUse` | `AfterTool` |
+| `agent_stop` | `Stop` | `AfterAgent` |
+| `before_compact` | `PreCompact` | `PreCompress` |
+| `before_prompt` | `UserPromptSubmit` | `BeforeAgent` |
+| `before_tool_execute` | `PreToolUse` | `BeforeTool` |
+| `notification` | `Notification` | `Notification` |
+| `session_end` | `SessionEnd` | `SessionEnd` |
+| `session_start` | `SessionStart` | `SessionStart` |
+{/* AUTO-GENERATED:HOOKS-EVENTS END */}
 
 Syllago translates event names automatically when converting between providers.
 

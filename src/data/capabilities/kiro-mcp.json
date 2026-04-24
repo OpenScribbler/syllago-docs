@@ -11,31 +11,76 @@
       "fetched_at": "2026-04-11T21:48:29Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": true,
+      "mechanism": "kiro_mcp_auto_approve: Kiro supports per-server or per-tool auto-approval configuration to suppress confirmation prompts"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Kiro does not document organization-level MCP management"
+    },
+    "env_var_expansion": {
+      "supported": false,
+      "mechanism": "Kiro MCP configuration does not document environment variable expansion"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Kiro does not have an in-IDE MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Kiro does not document MCP resource referencing"
+    },
+    "tool_filtering": {
+      "supported": true,
+      "mechanism": "kiro_mcp_disabled_tools: Kiro supports per-server tool disable configuration to control which MCP tools are available to the agent"
+    },
+    "transport_types": {
+      "supported": false,
+      "mechanism": "Kiro MCP transport types not documented beyond basic MCP support"
+    }
+  },
   "providerExtensions": [
     {
       "id": "kiro_mcp_auto_approve",
       "name": "autoApprove per-server tool list (or wildcard)",
-      "description": "Each mcpServers entry can include an 'autoApprove' field: either an array of specific tool names to auto-approve without user confirmation, or the string '*' to auto-approve all tools on that server. This is per-server granularity, more fine-grained than a global approve-all setting.",
-      "source_ref": "https://kiro.dev/docs/mcp/configuration/"
+      "summary": "Per-server 'autoApprove' field accepting a tool-name array or '*' wildcard to skip user confirmation.",
+      "source_ref": "https://kiro.dev/docs/mcp/configuration/",
+      "required": null,
+      "provider_field": "autoApprove",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_mcp_disabled_tools",
       "name": "disabledTools per-server list",
-      "description": "Each mcpServers entry can include a 'disabledTools' array to explicitly suppress specific tools from a server without disabling the entire server. Complements 'autoApprove' for fine-grained tool permission management.",
-      "source_ref": "https://kiro.dev/docs/mcp/configuration/"
+      "summary": "Per-server 'disabledTools' array suppressing specific tools without disabling the entire server.",
+      "source_ref": "https://kiro.dev/docs/mcp/configuration/",
+      "required": null,
+      "provider_field": "disabledTools",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_mcp_disabled_flag",
       "name": "disabled flag per server entry",
-      "description": "Each mcpServers entry can include a 'disabled: true' flag to deactivate a server without removing its configuration. Allows toggling servers on/off without editing config structure.",
-      "source_ref": "https://kiro.dev/docs/mcp/configuration/"
+      "summary": "Per-server 'disabled: true' flag deactivating a server without removing its configuration.",
+      "source_ref": "https://kiro.dev/docs/mcp/configuration/",
+      "required": null,
+      "provider_field": "disabled",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_mcp_remote_servers",
       "name": "Remote server support (url + headers)",
-      "description": "In addition to stdio servers (command + args), Kiro supports remote MCP servers configured with a 'url' field (HTTPS, or HTTP for localhost) and an optional 'headers' map for authentication tokens. Env var expansion uses ${VARIABLE} syntax in config values.",
-      "source_ref": "https://kiro.dev/docs/mcp/configuration/"
+      "summary": "Remote MCP servers configured with 'url' (HTTPS/localhost HTTP) and optional 'headers' map for auth.",
+      "source_ref": "https://kiro.dev/docs/mcp/configuration/",
+      "required": null,
+      "provider_field": "url",
+      "conversion": "embedded"
     }
   ]
 }

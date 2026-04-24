@@ -10,8 +10,15 @@
       "symlinkSupport": false
     },
     "commands": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/Documents/Cline/Workflows",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.clinerules/workflows",
+        "{home}/Documents/Cline/Workflows"
+      ]
     },
     "hooks": {
       "supported": true,
@@ -59,8 +66,21 @@
       ]
     },
     "skills": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.cline/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.cline/skills",
+        "{project}/.clinerules/skills",
+        "{project}/.claude/skills",
+        "{home}/.cline/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description"
+      ]
     }
   }
 }

@@ -1,0 +1,53 @@
+{
+  "id": "commands-argument_substitution",
+  "key": "argument_substitution",
+  "contentType": "commands",
+  "description": "How user-provided arguments are injected into command templates. Mechanisms vary: $ARGUMENTS, {{args}}, positional $1/$2/${@:N}, and other interpolation syntaxes.",
+  "type": "object",
+  "providers": {
+    "claude-code": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS (all args), $ARGUMENTS[N] (Nth arg), $N (positional), ${CLAUDE_SESSION_ID} and other env vars; shared with skills argument substitution"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Workflow markdown files are plain prompt templates with no documented argument-substitution placeholder (no {{args}} or equivalent)"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "no implementation details captured; only source is a redirect stub to external docs — cannot confirm argument substitution support"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "command file format undocumented; no evidence of argument substitution in plugin.json schema or available sources"
+    },
+    "cursor": {
+      "supported": false,
+      "mechanism": "Cursor's custom command documentation does not describe a dedicated argument-placeholder syntax; command bodies are plain Markdown."
+    },
+    "factory-droid": {
+      "supported": true,
+      "mechanism": "$ARGUMENTS substitution in Markdown-type commands; equivalent to Claude Code's $ARGUMENTS pattern; Executable commands receive args via shell process stdin/args"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "{{args}} placeholder injects all user-provided arguments; processed before shell injection (!{...}) and other substitutions; default argument handling collapses newlines"
+    },
+    "opencode": {
+      "supported": true,
+      "mechanism": "Named arguments via $VAR tokens substituted from user input at invocation (pattern observed in custom_commands.go — e.g. $ISSUE_NUMBER)."
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "positional expansion: $1, $2 (specific positions), $@ or $ARGUMENTS (all args joined), ${@:N} (args from position N), ${@:N:L} (L args starting at N); richer syntax than most providers"
+    },
+    "roo-code": {
+      "supported": true,
+      "mechanism": "argument-hint frontmatter field documents expected arguments; user-supplied arguments are appended to the command body at invocation time"
+    },
+    "windsurf": {
+      "supported": false,
+      "mechanism": "Cascade Workflows are plain Markdown prompt templates; no `{{args}}` or equivalent placeholder syntax is documented for user-provided arguments"
+    }
+  }
+}

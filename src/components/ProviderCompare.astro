@@ -26,10 +26,13 @@ const sorted = providers
 // Pick defaults: first two alphabetically if not specified.
 const defaults = defaultSlugs ?? sorted.slice(0, 2).map(p => p.slug);
 
-const CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands', 'loadouts'];
+// Loadouts are intentionally excluded: they're a syllago-specific bundling
+// concept, not an upstream provider content type, so they don't belong in a
+// cross-provider comparison view.
+const CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands'];
 const CT_DISPLAY: Record<string, string> = {
   rules: 'Rules', skills: 'Skills', agents: 'Agents',
-  mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands', loadouts: 'Loadouts',
+  mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands',
 };
 const FORMAT_DISPLAY: Record<string, string> = {
   md: 'Markdown', mdc: 'MDC', json: 'JSON', jsonc: 'JSONC', yaml: 'YAML', toml: 'TOML',
@@ -61,7 +64,8 @@ const METHOD_DISPLAY: Record<string, string> = {
     )}
   </div>
 
-  <div class="compare-scroll-wrapper">
+  <!-- Desktop view: side-by-side matrix. Hidden below 600px via CSS. -->
+  <div class="compare-scroll-wrapper compare-desktop-view">
     <button class="scroll-indicator scroll-indicator-left" type="button" aria-label="Scroll left">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <path d="M12 4l-6 6 6 6"/>
@@ -198,6 +202,14 @@ const METHOD_DISPLAY: Record<string, string> = {
       </table>
     </div>
   </div>
+
+  <!-- Mobile view: tab one provider at a time, vertical feature list. Hidden
+       above 600px via CSS. Tabs and panel are built by the client script from
+       the same selected-providers state the desktop matrix uses. -->
+  <div class="compare-mobile-view">
+    <div class="compare-tabs" role="tablist" aria-label="Selected providers"></div>
+    <div class="compare-panel" role="tabpanel"></div>
+  </div>
 </div>
 
 <!-- All styles are in src/styles/tables.css (global) so JS-created elements get styled -->
@@ -218,11 +230,25 @@ const METHOD_DISPLAY: Record<string, string> = {
     var container = root.querySelector('.compare-table-container');
     var indicatorRight = root.querySelector('.scroll-indicator-right');
     var indicatorLeft = root.querySelector('.scroll-indicator-left');
+    var tabsEl = root.querySelector('.compare-tabs');
+    var panelEl = root.querySelector('.compare-panel');
 
-    var CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands', 'loadouts'];
+    // Track which provider's card is visible in the mobile tabbed view.
+    // Defaults to the first valid selection and is clamped inside renderMobile
+    // whenever selected changes so it never points at a slot the user removed.
+    var activeMobileSlug = selected[0];
+
+    var CONTENT_TYPES = ['rules', 'skills', 'agents', 'mcp', 'hooks', 'commands'];
     var CT_DISPLAY = {
       rules: 'Rules', skills: 'Skills', agents: 'Agents',
-      mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands', loadouts: 'Loadouts'
+      mcp: 'MCP Configs', hooks: 'Hooks', commands: 'Commands'
+    };
+    var SECTION_TITLES = {
+      general: 'General',
+      contentTypes: 'Content Type Support',
+      hooks: 'Hooks',
+      mcp: 'MCP',
+      rules: 'Rules'
     };
     var FORMAT_DISPLAY = {
       md: 'Markdown', mdc: 'MDC', json: 'JSON', jsonc: 'JSONC', yaml: 'YAML', toml: 'TOML'
@@ -406,6 +432,184 @@ const METHOD_DISPLAY: Record<string, string> = {
       requestAnimationFrame(checkScroll);
     }
 
+    // Mobile view: render tabs for each selected provider and a vertical
+    // feature list for whichever tab is currently active. Called alongside
+    // render() — CSS media query decides which view is visible, so both
+    // renderers always run after a state change.
+    function buildDt(text) {
+      var dt = document.createElement('dt');
+      dt.textContent = text;
+      return dt;
+    }
+
+    function buildDd(content) {
+      var dd = document.createElement('dd');
+      if (typeof content === 'string') dd.textContent = content;
+      else if (content) dd.appendChild(content);
+      return dd;
+    }
+
+    function buildCodeDd(text) {
+      var dd = document.createElement('dd');
+      dd.appendChild(createCode(text));
+      return dd;
+    }
+
+    function buildSection(title) {
+      var section = document.createElement('section');
+      section.className = 'compare-mobile-section';
+      var h = document.createElement('h3');
+      h.textContent = title;
+      section.appendChild(h);
+      var dl = document.createElement('dl');
+      section.appendChild(dl);
+      return { section: section, dl: dl };
+    }
+
+    function renderMobile() {
+      if (!tabsEl || !panelEl) return;
+
+      // Clamp activeMobileSlug to the current selection. If the user removed
+      // the previously active provider, fall back to the first selected slot.
+      if (selected.indexOf(activeMobileSlug) === -1) {
+        activeMobileSlug = selected[0];
+      }
+
+      // Rebuild tab strip.
+      while (tabsEl.firstChild) tabsEl.removeChild(tabsEl.firstChild);
+      selected.forEach(function(slug) {
+        var prov = getProvider(slug);
+        if (!prov) return;
+        var tab = document.createElement('button');
+        tab.type = 'button';
+        tab.className = 'compare-tab';
+        tab.setAttribute('role', 'tab');
+        tab.dataset.slug = slug;
+        tab.textContent = prov.name;
+        if (slug === activeMobileSlug) {
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+        } else {
+          tab.setAttribute('aria-selected', 'false');
+        }
+        tab.addEventListener('click', function() {
+          activeMobileSlug = slug;
+          renderMobile();
+        });
+        tabsEl.appendChild(tab);
+      });
+
+      // Rebuild panel for the active provider.
+      while (panelEl.firstChild) panelEl.removeChild(panelEl.firstChild);
+      var prov = getProvider(activeMobileSlug);
+      if (!prov) return;
+
+      // General
+      var gen = buildSection(SECTION_TITLES.general);
+      gen.dl.appendChild(buildDt('Config directory'));
+      gen.dl.appendChild(buildCodeDd('~/' + prov.configDir));
+      gen.dl.appendChild(buildDt('Emit path'));
+      var emit = prov.emitPath ? prov.emitPath.replace('{project}/', '') : null;
+      gen.dl.appendChild(emit ? buildCodeDd(emit) : buildDd('\u2014'));
+      panelEl.appendChild(gen.section);
+
+      // Content Type Support
+      var cts = buildSection(SECTION_TITLES.contentTypes);
+      CONTENT_TYPES.forEach(function(ct) {
+        cts.dl.appendChild(buildDt(CT_DISPLAY[ct] || ct));
+        var cap = prov.content && prov.content[ct];
+        if (!cap || !cap.supported) {
+          cts.dl.appendChild(buildDd('\u2014'));
+          return;
+        }
+        var fmt = FORMAT_DISPLAY[cap.fileFormat || ''] || cap.fileFormat || '';
+        var method = METHOD_DISPLAY[cap.installMethod || ''] || cap.installMethod || '';
+        var detail = [fmt, method].filter(Boolean).join(' \u00b7 ');
+        cts.dl.appendChild(buildDd(detail || 'Yes'));
+      });
+      panelEl.appendChild(cts.section);
+
+      // Hooks
+      var hooks = buildSection(SECTION_TITLES.hooks);
+      var hcap = prov.content && prov.content.hooks;
+      hooks.dl.appendChild(buildDt('Hook events'));
+      if (!hcap || !hcap.supported) {
+        hooks.dl.appendChild(buildDd('\u2014'));
+      } else {
+        var count = (hcap.hookEvents || []).length;
+        hooks.dl.appendChild(buildDd(count > 0 ? count + ' events' : 'Pending'));
+      }
+      hooks.dl.appendChild(buildDt('Hook types'));
+      if (!hcap || !hcap.supported) {
+        hooks.dl.appendChild(buildDd('\u2014'));
+      } else {
+        var typeDd = document.createElement('dd');
+        (hcap.hookTypes || ['command']).forEach(function(t, i) {
+          if (i > 0) typeDd.appendChild(document.createTextNode(' '));
+          typeDd.appendChild(createCode(t));
+        });
+        hooks.dl.appendChild(typeDd);
+      }
+      hooks.dl.appendChild(buildDt('Hook config'));
+      if (!hcap || !hcap.supported) {
+        hooks.dl.appendChild(buildDd('\u2014'));
+      } else {
+        hooks.dl.appendChild(hcap.configLocation ? buildCodeDd(hcap.configLocation) : buildDd('\u2014'));
+      }
+      panelEl.appendChild(hooks.section);
+
+      // MCP
+      var mcp = buildSection(SECTION_TITLES.mcp);
+      var mcap = prov.content && prov.content.mcp;
+      mcp.dl.appendChild(buildDt('Transports'));
+      if (!mcap || !mcap.supported) {
+        mcp.dl.appendChild(buildDd('\u2014'));
+      } else {
+        var transports = mcap.mcpTransports || [];
+        mcp.dl.appendChild(buildDd(transports.length > 0 ? transports.join(', ') : '\u2014'));
+      }
+      mcp.dl.appendChild(buildDt('MCP config file'));
+      if (!mcap || !mcap.supported) {
+        mcp.dl.appendChild(buildDd('\u2014'));
+      } else {
+        mcp.dl.appendChild(mcap.configLocation ? buildCodeDd(mcap.configLocation) : buildDd('\u2014'));
+      }
+      panelEl.appendChild(mcp.section);
+
+      // Rules
+      var rules = buildSection(SECTION_TITLES.rules);
+      var rcap = prov.content && prov.content.rules;
+      rules.dl.appendChild(buildDt('Format'));
+      if (!rcap || !rcap.supported) {
+        rules.dl.appendChild(buildDd('\u2014'));
+      } else {
+        rules.dl.appendChild(buildDd(FORMAT_DISPLAY[rcap.fileFormat || ''] || rcap.fileFormat || '\u2014'));
+      }
+      rules.dl.appendChild(buildDt('Frontmatter fields'));
+      if (!rcap || !rcap.supported) {
+        rules.dl.appendChild(buildDd('\u2014'));
+      } else {
+        var fields = rcap.frontmatterFields || [];
+        if (fields.length === 0) {
+          rules.dl.appendChild(buildDd('None'));
+        } else {
+          var fieldDd = document.createElement('dd');
+          fields.forEach(function(f, i) {
+            if (i > 0) fieldDd.appendChild(document.createTextNode(' '));
+            fieldDd.appendChild(createCode(f));
+          });
+          rules.dl.appendChild(fieldDd);
+        }
+      }
+      panelEl.appendChild(rules.section);
+    }
+
+    // Single entry point so callers can't forget to update the mobile view.
+    function renderAll() {
+      render();
+      renderMobile();
+    }
+
     function updateControls() {
       while (controls.firstChild) controls.removeChild(controls.firstChild);
 
@@ -430,7 +634,7 @@ const METHOD_DISPLAY: Record<string, string> = {
 
         sel.addEventListener('change', function() {
           selected[i] = sel.value;
-          render();
+          renderAll();
         });
 
         controls.appendChild(sel);
@@ -451,7 +655,7 @@ const METHOD_DISPLAY: Record<string, string> = {
           }
           selected.push(next);
           updateControls();
-          render();
+          renderAll();
         });
         controls.appendChild(btn);
       }
@@ -481,7 +685,7 @@ const METHOD_DISPLAY: Record<string, string> = {
       sel.addEventListener('change', function() {
         var idx = parseInt(sel.dataset.slot);
         selected[idx] = sel.value;
-        render();
+        renderAll();
       });
     });
 
@@ -496,10 +700,11 @@ const METHOD_DISPLAY: Record<string, string> = {
         }
         selected.push(next);
         updateControls();
-        render();
+        renderAll();
       });
     }
 
+    renderMobile();
     checkScroll();
   }
 

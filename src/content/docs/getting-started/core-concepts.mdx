@@ -25,6 +25,9 @@ syllago supports the following providers:
 | Cline | VS Code extension |
 | Amp | AI coding assistant |
 | Zed | Editor with AI assistant |
+| Factory Droid | Factory's CLI coding agent |
+| Crush | Charm's terminal AI agent |
+| Pi | Terminal-based AI agent |
 
 syllago auto-detects which providers are installed on your system. You don't need to configure them manually.
 
@@ -73,16 +76,10 @@ syllago registry sync
 syllago registry items <name>
 ```
 
-When you've created content locally that you want to share back, you can publish it to a registry — syllago opens a PR against the registry repo:
+When you've created content locally that you want to share back, use `syllago share` — pass `--to <registry>` to open a PR against a registry repo, or omit it to share directly with a default team repo:
 
 ```bash
-syllago publish my-skill --registry team-registry
-```
-
-Or share directly with your team repo:
-
-```bash
-syllago share my-skill
+syllago share my-skill --to team-registry
 ```
 
 ### Loadouts

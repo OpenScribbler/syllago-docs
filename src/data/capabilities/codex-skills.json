@@ -28,7 +28,8 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "YAML frontmatter key: description (required — empty string triggers MissingField error; max 1024 chars enforced after whitespace normalization)"
+      "mechanism": "YAML frontmatter key: description (required — empty string triggers MissingField error; max 1024 chars enforced after whitespace normalization)",
+      "provider_field": "description"
     },
     "disable_model_invocation": {
       "supported": true,
@@ -36,7 +37,8 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "YAML frontmatter key: name (optional — falls back to parent directory name if absent or empty; max 64 chars enforced after whitespace normalization)"
+      "mechanism": "YAML frontmatter key: name (optional — falls back to parent directory name if absent or empty; max 64 chars enforced after whitespace normalization)",
+      "provider_field": "name"
     },
     "global_scope": {
       "supported": true,
@@ -68,68 +70,96 @@
     {
       "id": "short_description",
       "name": "Short Description",
-      "description": "A condensed version of the skill description. Declared in SKILL.md frontmatter under metadata.short-description (YAML key, hyphenated). Also available as interface.short_description in the openai.yaml companion file. Truncated to 1024 chars. Used for compact display contexts where the full description is too long.",
-      "source_ref": "loader.rs (SkillFrontmatterMetadata.short_description, resolve_interface)"
+      "summary": "Condensed skill description for compact UI; SKILL.md metadata.short-description or openai.yaml interface.short_description (≤1024 chars).",
+      "source_ref": "loader.rs (SkillFrontmatterMetadata.short_description, resolve_interface)",
+      "required": null,
+      "provider_field": "metadata.short-description",
+      "conversion": "embedded"
     },
     {
       "id": "openai_yaml_companion_file",
       "name": "openai.yaml Companion Metadata File",
-      "description": "An optional companion file at <skill_dir>/agents/openai.yaml that provides UI and policy metadata separate from SKILL.md frontmatter. Contains three top-level sections: interface (display_name, short_description, icon_small, icon_large, brand_color, default_prompt), dependencies (tools list with type, value, description, transport, command, url fields), and policy (allow_implicit_invocation, products). The file is optional — missing it is not an error. Path resolution for icon assets enforces that paths must be relative and under an assets/ subdirectory of the skill dir.",
-      "source_ref": "loader.rs (SKILLS_METADATA_DIR, SKILLS_METADATA_FILENAME, load_skill_metadata)"
+      "summary": "Optional <skill_dir>/agents/openai.yaml file providing interface, dependencies, and policy metadata separate from SKILL.md frontmatter.",
+      "source_ref": "loader.rs (SKILLS_METADATA_DIR, SKILLS_METADATA_FILENAME, load_skill_metadata)",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "skill_interface_icons",
       "name": "Skill Interface Icons",
-      "description": "Skills may declare small and large icons via openai.yaml interface.icon_small and interface.icon_large. Values must be relative paths under the skill's assets/ directory (absolute paths and path traversal via .. are rejected). Used for UI display.",
-      "source_ref": "loader.rs (resolve_asset_path), model.rs (SkillInterface.icon_small, icon_large)"
+      "summary": "Small and large skill icons via openai.yaml interface.icon_small/icon_large; paths must be relative under assets/.",
+      "source_ref": "loader.rs (resolve_asset_path), model.rs (SkillInterface.icon_small, icon_large)",
+      "required": null,
+      "provider_field": "interface.icon_small",
+      "conversion": "dropped"
     },
     {
       "id": "skill_interface_brand_color",
       "name": "Skill Brand Color",
-      "description": "A brand color for the skill declared as interface.brand_color in openai.yaml. Must be a valid #RRGGBB hex string (exactly 7 chars). Used for UI theming of the skill card.",
-      "source_ref": "loader.rs (resolve_color_str), model.rs (SkillInterface.brand_color)"
+      "summary": "Brand color for the skill card via openai.yaml interface.brand_color (#RRGGBB hex).",
+      "source_ref": "loader.rs (resolve_color_str), model.rs (SkillInterface.brand_color)",
+      "required": null,
+      "provider_field": "interface.brand_color",
+      "conversion": "dropped"
     },
     {
       "id": "skill_interface_default_prompt",
       "name": "Default Prompt",
-      "description": "A default prompt for the skill declared as interface.default_prompt in openai.yaml. Max 1024 chars. Provides a pre-filled starting prompt when a user invokes the skill from a UI that supports it.",
-      "source_ref": "loader.rs (resolve_interface), model.rs (SkillInterface.default_prompt)"
+      "summary": "Pre-filled starting prompt for UI invocation via openai.yaml interface.default_prompt (≤1024 chars).",
+      "source_ref": "loader.rs (resolve_interface), model.rs (SkillInterface.default_prompt)",
+      "required": null,
+      "provider_field": "interface.default_prompt",
+      "conversion": "embedded"
     },
     {
       "id": "tool_dependencies",
       "name": "Tool Dependencies",
-      "description": "Skills can declare tool dependencies via openai.yaml dependencies.tools (a list). Each dependency has: type (required, max 64 chars), value (required, max 1024 chars), description (optional, max 1024 chars), transport (optional, max 64 chars), command (optional, max 1024 chars), url (optional, max 1024 chars). Used to declare what external tools or MCP servers the skill requires.",
-      "source_ref": "loader.rs (resolve_dependency_tool, DependencyTool), model.rs (SkillDependencies, SkillToolDependency)"
+      "summary": "Declare required external tools or MCP servers via openai.yaml dependencies.tools (type, value, transport, command, url).",
+      "source_ref": "loader.rs (resolve_dependency_tool, DependencyTool), model.rs (SkillDependencies, SkillToolDependency)",
+      "required": null,
+      "provider_field": "dependencies.tools",
+      "conversion": "embedded"
     },
     {
       "id": "product_gating",
       "name": "Product Gating",
-      "description": "Skills can be restricted to specific OpenAI products via openai.yaml policy.products (a list of Product values). When products is non-empty, the skill is only shown/used when the active product matches the restriction list. When products is empty, the skill is available for all products. Filtering is applied at load time via filter_skill_load_outcome_for_product().",
-      "source_ref": "model.rs (SkillPolicy.products, matches_product_restriction_for_product), loader.rs (resolve_policy)"
+      "summary": "Restrict skill visibility to specific OpenAI products via openai.yaml policy.products (empty = all products).",
+      "source_ref": "model.rs (SkillPolicy.products, matches_product_restriction_for_product), loader.rs (resolve_policy)",
+      "required": null,
+      "provider_field": "policy.products",
+      "conversion": "dropped"
     },
     {
       "id": "system_scope",
       "name": "System Scope (Embedded Skills Cache)",
-      "description": "A fourth scope beyond Repo/User/Admin. System-scoped skills are embedded by Codex itself and cached under $CODEX_HOME/skills/.system (SkillScope::System). This scope does NOT follow symlinks (unlike Repo, User, and Admin scopes). Parse errors for system-scoped skills are silently suppressed (not added to SkillLoadOutcome.errors). Skills are sorted Repo > User > System > Admin by priority.",
-      "source_ref": "loader.rs (skill_roots_from_layer_stack_inner, discover_skills_under_root follow_symlinks logic)"
+      "summary": "Fourth scope beyond Repo/User/Admin: embedded skills cached under $CODEX_HOME/skills/.system; symlinks not followed.",
+      "source_ref": "loader.rs (skill_roots_from_layer_stack_inner, discover_skills_under_root follow_symlinks logic)",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "plugin_scope",
       "name": "Plugin Scope",
-      "description": "A plugin extension mechanism where additional skill roots are injected externally via plugin_skill_roots (Vec<PathBuf> from codex_utils_plugins). Plugin skills are assigned SkillScope::User scope and receive a namespaced name prefix (plugin_namespace_for_skill_path). This allows third-party plugins to contribute skills without modifying config files.",
-      "source_ref": "loader.rs (skill_roots_with_home_dir, namespaced_skill_name, plugin_namespace_for_skill_path)"
+      "summary": "Externally-injected plugin_skill_roots assigned User scope with namespaced name prefix; no config file required.",
+      "source_ref": "loader.rs (skill_roots_with_home_dir, namespaced_skill_name, plugin_namespace_for_skill_path)",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "monorepo_traversal",
       "name": "Monorepo Skill Discovery",
-      "description": "For Repo-scoped skills, codex walks all directories between the detected project root and the current working directory, collecting any .agents/skills/ subdirectory found along the path. Project root is determined by scanning ancestors for project_root_markers (configurable, defaults to standard VCS/build markers). MAX_SCAN_DEPTH=6 limits traversal depth within each skills root; MAX_SKILLS_DIRS_PER_ROOT=2000 caps total dirs scanned per root.",
-      "source_ref": "loader.rs (repo_agents_skill_roots, dirs_between_project_root_and_cwd, MAX_SCAN_DEPTH, MAX_SKILLS_DIRS_PER_ROOT)"
+      "summary": "Walk between project root and cwd collecting .agents/skills/ dirs; capped by MAX_SCAN_DEPTH=6 and MAX_SKILLS_DIRS_PER_ROOT=2000.",
+      "source_ref": "loader.rs (repo_agents_skill_roots, dirs_between_project_root_and_cwd, MAX_SCAN_DEPTH, MAX_SKILLS_DIRS_PER_ROOT)",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "skill_deduplication",
       "name": "Skill Deduplication",
-      "description": "After loading all roots, skills with duplicate SKILL.md paths are deduplicated — only the first occurrence (highest-priority scope) is kept. Skills are then sorted by scope priority (Repo > User > System > Admin), then by name, then by path.",
-      "source_ref": "loader.rs (load_skills_from_roots dedup and sort logic)"
+      "summary": "Skills with duplicate paths are deduped (highest-priority scope wins) then sorted Repo > User > System > Admin, then by name and path.",
+      "source_ref": "loader.rs (load_skills_from_roots dedup and sort logic)",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

@@ -25,6 +25,14 @@
       "supported": false,
       "mechanism": ""
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default: false)"
@@ -40,6 +48,10 @@
     "pi": {
       "supported": true,
       "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool); confirmed in SkillFrontmatter TypeScript interface as disable-model-invocation?: boolean"
+    },
+    "roo-code": {
+      "supported": false,
+      "mechanism": "No disable-model-invocation frontmatter field observed"
     }
   }
 }

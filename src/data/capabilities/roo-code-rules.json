@@ -1,0 +1,89 @@
+{
+  "id": "roo-code-rules",
+  "provider": "roo-code",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules/rules.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules-code/use-safeWriteJson.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "mode_partitioned_activation: rule files in mode-specific directories (.roo/rules-<mode-slug>/) activate only when that mode is active; files in .roo/rules/ activate for all modes"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "No auto-append or persistent memory command documented for rule content"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "legacy_clinerules_fallback: Roo Code reads .clinerules/ as a backward-compatibility fallback when native .roo/rules/ is absent"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No import directive syntax documented — rule files are loaded as plain markdown bodies"
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "mode_scoped_loading: files under .roo/rules/ load universally; files under .roo/rules-<mode>/ load conditionally based on the active mode",
+      "paths": [
+        ".roo/rules/",
+        ".roo/rules-code/",
+        ".roo/rules-architect/",
+        ".roo/rules-ask/",
+        ".roo/rules-debug/",
+        ".roo/rules-orchestrator/",
+        ".roo/rules-<custom-mode-slug>/",
+        ".roorules"
+      ]
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "mode_partitioned_directories",
+      "name": "Mode-partitioned rule directories",
+      "summary": "Per-mode directories (.roo/rules-code/, .roo/rules-architect/, .roo/rules-ask/, .roo/rules-debug/, .roo/rules-orchestrator/, and one per custom mode slug) scope rule files to a specific mode so only active-mode rules enter context.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules/rules.md",
+      "required": null,
+      "provider_field": ".roo/rules-<mode>/",
+      "conversion": "translated"
+    },
+    {
+      "id": "universal_rules_dir",
+      "name": "Universal .roo/rules/ directory",
+      "summary": "Files under .roo/rules/ apply to every mode and are concatenated into system context regardless of the currently active mode.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules/rules.md",
+      "required": null,
+      "provider_field": ".roo/rules/",
+      "conversion": "preserved"
+    },
+    {
+      "id": "legacy_roorules_file",
+      "name": "Legacy .roorules single-file rules",
+      "summary": "Single-file .roorules at the project root is honored for backward compatibility with pre-directory rule conventions.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules/rules.md",
+      "required": null,
+      "provider_field": ".roorules",
+      "conversion": "preserved"
+    },
+    {
+      "id": "clinerules_backcompat",
+      "name": ".clinerules/ backward compatibility",
+      "summary": "Roo Code reads .clinerules/ directories from its Cline ancestry when no .roo/rules/ directory is present so existing Cline rule sets continue to work.",
+      "source_ref": "https://raw.githubusercontent.com/RooVetGit/Roo-Code/main/.roo/rules/rules.md",
+      "required": null,
+      "provider_field": ".clinerules/",
+      "conversion": "preserved"
+    }
+  ]
+}

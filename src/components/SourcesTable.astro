@@ -1,0 +1,76 @@
+---
+/**
+ * SourcesTable.astro — Top-of-page sources table (D7).
+ *
+ * Single column: the raw source URL rendered as its own link text.
+ */
+
+interface CapSource {
+  uri: string;
+}
+
+interface Props {
+  sources: CapSource[];
+}
+
+const { sources } = Astro.props;
+---
+
+{sources.length > 0 && (
+  <table class="sources-table not-content">
+    <thead>
+      <tr>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      {sources.map((s) => (
+        <tr>
+          <td>
+            <a href={s.uri} target="_blank" rel="noopener noreferrer">
+              {s.uri}
+            </a>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+<style>
+  .sources-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    font-size: var(--sl-text-sm);
+  }
+
+  .sources-table th,
+  .sources-table td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--sl-color-hairline-light);
+  }
+
+  .sources-table th {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .sources-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .sources-table a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .sources-table a:hover {
+    text-decoration: underline;
+  }
+</style>

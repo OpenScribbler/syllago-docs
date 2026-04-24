@@ -25,6 +25,8 @@ How each provider stores and installs mcp configs.
 | [OpenCode](/using-syllago/providers/opencode/) | JSON with comments | JSON merge | No |
 | [Kiro](/using-syllago/providers/kiro/) | JSON | JSON merge | No |
 | [Amp](/using-syllago/providers/amp/) | JSON | JSON merge | No |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | JSON | JSON merge | No |
+| [Crush](/using-syllago/providers/crush/) | JSON | JSON merge | No |
 
 ## Discovery Paths
 
@@ -44,6 +46,8 @@ Where each provider looks for mcp configs files. Paths with `~/` are relative to
 | [OpenCode](/using-syllago/providers/opencode/) | `opencode.json`, `opencode.jsonc` | — |
 | [Kiro](/using-syllago/providers/kiro/) | `.kiro/settings/mcp.json` | — |
 | [Amp](/using-syllago/providers/amp/) | `.amp/settings.json` | — |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `.factory/mcp.json` | — |
+| [Crush](/using-syllago/providers/crush/) | `crush.json` | — |
 
 ## Config Location
 
@@ -61,16 +65,21 @@ Where each provider looks for mcp configs files. Paths with `~/` are relative to
 | [OpenCode](/using-syllago/providers/opencode/) | `opencode.json` |
 | [Kiro](/using-syllago/providers/kiro/) | `.kiro/settings/mcp.json` |
 | [Amp](/using-syllago/providers/amp/) | `.amp/settings.json` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `.factory/mcp.json` |
+| [Crush](/using-syllago/providers/crush/) | `crush.json` |
 
 ## Transport Support
 
 Which MCP transports each provider supports for communicating with tool servers.
 
-| Transport | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp |
-|-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `sse` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ |
-| `stdio` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `streamable-http` | ✓ | — | ✓ | — | — | — | — | ✓ | ✓ | — | — | — |
+| Transport | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Crush |
+|-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `http` | — | — | — | — | — | — | — | — | — | — | — | — | ✓ | ✓ |
+| `sse` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ |
+| `stdio` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `streamable-http` | ✓ | — | ✓ | — | — | — | — | ✓ | ✓ | — | — | — | — | — |
+
+**Not supported by:** [Pi](/using-syllago/providers/pi/).
 
 ## See Also
 
@@ -78,4 +87,4 @@ Which MCP transports each provider supports for communicating with tool servers.
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.9.0 on 2026-04-18.*

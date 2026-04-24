@@ -16,9 +16,14 @@ How each provider stores and installs commands.
 | [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
 | [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
+| [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
 | [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
+| [Cline](/using-syllago/providers/cline/) | Markdown | Symlink | Yes |
+| [Roo Code](/using-syllago/providers/roo-code/) | Markdown | Symlink | Yes |
 | [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Symlink | Yes |
+| [Pi](/using-syllago/providers/pi/) | Markdown | Symlink | Yes |
 
 ## Discovery Paths
 
@@ -29,31 +34,36 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude/commands` | `~/.claude/commands` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/commands` | `~/.gemini/commands` |
 | [Cursor](/using-syllago/providers/cursor/) | `.cursor/commands` | `~/.cursor/commands` |
+| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/workflows`, `~/.codeium/windsurf/global_workflows` | `~/.codeium/windsurf/global_workflows` |
 | [Codex](/using-syllago/providers/codex/) | `.codex/commands` | `~/.codex` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/commands` | `~/.copilot/commands` |
+| [Cline](/using-syllago/providers/cline/) | `.clinerules/workflows`, `~/Documents/Cline/Workflows` | `~/Documents/Cline/Workflows` |
+| [Roo Code](/using-syllago/providers/roo-code/) | `.roo/commands`, `~/.roo/commands` | `~/.roo/commands` |
 | [OpenCode](/using-syllago/providers/opencode/) | `.opencode/commands` | `~/.config/opencode/commands` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `.factory/commands` | `~/.factory/commands` |
+| [Pi](/using-syllago/providers/pi/) | `.pi/prompts` | `~/.pi/agent/prompts` |
 
 ## Frontmatter Fields
 
 Which frontmatter fields each provider recognizes in commands files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | OpenCode |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|
-| `agent` | ✓ | — | — | — | ✓ | ✓ |
-| `allowed-tools` | ✓ | — | — | — | — | — |
-| `argument-hint` | ✓ | — | — | ✓ | ✓ | — |
-| `context` | ✓ | — | — | — | — | — |
-| `description` | ✓ | ✓ | — | ✓ | ✓ | ✓ |
-| `disable-model-invocation` | ✓ | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — |
-| `model` | ✓ | — | — | — | ✓ | ✓ |
-| `name` | ✓ | ✓ | — | — | ✓ | — |
-| `prompt` | — | ✓ | — | — | — | — |
-| `subtask` | — | — | — | — | — | ✓ |
-| `tools` | — | — | — | — | ✓ | — |
-| `user-invocable` | ✓ | — | — | — | — | — |
+| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Factory Droid | Pi |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | — | ✓ | — | — | ✓ | — | — |
+| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | — | ✓ | ✓ | — | — | — | — | — |
+| `context` | ✓ | — | — | — | — | — | — | — | — | — | — |
+| `description` | ✓ | ✓ | — | — | ✓ | ✓ | — | — | ✓ | — | — |
+| `disable-model-invocation` | ✓ | — | — | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — | — | — |
+| `model` | ✓ | — | — | — | — | ✓ | — | — | ✓ | — | — |
+| `name` | ✓ | ✓ | — | — | — | ✓ | — | — | — | — | — |
+| `prompt` | — | ✓ | — | — | — | — | — | — | — | — | — |
+| `subtask` | — | — | — | — | — | — | — | — | ✓ | — | — |
+| `tools` | — | — | — | — | — | ✓ | — | — | — | — | — |
+| `user-invocable` | ✓ | — | — | — | — | — | — | — | — | — | — |
 
-**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Roo Code](/using-syllago/providers/roo-code/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/).
+**Not supported by:** [Zed](/using-syllago/providers/zed/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/), [Crush](/using-syllago/providers/crush/).
 
 ## See Also
 
@@ -61,4 +71,4 @@ Which frontmatter fields each provider recognizes in commands files. A checkmark
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.9.0 on 2026-04-18.*

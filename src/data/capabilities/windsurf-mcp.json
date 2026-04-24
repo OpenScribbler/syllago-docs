@@ -3,7 +3,7 @@
   "provider": "windsurf",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
@@ -11,37 +11,80 @@
       "fetched_at": "2026-04-11T21:46:24.674713454Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Windsurf does not support pre-configured auto-approval for specific MCP tools"
+    },
+    "enterprise_management": {
+      "supported": true,
+      "mechanism": "enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries"
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${VAR} interpolation for environment variables"
+    },
+    "marketplace": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Windsurf MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
+    },
+    "tool_filtering": {
+      "supported": false,
+      "mechanism": "Windsurf exposes all tools from connected MCP servers; no per-server tool allowlist or blocklist documented"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports"
+    }
+  },
   "providerExtensions": [
     {
       "id": "three_transport_types",
       "name": "Three transport types: stdio, Streamable HTTP, SSE",
-      "description": "Windsurf supports stdio, Streamable HTTP, and SSE transport types for MCP servers, plus OAuth for each. For HTTP servers the URL field should be the endpoint URL (e.g., https://<server>/mcp). Remote HTTP servers use a `serverUrl` or `url` field rather than `command`/`args`. This three-transport support is broader than providers that only support stdio.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md"
+      "summary": "MCP servers can use stdio, Streamable HTTP, or SSE transports; remote servers use `serverUrl`/`url` fields instead of `command`/`args`.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "config_interpolation",
       "name": "Variable interpolation in mcp_config.json",
-      "description": "The mcp_config.json file supports variable interpolation in command, args, env, serverUrl, url, and headers fields. Two patterns: `${env:VAR_NAME}` is replaced with the named environment variable (empty string if unset); `${file:/path/to/file}` is replaced with the trimmed contents of the file at that path (tilde paths supported; left unchanged if file is unread). This avoids hardcoding secrets in the config file.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#config-interpolation"
+      "summary": "Config fields support `${env:VAR_NAME}` and `${file:/path}` interpolation to inject env vars and file contents without hardcoding secrets.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#config-interpolation",
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "tool_limit_100",
       "name": "100-tool cap across all MCP servers",
-      "description": "Cascade has a hard limit of 100 total MCP tools available at any one time across all configured servers. Individual tools per server can be toggled on or off via the MCP settings UI to stay within this limit.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#configuring-mcp-tools"
+      "summary": "Cascade caps total MCP tools at 100 across all configured servers; individual tools can be toggled to stay within the limit.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#configuring-mcp-tools",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "enterprise_whitelist_and_registry",
       "name": "Enterprise MCP whitelist and custom registry",
-      "description": "Team admins can whitelist approved MCP servers; once any server is whitelisted, all non-whitelisted servers are blocked for the team. Whitelist matching uses regex patterns on command, args (per-element, length-matched), with env not matched. Teams can also configure custom MCP registry URLs to replace the default Windsurf marketplace; multiple registry URLs are unioned. Custom registries must follow the official MCP registry schema.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises"
+      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "mcp_marketplace",
       "name": "In-IDE MCP marketplace",
-      "description": "Windsurf includes a built-in MCP marketplace accessible from the Cascade panel (MCPs icon in top-right menu) or Windsurf Settings > Cascade > MCP Servers. Official MCPs are marked with a blue checkmark. Users click Install to add a server. For MCPs not in the marketplace, users can edit mcp_config.json directly.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md"
+      "summary": "Built-in MCP marketplace accessible from the Cascade panel for one-click discovery and installation of MCP servers.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

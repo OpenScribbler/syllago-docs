@@ -1,0 +1,56 @@
+---
+title: "syllago capmon derive"
+description: "Derive a seeder spec from a provider format doc"
+---
+
+## Synopsis
+
+```
+syllago capmon derive [flags]
+```
+
+## Description
+
+Deterministically derive a seeder spec YAML from a provider format doc.
+
+The derived spec is written to --output-dir/&lt;provider&gt;-&lt;content_type&gt;.yaml.
+All canonical_mappings keys are validated against --canonical-keys.
+Content types with status=unsupported are omitted from output.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--canonical-keys` | `string` | `docs/spec/canonical-keys.yaml` | No | Path to canonical-keys.yaml |
+| `--formats-dir` | `string` | `docs/provider-formats` | No | Directory containing provider format docs |
+| `--output-dir` | `string` | `.develop/seeder-specs` | No | Directory to write the derived seeder spec |
+| `--provider` | `string` | — | No | Provider slug to derive spec for (required) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago capmon](/using-syllago/cli-reference/capmon/)
+- [syllago capmon check](/using-syllago/cli-reference/capmon-check/)
+- [syllago capmon diff](/using-syllago/cli-reference/capmon-diff/)
+- [syllago capmon extract](/using-syllago/cli-reference/capmon-extract/)
+- [syllago capmon fetch](/using-syllago/cli-reference/capmon-fetch/)
+- [syllago capmon generate](/using-syllago/cli-reference/capmon-generate/)
+- [syllago capmon onboard](/using-syllago/cli-reference/capmon-onboard/)
+- [syllago capmon run](/using-syllago/cli-reference/capmon-run/)
+- [syllago capmon seed](/using-syllago/cli-reference/capmon-seed/)
+- [syllago capmon test-fixtures](/using-syllago/cli-reference/capmon-test-fixtures/)
+- [syllago capmon validate-format-doc](/using-syllago/cli-reference/capmon-validate-format-doc/)
+- [syllago capmon validate-sources](/using-syllago/cli-reference/capmon-validate-sources/)
+- [syllago capmon verify](/using-syllago/cli-reference/capmon-verify/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/capmon_cmd.go)</small>

@@ -1,0 +1,46 @@
+---
+title: "syllago capmon validate-sources"
+description: "Validate a provider's source manifest has URIs for all supported content types"
+---
+
+## Synopsis
+
+```
+syllago capmon validate-sources [flags]
+```
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--provider` | `string` | — | No | Provider slug whose source manifest to validate (required) |
+| `--sources-dir` | `string` | `docs/provider-sources` | No | Directory containing provider source manifests |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## See Also
+
+- [syllago capmon](/using-syllago/cli-reference/capmon/)
+- [syllago capmon check](/using-syllago/cli-reference/capmon-check/)
+- [syllago capmon derive](/using-syllago/cli-reference/capmon-derive/)
+- [syllago capmon diff](/using-syllago/cli-reference/capmon-diff/)
+- [syllago capmon extract](/using-syllago/cli-reference/capmon-extract/)
+- [syllago capmon fetch](/using-syllago/cli-reference/capmon-fetch/)
+- [syllago capmon generate](/using-syllago/cli-reference/capmon-generate/)
+- [syllago capmon onboard](/using-syllago/cli-reference/capmon-onboard/)
+- [syllago capmon run](/using-syllago/cli-reference/capmon-run/)
+- [syllago capmon seed](/using-syllago/cli-reference/capmon-seed/)
+- [syllago capmon test-fixtures](/using-syllago/cli-reference/capmon-test-fixtures/)
+- [syllago capmon validate-format-doc](/using-syllago/cli-reference/capmon-validate-format-doc/)
+- [syllago capmon verify](/using-syllago/cli-reference/capmon-verify/)
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/capmon_cmd.go)</small>

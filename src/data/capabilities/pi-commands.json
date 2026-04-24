@@ -11,25 +11,41 @@
       "fetched_at": "2026-04-11T21:50:54Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": true,
+      "mechanism": "positional expansion: $1, $2 (specific positions), $@ or $ARGUMENTS (all args joined), ${@:N} (args from position N), ${@:N:L} (L args starting at N); richer syntax than most providers"
+    },
+    "builtin_commands": {
+      "supported": false,
+      "mechanism": "pi prompt templates are entirely user-defined; no built-in slash commands documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "pi_prompt_template_arguments",
       "name": "Positional argument expansion in templates",
-      "description": "Prompt templates support positional argument substitution: $1, $2, ... for specific positions; $@ or $ARGUMENTS for all arguments joined; ${@:N} for args from position N (1-indexed); ${@:N:L} for L args starting at N. Arguments are passed after the command name (e.g., /component Button 'click handler'). This enables parameterized prompts that expand with user-supplied values.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md"
+      "summary": "Templates expand $1/$2 (positional), $@ or $ARGUMENTS (all joined), and ${@:N} / ${@:N:L} slices for parameterized prompts.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "pi_prompt_template_description_frontmatter",
       "name": "Optional description frontmatter for autocomplete",
-      "description": "Templates accept an optional YAML frontmatter block with a description field. The description is shown in autocomplete when the user types /. If the description is omitted, the first non-empty line of the template body is used as the description. The filename (without .md) becomes the command name.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md"
+      "summary": "Shown in / autocomplete to describe the template; falls back to the first non-empty body line if omitted.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
+      "required": null,
+      "provider_field": "description",
+      "conversion": "embedded"
     },
     {
       "id": "pi_prompt_template_discovery",
       "name": "Multi-source template discovery matching skills pattern",
-      "description": "Pi discovers prompt templates from: global ~/.pi/agent/prompts/*.md; project-local .pi/prompts/*.md; package.json pi.prompts entries or prompts/ directories in npm packages; settings.json prompts array (files or directories); --prompt-template CLI flag (repeatable). Discovery in prompts/ directories is non-recursive — subdirectories must be added explicitly. --no-prompt-templates disables all default discovery.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md"
+      "summary": "Templates load from global, project, package.json, settings.json prompts array, and --prompt-template CLI flag (non-recursive).",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/prompt-templates.md",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

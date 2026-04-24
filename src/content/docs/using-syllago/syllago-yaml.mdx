@@ -3,41 +3,107 @@ title: .syllago.yaml Format
 description: Reference for the .syllago.yaml metadata file that accompanies every content item in your library.
 ---
 
-Every content item in your [library](/using-syllago/collections/library/) has a `.syllago.yaml` file in its directory. This file tracks the item's identity, provenance, and [type](/using-syllago/content-types/) — syllago uses it to manage, inspect, and export content.
+Every content item in your [library](/using-syllago/collections/library/) has a `.syllago.yaml` file that tracks the item's identity, provenance, and [type](/using-syllago/content-types/) — syllago uses it to manage, inspect, and convert content.
 
-You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/using-syllago/cli-reference/create/), `add`, or sync content.
+You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/using-syllago/cli-reference/create/), [`add`](/using-syllago/cli-reference/add/), or sync content.
 
 ## Field Reference
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `id` | string (UUID) | Yes | Unique identifier for this content item. |
-| `name` | string | Yes | Human-readable name. Used in CLI output and directory naming. |
-| `type` | string | Yes | Content type: `rules`, `skills`, `agents`, `hooks`, `commands`, or `loadouts`. |
-| `source_format` | string | Conditional | Original file format (`md`, `json`, `toml`). Present for imported/synced content. |
-| `source_type` | string | Conditional | How the content was acquired: `provider` or `created`. Present for imported/synced content. |
-| `source_provider` | string | Conditional | Which provider the content came from (e.g., `claude-code`). Only present when `source_type` is `provider`. |
-| `source_hash` | string | Conditional | SHA-256 hash of the original content, prefixed with `sha256:`. Used for change detection. |
-| `has_source` | boolean | Conditional | Whether the original source file is preserved alongside the converted content. |
-| `source` | string | Conditional | Alternate source descriptor. Used instead of `source_type`/`source_format` for locally created items (value: `created`). |
-| `added_at` | string (ISO 8601) | Yes | Timestamp when the item was added to the library. |
-| `added_by` | string | Yes | Who or what added the item — `syllago`, a version number like `0.6.1`, or a person's name. |
+Fields are grouped by purpose. Most fields are optional in YAML (omitted when empty) — the notes above each table call out what's always present.
 
-**Conditional fields** appear based on how the content was acquired. Imported content has `source_format`, `source_type`, and usually `source_hash`. Locally created content uses `source: created` instead.
+### Identity
+
+`format_version`, `id`, `name`, and `type` appear in every saved file. The remaining identity fields are written only when populated.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `format_version` | int | Schema version. Currently `1`. Bumped when the schema changes incompatibly. |
+| `id` | string (UUID) | Unique identifier for this content item. |
+| `name` | string | Human-readable name. Used in CLI output and as the directory name. |
+| `type` | string | Content type. One of: `rules`, `skills`, `agents`, `hooks`, `commands`, `mcp`, `loadouts`. |
+| `description` | string | Short human-readable description. |
+| `version` | string | Item version (e.g. `1.0.0`). |
+| `author` | string | Author or maintainer. |
+| `tags` | list of string | Tags for filtering and search. |
+| `hidden` | bool | Hide the item from default listings. Defaults to `false`. |
+
+### Source provenance
+
+These fields record where the content came from. They're populated when syllago `add`s content from a provider, registry, or filesystem.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source` | string | Discriminator for the source kind. `created` means the item was scaffolded locally via `syllago create`; otherwise unset for imported content. |
+| `source_provider` | string | Provider slug content was imported from (e.g. `claude-code`). |
+| `source_format` | string | Original file format (e.g. `md`, `mdc`, `json`, `toml`). |
+| `source_type` | string | How the content was acquired. One of: `git`, `filesystem`, `registry`, `provider`. |
+| `source_url` | string | URL the content was fetched from. Reserved for future `syllago update` capability. |
+| `source_hash` | string | SHA-256 of the original content, prefixed with `sha256:`. Used for change detection. |
+| `has_source` | bool | Whether the original source file is preserved alongside the converted content (in a `.source/` subdirectory). |
+
+### Registry
+
+Set when content was added from a [registry](/using-syllago/collections/registries/).
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source_registry` | string | Registry name content was imported from (e.g. `acme/internal-rules`). |
+| `source_visibility` | string | Visibility at import time. One of: `public`, `private`, `unknown`. |
+
+### Scope
+
+Set on add to track where the content lives.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source_scope` | string | One of: `global`, `project`. |
+| `source_project` | string | Project directory name. Set only when `source_scope` is `project`. |
+
+### Lifecycle timestamps
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `created_at` | string (ISO 8601) | When the item was scaffolded via `syllago create`. |
+| `added_at` | string (ISO 8601) | When the item was added to the library. |
+| `added_by` | string | Who or what added the item — e.g. `syllago v0.9.0`, or a person's name. |
+
+### Dependencies
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `dependencies` | list of `{type, name}` | Other content items this item depends on. Each entry has a content `type` (e.g. `skills`) and the dependency's `name`. |
+
+### Bundled scripts (hooks only)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `bundled_scripts` | list of `{original_path, filename}` | Scripts copied into a hook's library directory at add time. `original_path` is the absolute path at add time so install can restore the script to its original location; `filename` is its name in the library directory. |
+
+### Detection signals (scanner-computed)
+
+These fields are written by syllago's content scanner during `add` from filesystem and never read from incoming YAML.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `confidence` | float | Scanner confidence score (0.0–1.0). |
+| `detection_source` | string | Where the scanner detected the content (e.g. `content-signal`, `extension`). |
+| `detection_method` | string | One of: `automatic`, `user-directed`. |
 
 ## Examples
 
 ### Rules (imported from a provider)
 
 ```yaml
+format_version: 1
 id: 671fbd47-ce51-4d2b-8b4c-dc04fa4764d7
 name: typescript
 type: rules
-source_format: md
+source_provider: cursor
+source_format: mdc
 source_type: provider
 source_hash: sha256:9fa5fdb87b29dac26eb947717d8a0e0b39d8dc2268393f682f061097c0410206
 added_at: 2026-03-16T17:09:06Z
-added_by: syllago
+added_by: syllago v0.9.0
 ```
 
 Standard pattern for content pulled from a provider. The `source_hash` lets syllago detect when the upstream content has changed.
@@ -45,6 +111,7 @@ Standard pattern for content pulled from a provider. The `source_hash` lets syll
 ### Hooks (imported with source file preserved)
 
 ```yaml
+format_version: 1
 id: 0e15bb54-3187-4673-9e2e-d1d44e40c951
 name: settings
 type: hooks
@@ -53,23 +120,44 @@ source_format: json
 source_type: provider
 has_source: true
 added_at: 2026-03-05T22:08:18Z
-added_by: 0.6.1
+added_by: syllago v0.9.0
 ```
 
-When `has_source` is `true`, the original file (here, a JSON file) is stored in the item's directory alongside any converted versions. The `source_provider` field records which provider it came from.
+When `has_source` is `true`, the original source file is stored in a `.source/` subdirectory inside the item's directory alongside any converted versions.
 
-### Loadouts (locally created)
+### Loadouts (created locally)
 
 ```yaml
+format_version: 1
 id: 3b9656ca-ce37-4146-aed6-5f67244688df
 name: testing
 type: loadouts
 source: created
+created_at: 2026-03-12T17:16:18Z
 added_at: 2026-03-12T17:16:18Z
 added_by: Holden Hewett
 ```
 
-Content created with [`syllago create`](/using-syllago/cli-reference/create/) uses `source: created` instead of the `source_type`/`source_format`/`source_hash` fields. The `added_by` field records the user who created it.
+Content created with [`syllago create`](/using-syllago/cli-reference/create/) sets `source: created` to mark it as locally scaffolded. The `added_by` field records the user who created it.
+
+### Imported from a registry
+
+```yaml
+format_version: 1
+id: aa00cc11-ee22-4433-a55b-66cc77dd88ee
+name: secure-api-key-handling
+type: rules
+source_registry: acme/internal-rules
+source_visibility: private
+source_format: md
+source_type: registry
+source_scope: project
+source_project: payment-service
+added_at: 2026-04-01T09:30:00Z
+added_by: syllago v0.9.0
+```
+
+Registry-sourced content includes the registry name, visibility at import time, and the project directory the item was scoped to.
 
 ## Directory Layout
 
@@ -92,3 +180,7 @@ library/
 ```
 
 The directory name matches the `name` field in `.syllago.yaml`. Content files use whatever format is appropriate for their [type](/using-syllago/content-types/).
+
+### Provider-specific metadata files
+
+Some content types — legacy single-file hooks and MCP configs that share a parent directory with sibling files — use a sibling metadata file named `.syllago.<filename>.yaml` instead of a directory-level `.syllago.yaml`. Syllago reads and writes both forms transparently.

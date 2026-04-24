@@ -25,6 +25,9 @@ How each provider stores and installs rules.
 | [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
 | [Kiro](/using-syllago/providers/kiro/) | Markdown | Project scope | Yes |
 | [Amp](/using-syllago/providers/amp/) | Markdown | Symlink | Yes |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Project scope | Yes |
+| [Pi](/using-syllago/providers/pi/) | Markdown | Project scope | Yes |
+| [Crush](/using-syllago/providers/crush/) | Markdown | Project scope | Yes |
 
 ## Discovery Paths
 
@@ -44,22 +47,25 @@ Where each provider looks for rules files. Paths with `~/` are relative to the u
 | [OpenCode](/using-syllago/providers/opencode/) | `AGENTS.md`, `CLAUDE.md` | `~/.config/opencode` |
 | [Kiro](/using-syllago/providers/kiro/) | `.kiro/steering` | — |
 | [Amp](/using-syllago/providers/amp/) | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` | `~/.config/amp` |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `AGENTS.md` | — |
+| [Pi](/using-syllago/providers/pi/) | `AGENTS.md` | — |
+| [Crush](/using-syllago/providers/crush/) | `AGENTS.md` | — |
 
 ## Frontmatter Fields
 
 Which frontmatter fields each provider recognizes in rules files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `alwaysApply` | — | — | ✓ | — | — | — | — | — | — | — | — | — |
-| `applyTo` | — | — | — | — | — | ✓ | — | — | — | — | — | — |
-| `description` | — | — | ✓ | ✓ | — | — | — | — | — | — | ✓ | — |
-| `fileMatchPattern` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
-| `globs` | — | — | ✓ | ✓ | — | — | — | — | — | — | — | ✓ |
-| `inclusion` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
-| `name` | — | — | — | — | — | — | — | — | — | — | ✓ | — |
-| `paths` | ✓ | — | — | — | — | — | — | ✓ | — | — | — | — |
-| `trigger` | — | — | — | ✓ | — | — | — | — | — | — | — | — |
+| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Pi | Crush |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `alwaysApply` | — | — | ✓ | — | — | — | — | — | — | — | — | — | — | — | — |
+| `applyTo` | — | — | — | — | — | ✓ | — | — | — | — | — | — | — | — | — |
+| `description` | — | — | ✓ | ✓ | — | — | — | — | — | — | ✓ | — | — | — | — |
+| `fileMatchPattern` | — | — | — | — | — | — | — | — | — | — | ✓ | — | — | — | — |
+| `globs` | — | — | ✓ | ✓ | — | — | — | — | — | — | — | ✓ | — | — | — |
+| `inclusion` | — | — | — | — | — | — | — | — | — | — | ✓ | — | — | — | — |
+| `name` | — | — | — | — | — | — | — | — | — | — | ✓ | — | — | — | — |
+| `paths` | ✓ | — | — | — | — | — | — | ✓ | — | — | — | — | — | — | — |
+| `trigger` | — | — | — | ✓ | — | — | — | — | — | — | — | — | — | — | — |
 
 ## See Also
 
@@ -67,4 +73,4 @@ Which frontmatter fields each provider recognizes in rules files. A checkmark me
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.9.0 on 2026-04-18.*

@@ -24,15 +24,18 @@ Not every provider supports every content type. The matrix below shows what each
 | [Claude Code](/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 24 | stdio, sse, streamable-http |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 11 | stdio, sse |
 | [Cursor](/using-syllago/providers/cursor/) | `cursor` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 14 | stdio, sse, streamable-http |
-| [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | — | 6 | stdio, sse |
+| [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | ✅ | 6 | stdio, sse |
 | [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | stdio |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 9 | stdio, sse |
 | [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — | — | stdio |
-| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | — | — | ✅ | ✅ | — | — | stdio, sse, streamable-http |
-| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | — | — | stdio, sse, streamable-http |
+| [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | ✅ | — | ✅ | ✅ | ✅ | — | stdio, sse, streamable-http |
+| [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio, sse, streamable-http |
 | [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio |
 | [Kiro](/using-syllago/providers/kiro/) | `kiro` | ✅ | ✅ | ✅ | ✅ | ✅ | — | 10 | stdio, sse |
-| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | — | — | — | stdio, sse |
+| [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | ✅ | — | — | stdio, sse |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | `factory-droid` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 9 | stdio, http |
+| [Pi](/using-syllago/providers/pi/) | `pi` | ✅ | ✅ | — | — | ✅ | ✅ | 15 | — |
+| [Crush](/using-syllago/providers/crush/) | `crush` | ✅ | ✅ | — | ✅ | — | — | — | stdio, http, sse |
 
 Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
 
@@ -54,4 +57,4 @@ syllago install my-rule --to gemini-cli
 
 If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.
 
-*Generated from syllago dev on 2026-04-13.*
+*Generated from syllago 0.9.0 on 2026-04-18.*

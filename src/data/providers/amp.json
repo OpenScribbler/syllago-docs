@@ -14,8 +14,17 @@
       "symlinkSupport": false
     },
     "hooks": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/.amp/settings.json"
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": ".amp/settings.json"
     },
     "loadouts": {
       "supported": false,

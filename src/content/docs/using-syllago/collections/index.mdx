@@ -28,7 +28,7 @@ syllago install <name> --to <provider>
 
 ## Registries
 
-Git-based repositories of shared content maintained by teams or the community. You consume registry content locally and can contribute back via pull request using `syllago publish`.
+Git-based repositories of shared content maintained by teams or the community. You consume registry content locally and can contribute back via pull request using `syllago share --to <registry>`.
 
 ```bash
 syllago registry add <url>
@@ -46,7 +46,7 @@ Bundled sets of content — rules, skills, agents, hooks, MCP configs — that a
 syllago loadout create
 syllago loadout apply <name> --try    # temporary
 syllago loadout apply <name> --keep   # permanent
-syllago loadout remove <name>
+syllago loadout remove
 ```
 
 [Loadouts deep-dive](/using-syllago/collections/loadouts/)

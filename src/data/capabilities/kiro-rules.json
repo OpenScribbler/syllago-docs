@@ -11,31 +11,61 @@
       "fetched_at": "2026-04-11T21:46:23Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Kiro does not have an AI-generated auto-memory system separate from user-authored steering files"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "kiro_agents_md_recognition: Kiro reads AGENTS.md files from other providers in addition to its own steering files"
+    },
+    "file_imports": {
+      "supported": true,
+      "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Kiro steering files are project-scoped; no multi-level subdirectory hierarchy documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "kiro_steering_inclusion_mode",
       "name": "Inclusion mode frontmatter field",
-      "description": "Controls when a steering file is loaded into context. Four modes: 'always' (default — included in every agent interaction), 'conditional' (loaded when the current file matches a 'globs' frontmatter pattern), 'manual' (only loaded when the user explicitly requests it), 'auto' (Kiro decides based on relevance, similar to model-driven auto-invocation). The 'conditional' and 'auto' modes enable selective context loading to avoid context overload.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "summary": "Frontmatter field controlling when a steering file loads (always, conditional via globs, manual, or auto).",
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null,
+      "provider_field": "inclusion",
+      "conversion": "embedded"
     },
     {
       "id": "kiro_steering_file_references",
       "name": "File references (@path/to/file) in steering files",
-      "description": "Steering files can include references to other files using '@path/to/file' syntax, causing Kiro to inline the referenced file's content into the steering context. Enables modular steering composition without duplicating content.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "summary": "Body syntax '@path/to/file' that Kiro inlines into the steering context, enabling modular composition.",
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null,
+      "conversion": "preserved"
     },
     {
       "id": "kiro_foundational_steering",
       "name": "Foundational steering files (auto-created)",
-      "description": "Kiro automatically creates three foundational steering files on workspace initialization: product_requirements.md, tech_stack.md, and architecture.md. These serve as a structured project context baseline and are created by Kiro, not the user.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "summary": "Kiro auto-creates product_requirements.md, tech_stack.md, and architecture.md on workspace init.",
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "kiro_agents_md_recognition",
       "name": "AGENTS.md root file recognition",
-      "description": "Kiro recognizes AGENTS.md in the repo root as a steering source, consistent with the cross-provider AGENTS.md convention. Treated as a workspace-scoped steering file alongside .kiro/steering/ content.",
-      "source_ref": "https://kiro.dev/docs/steering/"
+      "summary": "Kiro reads repo-root AGENTS.md as a steering source, matching the cross-provider AGENTS.md convention.",
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

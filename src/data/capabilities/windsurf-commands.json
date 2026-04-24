@@ -3,33 +3,56 @@
   "provider": "windsurf",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
-      "uri": "https://docs.windsurf.com/command/windsurf-overview.md",
+      "uri": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:51:02.329185401Z"
+      "fetched_at": "2026-04-17T00:00:00Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "argument_substitution": {
+      "supported": false,
+      "mechanism": "Cascade Workflows are plain Markdown prompt templates; no `{{args}}` or equivalent placeholder syntax is documented for user-provided arguments"
+    },
+    "builtin_commands": {
+      "supported": true,
+      "mechanism": "Cascade exposes its own built-in chat slash commands (e.g. for conversation control) independently of user-authored Workflows; the `/<workflow-name>` namespace is reserved for user files"
+    }
+  },
   "providerExtensions": [
     {
-      "id": "command_inline_editor",
-      "name": "Windsurf Command: inline natural language code editing (Cmd/Ctrl+I)",
-      "description": "Windsurf Command is an inline AI code generation and editing feature invoked via Cmd+I (Mac) or Ctrl+I (Windows/Linux) directly in the editor. It is distinct from Cascade (the agentic chat panel). Command is scoped to the current file: if code is highlighted it edits the selection; otherwise it generates at cursor position. Does NOT consume premium model credits. Uses a separate set of models optimized for current-file edits. Diffs are shown inline with accept/reject code lenses.",
-      "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md"
+      "id": "character_limit_12000",
+      "name": "12,000 character per-file limit",
+      "summary": "Each workflow markdown file is capped at 12,000 characters; content beyond the cap fails to load or save.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
-      "id": "terminal_command",
-      "name": "Terminal Command via Cmd/Ctrl+I in terminal",
-      "description": "Command is also available in the integrated terminal (Cmd+I / Ctrl+I) to generate CLI syntax from natural language prompts. This is a separate invocation surface from the editor Command — it generates shell commands rather than code edits.",
-      "source_ref": "https://docs.windsurf.com/command/windsurf-overview.md#terminal-command"
+      "id": "manual_only_invocation",
+      "name": "Manual-only slash-command invocation",
+      "summary": "Workflows never auto-invoke from model decisions or file patterns; the user must explicitly type /<workflow-name> in the Cascade input to run one.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "translated"
     },
     {
-      "id": "workflows_slash_commands",
-      "name": "Workflows: slash-command-invoked prompt templates",
-      "description": "Windsurf Workflows are single .md files stored in .windsurf/workflows/ (workspace) or ~/.codeium/windsurf/workflows/ (global) that serve as reusable prompt templates for multi-step tasks. Invoked via /[workflow-name] slash command in the Cascade input. Workflows are manual-only — they are never auto-invoked by the model. This is the closest Windsurf equivalent to slash commands as defined by other providers.",
-      "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md"
+      "id": "two_scope_loading",
+      "name": "Workspace and global scope loading",
+      "summary": "Workflows load from two scopes: workspace (.windsurf/workflows/) for team-shared commands committed with the repo, and global (~/.codeium/windsurf/global_workflows/) for per-user commands available everywhere.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "filename_as_command_name",
+      "name": "Filename drives slash-command identifier",
+      "summary": "The markdown file basename (minus .md) is the invocation name; no frontmatter or manifest is required to register a workflow.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/workflows.md",
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

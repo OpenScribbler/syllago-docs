@@ -10,7 +10,7 @@
  *   PROVIDERS_JSON_PATH=path/to/providers.json bun scripts/sync-providers.ts
  */
 
-import { mkdirSync, rmSync, writeFileSync, readFileSync, existsSync, readdirSync } from "fs";
+import { mkdirSync, rmSync, writeFileSync, readFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { execFileSync } from "child_process";
 
@@ -55,21 +55,6 @@ interface ProviderManifest {
   contentTypes: string[];
 }
 
-// Capabilities data shape (written by sync-capabilities.ts).
-interface CapDataExtension {
-  id: string;
-  name: string;
-  description: string;
-  source_ref?: string;
-}
-
-interface CapDataEntry {
-  id: string;
-  provider: string;
-  contentType: string;
-  providerExtensions: CapDataExtension[];
-}
-
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
@@ -80,7 +65,54 @@ const MDX_OUTPUT_DIR = join(ROOT_DIR, "src/content/docs/using-syllago/providers"
 const DATA_OUTPUT_DIR = join(ROOT_DIR, "src/data/providers");
 const CAPABILITIES_DATA_DIR = join(ROOT_DIR, "src/data/capabilities");
 const REFERENCE_DIR = join(ROOT_DIR, "src/content/docs/reference");
+const SIDEBAR_PATH = join(ROOT_DIR, "sidebar.ts");
+const COMPAT_MATRIX_PATH = join(
+  ROOT_DIR,
+  "src/content/docs/using-syllago/content-types/index.mdx"
+);
+const HOOKS_MDX_PATH = join(
+  ROOT_DIR,
+  "src/content/docs/using-syllago/content-types/hooks.mdx"
+);
 const FETCH_TIMEOUT_MS = 15_000;
+
+// Canonical content type order in the sidebar (Skills first, Agents last).
+const SIDEBAR_CT_ORDER = ["skills", "hooks", "rules", "mcp", "commands", "agents"];
+const SIDEBAR_START_MARKER = "// AUTO-GENERATED:PROVIDERS START";
+const SIDEBAR_END_MARKER = "// AUTO-GENERATED:PROVIDERS END";
+
+// Compatibility-matrix row order on the content-types landing page.
+// Loadouts are intentionally NOT included: they're a syllago-specific
+// bundling concept, not an upstream provider content type.
+const COMPAT_MATRIX_CT_ORDER = [
+  "rules",
+  "skills",
+  "agents",
+  "mcp",
+  "hooks",
+  "commands",
+];
+const COMPAT_MATRIX_START_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX START";
+const COMPAT_MATRIX_END_MARKER = "{/* AUTO-GENERATED:COMPAT-MATRIX END */}";
+
+// Canonical-event summary block in the hooks content-type page. The block
+// shows events supported by both Claude Code and Gemini CLI (the two
+// featured providers in the intro docs). The full cross-provider matrix
+// lives at /reference/hook-events/ (also auto-generated).
+const HOOKS_EVENTS_START_MARKER = "{/* AUTO-GENERATED:HOOKS-EVENTS START";
+const HOOKS_EVENTS_END_MARKER = "{/* AUTO-GENERATED:HOOKS-EVENTS END */}";
+const HOOKS_SUMMARY_PROVIDER_SLUGS = ["claude-code", "gemini-cli"];
+
+// Short column labels for the compatibility matrix. The table is 15 columns
+// wide; the short forms keep every cell legible. Providers not in this map
+// fall back to the first word of their display name.
+const COMPAT_MATRIX_SHORT: Record<string, string> = {
+  "claude-code": "Claude",
+  "gemini-cli": "Gemini",
+  "copilot-cli": "Copilot",
+  "factory-droid": "Factory",
+  "roo-code": "Roo",
+};
 
 // Display names for content types (used in tables).
 const CT_DISPLAY: Record<string, string> = {
@@ -90,10 +122,9 @@ const CT_DISPLAY: Record<string, string> = {
   skills: "Skills",
   agents: "Agents",
   commands: "Commands",
-  loadouts: "Loadouts",
 };
 
-// The six standard content types shown in the matrix (excludes loadouts).
+// The six standard content types shown in the matrix.
 const MATRIX_TYPES = ["rules", "skills", "agents", "mcp", "hooks", "commands"];
 
 // File format display names.
@@ -176,33 +207,6 @@ function getGitHubToken(): string | undefined {
   } catch {
     return undefined;
   }
-}
-
-// ---------------------------------------------------------------------------
-// Load capabilities data (written by sync-capabilities.ts)
-// ---------------------------------------------------------------------------
-
-function loadCapabilitiesData(): Map<string, CapDataEntry> {
-  // Map key: "<provider>-<contentType>"
-  const result = new Map<string, CapDataEntry>();
-
-  if (!existsSync(CAPABILITIES_DATA_DIR)) {
-    console.log("  Capabilities data not found — skipping extensions enrichment.");
-    return result;
-  }
-
-  const files = readdirSync(CAPABILITIES_DATA_DIR).filter((f) =>
-    f.endsWith(".json")
-  );
-
-  for (const file of files) {
-    const raw = readFileSync(join(CAPABILITIES_DATA_DIR, file), "utf-8");
-    const entry = JSON.parse(raw) as CapDataEntry;
-    result.set(entry.id, entry);
-  }
-
-  console.log(`  Loaded ${result.size} capability entries for extensions enrichment.`);
-  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -292,6 +296,208 @@ function writeProviderDataFiles(providers: ProviderCapEntry[]): void {
 }
 
 // ---------------------------------------------------------------------------
+// Sidebar generation — Providers section
+// ---------------------------------------------------------------------------
+
+// Renders the providers block as it appears between AUTO-GENERATED markers in
+// sidebar.ts. Indentation matches the surrounding Starlight config: 10 spaces
+// for marker + provider entry braces, 12 for entry properties, 14 for items.
+function generateProvidersSidebarBlock(providers: ProviderCapEntry[]): string {
+  const sorted = [...providers].sort((a, b) => a.name.localeCompare(b.name));
+  const lines: string[] = [
+    `          ${SIDEBAR_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand.`,
+  ];
+  for (const prov of sorted) {
+    const safeName = prov.name.replace(/'/g, "\\'");
+    lines.push(
+      `          {`,
+      `            label: '${safeName}',`,
+      `            collapsed: true,`,
+      `            items: [`,
+      `              { label: 'Overview', link: '/using-syllago/providers/${prov.slug}/' },`,
+    );
+    for (const ct of SIDEBAR_CT_ORDER) {
+      if (prov.content[ct]?.supported) {
+        const label = CT_DISPLAY[ct] ?? ct;
+        lines.push(
+          `              { label: '${label}', link: '/using-syllago/providers/${prov.slug}/${ct}/' },`,
+        );
+      }
+    }
+    lines.push(`            ],`, `          },`);
+  }
+  lines.push(`          ${SIDEBAR_END_MARKER}`);
+  return lines.join("\n");
+}
+
+function writeProvidersSidebarBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(SIDEBAR_PATH)) {
+    throw new Error(`sidebar.ts not found at ${SIDEBAR_PATH}`);
+  }
+  const current = readFileSync(SIDEBAR_PATH, "utf-8");
+  const startIdx = current.indexOf(SIDEBAR_START_MARKER);
+  const endIdx = current.indexOf(SIDEBAR_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `sidebar.ts is missing AUTO-GENERATED:PROVIDERS markers. ` +
+      `Add the START/END comment block inside the 'Supported Providers' items array.`
+    );
+  }
+  // Replace from start of the marker line through end of the END marker line.
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + SIDEBAR_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`sidebar.ts END marker has no trailing newline`);
+  }
+  const block = generateProvidersSidebarBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Sidebar: no changes");
+    return;
+  }
+  writeFileSync(SIDEBAR_PATH, updated);
+  console.log("  Sidebar: providers section regenerated");
+}
+
+// ---------------------------------------------------------------------------
+// Compatibility-matrix codegen (content-types landing page)
+// ---------------------------------------------------------------------------
+
+// Column label for a provider in the 15-wide matrix. Falls back to the first
+// word of the display name when the provider isn't in the short-name map —
+// a reasonable default for future additions like single-word provider names.
+function compatMatrixLabel(prov: ProviderCapEntry): string {
+  return COMPAT_MATRIX_SHORT[prov.slug] ?? prov.name.split(" ")[0];
+}
+
+// Renders the compatibility-matrix managed block. Columns are sorted
+// alphabetically by provider name so the column order is stable as new
+// providers are added or removed. Rows follow COMPAT_MATRIX_CT_ORDER.
+function generateCompatMatrixBlock(providers: ProviderCapEntry[]): string {
+  const sorted = [...providers].sort((a, b) => a.name.localeCompare(b.name));
+  const headerLabels = sorted.map(compatMatrixLabel);
+
+  const lines: string[] = [
+    `${COMPAT_MATRIX_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand. */}`,
+    `| Content Type | ${headerLabels.join(" | ")} |`,
+    `|${"---|".repeat(headerLabels.length + 1)}`,
+  ];
+
+  for (const ct of COMPAT_MATRIX_CT_ORDER) {
+    const cells = sorted.map((p) =>
+      p.content[ct]?.supported ? "✅" : "—"
+    );
+    lines.push(`| ${CT_DISPLAY[ct] ?? ct} | ${cells.join(" | ")} |`);
+  }
+
+  lines.push(COMPAT_MATRIX_END_MARKER);
+  return lines.join("\n");
+}
+
+function writeCompatMatrixBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(COMPAT_MATRIX_PATH)) {
+    throw new Error(`content-types/index.mdx not found at ${COMPAT_MATRIX_PATH}`);
+  }
+  const current = readFileSync(COMPAT_MATRIX_PATH, "utf-8");
+  const startIdx = current.indexOf(COMPAT_MATRIX_START_MARKER);
+  const endIdx = current.indexOf(COMPAT_MATRIX_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `content-types/index.mdx is missing AUTO-GENERATED:COMPAT-MATRIX markers. ` +
+      `Add the START/END block around the Provider Compatibility Matrix table.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + COMPAT_MATRIX_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`content-types/index.mdx END marker has no trailing newline`);
+  }
+  const block = generateCompatMatrixBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Compat matrix: no changes");
+    return;
+  }
+  writeFileSync(COMPAT_MATRIX_PATH, updated);
+  console.log("  Compat matrix: regenerated from provider data");
+}
+
+// ---------------------------------------------------------------------------
+// Hooks content-type page: canonical-event summary block
+// ---------------------------------------------------------------------------
+
+// Builds the 3-column Canonical | Claude Code | Gemini CLI table shown in
+// the intro hooks docs. The event list is derived from the intersection of
+// canonical events supported by both featured providers, so new events
+// added upstream flow through on the next sync without any hand editing.
+function generateHooksEventsBlock(providers: ProviderCapEntry[]): string {
+  const featured = HOOKS_SUMMARY_PROVIDER_SLUGS.map((slug) =>
+    providers.find((p) => p.slug === slug)
+  );
+  if (featured.some((p) => !p)) {
+    throw new Error(
+      `Hooks summary block: missing one of ${HOOKS_SUMMARY_PROVIDER_SLUGS.join(", ")} in providers.json`
+    );
+  }
+
+  const eventMaps = featured.map((p) => {
+    const map = new Map<string, string>();
+    for (const ev of p!.content.hooks?.hookEvents ?? []) {
+      map.set(ev.canonical, ev.nativeName);
+    }
+    return map;
+  });
+
+  // Intersection across all featured providers, sorted alphabetically.
+  const shared = [...eventMaps[0].keys()]
+    .filter((canonical) => eventMaps.every((m) => m.has(canonical)))
+    .sort();
+
+  const headers = featured.map((p) => p!.name);
+  const lines: string[] = [
+    `${HOOKS_EVENTS_START_MARKER} — managed by scripts/sync-providers.ts. Do not edit by hand. */}`,
+    `| Canonical Event | ${headers.join(" | ")} |`,
+    `|${"---|".repeat(headers.length + 1)}`,
+  ];
+
+  for (const canonical of shared) {
+    const cells = eventMaps.map((m) => `\`${m.get(canonical)}\``);
+    lines.push(`| \`${canonical}\` | ${cells.join(" | ")} |`);
+  }
+
+  lines.push(HOOKS_EVENTS_END_MARKER);
+  return lines.join("\n");
+}
+
+function writeHooksEventsBlock(providers: ProviderCapEntry[]): void {
+  if (!existsSync(HOOKS_MDX_PATH)) {
+    throw new Error(`hooks.mdx not found at ${HOOKS_MDX_PATH}`);
+  }
+  const current = readFileSync(HOOKS_MDX_PATH, "utf-8");
+  const startIdx = current.indexOf(HOOKS_EVENTS_START_MARKER);
+  const endIdx = current.indexOf(HOOKS_EVENTS_END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    throw new Error(
+      `hooks.mdx is missing AUTO-GENERATED:HOOKS-EVENTS markers. ` +
+      `Add the START/END block around the Canonical Events table.`
+    );
+  }
+  const lineStart = current.lastIndexOf("\n", startIdx) + 1;
+  const lineEnd = current.indexOf("\n", endIdx + HOOKS_EVENTS_END_MARKER.length);
+  if (lineEnd === -1) {
+    throw new Error(`hooks.mdx END marker has no trailing newline`);
+  }
+  const block = generateHooksEventsBlock(providers);
+  const updated = current.slice(0, lineStart) + block + current.slice(lineEnd);
+  if (updated === current) {
+    console.log("  Hooks events summary: no changes");
+    return;
+  }
+  writeFileSync(HOOKS_MDX_PATH, updated);
+  console.log("  Hooks events summary: regenerated from provider data");
+}
+
+// ---------------------------------------------------------------------------
 // MDX generation — Index page
 // ---------------------------------------------------------------------------
 
@@ -371,269 +577,6 @@ function generateIndexPage(
     "```",
     "",
     "If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.",
-    "",
-    `*Generated from syllago ${manifest.syllagoVersion} on ${manifest.generatedAt.split("T")[0]}.*`,
-    ""
-  );
-
-  return lines.join("\n");
-}
-
-// ---------------------------------------------------------------------------
-// Extensions section generator
-// ---------------------------------------------------------------------------
-
-function generateExtensionsSections(
-  providerSlug: string,
-  capabilitiesData: Map<string, CapDataEntry>
-): { imports: string[]; sections: string[] } {
-  const imports: string[] = [];
-  const sections: string[] = [];
-
-  // Content types to check for extensions, in display order.
-  const contentTypesOrdered = [
-    "skills", "rules", "agents", "commands", "hooks", "mcp",
-  ];
-
-  let needsImport = false;
-
-  for (const contentType of contentTypesOrdered) {
-    const entry = capabilitiesData.get(`${providerSlug}-${contentType}`);
-    if (!entry || entry.providerExtensions.length === 0) continue;
-
-    needsImport = true;
-    const ctTitle =
-      CT_DISPLAY[contentType] || contentType.charAt(0).toUpperCase() + contentType.slice(1);
-
-    sections.push(
-      `## ${ctTitle} Extensions`,
-      "",
-      `Provider-specific ${ctTitle.toLowerCase()} behaviors and configuration options beyond the canonical keys.`,
-      "",
-      `<ProviderExtensions provider="${providerSlug}" contentType="${contentType}" />`,
-      ""
-    );
-  }
-
-  if (needsImport) {
-    imports.push("import ProviderExtensions from '../../../../components/ProviderExtensions.astro';");
-  }
-
-  return { imports, sections };
-}
-
-// ---------------------------------------------------------------------------
-// MDX generation — Per-provider pages (enriched)
-// ---------------------------------------------------------------------------
-
-function generateProviderPage(
-  prov: ProviderCapEntry,
-  manifest: ProviderManifest,
-  capabilitiesData: Map<string, CapDataEntry>
-): string {
-  // Compute extensions first so we can emit imports at the top.
-  const { imports: extImports, sections: extSections } = generateExtensionsSections(
-    prov.slug,
-    capabilitiesData
-  );
-
-  const supportedTypes = Object.entries(prov.content)
-    .filter(([, cap]) => cap.supported)
-    .map(([ct]) => CT_DISPLAY[ct] || ct);
-
-  const lines: string[] = [
-    "---",
-    `title: ${prov.name}`,
-    `description: How syllago works with ${prov.name} — supported content types, file locations, hook events, MCP configuration, and format details.`,
-    "---",
-    "",
-    "{/* AUTO-GENERATED — do not edit. Source: providers.json via sync-providers.ts */}",
-    "",
-  ];
-
-  // Extension component imports (only present when provider has extensions).
-  if (extImports.length > 0) {
-    lines.push(...extImports, "");
-  }
-
-  lines.push(
-    "## Provider Details",
-    "",
-    "| Detail | Value |",
-    "|--------|-------|",
-    `| **Slug** | \`${prov.slug}\` |`,
-    `| **Config directory** | \`~/${prov.configDir}\` |`,
-    `| **Supported content types** | ${supportedTypes.join(", ")} |`,
-  );
-
-  // Emit path.
-  if (prov.emitPath) {
-    lines.push(
-      `| **Emit path** | \`${prov.emitPath.replace("{project}/", "")}\` |`
-    );
-  }
-
-  lines.push(
-    "",
-    "## Supported Content Types",
-    "",
-    "| Content Type | Supported | Install Method |",
-    "|-------------|-----------|---------------|"
-  );
-
-  for (const ct of [...MATRIX_TYPES, "loadouts"]) {
-    const cap = prov.content[ct];
-    if (!cap) continue;
-    const name = CT_DISPLAY[ct] || ct;
-    const supported = cap.supported ? "Yes" : "No";
-    const method = cap.supported
-      ? METHOD_DISPLAY[cap.installMethod || ""] || cap.installMethod || "—"
-      : "—";
-    lines.push(`| ${name} | ${supported} | ${method} |`);
-  }
-
-  // File format and location table.
-  const hasLocations = Object.values(prov.content).some(
-    (cap) => cap.supported && (cap.installPath || cap.discoveryPaths?.length)
-  );
-
-  if (hasLocations) {
-    lines.push(
-      "",
-      "## File Format and Location",
-      "",
-      "| Content Type | Discovery Paths | Global Location | Format |",
-      "|-------------|----------------|----------------|--------|"
-    );
-
-    for (const ct of [...MATRIX_TYPES, "loadouts"]) {
-      const cap = prov.content[ct];
-      if (!cap?.supported) continue;
-      const name = CT_DISPLAY[ct] || ct;
-      const format =
-        FORMAT_DISPLAY[cap.fileFormat || ""] || cap.fileFormat || "—";
-
-      const discovery = cap.discoveryPaths?.length
-        ? cap.discoveryPaths
-            .map((p) => `\`${p.replace("{project}/", "").replace("{home}/", "~/")}\``)
-            .join(", ")
-        : "—";
-
-      const global = cap.installPath
-        ? `\`${cap.installPath.replace("{home}/", "~/")}\``
-        : "—";
-
-      lines.push(`| ${name} | ${discovery} | ${global} | ${format} |`);
-    }
-  }
-
-  // --- Enrichment: Hook events ---
-  const hooksCap = prov.content.hooks;
-  if (hooksCap?.supported && hooksCap.hookEvents?.length) {
-    lines.push(
-      "",
-      "## Hook Events",
-      "",
-      `${prov.name} supports **${hooksCap.hookEvents.length} hook events** with handler types: ${(hooksCap.hookTypes ?? ["command"]).map((t) => `\`${t}\``).join(", ")}.`,
-      ""
-    );
-
-    if (hooksCap.configLocation) {
-      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
-    }
-
-    lines.push(
-      "| Event | Native Name | Category |",
-      "|-------|------------|----------|"
-    );
-
-    for (const ev of hooksCap.hookEvents) {
-      const cat = ev.category
-        ? CATEGORY_DISPLAY[ev.category] || ev.category
-        : "—";
-      lines.push(
-        `| \`${ev.canonical}\` | \`${ev.nativeName}\` | ${cat} |`
-      );
-    }
-  } else if (hooksCap?.supported) {
-    // Supports hooks but no event mappings yet (e.g. Windsurf, Codex).
-    lines.push(
-      "",
-      "## Hooks",
-      "",
-      `${prov.name} supports hooks, but syllago does not yet map its hook event names. Hook conversion to and from ${prov.name} is best-effort.`,
-      ""
-    );
-    if (hooksCap.configLocation) {
-      lines.push(`Hooks are configured in \`${hooksCap.configLocation}\`.`, "");
-    }
-  }
-
-  // --- Enrichment: MCP configuration ---
-  const mcpCap = prov.content.mcp;
-  if (mcpCap?.supported && mcpCap.mcpTransports?.length) {
-    lines.push(
-      "",
-      "## MCP Configuration",
-      "",
-      "| Detail | Value |",
-      "|--------|-------|",
-      `| **Transports** | ${mcpCap.mcpTransports.map((t) => `\`${t}\``).join(", ")} |`
-    );
-    if (mcpCap.configLocation) {
-      lines.push(
-        `| **Config file** | \`${mcpCap.configLocation}\` |`
-      );
-    }
-    lines.push("");
-  }
-
-  // --- Enrichment: Rules format ---
-  const rulesCap = prov.content.rules;
-  if (rulesCap?.supported && rulesCap.frontmatterFields?.length) {
-    lines.push(
-      "",
-      "## Rules Format",
-      "",
-      "| Detail | Value |",
-      "|--------|-------|",
-      `| **File format** | ${FORMAT_DISPLAY[rulesCap.fileFormat || ""] || rulesCap.fileFormat || "Markdown"} |`,
-      `| **Frontmatter fields** | ${rulesCap.frontmatterFields.map((f) => `\`${f}\``).join(", ")} |`
-    );
-    if (prov.emitPath) {
-      lines.push(
-        `| **Primary file** | \`${prov.emitPath.replace("{project}/", "")}\` |`
-      );
-    }
-    lines.push("");
-  }
-
-  // --- Extensions enrichment ---
-  if (extSections.length > 0) {
-    lines.push(...extSections);
-  }
-
-  // Detection.
-  lines.push(
-    "",
-    "## Detection",
-    "",
-    `Syllago detects ${prov.name} by checking for the \`~/${prov.configDir}\` directory.`,
-    "",
-    `## Working with ${prov.name}`,
-    "",
-    "```bash",
-    `# Add content from ${prov.name}`,
-    `syllago add --from ${prov.slug}`,
-    "",
-    `# Install content to ${prov.name}`,
-    `syllago install my-rule --to ${prov.slug}`,
-    "```",
-    "",
-    "## See Also",
-    "",
-    "- [Providers Overview](/using-syllago/providers/)",
-    "- [Format Conversion](/using-syllago/format-conversion/)",
     "",
     `*Generated from syllago ${manifest.syllagoVersion} on ${manifest.generatedAt.split("T")[0]}.*`,
     ""
@@ -992,25 +935,22 @@ async function main() {
   // 1. Write per-provider JSON data files for Astro data collection.
   writeProviderDataFiles(manifest.providers);
 
-  // 2. Generate MDX pages.
+  // 2. Regenerate the providers section of sidebar.ts (managed-block codegen).
+  writeProvidersSidebarBlock(manifest.providers);
+
+  // 2a. Regenerate the Provider Compatibility Matrix (managed-block codegen).
+  writeCompatMatrixBlock(manifest.providers);
+
+  // 2b. Regenerate the canonical-event summary table in hooks.mdx.
+  writeHooksEventsBlock(manifest.providers);
+
+  // 3. Generate MDX pages.
   rmSync(MDX_OUTPUT_DIR, { recursive: true, force: true });
   mkdirSync(MDX_OUTPUT_DIR, { recursive: true });
-
-  // Load capabilities data for extensions enrichment.
-  const capabilitiesData = loadCapabilitiesData();
 
   const indexContent = generateIndexPage(manifest.providers, manifest);
   writeFileSync(join(MDX_OUTPUT_DIR, "index.mdx"), indexContent);
   console.log("  MDX: index.mdx");
-
-  let count = 0;
-  for (const prov of manifest.providers) {
-    const content = generateProviderPage(prov, manifest, capabilitiesData);
-    writeFileSync(join(MDX_OUTPUT_DIR, `${prov.slug}.mdx`), content);
-    count++;
-  }
-
-  console.log(`  MDX: ${count} provider pages`);
 
   // 3. Generate reference pages.
   mkdirSync(REFERENCE_DIR, { recursive: true });
@@ -1032,7 +972,7 @@ async function main() {
     }
   }
 
-  console.log(`  Total: ${count + 1 + refCount} MDX + ${manifest.providers.length} JSON`);
+  console.log(`  Total: ${1 + refCount} MDX + ${manifest.providers.length} JSON`);
 }
 
 main().catch((err) => {

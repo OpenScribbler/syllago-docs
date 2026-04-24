@@ -1,0 +1,51 @@
+{
+  "id": "zed-rules",
+  "provider": "zed",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://zed.dev/docs/ai/rules",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/zed-industries/zed/main/.rules",
+      "type": "example",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Zed rule files load unconditionally when present at project root; no conditional activation syntax documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Zed does not document a command that persists agent memory into the rules file"
+    },
+    "cross_provider_recognition": {
+      "supported": true,
+      "mechanism": "Zed discovers .rules, .cursorrules, and CLAUDE.md at project root, so rule files authored for other agents are picked up"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "no import directive documented for Zed's .rules file"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Zed loads rule files from the project root only; no multi-tier hierarchical loading documented"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "cross_provider_rule_files",
+      "name": "Cross-provider rule file recognition",
+      "summary": "At project root, Zed recognizes .rules, .cursorrules, and CLAUDE.md so rule content authored for other agents is used without renaming.",
+      "source_ref": "https://zed.dev/docs/ai/rules",
+      "required": null,
+      "conversion": "preserved"
+    }
+  ]
+}

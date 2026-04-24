@@ -1,0 +1,55 @@
+---
+title: "syllago share"
+description: "Contribute library content to a team repo or registry"
+---
+
+## Synopsis
+
+```
+syllago share <name> [flags]
+```
+
+## Description
+
+Copies a library item to a target repo, stages the change, and
+optionally creates a branch and PR.
+
+By default, shares to the current team repo (the syllago repo you're in).
+Use --to to share to a named registry instead.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--no-input` | `bool` | — | No | Skip interactive git prompts, stage only |
+| `--to` | `string` | — | No | Target registry name (omit for current team repo) |
+| `--type` | `string` | — | No | Disambiguate when name exists in multiple types |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Share a skill to the current team repo
+  syllago share my-skill
+
+  # Share to a named registry
+  syllago share my-skill --to my-registry
+
+  # Disambiguate by type
+  syllago share my-rule --type rules
+
+  # Non-interactive mode (stage only, no git prompts)
+  syllago share my-skill --no-input
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/share_cmd.go)</small>

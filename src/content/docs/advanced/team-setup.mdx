@@ -47,16 +47,12 @@ Syncing updates the local clone only — it does not modify anyone's library or 
 Registries are not read-only. When a team member creates content that belongs in the shared registry, they contribute it via PR:
 
 ```bash
-syllago publish useful-skill --registry your-registry
+syllago share useful-skill --to your-registry
 ```
 
 This creates a branch in the registry clone, copies the content, commits, pushes, and opens a pull request if the `gh` CLI is installed. The registry maintainer reviews and merges through the normal PR workflow — no special tooling required on their end.
 
-For sharing directly with a team repo (without a registry), use `syllago share`:
-
-```bash
-syllago share useful-skill
-```
+`syllago share` also works for arbitrary team repos that aren't structured as registries — drop the `--to` flag and configure a default team repo target.
 
 This means team standards can evolve from the bottom up. Individual developers experiment locally, and the best content gets published to the shared registry for everyone.
 
@@ -165,5 +161,4 @@ The registry is the source of truth. Loadouts make it easy to apply. Project con
 - [Loadouts](/using-syllago/collections/loadouts/) — creating, applying, and managing loadouts
 - [`syllago init`](/using-syllago/cli-reference/init/) — project initialization
 - `syllago install` — installing content to providers
-- `syllago publish` — contributing content to a registry
-- `syllago share` — contributing content to a team repo
+- `syllago share` — contributing content to a registry or team repo

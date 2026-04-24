@@ -24,7 +24,7 @@ Commands support the following metadata:
 
 | Field | Description | Provider Support |
 |---|---|---|
-| `effort` | Time/complexity: `min`, `moderate`, `large`, `max` | Claude Code (native); others as behavioral notes |
+| `effort` | Time/complexity: `low`, `medium`, `high`, `max` | Claude Code (native); others as behavioral notes |
 
 ## Syllago Format
 
@@ -36,7 +36,7 @@ Commands are stored in your library using syllago's provider-neutral format. The
 id: 6c0ce509-7960-490f-9100-4d5009d6261c
 name: fix_typo
 type: commands
-source_format: toml
+source_format: md
 source_type: provider
 has_source: true
 added_at: 2026-03-11T19:23:53Z
@@ -46,29 +46,27 @@ added_by: syllago
 Key fields:
 
 - **type** -- always `commands` for this content type
-- **source_format** -- the format of the source file (`toml`, `md`, `yaml`)
+- **source_format** -- the format of the source file (`md` for all supported providers)
 - **has_source** -- indicates the item includes a source file with the command definition
 
 ### Command Source
 
-The source file contains the actual command definition. The format depends on where the command was imported from. Here is a TOML example (Codex-style):
+The source file is a Markdown file with optional YAML frontmatter for metadata. Here is a Claude Code-style example:
 
-```toml
-description = "Fix a typo in a document."
+```markdown
+---
+description: Fix a typo in a document.
+argument-hint: <file-path>
+---
 
-[variables]
-file_path = "{{FILE_PATH}}"
-file_content = "{{FILE_CONTENT}}"
+You are a documentation editor.
 
-[instructions]
-preamble = "You are a documentation editor..."
-steps = [
-    "Read the file content carefully.",
-    "Find and fix the reported typo.",
-]
+1. Read the file at $ARGUMENTS carefully.
+2. Find and fix the reported typo.
+3. Report back what you changed.
 ```
 
-A Markdown-based command (Claude Code or Gemini CLI style) would instead be a `.md` file with the prompt content directly as prose, optionally with frontmatter for metadata.
+All supported providers (Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode, and others) use this Markdown-with-frontmatter convention. Frontmatter fields differ slightly per provider — see the per-provider commands pages under [Providers](/using-syllago/providers/).
 
 ## Format Conversion
 

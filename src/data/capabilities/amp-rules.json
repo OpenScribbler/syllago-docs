@@ -3,7 +3,7 @@
   "provider": "amp",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T21:49:38Z",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/AGENT.md",
@@ -16,25 +16,52 @@
       "fetched_at": "2026-04-11T21:46:11Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Amp rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Amp does not have an AI-generated auto-memory system"
+    },
+    "cross_provider_recognition": {
+      "supported": false,
+      "mechanism": "Amp reads its own rule format; no cross-provider rule file recognition documented"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Amp rule files"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Amp rule files are project-scoped; no subdirectory hierarchy documented"
+    }
+  },
   "providerExtensions": [
     {
       "id": "canonical_filename",
       "name": "Canonical filename: AGENT.md",
-      "description": "Amp rules files are named AGENT.md. The filename is fixed — no frontmatter, no directory wrapper. The file contains plain Markdown with behavioral instructions, coding conventions, workflow guidelines, and any other context the agent should follow when working in the project.",
-      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+      "summary": "Rules live in a fixed-name AGENT.md file with no frontmatter or directory wrapper — plain Markdown body only.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md",
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "project_scope",
       "name": "Project-scope placement at repository root",
-      "description": "AGENT.md is placed at the root of the project repository. It is project-scoped: the instructions apply when Amp operates within that project. The file can be committed to version control so the whole team benefits from the same guidelines.",
-      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+      "summary": "AGENT.md sits at the project repo root; team-shared via version control, applied when Amp operates in that project.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md",
+      "required": null,
+      "conversion": "translated"
     },
     {
       "id": "plain_markdown_content",
       "name": "Plain Markdown, no frontmatter",
-      "description": "AGENT.md contains plain Markdown only — no YAML frontmatter, no structured metadata fields. Sections are organized with Markdown headings. Typical content observed includes: build commands and scripts, architecture and directory layout, code style and conventions, testing methodology (e.g., TDD requirements), PR workflow rules, tool and dependency notes, and any team-specific behavioral instructions for the AI.",
-      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md"
+      "summary": "AGENT.md is plain Markdown with heading-organized sections — no YAML frontmatter or structured metadata.",
+      "source_ref": "https://raw.githubusercontent.com/sourcegraph/amp-examples-and-guides/main/guides/agent-file/AGENT.md",
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

@@ -11,19 +11,45 @@
       "fetched_at": "2026-04-11T21:48:30Z"
     }
   ],
-  "canonicalMappings": {},
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": false,
+      "mechanism": "Pi rule files load unconditionally; no conditional or model-decision activation documented"
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Pi does not have an AI-generated auto-memory system"
+    },
+    "cross_provider_recognition": {
+      "supported": false,
+      "mechanism": "Pi reads its own rule format; no cross-provider rule file recognition documented"
+    },
+    "file_imports": {
+      "supported": false,
+      "mechanism": "No file import syntax documented for Pi rule files"
+    },
+    "hierarchical_loading": {
+      "supported": false,
+      "mechanism": "Pi rule files are not documented as supporting multi-level directory loading"
+    }
+  },
   "providerExtensions": [
     {
       "id": "pi_rules_via_skill_md",
       "name": "Rules delivered via SKILL.md",
-      "description": "Pi has no dedicated rules format. Standing instructions are delivered by placing a SKILL.md file in a skill directory and relying on the skills discovery mechanism. Pi reads skills.md as 'instructions' — the same progressive-disclosure system that loads capability skills also loads any SKILL.md that contains standing instructions. Rules can be scoped globally (~/.pi/agent/skills/) or per-project (.pi/skills/) using the same paths as skills.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "summary": "Pi has no dedicated rules format — standing instructions are delivered by placing a SKILL.md in a skill directory (global or project scope).",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null,
+      "conversion": "embedded"
     },
     {
       "id": "pi_rules_cross_harness",
       "name": "Cross-harness rules loading via settings array",
-      "description": "Because pi's settings skills array accepts paths to other providers' skill directories, rules authored as SKILL.md files for other providers can be loaded directly into a pi session without conversion. This is a side-effect of cross-harness skill loading rather than a dedicated rules feature.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md"
+      "summary": "SKILL.md rule files authored for other providers load directly via pi's settings skills array, inheriting cross-harness skill loading.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/skills.md",
+      "required": null,
+      "provider_field": "skills",
+      "conversion": "not-portable"
     }
   ]
 }

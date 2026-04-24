@@ -1,0 +1,72 @@
+{
+  "id": "crush-mcp",
+  "provider": "crush",
+  "contentType": "mcp",
+  "status": "supported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "type": "source_code",
+      "fetched_at": "2026-04-17T00:00:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/README.md",
+      "type": "documentation",
+      "fetched_at": "2026-04-17T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "auto_approve": {
+      "supported": false,
+      "mechanism": "Crush does not document pre-configured auto-approval for specific MCP tools"
+    },
+    "enterprise_management": {
+      "supported": false,
+      "mechanism": "Crush does not document organization-level MCP management"
+    },
+    "env_var_expansion": {
+      "supported": true,
+      "mechanism": "env_variable_expansion: Crush MCP configuration supports environment variable references in server env blocks"
+    },
+    "marketplace": {
+      "supported": false,
+      "mechanism": "Crush does not have an in-app MCP marketplace"
+    },
+    "oauth_support": {
+      "supported": false,
+      "mechanism": "Crush MCP does not document OAuth 2.0 authentication for remote servers"
+    },
+    "resource_referencing": {
+      "supported": false,
+      "mechanism": "MCP resource referencing (as distinct from tool calls) not documented in Crush"
+    },
+    "tool_filtering": {
+      "supported": false,
+      "mechanism": "Per-server tool allow/block list not documented in the Crush MCP schema"
+    },
+    "transport_types": {
+      "supported": true,
+      "mechanism": "transport_types: Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "transport_types",
+      "name": "Three transport mechanisms",
+      "summary": "Supports stdio, http, and sse transports for MCP server connections, configured via the mcp key in crush.json.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
+    },
+    {
+      "id": "unified_config_file",
+      "name": "Unified crush.json config file",
+      "summary": "MCP servers, tools, permissions, and model settings all share a single crush.json config file rather than being split across multiple settings files.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "conversion": "not-portable"
+    }
+  ]
+}

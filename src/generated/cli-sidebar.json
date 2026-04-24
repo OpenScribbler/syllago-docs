@@ -1,5 +1,75 @@
 [
   {
+    "label": "add",
+    "slug": "using-syllago/cli-reference/add"
+  },
+  {
+    "label": "capmon",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "capmon",
+        "slug": "using-syllago/cli-reference/capmon"
+      },
+      {
+        "label": "check",
+        "slug": "using-syllago/cli-reference/capmon-check"
+      },
+      {
+        "label": "derive",
+        "slug": "using-syllago/cli-reference/capmon-derive"
+      },
+      {
+        "label": "diff",
+        "slug": "using-syllago/cli-reference/capmon-diff"
+      },
+      {
+        "label": "extract",
+        "slug": "using-syllago/cli-reference/capmon-extract"
+      },
+      {
+        "label": "fetch",
+        "slug": "using-syllago/cli-reference/capmon-fetch"
+      },
+      {
+        "label": "generate",
+        "slug": "using-syllago/cli-reference/capmon-generate"
+      },
+      {
+        "label": "onboard",
+        "slug": "using-syllago/cli-reference/capmon-onboard"
+      },
+      {
+        "label": "run",
+        "slug": "using-syllago/cli-reference/capmon-run"
+      },
+      {
+        "label": "seed",
+        "slug": "using-syllago/cli-reference/capmon-seed"
+      },
+      {
+        "label": "test-fixtures",
+        "slug": "using-syllago/cli-reference/capmon-test-fixtures"
+      },
+      {
+        "label": "validate-format-doc",
+        "slug": "using-syllago/cli-reference/capmon-validate-format-doc"
+      },
+      {
+        "label": "validate-sources",
+        "slug": "using-syllago/cli-reference/capmon-validate-sources"
+      },
+      {
+        "label": "verify",
+        "slug": "using-syllago/cli-reference/capmon-verify"
+      }
+    ]
+  },
+  {
+    "label": "compat",
+    "slug": "using-syllago/cli-reference/compat"
+  },
+  {
     "label": "completion",
     "collapsed": true,
     "items": [
@@ -42,22 +112,30 @@
         "slug": "using-syllago/cli-reference/config-list"
       },
       {
+        "label": "paths",
+        "slug": "using-syllago/cli-reference/config-paths"
+      },
+      {
         "label": "remove",
         "slug": "using-syllago/cli-reference/config-remove"
       }
     ]
   },
   {
+    "label": "convert",
+    "slug": "using-syllago/cli-reference/convert"
+  },
+  {
     "label": "create",
     "slug": "using-syllago/cli-reference/create"
   },
   {
-    "label": "export",
-    "slug": "using-syllago/cli-reference/export"
+    "label": "doctor",
+    "slug": "using-syllago/cli-reference/doctor"
   },
   {
-    "label": "import",
-    "slug": "using-syllago/cli-reference/import"
+    "label": "explain",
+    "slug": "using-syllago/cli-reference/explain"
   },
   {
     "label": "info",
@@ -84,6 +162,10 @@
   {
     "label": "inspect",
     "slug": "using-syllago/cli-reference/inspect"
+  },
+  {
+    "label": "install",
+    "slug": "using-syllago/cli-reference/install"
   },
   {
     "label": "list",
@@ -120,16 +202,30 @@
     ]
   },
   {
-    "label": "promote",
+    "label": "manifest",
     "collapsed": true,
     "items": [
       {
-        "label": "promote",
-        "slug": "using-syllago/cli-reference/promote"
+        "label": "manifest",
+        "slug": "using-syllago/cli-reference/manifest"
       },
       {
-        "label": "to-registry",
-        "slug": "using-syllago/cli-reference/promote-to-registry"
+        "label": "generate",
+        "slug": "using-syllago/cli-reference/manifest-generate"
+      }
+    ]
+  },
+  {
+    "label": "moat",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "moat",
+        "slug": "using-syllago/cli-reference/moat"
+      },
+      {
+        "label": "trust",
+        "slug": "using-syllago/cli-reference/moat-trust"
       }
     ]
   },
@@ -144,6 +240,10 @@
       {
         "label": "add",
         "slug": "using-syllago/cli-reference/registry-add"
+      },
+      {
+        "label": "create",
+        "slug": "using-syllago/cli-reference/registry-create"
       },
       {
         "label": "items",
@@ -162,6 +262,14 @@
         "slug": "using-syllago/cli-reference/registry-sync"
       }
     ]
+  },
+  {
+    "label": "remove",
+    "slug": "using-syllago/cli-reference/remove"
+  },
+  {
+    "label": "rename",
+    "slug": "using-syllago/cli-reference/rename"
   },
   {
     "label": "sandbox",
@@ -222,8 +330,46 @@
     ]
   },
   {
+    "label": "share",
+    "slug": "using-syllago/cli-reference/share"
+  },
+  {
     "label": "sync-and-export",
     "slug": "using-syllago/cli-reference/sync-and-export"
+  },
+  {
+    "label": "telemetry",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "telemetry",
+        "slug": "using-syllago/cli-reference/telemetry"
+      },
+      {
+        "label": "off",
+        "slug": "using-syllago/cli-reference/telemetry-off"
+      },
+      {
+        "label": "on",
+        "slug": "using-syllago/cli-reference/telemetry-on"
+      },
+      {
+        "label": "reset",
+        "slug": "using-syllago/cli-reference/telemetry-reset"
+      },
+      {
+        "label": "status",
+        "slug": "using-syllago/cli-reference/telemetry-status"
+      }
+    ]
+  },
+  {
+    "label": "uninstall",
+    "slug": "using-syllago/cli-reference/uninstall"
+  },
+  {
+    "label": "update",
+    "slug": "using-syllago/cli-reference/update"
   },
   {
     "label": "update",

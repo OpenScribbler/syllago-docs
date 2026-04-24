@@ -1,0 +1,105 @@
+{
+  "id": "cursor-rules",
+  "provider": "cursor",
+  "contentType": "rules",
+  "status": "supported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://cursor.com/docs/rules",
+      "type": "documentation",
+      "fetched_at": "2026-04-11T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "activation_mode": {
+      "supported": true,
+      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Auto-Attached (globs frontmatter matches edited files), Agent Requested (description frontmatter triggers model to pull in the rule), and Manual (no frontmatter triggers, referenced explicitly with @ruleName)."
+    },
+    "auto_memory": {
+      "supported": false,
+      "mechanism": "Cursor does not document an AI-generated auto-memory system distinct from user-authored rules."
+    },
+    "cross_provider_recognition": {
+      "supported": false,
+      "mechanism": "Cursor reads its own .cursor/rules/*.mdc and legacy .cursorrules file; no documented recognition of other providers' rule files."
+    },
+    "file_imports": {
+      "supported": true,
+      "mechanism": "MDC rule bodies may reference other files via @path syntax that inlines the referenced file into the rule context."
+    },
+    "hierarchical_loading": {
+      "supported": true,
+      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "mdc_file_format",
+      "name": "MDC (Markdown + frontmatter) file format",
+      "summary": "Rules are .mdc files — Markdown bodies with YAML-style frontmatter exposing description, alwaysApply, and globs fields.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "globs_activation",
+      "name": "Glob-based auto-attach",
+      "summary": "globs frontmatter array attaches a rule automatically whenever the agent edits or reads a matching file path.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "provider_field": "globs",
+      "conversion": "translated"
+    },
+    {
+      "id": "always_apply_flag",
+      "name": "alwaysApply frontmatter flag",
+      "summary": "alwaysApply: true injects the rule into every prompt regardless of file context; the primary Always activation mode mechanism.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "provider_field": "alwaysApply",
+      "conversion": "translated"
+    },
+    {
+      "id": "agent_requested_description",
+      "name": "Agent-requested activation via description",
+      "summary": "A description-only frontmatter (no globs, no alwaysApply) lets the model decide when to pull the rule in based on the description text.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "provider_field": "description",
+      "conversion": "translated"
+    },
+    {
+      "id": "manual_reference",
+      "name": "Manual @ruleName reference",
+      "summary": "Rules without activation frontmatter can still be invoked explicitly by typing @<rule-name> in chat.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "file_reference_syntax",
+      "name": "@path file inlining inside rule bodies",
+      "summary": "@path tokens inside an .mdc body inline the referenced file's contents so rules can compose reusable snippets.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "nested_rule_directories",
+      "name": "Nested rule directories per subtree",
+      "summary": "Additional .cursor/rules/ directories in subfolders scope rules to that subtree — supports monorepo layouts where each package has its own rules.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "legacy_cursorrules",
+      "name": "Legacy .cursorrules file",
+      "summary": "A single .cursorrules file at the project root is still honored for backwards compatibility; the .cursor/rules/ directory is the current recommended layout.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "translated"
+    }
+  ]
+}

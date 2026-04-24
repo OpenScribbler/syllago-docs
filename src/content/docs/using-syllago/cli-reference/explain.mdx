@@ -1,0 +1,43 @@
+---
+title: "syllago explain"
+description: "Show detailed documentation for an error code"
+---
+
+## Synopsis
+
+```
+syllago explain CODE [flags]
+```
+
+## Description
+
+Display documentation for a syllago error code.
+
+Each error code has a detailed explanation including what it means,
+common causes, and how to fix it.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--list` | `bool` | — | No | list all available error codes |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  syllago explain CATALOG_001
+  syllago explain --list
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/explain.go)</small>

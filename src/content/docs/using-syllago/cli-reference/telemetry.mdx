@@ -1,0 +1,28 @@
+---
+title: "syllago telemetry"
+description: "Manage usage analytics settings"
+---
+
+View and control anonymous usage data collection. Run 'syllago telemetry status' for details.
+
+## Subcommands
+
+| Command | Description |
+|---------|-------------|
+| [`off`](/using-syllago/cli-reference/telemetry-off/) | Disable telemetry |
+| [`on`](/using-syllago/cli-reference/telemetry-on/) | Enable telemetry |
+| [`reset`](/using-syllago/cli-reference/telemetry-reset/) | Generate a new anonymous ID |
+| [`status`](/using-syllago/cli-reference/telemetry-status/) | Show telemetry state and anonymous ID |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/telemetry_cmd.go)</small>

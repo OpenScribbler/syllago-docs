@@ -1,0 +1,66 @@
+{
+  "id": "crush",
+  "name": "Crush",
+  "slug": "crush",
+  "configDir": ".config/crush",
+  "emitPath": "{project}/AGENTS.md",
+  "content": {
+    "agents": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "commands": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "hooks": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "loadouts": {
+      "supported": false,
+      "symlinkSupport": false
+    },
+    "mcp": {
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/crush.json"
+      ],
+      "configLocation": "crush.json",
+      "mcpTransports": [
+        "stdio",
+        "http",
+        "sse"
+      ]
+    },
+    "rules": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "project-scope",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/AGENTS.md"
+      ]
+    },
+    "skills": {
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.config/crush/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.crush/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "license",
+        "compatibility",
+        "metadata"
+      ]
+    }
+  }
+}

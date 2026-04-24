@@ -1,0 +1,53 @@
+{
+  "id": "hooks-json_io_protocol",
+  "key": "json_io_protocol",
+  "contentType": "hooks",
+  "description": "Whether hooks communicate with the host via structured JSON on stdin/stdout rather than plain text or exit codes alone.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": false,
+      "mechanism": "Amp hooks signal decisions via exit codes and declarative action types; no JSON stdin/stdout protocol documented"
+    },
+    "claude-code": {
+      "supported": true,
+      "mechanism": "Command hooks receive event JSON on stdin; respond with JSON on stdout (exit 0); structured fields: continue, stopReason, suppressOutput, systemMessage, hookSpecificOutput"
+    },
+    "cline": {
+      "supported": false,
+      "mechanism": "Cline hooks communicate via exit codes and output text; no structured JSON stdin/stdout protocol documented"
+    },
+    "codex": {
+      "supported": false,
+      "mechanism": "Codex hooks communicate via exit codes and stdout text; no structured JSON stdin/stdout protocol documented"
+    },
+    "copilot-cli": {
+      "supported": false,
+      "mechanism": "Copilot CLI hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "cursor": {
+      "supported": true,
+      "mechanism": "Command hooks receive event data as JSON on stdin and may return structured JSON on stdout to signal decisions and supply output fields."
+    },
+    "factory-droid": {
+      "supported": false,
+      "mechanism": "Factory Droid hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "hook_io_protocol: Gemini CLI hooks receive event data as JSON on stdin and return structured JSON responses on stdout"
+    },
+    "kiro": {
+      "supported": false,
+      "mechanism": "Kiro hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "pi": {
+      "supported": false,
+      "mechanism": "Pi hooks communicate via TypeScript extension API; no JSON stdin/stdout protocol for shell hooks"
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "json_stdin_context: Windsurf hooks receive event context as JSON on stdin"
+    }
+  }
+}
