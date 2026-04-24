@@ -8,11 +8,14 @@ second: '(?:\b[A-Z][a-z]+ )+\(([A-Z]{3,5})\)|(?:\[[^\]]*\])'
 exceptions:
   - API
   - ASCII
+  - AUTO
   - AWS
   - CLI
   - CSS
   - DNS
+  - END
   - FAQ
+  - HOOKS
   - HTML
   - HTTP
   - HTTPS
@@ -37,6 +40,7 @@ exceptions:
   - SHOULD
   - SSH
   - SSL
+  - START
   - TLS
   - TOFU
   - TOML

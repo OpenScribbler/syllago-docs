@@ -2,6 +2,13 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-25
+
+### Fixed
+- `src/content/docs/errors/moat-001.mdx` — replaced `<url>` autolink with a bare URL. MDX interprets `<` as JSX syntax and fails to parse angle-bracket autolinks; this had been breaking `astro build` (and therefore prod deploys) since the 2026-04-22 accuracy-review commit.
+- `src/content/docs/using-syllago/content-types/{hooks,index}.mdx` — removed the `<!-- vale off -->` / `<!-- vale on -->` HTML-comment markers that wrapped the `AUTO-GENERATED:HOOKS-EVENTS` and `AUTO-GENERATED:COMPAT-MATRIX` codegen blocks. MDX parses `<!` as JSX and couldn't process the files. The codegen blocks are pure backticked-identifier tables with no prose, so Vale doesn't fire on them even without suppression.
+- `vale/styles/Syllago/Acronyms.yml` — added `AUTO`, `END`, `HOOKS`, `START` to exceptions. These are code tokens inside the `{/* AUTO-GENERATED:HOOKS-EVENTS START */}` codegen markers, not real acronyms. Without this, removing the Vale-off HTML comments above would trip 10 spell-out suggestions against the marker text itself.
+
 ## 2026-04-24
 
 ### Added
