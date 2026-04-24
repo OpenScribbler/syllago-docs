@@ -7,10 +7,10 @@ Built with [Astro](https://astro.build/) and [Starlight](https://starlight.astro
 ## Development
 
 ```bash
-npm install
-npm run dev        # local dev server at localhost:4321
-npm run build      # production build to ./dist/
-npm run preview    # preview the production build
+bun install
+bun run dev        # local dev server at localhost:4321
+bun run build      # production build to ./dist/
+bun run preview    # preview the production build
 ```
 
 ## CLI Reference Generation

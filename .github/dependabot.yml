@@ -5,3 +5,15 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+  - package-ecosystem: "bun"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      astro:
+        patterns:
+          - "astro"
+          - "@astrojs/*"
+          - "starlight-*"
+          - "@astrojs/starlight*"
