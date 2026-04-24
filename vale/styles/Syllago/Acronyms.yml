@@ -7,6 +7,8 @@ first: '\b([A-Z]{3,5})(?!''s\b|s\b)\b'
 second: '(?:\b[A-Z][a-z]+ )+\(([A-Z]{3,5})\)|(?:\[[^\]]*\])'
 exceptions:
   - API
+  - ASCII
+  - AWS
   - CLI
   - CSS
   - DNS
@@ -14,19 +16,34 @@ exceptions:
   - HTML
   - HTTP
   - HTTPS
+  - IDE
+  - ISO
   - JSON
   - JSONC
   - JWT
   - LLM
+  - MAY
   - MCP
   - MDX
+  - MOAT
+  - MUST
   - OIDC
+  - PKI
+  - POST
   - REST
   - SDK
+  - SHA
+  - SHALL
+  - SHOULD
   - SSH
   - SSL
   - TLS
+  - TOFU
   - TOML
   - TUI
+  - TTY
+  - URI
   - URL
+  - UUID
+  - WSL
   - YAML

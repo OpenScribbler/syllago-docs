@@ -5,7 +5,7 @@ description: How syllago manages custom slash commands across providers.
 
 Commands are custom slash commands that extend an AI tool's command palette. They let you define reusable prompts or workflows that users invoke with a slash prefix (e.g., `/fix-typo`).
 
-## Provider Support
+## Provider support
 
 Commands are supported by the following providers:
 
@@ -18,7 +18,7 @@ Commands are supported by the following providers:
 | Codex | Markdown | Command files in `.codex/commands/` |
 | OpenCode | Markdown | Command files in `.opencode/commands/` |
 
-## Canonical Fields
+## Canonical fields
 
 Commands support the following metadata:
 
@@ -26,11 +26,11 @@ Commands support the following metadata:
 |---|---|---|
 | `effort` | Time/complexity: `low`, `medium`, `high`, `max` | Claude Code (native); others as behavioral notes |
 
-## Syllago Format
+## Syllago format
 
 Commands are stored in your library using syllago's provider-neutral format. The metadata file (`.syllago.yaml`) describes the content, and a separate source file holds the command definition.
 
-### Catalog Entry
+### Catalog entry
 
 ```yaml
 id: 6c0ce509-7960-490f-9100-4d5009d6261c
@@ -49,7 +49,7 @@ Key fields:
 - **source_format** -- the format of the source file (`md` for all supported providers)
 - **has_source** -- indicates the item includes a source file with the command definition
 
-### Command Source
+### Command source
 
 The source file is a Markdown file with optional YAML frontmatter for metadata. Here is a Claude Code-style example:
 
@@ -68,11 +68,11 @@ You are a documentation editor.
 
 All supported providers (Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode, and others) use this Markdown-with-frontmatter convention. Frontmatter fields differ slightly per provider — see the per-provider commands pages under [Providers](/using-syllago/providers/).
 
-## Format Conversion
+## Format conversion
 
 When you export a command to a provider, syllago converts between formats automatically. See [Format Conversion](/using-syllago/format-conversion/) for details on how syllago handles cross-format translation.
 
-## Working with Commands
+## Working with commands
 
 ```bash
 # Add a command from a provider
@@ -88,7 +88,7 @@ syllago install fix_typo --to gemini-cli
 syllago inspect fix_typo
 ```
 
-## See Also
+## See also
 
 - [Content Types Overview](/using-syllago/content-types/) -- compatibility matrix and all content types
 - [Format Conversion](/using-syllago/format-conversion/) -- how syllago converts between provider formats

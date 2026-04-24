@@ -1043,6 +1043,374 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-04-22T13:50:08.416Z"
+    },
+    {
+      "id": "bug-066",
+      "timestamp": "2026-04-24T17:09:42.674Z",
+      "error_message": "Significant refactor of ",
+      "file": ".github/workflows/lint.yml",
+      "root_cause": "13 lines replaced/restructured",
+      "fix": "Rewrote 20→4 lines (13 removed)",
+      "tags": [
+        "auto-detected",
+        "refactor",
+        "yml"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T17:09:42.674Z"
+    },
+    {
+      "id": "bug-067",
+      "timestamp": "2026-04-24T17:10:02.899Z",
+      "error_message": "Incorrect value in code",
+      "file": ".github/PULL_REQUEST_TEMPLATE.md",
+      "root_cause": "Had `src/content/docs/`",
+      "fix": "Changed to `vale src/content/docs/`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T17:10:02.899Z"
+    },
+    {
+      "id": "bug-068",
+      "timestamp": "2026-04-24T17:18:34.985Z",
+      "error_message": "Incorrect value in code",
+      "file": ".github/PULL_REQUEST_TEMPLATE.md",
+      "root_cause": "Had `vale src/content/docs/`",
+      "fix": "Changed to `src/content/docs/`",
+      "tags": [
+        "auto-detected",
+        "wrong-value",
+        "md"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T17:18:34.985Z"
+    },
+    {
+      "id": "bug-069",
+      "timestamp": "2026-04-24T18:47:50.492Z",
+      "error_message": "Wrong reference: TOML should be TOFU",
+      "file": "vale/styles/Syllago/Acronyms.yml",
+      "root_cause": "Used \"TOML\" instead of \"TOFU\"",
+      "fix": "Changed TOML → TOFU",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "yml"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T18:47:50.492Z"
+    },
+    {
+      "id": "bug-070",
+      "timestamp": "2026-04-24T18:51:58.353Z",
+      "error_message": "Wrong reference: config should be configuration",
+      "file": "src/content/docs/advanced/team-setup.mdx",
+      "root_cause": "Used \"config\" instead of \"configuration\"",
+      "fix": "Changed config → configuration",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T18:51:58.353Z"
+    },
+    {
+      "id": "bug-071",
+      "timestamp": "2026-04-24T18:52:04.417Z",
+      "error_message": "Wrong reference: config should be configuration",
+      "file": "src/content/docs/reference/compare-providers.mdx",
+      "root_cause": "Used \"config\" instead of \"configuration\"",
+      "fix": "Changed config → configuration",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T18:52:04.417Z"
+    },
+    {
+      "id": "bug-072",
+      "timestamp": "2026-04-24T18:52:44.272Z",
+      "error_message": "Wrong reference: Definition should be definition",
+      "file": "src/content/docs/reference/hooks-v1.mdx",
+      "root_cause": "Used \"Definition\" instead of \"definition\"",
+      "fix": "Changed Definition → definition",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 11,
+      "last_seen": "2026-04-24T18:53:39.947Z"
+    },
+    {
+      "id": "bug-073",
+      "timestamp": "2026-04-24T18:54:05.718Z",
+      "error_message": "Wrong reference: Warnings should be warnings",
+      "file": "src/content/docs/using-syllago/format-conversion.mdx",
+      "root_cause": "Used \"Warnings\" instead of \"warnings\"",
+      "fix": "Changed Warnings → warnings",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-04-24T18:54:29.825Z"
+    },
+    {
+      "id": "bug-074",
+      "timestamp": "2026-04-24T18:54:54.473Z",
+      "error_message": "Wrong reference: GitHub should be FAQ",
+      "file": "vale/styles/Syllago/Headings.yml",
+      "root_cause": "Used \"GitHub\" instead of \"FAQ\"",
+      "fix": "Changed GitHub → FAQ",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "yml"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T18:54:54.473Z"
+    },
+    {
+      "id": "bug-075",
+      "timestamp": "2026-04-24T18:55:17.496Z",
+      "error_message": "Wrong reference: Hatch should be hatch",
+      "file": "src/content/docs/moat/registry-add-signing-identity.mdx",
+      "root_cause": "Used \"Hatch\" instead of \"hatch\"",
+      "fix": "Changed Hatch → hatch",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-04-24T18:55:17.496Z"
+    },
+    {
+      "id": "bug-076",
+      "timestamp": "2026-04-24T18:55:40.002Z",
+      "error_message": "Wrong reference: Format should be format",
+      "file": "src/content/docs/using-syllago/content-types/hooks.mdx",
+      "root_cause": "Used \"Format\" instead of \"format\"",
+      "fix": "Changed Format → format",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 7,
+      "last_seen": "2026-04-24T18:56:08.119Z"
+    },
+    {
+      "id": "bug-077",
+      "timestamp": "2026-04-24T18:56:32.062Z",
+      "error_message": "Wrong reference: Errors should be errors",
+      "file": "src/content/docs/moat/index.mdx",
+      "root_cause": "Used \"Errors\" instead of \"errors\"",
+      "fix": "Changed Errors → errors",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-04-24T18:57:58.839Z"
+    },
+    {
+      "id": "bug-078",
+      "timestamp": "2026-04-24T18:56:46.019Z",
+      "error_message": "Wrong reference: Format should be format",
+      "file": "src/content/docs/using-syllago/content-types/skills.mdx",
+      "root_cause": "Used \"Format\" instead of \"format\"",
+      "fix": "Changed Format → format",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 7,
+      "last_seen": "2026-04-24T18:57:08.616Z"
+    },
+    {
+      "id": "bug-079",
+      "timestamp": "2026-04-24T18:58:14.280Z",
+      "error_message": "Wrong reference: Badges should be badges",
+      "file": "src/content/docs/moat/trust-tiers.mdx",
+      "root_cause": "Used \"Badges\" instead of \"badges\"",
+      "fix": "Changed Badges → badges",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-04-24T19:02:31.642Z"
+    },
+    {
+      "id": "bug-080",
+      "timestamp": "2026-04-24T18:58:52.715Z",
+      "error_message": "Wrong reference: Taint should be taint",
+      "file": "src/content/docs/advanced/registry-privacy.mdx",
+      "root_cause": "Used \"Taint\" instead of \"taint\"",
+      "fix": "Changed Taint → taint",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-04-24T18:58:58.838Z"
+    },
+    {
+      "id": "bug-081",
+      "timestamp": "2026-04-24T18:59:07.343Z",
+      "error_message": "Wrong reference: Flags should be flags",
+      "file": "src/content/docs/advanced/troubleshooting.mdx",
+      "root_cause": "Used \"Flags\" instead of \"flags\"",
+      "fix": "Changed Flags → flags",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-04-24T18:59:17.985Z"
+    },
+    {
+      "id": "bug-082",
+      "timestamp": "2026-04-24T18:59:26.007Z",
+      "error_message": "Wrong reference: Requirements should be requirements",
+      "file": "src/content/docs/getting-started/installation.mdx",
+      "root_cause": "Used \"Requirements\" instead of \"requirements\"",
+      "fix": "Changed Requirements → requirements",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 7,
+      "last_seen": "2026-04-24T18:59:48.371Z"
+    },
+    {
+      "id": "bug-083",
+      "timestamp": "2026-04-24T18:59:56.423Z",
+      "error_message": "Wrong reference: Types should be types",
+      "file": "src/content/docs/getting-started/core-concepts.mdx",
+      "root_cause": "Used \"Types\" instead of \"types\"",
+      "fix": "Changed Types → types",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-04-24T19:00:04.250Z"
+    },
+    {
+      "id": "bug-084",
+      "timestamp": "2026-04-24T19:00:33.931Z",
+      "error_message": "Wrong reference: Format should be format",
+      "file": "src/content/docs/using-syllago/content-types/mcp-configs.mdx",
+      "root_cause": "Used \"Format\" instead of \"format\"",
+      "fix": "Changed Format → format",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 5,
+      "last_seen": "2026-04-24T19:00:47.945Z"
+    },
+    {
+      "id": "bug-085",
+      "timestamp": "2026-04-24T19:00:53.912Z",
+      "error_message": "Wrong reference: Fields should be fields",
+      "file": "src/content/docs/using-syllago/content-types/agents.mdx",
+      "root_cause": "Used \"Fields\" instead of \"fields\"",
+      "fix": "Changed Fields → fields",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-04-24T19:01:07.601Z"
+    },
+    {
+      "id": "bug-086",
+      "timestamp": "2026-04-24T19:01:14.481Z",
+      "error_message": "Wrong reference: Support should be support",
+      "file": "src/content/docs/using-syllago/content-types/commands.mdx",
+      "root_cause": "Used \"Support\" instead of \"support\"",
+      "fix": "Changed Support → support",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 8,
+      "last_seen": "2026-04-24T19:01:39.619Z"
+    },
+    {
+      "id": "bug-087",
+      "timestamp": "2026-04-24T19:01:50.414Z",
+      "error_message": "Wrong reference: Compatibility should be compatibility",
+      "file": "src/content/docs/using-syllago/content-types/rules.mdx",
+      "root_cause": "Used \"Compatibility\" instead of \"compatibility\"",
+      "fix": "Changed Compatibility → compatibility",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 4,
+      "last_seen": "2026-04-24T19:02:00.431Z"
+    },
+    {
+      "id": "bug-088",
+      "timestamp": "2026-04-24T19:02:07.043Z",
+      "error_message": "Wrong reference: Reference should be reference",
+      "file": "src/content/docs/using-syllago/syllago-yaml.mdx",
+      "root_cause": "Used \"Reference\" instead of \"reference\"",
+      "fix": "Changed Reference → reference",
+      "tags": [
+        "auto-detected",
+        "wrong-reference",
+        "mdx"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-04-24T19:02:10.408Z"
     }
   ]
 }

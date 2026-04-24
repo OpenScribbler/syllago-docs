@@ -3,7 +3,7 @@ title: Format Conversion
 description: How syllago converts content between AI coding tool formats.
 ---
 
-## How Conversion Works
+## How conversion works
 
 Syllago uses a hub-and-spoke model. Content in your library is stored in syllago's canonical format — a provider-neutral representation. Every conversion passes through it:
 
@@ -45,7 +45,7 @@ Every field and feature in a provider's native format has one of three fates dur
 
 **No silent data loss:** every field either maps to canonical, embeds as prose, or generates a warning. All converters return a result containing `Content`, `Filename`, `Warnings`, and `ExtraFiles` — the `Warnings` array is always populated when something can't be preserved.
 
-## What Gets Translated
+## What gets translated
 
 ### Canonical field mapping
 
@@ -81,7 +81,7 @@ Lossy translations generate warnings:
 - **VS Code Copilot named variables** (`${input:firstName}`) collapse to `$ARGUMENTS` during canonicalization — warning: "named → positional, lossy"
 - **Providers without placeholder support** (Windsurf, Cline) receive literal text describing the expected arguments, plus a warning
 
-## What Gets Preserved
+## What gets preserved
 
 ### Conversion notes
 
@@ -108,7 +108,7 @@ Some content syntax survives conversion but the target provider may not interpre
 
 **Provider-specific variables** — `${CLAUDE_SKILL_DIR}`, `${CLAUDE_SESSION_ID}`, and similar tokens remain as literal text. The target provider will not expand them.
 
-## Portability Warnings
+## Portability warnings
 
 Both `syllago convert` and `syllago install` surface warnings when content uses features unsupported by the target provider. Warnings appear inline in text mode and in the `warnings` array in `--json` mode.
 
@@ -124,11 +124,11 @@ Common warnings include:
 syllago convert my-skill --to cursor --json
 ```
 
-## Compatibility Matrix
+## Compatibility matrix
 
 | Content Type | Coverage | Notes |
 |---|---|---|
-| Rules | Every provider | Format varies (Markdown, MDC) but content fully preserved |
+| Rules | Every provider | Format varies by provider but content fully preserved |
 | Skills | Most providers | Metadata rendering varies by provider capability |
 | Agents | Most providers | Codex uses TOML format, Kiro uses Markdown with YAML frontmatter (auto-converted) |
 | MCP configs | Every provider | Zed uses `context_servers` key (handled automatically) |
@@ -136,10 +136,10 @@ syllago convert my-skill --to cursor --json
 | Commands | Many providers | Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode |
 | Loadouts | Multi-provider (Claude Code default) | Use `--to <provider>` to target other providers |
 
-## Provider-Specific Notes
+## Provider-specific notes
 
 ### Cursor
-Rules are converted to MDC (Markdown Component) format with `.mdc` extension. Frontmatter fields map to MDC metadata headers.
+Rules are converted to Markdown Component (MDC) format with `.mdc` extension. Frontmatter fields map to MDC metadata headers.
 
 ### Codex
 Agent definitions use TOML format. Syllago auto-converts between TOML and Markdown frontmatter.
@@ -156,7 +156,7 @@ MCP server configs use the `context_servers` key instead of `mcpServers`. Syllag
 ### OpenCode
 Rules use YAML format. Syllago strips Markdown frontmatter and converts to OpenCode's YAML structure.
 
-## Hook Conversion
+## Hook conversion
 
 For hooks specifically, syllago uses the [Hook Interchange Format](/reference/hooks-v1/) as the canonical representation. This handles:
 
@@ -165,7 +165,7 @@ For hooks specifically, syllago uses the [Hook Interchange Format](/reference/ho
 - Timeout unit normalization (seconds canonical, auto-converts to/from milliseconds)
 - Capability degradation (block, warn, or exclude based on target support)
 
-## Using the Convert Command
+## Using the convert command
 
 ```bash
 # Convert a specific item to stdout
@@ -181,7 +181,7 @@ syllago convert my-skill --to cursor --json
 syllago compat my-skill
 ```
 
-## See Also
+## See also
 
 - [Content Types](/using-syllago/content-types/) — what each content type supports
 - [Hook Interchange Format](/reference/hooks-v1/) — full hook conversion specification

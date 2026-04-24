@@ -27,7 +27,7 @@ Every provider's hook system is different. Event names, JSON schemas, output con
 
 This specification defines a **canonical hook format** that serves as an interchange representation between providers. It does not replace any provider's native format. Instead, it provides a neutral hub through which hooks are converted: decode from a source provider's format into canonical, then encode from canonical into a target provider's format.
 
-### What This Spec Defines
+### What this spec defines
 
 - A canonical JSON format for hook manifests
 - An exit code contract for hook processes
@@ -41,9 +41,9 @@ This specification defines a **canonical hook format** that serves as an interch
 
 ---
 
-## 2. Canonical Format
+## 2. Canonical format
 
-### Top-Level Structure
+### Top-level structure
 
 ```json
 {
@@ -68,7 +68,7 @@ This specification defines a **canonical hook format** that serves as an interch
 | `spec` | string | Yes | Must be `"hooks/0.1"` |
 | `hooks` | array | Yes | Non-empty array of hook definitions |
 
-### Hook Definition
+### Hook definition
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -79,7 +79,7 @@ This specification defines a **canonical hook format** that serves as an interch
 | `degradation` | object | No | Per-capability fallback strategies |
 | `provider_data` | object | No | Opaque provider-specific data, keyed by provider slug |
 
-### Handler Definition
+### Handler definition
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -95,7 +95,7 @@ This specification defines a **canonical hook format** that serves as an interch
 
 ---
 
-## 3. Exit Code Contract
+## 3. Exit code contract
 
 | Exit Code | Name | Behavior |
 |-----------|------|----------|
@@ -106,7 +106,7 @@ This specification defines a **canonical hook format** that serves as an interch
 
 ---
 
-## 4. Canonical Output Schema
+## 4. Canonical output schema
 
 When a hook exits 0 with JSON on stdout:
 
@@ -124,9 +124,9 @@ Advanced fields (capability-specific):
 
 ---
 
-## 5. Matcher Types
+## 5. Matcher types
 
-### Bare String
+### Bare string
 
 Tool vocabulary lookup:
 
@@ -134,7 +134,7 @@ Tool vocabulary lookup:
 "matcher": "shell"
 ```
 
-### Pattern Object
+### Pattern object
 
 Regex on tool name:
 
@@ -142,7 +142,7 @@ Regex on tool name:
 "matcher": {"pattern": "file_(read|write|edit)"}
 ```
 
-### MCP Object
+### MCP object
 
 Target MCP server/tool:
 
@@ -150,7 +150,7 @@ Target MCP server/tool:
 "matcher": {"mcp": {"server": "github", "tool": "create_issue"}}
 ```
 
-### Array (OR)
+### Array (or)
 
 Match any element:
 
@@ -160,9 +160,9 @@ Match any element:
 
 ---
 
-## 6. Event Registry
+## 6. Event registry
 
-### Core Events
+### Core events
 
 | Event | Description | Blocking Semantic |
 |-------|-------------|-------------------|
@@ -173,11 +173,11 @@ Match any element:
 | `before_prompt` | After user input, before agent | Can modify/reject input |
 | `agent_stop` | Agent main loop ends | Can trigger retry |
 
-### Extended Events
+### Extended events
 
 `before_compact`, `notification`, `error_occurred`, `subagent_start`, `subagent_stop`, `permission_request`
 
-### Provider-Exclusive Events
+### Provider-exclusive events
 
 | Event | Origin Provider |
 |-------|----------------|
@@ -186,7 +186,7 @@ Match any element:
 | `file_created`, `file_saved`, `file_deleted` | Kiro |
 | `before_task`, `after_task` | Kiro |
 
-### Event Name Mapping
+### Event name mapping
 
 | Canonical | claude-code | gemini-cli | cursor | copilot-cli | kiro |
 |-----------|-------------|------------|--------|-------------|------|
@@ -197,7 +197,7 @@ Match any element:
 
 ---
 
-## 7. Tool Vocabulary
+## 7. Tool vocabulary
 
 | Canonical | claude-code | gemini-cli | cursor | copilot-cli | kiro |
 |-----------|-------------|------------|--------|-------------|------|
@@ -213,7 +213,7 @@ Match any element:
 
 ---
 
-## 8. Capability Registry
+## 8. Capability registry
 
 | Capability | Description | Default Degradation |
 |------------|-------------|-------------------|
@@ -228,7 +228,7 @@ Match any element:
 
 ---
 
-## 9. Degradation Strategies
+## 9. Degradation strategies
 
 | Strategy | Behavior |
 |----------|----------|
@@ -240,7 +240,7 @@ Authors specify per-capability strategies in the `degradation` field. Absent str
 
 ---
 
-## 10. Conversion Pipeline
+## 10. Conversion pipeline
 
 1. **Decode** — Source adapter reads provider-native config → canonical manifest
 2. **Validate** — Check capabilities against target provider, apply degradation
@@ -249,7 +249,7 @@ Authors specify per-capability strategies in the `degradation` field. Absent str
 
 ---
 
-## 11. Conformance Levels
+## 11. Conformance levels
 
 | Level | Requirements |
 |-------|-------------|
@@ -259,7 +259,7 @@ Authors specify per-capability strategies in the `degradation` field. Absent str
 
 ---
 
-## Appendix: Provider Strengths
+## Appendix: Provider strengths
 
 - **Claude Code** — Richest output contract, four handler types, 25+ events
 - **Gemini CLI** — Unique LLM-interaction hooks (`before_model`, `after_model`)

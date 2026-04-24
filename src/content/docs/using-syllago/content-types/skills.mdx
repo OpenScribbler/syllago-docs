@@ -5,7 +5,7 @@ description: How syllago manages skills across providers.
 
 Skills are multi-file workflow packages that teach the AI specific capabilities. Unlike [rules](/using-syllago/content-types/rules/), which provide general behavioral guidance, skills encode structured procedures -- they include metadata (name, description, triggers) in frontmatter and detailed step-by-step instructions in the body.
 
-## Syllago Format
+## Syllago format
 
 Each skill in your library has a `.syllago.yaml` manifest and a Markdown content file with YAML frontmatter.
 
@@ -23,7 +23,7 @@ added_by: syllago
 
 The `type: skills` field identifies this content as a skill. The `source_format` records the original format so syllago can track provenance.
 
-### Content File
+### Content file
 
 Skill content is a Markdown file with YAML frontmatter containing metadata:
 
@@ -48,7 +48,7 @@ Orchestrates the complete documentation development lifecycle.
 
 The frontmatter `name` and `description` fields are the skill's identity -- they determine how the AI discovers and activates the skill. The body contains the actual instructions.
 
-## Canonical Fields
+## Canonical fields
 
 Skills support the following metadata fields in YAML frontmatter:
 
@@ -62,7 +62,7 @@ Skills support the following metadata fields in YAML frontmatter:
 | `effort` | Time/complexity: `low`, `medium`, `high`, `max` | Claude Code (native); others as prose |
 | `hooks` | Skill-scoped event hooks | Claude Code (native); others warn |
 
-## Provider Compatibility
+## Provider compatibility
 
 Skills are supported by most providers:
 
@@ -81,9 +81,9 @@ Skills are supported by most providers:
 
 Zed and Cline do not support skills.
 
-## Format Differences
+## Format differences
 
-### Frontmatter Handling
+### Frontmatter handling
 
 The key conversion challenge for skills is frontmatter. Claude Code uses standard YAML frontmatter (`---` delimiters), but other providers handle metadata differently:
 
@@ -92,7 +92,7 @@ The key conversion challenge for skills is frontmatter. Claude Code uses standar
 - **Kiro** uses Markdown steering files in `.kiro/steering/` with `name`, `description`, and other canonical frontmatter mapped onto Kiro's steering metadata.
 - **OpenCode** uses Markdown-based skills with its own conventions for metadata.
 
-### Conversion Example
+### Conversion example
 
 Converting a skill from Claude Code format to Gemini CLI:
 
@@ -125,7 +125,7 @@ Orchestrates the complete documentation development lifecycle...
 
 The `description` field is preserved as prose rather than lost, and tool name references in the body are automatically translated to Gemini's equivalents. See [Format Conversion](/using-syllago/format-conversion/) for the full conversion model.
 
-## Working with Skills
+## Working with skills
 
 ```bash
 # Import a skill from your current provider
@@ -141,7 +141,7 @@ syllago install develop-docs --to gemini-cli
 syllago inspect develop-docs
 ```
 
-## See Also
+## See also
 
 - [Content Types Overview](/using-syllago/content-types/) -- compatibility matrix and all content types
 - [Format Conversion](/using-syllago/format-conversion/) -- how syllago converts between provider formats

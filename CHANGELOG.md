@@ -5,6 +5,10 @@ All notable changes to the syllago documentation site.
 ## 2026-04-24
 
 ### Added
+- `.vale.ini` — scoped Vale linting to `src/content/**/*.{md,mdx}` with per-path `BasedOnStyles =` exclusions for every auto-generated directory (`errors/`, `reference/canonical-keys/`, `reference/{agents,capabilities,commands,hook-events,mcp-configs,rules,skills}-matrix.mdx`, `reference/telemetry.mdx`, `using-syllago/cli-reference/**`, `using-syllago/providers/index.mdx`). Files outside `src/content/` match no glob and are skipped silently, so the CI Action and local `vale` invocation report identical counts.
+- `package.json` — `lint:vale` script for local Vale runs (`vale src/content`).
+- `vale/styles/Syllago/Acronyms.yml` exceptions — industry-standard acronyms (`ASCII`, `AWS`, `IDE`, `ISO`, `PKI`, `POST`, `SHA`, `TTY`, `URI`, `UUID`, `WSL`), spec keywords (`MAY`, `MUST`, `SHALL`, `SHOULD`), and project-fundamental terms whose expansions contain lowercase joining words (`MOAT`, `TOFU`) were added to the exceptions list. The regex for the spelled-out form requires consecutive capitalized words before `(ACRONYM)`, which "Model for Origin Attestation and Trust" and "Trust On First Use" cannot satisfy.
+- `vale/styles/Syllago/Headings.yml` exceptions — `CI/CD`, `MDC`, `FAQ`, `MOAT`, `OIDC`, `IDs`.
 - `CONTRIBUTING.md` — contribution guide adapted from syllago. Preserves the ideas-first philosophy and vouch model; replaces the Go/Make development section with an Astro/Starlight section (bun scripts, Vale, `lint:cli-refs`, link validation) and explains the hand-authored vs. auto-synced content split.
 - `CODE_OF_CONDUCT.md` — Contributor Covenant 2.1, matching the main syllago repo.
 - `SECURITY.md` — security policy scoped to a docs repo: content injection, credential leakage, npm supply chain, CI abuse, build-time execution. Out-of-scope section explicitly punts CLI vulnerabilities to the syllago repo.
@@ -16,6 +20,12 @@ All notable changes to the syllago documentation site.
 - `.github/vouch-pr-response.md` — template comment posted when a PR is auto-closed for being unvouched; explains the vouch path without hostility.
 
 ### Changed
+- `src/content/docs/using-syllago/content-types/{index,hooks}.mdx` — wrapped the `AUTO-GENERATED:COMPAT-MATRIX` and `AUTO-GENERATED:HOOKS-EVENTS` managed blocks in `<!-- vale off -->` / `<!-- vale on -->` on lines outside the codegen markers so the directives survive re-sync (the regen scripts replace only the START-to-END line range).
+- `src/content/docs/using-syllago/content-types/rules.mdx`, `src/content/docs/using-syllago/format-conversion.mdx` — reworded around `MDC` so the first mention is the spelled-out form `Markdown Component (MDC)` per Vale's conditional acronym rule.
+- `src/content/docs/moat/{index,registry-add-signing-identity,trust-tiers}.mdx` — first mention of `ADR` is now `Architecture Decision Record (ADR)`; subsequent `ADR 0007` references follow.
+- `src/content/docs/using-syllago/content-types/hooks.mdx` — security-risk table severity labels `HIGH` / `MEDIUM` / `LOW` changed to mixed case (`High` / `Medium` / `Low`) since they're stylistic labels, not acronyms.
+- `src/content/docs/advanced/team-setup.mdx`, `src/content/docs/reference/compare-providers.mdx` — `config file(s)` → `configuration file(s)` per the `Syllago.WordList` rule.
+- 18 doc files — converted 126 section headings from Title Case to sentence-style capitalization per the `Syllago.Headings` rule. Notable rewrites: `syllago Format` → `Syllago format` (rules.mdx typo), bare identifier heading `disabledTools` → backticked `` `disabledTools` `` (mcp-configs.mdx), and numbered section headings in `hooks-v1.mdx` (`2. Canonical Format` → `2. Canonical format`, etc.).
 - GitHub repo settings for `OpenScribbler/syllago-docs`: enabled secret scanning, secret scanning push protection, Dependabot security updates, auto-merge, and delete-branch-on-merge.
 - Branch protection on `main`: require PR before merge (0 approvals, solo-dev friendly), require `Validate Actions` status check to pass on an up-to-date branch, require resolved conversations, block force-push and branch deletion, dismiss stale reviews. Admin bypass enabled — direct pushes from maintainers still work when needed.
 
