@@ -721,3 +721,232 @@
 | 06:30 | Docs accuracy review: 9 sub-agents verified 170 manually-authored mdx files against syllago source. 22 obvious fixes applied (Go version, hooks-v1 spec drift, TUI keybindings, loadout args, 9 source footer links, sandbox env desc, moat-001 URL). 6 flagged, 7 design decisions. Reports in docs/reviews/2026-04-21/. Caught and reverted agent error: self-update vs update reversal. | docs/reviews/2026-04-21/, src/content/docs/ (18 files), CHANGELOG.md | all fixes applied, reports written, committed | ~8000 |
 | 06:54 | Session end: 37 writes across 27 files (root.md, moat-001.mdx, moat-005.mdx, errors.md, installation.mdx) | 167 reads | ~68706 tok |
 | 08:36 | Created beads for 3 error-message inconsistencies: syllago-ir5t4 (self-update Suggestion strings), syllago-b0gf1 (registry approve not implemented), syllago-docs-r2d (MOAT_008/009 missing pages). Reverted sub-agent unauthorized edits to privacy-001.mdx and format-conversion.mdx. | syllago/.beads/, syllago-docs/.beads/ | beads created, files restored | ~2000 |
+| 08:39 | Session end: 37 writes across 27 files (root.md, moat-001.mdx, moat-005.mdx, errors.md, installation.mdx) | 167 reads | ~68706 tok |
+
+## Session: 2026-04-23 09:09
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-04-24 22:15
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-04-24 22:15
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-04-24 22:16
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-04-24 22:16
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-04-24 09:53
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:01 | Created CONTRIBUTING.md | — | ~1437 |
+| 10:01 | Created CODE_OF_CONDUCT.md | — | ~1461 |
+| 10:01 | Created SECURITY.md | — | ~964 |
+| 10:01 | Created .github/PULL_REQUEST_TEMPLATE.md | — | ~178 |
+| 10:01 | Created .github/ISSUE_TEMPLATE/config.yml | — | ~128 |
+| 10:02 | Created .github/ISSUE_TEMPLATE/bug-report.yml | — | ~750 |
+| 10:02 | Created .github/ISSUE_TEMPLATE/feature-idea.yml | — | ~595 |
+| 10:02 | Created .github/ISSUE_TEMPLATE/improvement.yml | — | ~547 |
+| 10:02 | Created .github/ISSUE_TEMPLATE/content-request.yml | — | ~680 |
+| 10:02 | Edited CHANGELOG.md | expanded (+13 lines) | ~408 |
+| 10:09 | Created .githooks/pre-push | — | ~332 |
+| 10:09 | Edited .github/workflows/lint.yml | reduced (-16 lines) | ~44 |
+| 10:10 | Edited package.json | 1→2 lines | ~45 |
+| 10:10 | Edited CONTRIBUTING.md | 5→6 lines | ~31 |
+| 10:10 | Edited CONTRIBUTING.md | rules() → hook() | ~171 |
+| 10:10 | Edited CONTRIBUTING.md | 4→4 lines | ~80 |
+| 10:10 | Edited .github/PULL_REQUEST_TEMPLATE.md | "src/content/docs/" → "vale src/content/docs/" | ~28 |
+| 10:10 | Edited CHANGELOG.md | 10→14 lines | ~627 |
+| 10:11 | Session end: 18 writes across 13 files (CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, PULL_REQUEST_TEMPLATE.md, config.yml) | 14 reads | ~20850 tok |
+| 10:18 | Edited .github/workflows/lint.yml | expanded (+16 lines) | ~180 |
+| 10:18 | Edited package.json | 2→1 lines | ~15 |
+| 10:18 | Edited CONTRIBUTING.md | 6→5 lines | ~10 |
+| 10:18 | Edited CONTRIBUTING.md | hook() → rules() | ~148 |
+| 10:18 | Edited CONTRIBUTING.md | inline fix | ~6 |
+| 10:18 | Edited .github/PULL_REQUEST_TEMPLATE.md | "vale src/content/docs/" → "src/content/docs/" | ~14 |
+| 10:19 | Created .github/vouch-pr-response.md | — | ~272 |
+| 10:19 | Edited CHANGELOG.md | 8→8 lines | ~355 |
+| 10:20 | Session end: 26 writes across 14 files (CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, PULL_REQUEST_TEMPLATE.md, config.yml) | 19 reads | ~21906 tok |
+| 11:03 | Session end: 26 writes across 14 files (CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, PULL_REQUEST_TEMPLATE.md, config.yml) | 19 reads | ~21906 tok |
+
+## Session: 2026-04-24 11:08
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:15 | Created .vale.ini | — | ~356 |
+| 11:15 | Edited package.json | 1→2 lines | ~26 |
+| 11:18 | Scoped Vale to manual prose only | .vale.ini, package.json | 29 manual files lint, 194 auto-generated skipped, 0 alerts on generated, 128w+62s on manual; verified via `vale src/content` | ~390 |
+| 11:17 | Session end: 2 writes across 2 files (.vale.ini, package.json) | 11 reads | ~24904 tok |
+| 11:32 | Edited src/content/docs/using-syllago/content-types/index.mdx | 12→14 lines | ~227 |
+| 11:32 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | 12→14 lines | ~175 |
+| 11:42 | Created vale/styles/Syllago/Acronyms.yml | — | ~169 |
+| 11:42 | Edited vale/styles/Syllago/Headings.yml | 29→31 lines | ~92 |
+
+## Session: 2026-04-24 11:44
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 11:45 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | 5→5 lines | ~59 |
+| 11:45 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~23 |
+| 11:46 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~34 |
+| 11:46 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~27 |
+| 11:46 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~29 |
+| 11:46 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~22 |
+| 11:46 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~34 |
+| 11:47 | Edited vale/styles/Syllago/Acronyms.yml | 3→4 lines | ~10 |
+| 11:47 | Edited vale/styles/Syllago/Acronyms.yml | 2→3 lines | ~8 |
+| 11:48 | Edited src/content/docs/moat/index.mdx | inline fix | ~50 |
+| 11:48 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~75 |
+| 11:48 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~42 |
+| 11:48 | Edited src/content/docs/moat/index.mdx | inline fix | ~50 |
+| 11:48 | Edited src/content/docs/moat/index.mdx | inline fix | ~52 |
+| 11:49 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~80 |
+| 11:49 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~41 |
+| 11:51 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~68 |
+| 11:51 | Edited src/content/docs/advanced/team-setup.mdx | inline fix | ~56 |
+| 11:52 | Edited src/content/docs/reference/compare-providers.mdx | inline fix | ~18 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~7 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | 3→3 lines | ~13 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~6 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~6 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~7 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~8 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | 3→3 lines | ~10 |
+| 11:52 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~5 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~4 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~4 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | 3→3 lines | ~10 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~6 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~8 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~6 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~6 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~7 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~8 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~7 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~7 |
+| 11:53 | Edited src/content/docs/reference/hooks-v1.mdx | inline fix | ~9 |
+| 11:53 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~7 |
+| 11:53 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~7 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~6 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~7 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~7 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~7 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~5 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~8 |
+| 11:54 | Edited src/content/docs/using-syllago/format-conversion.mdx | inline fix | ~3 |
+| 11:54 | Edited vale/styles/Syllago/Headings.yml | 2→3 lines | ~8 |
+| 11:54 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~6 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~9 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~12 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~14 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~13 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~5 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~9 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~7 |
+| 11:55 | Edited src/content/docs/moat/registry-add-signing-identity.mdx | inline fix | ~11 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~6 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~5 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~8 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~5 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~6 |
+| 11:55 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~6 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~5 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~7 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/hooks.mdx | inline fix | ~3 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~7 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | 3→3 lines | ~18 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~8 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~7 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~13 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~7 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~6 |
+| 11:56 | Edited src/content/docs/moat/index.mdx | inline fix | ~5 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~5 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~5 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~6 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~7 |
+| 11:56 | Edited src/content/docs/using-syllago/content-types/skills.mdx | 3→3 lines | ~13 |
+| 11:57 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~6 |
+| 11:57 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~6 |
+| 11:57 | Edited src/content/docs/using-syllago/content-types/skills.mdx | inline fix | ~3 |
+| 11:57 | Edited vale/styles/Syllago/Headings.yml | 5→8 lines | ~21 |
+| 11:57 | Edited src/content/docs/moat/index.mdx | inline fix | ~7 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~7 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~9 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~7 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~6 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~9 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~6 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~6 |
+| 11:58 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~6 |
+| 11:58 | Edited src/content/docs/advanced/registry-privacy.mdx | inline fix | ~4 |
+| 11:58 | Edited src/content/docs/advanced/registry-privacy.mdx | inline fix | ~9 |
+| 11:58 | Edited src/content/docs/advanced/registry-privacy.mdx | inline fix | ~5 |
+| 11:58 | Edited src/content/docs/advanced/registry-privacy.mdx | inline fix | ~5 |
+| 11:58 | Edited src/content/docs/advanced/registry-privacy.mdx | inline fix | ~3 |
+| 11:59 | Edited src/content/docs/advanced/troubleshooting.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/advanced/troubleshooting.mdx | inline fix | ~5 |
+| 11:59 | Edited src/content/docs/advanced/troubleshooting.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/advanced/troubleshooting.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~6 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~9 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~6 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~6 |
+| 11:59 | Edited src/content/docs/getting-started/installation.mdx | inline fix | ~4 |
+| 11:59 | Edited src/content/docs/getting-started/core-concepts.mdx | inline fix | ~5 |
+| 12:00 | Edited src/content/docs/getting-started/core-concepts.mdx | inline fix | ~6 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/index.mdx | inline fix | ~9 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/index.mdx | inline fix | ~7 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~6 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~5 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~6 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~6 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~10 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/mcp-configs.mdx | inline fix | ~3 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/agents.mdx | inline fix | ~6 |
+| 12:00 | Edited src/content/docs/using-syllago/content-types/agents.mdx | inline fix | ~6 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/agents.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/agents.mdx | inline fix | ~8 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/agents.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~6 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~6 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~6 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~7 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/commands.mdx | inline fix | ~3 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~5 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~7 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~6 |
+| 12:01 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~6 |
+| 12:02 | Edited src/content/docs/using-syllago/content-types/rules.mdx | inline fix | ~5 |
+| 12:02 | Edited src/content/docs/using-syllago/syllago-yaml.mdx | inline fix | ~5 |
+| 12:02 | Edited src/content/docs/using-syllago/syllago-yaml.mdx | inline fix | ~6 |
+| 12:02 | Edited src/content/docs/moat/trust-tiers.mdx | inline fix | ~9 |
+| 12:03 | Edited CHANGELOG.md | expanded (+12 lines) | ~835 |
+| 12:03 | Edited CHANGELOG.md | reduced (-8 lines) | ~107 |
+| 12:03 | Edited CHANGELOG.md | expanded (+6 lines) | ~560 |
+| 12:04 | Session summary: Vale linting scope + exceptions + 0-warning cleanup | .vale.ini, Acronyms.yml, Headings.yml, 18 src/content/**/*.mdx files, CHANGELOG.md | 0 errors, 0 warnings, 0 suggestions in 223 files | ~summary |
+
+## Session: 2026-04-24 12:05
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|

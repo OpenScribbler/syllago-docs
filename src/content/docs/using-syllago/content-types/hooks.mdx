@@ -7,11 +7,11 @@ Hooks are event-driven automation scripts triggered by AI tool lifecycle events.
 
 Supported by Claude Code, Gemini CLI, Copilot CLI, Cursor, Windsurf, Codex, Cline, and Kiro.
 
-## Canonical Format
+## Canonical format
 
 Syllago uses a provider-neutral canonical format for hooks, defined by the [Hook Interchange Format Specification](/reference/hooks-v1/).
 
-### Handler Types
+### Handler types
 
 Hooks support four handler types:
 
@@ -22,10 +22,11 @@ Hooks support four handler types:
 | `prompt` | LLM-evaluated logic (not all providers support this) |
 | `agent` | Delegated to an agent subprocess |
 
-### Event Names (Canonical)
+### Event names (canonical)
 
 Hook events use provider-neutral names in the canonical format. The table below lists events supported by both Claude Code and Gemini CLI; see the [Hook Event Matrix](/reference/hook-events/) for every canonical event across all providers.
 
+<!-- vale off -->
 {/* AUTO-GENERATED:HOOKS-EVENTS START — managed by scripts/sync-providers.ts. Do not edit by hand. */}
 | Canonical Event | Claude Code | Gemini CLI |
 |---|---|---|
@@ -38,10 +39,11 @@ Hook events use provider-neutral names in the canonical format. The table below 
 | `session_end` | `SessionEnd` | `SessionEnd` |
 | `session_start` | `SessionStart` | `SessionStart` |
 {/* AUTO-GENERATED:HOOKS-EVENTS END */}
+<!-- vale on -->
 
 Syllago translates event names automatically when converting between providers.
 
-### Matcher Types
+### Matcher types
 
 Hooks use matchers to target specific tools or events:
 
@@ -50,7 +52,7 @@ Hooks use matchers to target specific tools or events:
 - **MCP object**: Server+tool targeting (`{"mcp": {"server": "github", "tool": "create_issue"}}`)
 - **Array**: OR logic across multiple matchers
 
-### Exit Code Contract
+### Exit code contract
 
 | Code | Meaning |
 |---|---|
@@ -59,7 +61,7 @@ Hooks use matchers to target specific tools or events:
 | `2` | Block action (only if `blocking: true`) |
 | Other | Treated as warning |
 
-## Provider Support
+## Provider support
 
 | Provider | Hook Support | Notes |
 |---|---|---|
@@ -73,19 +75,19 @@ Hooks use matchers to target specific tools or events:
 | Kiro | Yes | Embedded in agent JSON files |
 | Zed, Roo Code, OpenCode, Amp | No | — |
 
-## Hook Security
+## Hook security
 
 Syllago includes a **hook security scanner** that detects dangerous patterns when converting hooks:
 
 | Risk Level | Patterns Detected |
 |---|---|
-| **HIGH** | `curl`, `rm -rf`, piped execution, network commands |
-| **MEDIUM** | Broad matchers, wildcard patterns |
-| **LOW** | System paths, environment variable access |
+| **High** | `curl`, `rm -rf`, piped execution, network commands |
+| **Medium** | Broad matchers, wildcard patterns |
+| **Low** | System paths, environment variable access |
 
 Security warnings appear in `syllago convert` and `syllago install` output.
 
-## Portability Warnings
+## Portability warnings
 
 When converting hooks between providers, syllago surfaces warnings for:
 
@@ -93,7 +95,7 @@ When converting hooks between providers, syllago surfaces warnings for:
 - **Capability mismatches**: e.g., `updated_input` (input rewriting) not supported by target
 - **Degradation applied**: hooks that use the `block`, `warn`, or `exclude` degradation strategy
 
-## See Also
+## See also
 
 - [Hook Interchange Format Specification](/reference/hooks-v1/) — full canonical format specification
 - [Content Types Overview](/using-syllago/content-types/) — full provider compatibility matrix

@@ -9,7 +9,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 Syllago adopts MOAT as its provenance layer. This page describes the pieces of syllago that implement the protocol and the operator-facing surfaces that expose the results.
 
-## Why Syllago Uses MOAT
+## Why Syllago uses MOAT
 
 MOAT solves a problem that comes up the moment you have more than one registry and more than one publisher: **how does an operator know the content they just installed is what the publisher actually released?** The usual answers are central PKI, hosted package stores, or "trust the URL." All three have known failure modes.
 
@@ -22,9 +22,9 @@ MOAT takes a different approach:
 
 For the full protocol, see the [MOAT specification](https://github.com/OpenScribbler/moat). The rest of this page documents what syllago implements.
 
-## What Syllago Implements
+## What syllago implements
 
-### Trust Tiers and the Install Gate
+### Trust tiers and the install gate
 
 Every item syllago installs from a MOAT registry is classified as `Unsigned`, `Signed`, or `Dual-Attested`, based on the fields the manifest carries. The install gate evaluates the tier, revocation state, privacy flag, and policy floor and produces one of five outcomes:
 
@@ -40,13 +40,13 @@ Each install emits telemetry tagging both the observed tier (`moat_tier`) and th
 
 For the tier classification rules, badge presentation, and the revocation two-tier contract, see [Trust Tiers](/moat/trust-tiers/).
 
-### Registry Signing Identity
+### Registry signing identity
 
 Syllago pins a cryptographic signing identity to every MOAT registry at `registry add` time. Well-known registries are covered by a bundled allowlist; others require `--signing-*` flags or a non-GitHub OIDC issuer. The pinning resists rename and transfer attacks by binding to the numeric repository and owner IDs, not just the URL.
 
 See [Registry Signing Identity](/moat/registry-add-signing-identity/) for the operator workflow, the three paths to pin an identity, and the escape hatch for air-gapped deployments.
 
-### Trusted-Root Lifecycle
+### Trusted-root lifecycle
 
 Syllago ships a bundled Sigstore trusted root and exposes its freshness through a dedicated command:
 
@@ -64,7 +64,7 @@ The output is key=value lines (with a `--json` option for scripts). Exit codes a
 
 Expired roots are resolved by running `syllago update`. Operators who pin their own trusted root via `--trusted-root` or `reg.trusted_root` take responsibility for refreshing it — the 365-day cliff applies only to the bundled root.
 
-### Registry Sync and Non-Interactive Exit Codes
+### Registry sync and non-interactive exit codes
 
 Every `syllago registry sync` verifies the manifest against the pinned signing profile, merges revocations into the lockfile, and advances the last-fetched-at timestamp. When the sync cannot silently proceed in a pipeline, syllago exits with a distinct code so CI can branch on the exact condition:
 
@@ -79,7 +79,7 @@ Each exit is accompanied by a kebab-case label on stderr (`tofu-acceptance`, `si
 
 The 72-hour staleness threshold is the MOAT default; a registry's manifest can override it with an explicit `expires` field.
 
-### TUI Trust Inspector
+### TUI trust inspector
 
 The syllago TUI interface surfaces trust state directly on each library row and registry card. A trust badge (`✓` Verified / `R` Recalled / none) sits next to every item, and the metadata panel shows the drill-down tier and recall reason.
 
@@ -90,14 +90,14 @@ For a full view, the **Trust Inspector** modal (reachable from both the library 
 
 The inspector is the same modal for both scopes, so the shape of the information is consistent regardless of where an operator opened it from. See [Trust Tiers](/moat/trust-tiers/#the-trust-inspector) for the full field list.
 
-### Structured Errors
+### Structured errors
 
 Every MOAT failure mode maps to a stable error code with documented remediation. The seven codes in the `MOAT_*` band cover unpinned identity, malformed flags, mismatched certificates, malformed bundles, stale trusted roots, pinned-without-manifest mismatches, and unusable override roots. See the [MOAT error codes](/errors/#moat-errors) for the full list.
 
-## Spec Alignment
+## Spec alignment
 
 Syllago tracks MOAT **v0.6.x Draft**. The spec is pre-1.0; syllago follows it as it evolves, and signing-profile changes on existing registries may trigger a re-approval prompt (exit `11`) when a registry operator rotates their identity — which is the protocol working as designed.
 
 <Aside type="note">
-Syllago's implementation stays intentionally close to the spec. Where syllago adds its own concept — like the catalog-layer `Unknown` label for non-MOAT content, or the closed-set exit-code band `10`–`13` for non-interactive failures — the deviation is documented and the reasoning recorded in [ADR 0007](https://github.com/OpenScribbler/syllago/blob/main/docs/adr/0007-moat-slice-1.md).
+Syllago's implementation stays intentionally close to the spec. Where syllago adds its own concept — like the catalog-layer `Unknown` label for non-MOAT content, or the closed-set exit-code band `10`–`13` for non-interactive failures — the deviation is documented and the reasoning recorded as an Architecture Decision Record (ADR) — see [ADR 0007](https://github.com/OpenScribbler/syllago/blob/main/docs/adr/0007-moat-slice-1.md).
 </Aside>

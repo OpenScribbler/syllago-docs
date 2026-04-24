@@ -5,7 +5,7 @@ description: How syllago manages MCP server configurations across providers.
 
 MCP (Model Context Protocol) server configurations define external tools and data sources that AI coding tools can connect to -- things like database access, API integrations, or custom tool servers. Syllago stores these in a provider-neutral format and converts them to each provider's native configuration on install.
 
-## Syllago Format
+## Syllago format
 
 MCP configs are stored as JSON with a `mcpServers` key. Each server entry specifies the command to run, its arguments, and any environment variables:
 
@@ -37,7 +37,7 @@ Each server entry supports:
 - **`env`** -- environment variables available to the server at runtime
 - **`disabledTools`** -- list of tools to disable on this server (supported by Kiro, Windsurf, Roo Code)
 
-### disabledTools
+### `disabledTools`
 
 The `disabledTools` field lets you selectively disable specific tools from an MCP server:
 
@@ -55,7 +55,7 @@ The `disabledTools` field lets you selectively disable specific tools from an MC
 
 This field round-trips through Kiro, Windsurf, and Roo Code. Other providers drop it with a portability warning during conversion.
 
-## Provider Support
+## Provider support
 
 MCP configs are supported by every provider:
 
@@ -74,11 +74,11 @@ MCP configs are supported by every provider:
 | OpenCode | Yes | `opencode.json` / `opencode.jsonc` |
 | Amp | Yes | `.amp/settings.json` |
 
-## Format Differences
+## Format differences
 
 Most providers use the same `mcpServers` JSON structure, so conversion is straightforward. The notable exception is Zed.
 
-### Zed: `context_servers` Mapping
+### Zed: `context_servers` mapping
 
 Zed uses the key `context_servers` instead of `mcpServers` in its configuration. Syllago handles this mapping automatically during install and import -- no manual adjustment needed.
 
@@ -97,7 +97,7 @@ Zed native format:
 
 When you import from Zed, syllago reads `context_servers` and normalizes it to `mcpServers`. When you install to Zed, syllago converts `mcpServers` back to `context_servers`.
 
-## See Also
+## See also
 
 - [Content Types Overview](/using-syllago/content-types/) -- full compatibility matrix and content type listing
 - [Format Conversion](/using-syllago/format-conversion/) -- how syllago converts between provider formats

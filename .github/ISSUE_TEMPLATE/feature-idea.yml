@@ -1,0 +1,61 @@
+name: Feature Idea
+description: A new page, guide, or site capability that should exist but doesn't
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Paint the picture of what this looks like in use. Walk us through it like
+        you're explaining to a teammate — no code, just your thinking.
+
+  - type: textarea
+    id: what-should-exist
+    attributes:
+      label: What should exist that doesn't?
+      description: Describe the new page, guide, or site capability you're imagining.
+      placeholder: "There should be a page/guide/feature that ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: who-and-when
+    attributes:
+      label: Who would use this and when?
+      description: Describe the reader and the moment when this matters.
+      placeholder: "When someone is trying to ... they would ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: how-should-it-work
+    attributes:
+      label: How should it work?
+      description: Walk through the experience in your own words. What would a reader see, learn, or be able to do? No code — just describe it.
+      placeholder: "The reader would land on ... and then they'd see ..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: areas
+    attributes:
+      label: What might this touch?
+      description: Which parts of the docs could be involved? Check all that apply.
+      options:
+        - label: Getting started / tutorials
+        - label: Using syllago (how-to guides)
+        - label: Advanced / internals
+        - label: Reference pages
+        - label: Moat / loadouts
+        - label: For AI assistants
+        - label: Search / navigation / sidebar
+        - label: Site theme / layout / components
+        - label: Build or CI pipeline
+        - label: Not sure
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Links, screenshots, related issues, prior discussion, or anything else that might help.
+    validations:
+      required: false

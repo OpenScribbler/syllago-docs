@@ -8,16 +8,22 @@ indicators:
 exceptions:
   - AI
   - API
+  - CI/CD
   - CLI
   - D2
+  - FAQ
   - GitHub
   - JSON
   - JSONC
   - LLM
+  - IDs
   - MCP
+  - MDC
   - MDX
+  - MOAT
   - Syllago
   - OAuth
+  - OIDC
   - TUI
   - TOML
   - YAML

@@ -5,7 +5,7 @@ description: How syllago manages rules — system prompts and custom instruction
 
 Rules are system prompts and custom instructions that guide AI behavior. They define coding standards, project conventions, response styles, and any other behavioral guidance for the AI tool. Rules are the most universal content type — every provider supports them.
 
-## What Rules Do
+## What rules do
 
 Rules tell the AI tool *how to behave*. Common uses:
 
@@ -14,7 +14,7 @@ Rules tell the AI tool *how to behave*. Common uses:
 - Response style (verbosity, tone, explanation depth)
 - Workflow instructions (testing requirements, review processes)
 
-## syllago Format
+## Syllago format
 
 Rules in your library are stored as a directory containing two files: a `.syllago.yaml` metadata file and a Markdown content file.
 
@@ -44,7 +44,7 @@ patterns over classes. Write Vitest tests for all new functions.
 
 The `source_format` field records the original format the rule was imported from. The `source_type` field indicates whether it came from a provider config or was created directly.
 
-## Provider Compatibility
+## Provider compatibility
 
 Rules are supported by every provider:
 
@@ -54,7 +54,7 @@ Rules are supported by every provider:
 | Gemini CLI | Markdown | `.md` | `GEMINI.md` |
 | Copilot CLI | Markdown | `.md` | `.github/copilot-instructions.md` or `AGENTS.md` |
 | Codex | Markdown | `.md` | `AGENTS.md` |
-| Cursor | MDC | `.mdc` | `.cursor/rules/` or `.cursorrules` |
+| Cursor | Markdown Component (MDC) | `.mdc` | `.cursor/rules/` or `.cursorrules` |
 | Windsurf | Markdown | `.md` | `.windsurfrules` or `.windsurf/rules/` |
 | Zed | Markdown | `.md` | `.rules`, `.cursorrules`, or `CLAUDE.md` |
 | Cline | Markdown | `.md` | `.clinerules/` |
@@ -63,13 +63,13 @@ Rules are supported by every provider:
 | Kiro | Markdown | `.md` | `.kiro/steering/` |
 | Amp | Markdown | `.md` | `AGENTS.md`, `AGENT.md`, `CLAUDE.md` |
 
-## Format Differences
+## Format differences
 
 Most providers use plain Markdown, but two require conversion:
 
 ### Cursor (MDC format)
 
-Cursor uses MDC (Markdown Component) format with `.mdc` extension. Syllago maps Markdown frontmatter fields to MDC metadata headers automatically.
+Cursor uses MDC format with `.mdc` extension. Syllago maps Markdown frontmatter fields to MDC metadata headers automatically.
 
 **syllago format** (Markdown with frontmatter):
 
@@ -122,7 +122,7 @@ Applies to: `**/*.ts`
 Use strict TypeScript with explicit return types.
 ```
 
-## Working with Rules
+## Working with rules
 
 ### Creating a rule
 
@@ -156,7 +156,7 @@ syllago inspect rules/claude-code/my-rule
 
 Shows the full metadata and content for pre-install auditing.
 
-## Further Reading
+## Further reading
 
 - [Content Types Overview](/using-syllago/content-types/) — provider compatibility matrix and other content types
 - [Format Conversion](/using-syllago/format-conversion/) — how syllago converts between provider formats

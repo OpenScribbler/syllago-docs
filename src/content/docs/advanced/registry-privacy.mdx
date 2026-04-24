@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 Syllago includes a privacy gate system to prevent accidental leakage of content from private registries to public destinations. This is a soft gate — it prevents mistakes, not intentional circumvention.
 
-## How It Works
+## How it works
 
 The privacy gate operates in four layers:
 
@@ -30,7 +30,7 @@ source_visibility: private
 
 These fields persist through the content's entire lifecycle in your library. They are not removed by editing, re-importing from a different path, or any other library operation.
 
-### 3. Enforcement (Four Gates)
+### 3. Enforcement (four gates)
 
 | Gate | Command | Behavior |
 |------|---------|----------|
@@ -52,7 +52,7 @@ The privacy gate prevents accidental leakage through syllago commands. It does *
 There is no override flag by design. To remove the taint, re-add the content from a public source.
 </Aside>
 
-## Removing Taint
+## Removing taint
 
 The only way to remove privacy taint is to re-add the content from a public source:
 
@@ -64,7 +64,7 @@ syllago remove my-private-skill
 syllago add skills/my-skill --from claude-code
 ```
 
-## Team Workflows
+## Team workflows
 
 ### Private team registry
 
@@ -87,7 +87,7 @@ syllago registry list
 syllago inspect my-skill --json | jq '.source_visibility'
 ```
 
-## See Also
+## See also
 
 - [Registries](/using-syllago/collections/registries/) — managing git-based registries
 - `syllago share` — contributing to registries or team repos

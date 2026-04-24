@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-04-22T13:52:53.999Z
-> Files: 543 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-04-24T19:03:42.083Z
+> Files: 556 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ../../../../../mnt/c/Users/hhewe/hhewett-vault/Active-Projects/
 
@@ -26,14 +26,17 @@
 - `.editorconfig` — Editor configuration (~83 tok)
 - `.gitattributes` — Git attributes (~44 tok)
 - `.gitignore` — Git ignore rules (~68 tok)
-- `.vale.ini` (~60 tok)
+- `.vale.ini` — Scopes Vale to src/content/, excludes 12 auto-generated paths via per-glob BasedOnStyles= (~390 tok)
 - `AGENTS.md` — Agent Instructions (~332 tok)
 - `astro.config.mjs` — Smart D2 detection — auto-enable when D2 is available. (~744 tok)
-- `CHANGELOG.md` — Changelog (~10527 tok)
+- `CHANGELOG.md` — Changelog (~11813 tok)
 - `CLAUDE.md` — OpenWolf (~138 tok)
+- `CODE_OF_CONDUCT.md` — Contributor Covenant Code of Conduct (~1370 tok)
+- `CONTRIBUTING.md` — Contributing to syllago-docs (~1357 tok)
 - `package-lock.json` — npm lock file (~85164 tok)
-- `package.json` — Node.js package manifest (~438 tok)
+- `package.json` — Node.js package manifest (~449 tok)
 - `README.md` — Project documentation (~279 tok)
+- `SECURITY.md` — Security Policy (~904 tok)
 - `sidebar.ts` — Exports sidebar (~5167 tok)
 - `tsconfig.json` — TypeScript configuration (~32 tok)
 
@@ -170,9 +173,23 @@
 - `syllago-docs-capabilities-pipeline-validation-report.md` — Validation Report (Attempt 2/5) (~804 tok)
 - `syllago-docs-capabilities-pipeline.json` (~421 tok)
 
+## .githooks/
+
+- `pre-push` — ' '.vale.ini' 'vale/**' 2>/dev/null || true) (~332 tok)
+
 ## .github/
 
 - `dependabot.yml` (~42 tok)
+- `PULL_REQUEST_TEMPLATE.md` — Summary (~167 tok)
+- `vouch-pr-response.md` (~255 tok)
+
+## .github/ISSUE_TEMPLATE/
+
+- `bug-report.yml` (~750 tok)
+- `config.yml` (~128 tok)
+- `content-request.yml` — Declares attributes (~680 tok)
+- `feature-idea.yml` (~595 tok)
+- `improvement.yml` (~547 tok)
 
 ## .github/scripts/
 
@@ -182,7 +199,7 @@
 ## .github/workflows/
 
 - `deploy.yml` — CI: Deploy to GitHub Pages (~516 tok)
-- `lint.yml` — CI: Lint (~305 tok)
+- `lint.yml` — CI: Lint (~306 tok)
 
 ## .handoffs.bak/
 
@@ -294,10 +311,10 @@
 
 ## src/content/docs/advanced/
 
-- `registry-privacy.mdx` — How It Works (~855 tok)
+- `registry-privacy.mdx` — How it works (~855 tok)
 - `sandbox.mdx` — What gets sandboxed (~1342 tok)
-- `team-setup.mdx` — Team registry (~1559 tok)
-- `troubleshooting.mdx` — Debug Flags (~1146 tok)
+- `team-setup.mdx` — Team registry (~1561 tok)
+- `troubleshooting.mdx` — Debug flags (~1146 tok)
 
 ## src/content/docs/errors/
 
@@ -357,21 +374,21 @@
 ## src/content/docs/getting-started/
 
 - `core-concepts.mdx` — Providers (~1438 tok)
-- `installation.mdx` — System Requirements (~678 tok)
+- `installation.mdx` — System requirements (~678 tok)
 - `quick-start.mdx` — Import from your existing tools (~980 tok)
 
 ## src/content/docs/moat/
 
-- `index.mdx` — Why Syllago Uses MOAT (~2353 tok)
-- `registry-add-signing-identity.mdx` — Why Pinning Matters (~2275 tok)
-- `trust-tiers.mdx` — The Three MOAT Tiers (~2208 tok)
+- `index.mdx` — Why Syllago uses MOAT (~2365 tok)
+- `registry-add-signing-identity.mdx` — Why pinning matters (~2287 tok)
+- `trust-tiers.mdx` — The three MOAT tiers (~2237 tok)
 
 ## src/content/docs/reference/
 
 - `agents-matrix.mdx` — Format and Install Method (~1265 tok)
 - `capabilities-matrix.mdx` — Agents (~1980 tok)
 - `commands-matrix.mdx` — Format and Install Method (~858 tok)
-- `compare-providers.mdx` — What you're comparing (~272 tok)
+- `compare-providers.mdx` — What you're comparing (~274 tok)
 - `hook-events.mdx` — How to read this table (~1740 tok)
 - `hooks-v1.mdx` — 1. Introduction (~2798 tok)
 - `mcp-configs-matrix.mdx` — Format and Install Method (~1177 tok)
@@ -429,8 +446,8 @@
 
 ## src/content/docs/using-syllago/
 
-- `format-conversion.mdx` — How Conversion Works (~2338 tok)
-- `syllago-yaml.mdx` — Field Reference (~2001 tok)
+- `format-conversion.mdx` — How conversion works (~2337 tok)
+- `syllago-yaml.mdx` — Field reference (~2001 tok)
 - `tui.mdx` — or use the alias (~455 tok)
 
 ## src/content/docs/using-syllago/cli-reference/
@@ -499,13 +516,13 @@
 
 ## src/content/docs/using-syllago/content-types/
 
-- `agents.mdx` — Canonical Fields (~1044 tok)
-- `commands.mdx` — Provider Support (~836 tok)
-- `hooks.mdx` — Canonical Format (~961 tok)
-- `index.mdx` — Provider Compatibility Matrix (~594 tok)
-- `mcp-configs.mdx` — Syllago Format (~876 tok)
-- `rules.mdx` — What Rules Do (~1277 tok)
-- `skills.mdx` — Syllago Format (~1372 tok)
+- `agents.mdx` — Canonical fields (~1044 tok)
+- `commands.mdx` — Provider support (~836 tok)
+- `hooks.mdx` — Canonical format (~1098 tok)
+- `index.mdx` — Provider compatibility matrix (~585 tok)
+- `mcp-configs.mdx` — Syllago format (~876 tok)
+- `rules.mdx` — What rules do (~1277 tok)
+- `skills.mdx` — Syllago format (~1372 tok)
 
 ## src/content/docs/using-syllago/providers/
 
@@ -728,3 +745,8 @@
 ## src/test/schema/
 
 - `content-config.test.ts` — Mirror the schemas from content.config.ts to test them in isolation. (~1034 tok)
+
+## vale/styles/Syllago/
+
+- `Acronyms.yml` (~174 tok)
+- `Headings.yml` (~156 tok)

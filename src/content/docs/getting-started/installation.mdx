@@ -5,7 +5,7 @@ description: Install syllago on Linux, macOS, or Windows.
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-## System Requirements
+## System requirements
 
 | Requirement | Details |
 |---|---|
@@ -13,7 +13,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 | **Architecture** | x86_64 (amd64) or arm64 |
 | **Go** | 1.26+ (only for `go install` or building from source) |
 
-## Install Script (Recommended)
+## Install script (recommended)
 
 Downloads the latest release binary and verifies its SHA-256 checksum. Works on Linux, macOS, and Windows.
 
@@ -35,7 +35,7 @@ The install script creates a `syl` alias symlink automatically, so you can use e
 brew install openscribbler/tap/syllago
 ```
 
-## Go Install
+## Go install
 
 ```bash
 go install github.com/OpenScribbler/syllago/cli/cmd/syllago@latest
@@ -43,7 +43,7 @@ go install github.com/OpenScribbler/syllago/cli/cmd/syllago@latest
 
 Requires Go 1.26+.
 
-## From Source
+## From source
 
 Requires Go 1.26+.
 
@@ -53,13 +53,13 @@ cd syllago
 make build
 ```
 
-## Verify Installation
+## Verify installation
 
 ```bash
 syllago version
 ```
 
-## Self-Update
+## Self-update
 
 ```bash
 syllago update
@@ -67,7 +67,7 @@ syllago update
 
 Updates syllago to the latest release.
 
-## Shell Completions
+## Shell completions
 
 syllago generates completions for bash, zsh, fish, and PowerShell.
 
@@ -140,6 +140,6 @@ syllago completion powershell | Out-String | Invoke-Expression
 </TabItem>
 </Tabs>
 
-## Next Steps
+## Next steps
 
 Head to the [Quick Start](/getting-started/quick-start/) to start managing your AI coding tool content.

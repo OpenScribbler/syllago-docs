@@ -9,7 +9,7 @@ Every item syllago installs from a MOAT registry carries a **trust tier** — a 
 
 This page documents how syllago computes the tier, what badges an operator sees, and how the install gate reacts to revocation, private-repo content, and tier policy.
 
-## The Three MOAT Tiers
+## The three MOAT tiers
 
 MOAT v0.6.x defines three normative tiers based on which fields a manifest entry carries:
 
@@ -23,7 +23,7 @@ MOAT v0.6.x defines three normative tiers based on which fields a manifest entry
 MOAT's three-tier model is deliberate: *absence of a stronger signal is not a negative signal*. An `Unsigned` entry is not accused of being malicious — the registry has simply made no cryptographic claim about it. Syllago follows the spec's guidance and renders no "failed" badge for `Unsigned`.
 </Aside>
 
-## How Syllago Computes the Tier
+## How Syllago computes the tier
 
 The tier is derived from the manifest entry at parse time. Logic (from `cli/internal/moat/manifest.go`):
 
@@ -38,7 +38,7 @@ The `attestation_hash_mismatch` downgrade exists because a publisher profile pai
 
 Syllago's catalog layer adds one additional label — `Unknown` — that is **not** a MOAT tier. It marks content that was never sourced from a MOAT manifest in the first place (git registries, local content, legacy installs). It exists only so the catalog never has to guess a tier for content the protocol has no opinion about; the drill-down simply shows no trust claim rather than fabricating one.
 
-## Trust Badges in the UI
+## Trust badges in the UI
 
 The normative three-tier classification is preserved internally and in JSON output, but the headline badge an operator sees in the library and registry tabs collapses to three user-facing states:
 
@@ -54,7 +54,7 @@ The recalled glyph is the ASCII letter `R`, not the Unicode cross `✗`. Syllago
 
 The drill-down text preserves the full tier — "Verified (dual-attested by publisher and registry)" vs "Verified (registry-attested)" — so an operator who wants to know *why* an item is verified can see it on the detail surface without the badge row becoming noisy.
 
-## The Trust Inspector
+## The trust inspector
 
 The syllago TUI interface exposes a reusable **Trust Inspector** modal that renders the full trust story for either an item or a whole registry. The same modal serves both scopes so the user sees a consistent shape regardless of where they opened it from.
 
@@ -71,13 +71,13 @@ The syllago TUI interface exposes a reusable **Trust Inspector** modal that rend
 - Status (Fresh / Stale / Missing)
 - Item counts (total, verified, recalled, private)
 
-## Revocation: Two-Tier Contract
+## Revocation: Two-tier contract
 
-MOAT lets a manifest carry revocations from either the **registry** or the **publisher**. Syllago treats the two sources differently because they mean different things:
+MOAT lets a manifest carry revocations from either the **registry** or the **publisher**. Syllago treats the two sources differently because they mean different things. The behavior is specified in the project's Architecture Decision Record (ADR) 0007:
 
 | Source      | Install gate         | Exit code (non-interactive) | Recovery                                                  |
 |-------------|----------------------|------------------------------|-----------------------------------------------------------|
-| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent (ADR 0007 G-15). Choose an alternative item.    |
+| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent (ADR 0007 G-15 — see Spec Alignment below). Choose an alternative item. |
 | `publisher` | Warn + prompt `Y/n`  | `12` (non-interactive only)  | Interactive acknowledgement, scoped to one install call.  |
 
 A registry-source revocation is the registry operator stating that the content is no longer trustworthy — malicious, compromised, deprecated, or policy-violating. Syllago refuses the install outright; there is no prompt.
@@ -86,15 +86,15 @@ A publisher-source revocation is the publisher's own advisory. Operators running
 
 Revocation reasons are drawn from a closed set: `malicious`, `compromised`, `deprecated`, `policy_violation`.
 
-## Private-Repo Prompt
+## Private-repo prompt
 
 Manifest entries carrying `private_repo=true` trigger an interactive `Y/n` before install, acknowledging that the content originates from a private source. Non-interactive callers exit with code `10` (the TOFU-acceptance code is reused because the semantic shape is identical: a trust decision requiring human judgment that a pipeline has no authority to make).
 
-## Tier Policy Floor
+## Tier policy floor
 
 The install gate accepts a minimum tier. When an item's tier is below that floor, syllago emits a structured `moat_tier_below_policy` error and refuses the install. The default floor is `Unsigned` — every valid tier passes — so the policy is available for operators who want to enforce `Signed` or `Dual-Attested` once their registries support it.
 
-## Related Error Codes
+## Related error codes
 
 The install gate and manifest verification surface these MOAT errors when trust cannot be established:
 
