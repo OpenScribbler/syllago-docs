@@ -685,6 +685,31 @@ syllago install my-rule --to gemini-cli</code></pre>
 
       <div class="dd-row dd-row-reverse">
         <div class="dd-text">
+          <h2>Switch tools without starting over</h2>
+          <p>
+            Already invested in one tool? Move your whole setup to another in
+            three commands. See what's there, pull it into syllago, install to
+            your new provider — format conversion runs automatically. No
+            re-creating skills, no rewriting rules.
+          </p>
+          <p class="dd-audience">For developers switching or evaluating new AI tools.</p>
+        </div>
+        <div class="dd-code">
+          <pre><code><span class="dd-comment"># See what's in your existing setup (read-only)</span>
+syllago add --from claude-code
+
+<span class="dd-comment"># Pull everything into your library</span>
+syllago add --all --from claude-code
+
+<span class="dd-comment"># Install everything to the new tool</span>
+syllago install --all --to cursor</code></pre>
+        </div>
+      </div>
+
+      <hr class="dd-divider" />
+
+      <div class="dd-row">
+        <div class="dd-text">
           <h2>Share without friction</h2>
           <p>
             Convert content for ad-hoc sharing, or publish to a git registry
@@ -707,7 +732,7 @@ syllago compat my-skill</code></pre>
 
       <hr class="dd-divider" />
 
-      <div class="dd-row">
+      <div class="dd-row dd-row-reverse">
         <div class="dd-text">
           <h2>Standards your team actually uses</h2>
           <p>
@@ -722,7 +747,7 @@ syllago compat my-skill</code></pre>
 syllago registry add https://github.com/org/ai-standards.git
 
 <span class="dd-comment"># Sync and install (one command in CI)</span>
-syllago sync-and-export --to claude-code
+syllago sync-install --to claude-code
 
 <span class="dd-comment"># Scaffold a new registry for your team</span>
 syllago registry create --new team-rules</code></pre>
@@ -731,7 +756,7 @@ syllago registry create --new team-rules</code></pre>
 
       <hr class="dd-divider" />
 
-      <div class="dd-row dd-row-reverse">
+      <div class="dd-row">
         <div class="dd-text">
           <h2>One click and go</h2>
           <p>
@@ -743,14 +768,14 @@ syllago registry create --new team-rules</code></pre>
           <p class="dd-audience">For everyone.</p>
         </div>
         <div class="dd-code">
-          <pre><code><span class="dd-comment"># Create a loadout from your current setup</span>
-syllago loadout create my-python-stack
+          <pre><code><span class="dd-comment"># Create a loadout (interactive prompt names it)</span>
+syllago loadout create
 
 <span class="dd-comment"># Apply it (one command, everything configured)</span>
-syllago loadout apply my-python-stack
+syllago loadout apply my-python-stack --keep
 
 <span class="dd-comment"># Switch contexts instantly</span>
-syllago loadout apply frontend-review
+syllago loadout apply frontend-review --keep
 
 <span class="dd-comment"># Done? Revert cleanly</span>
 syllago loadout remove</code></pre>

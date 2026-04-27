@@ -2,6 +2,14 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-26
+
+### Added
+- `src/pages/index.astro` — new "Switch tools without starting over" deep-dive section (slot 2 of 5) covering the migration workflow: `add --from` for discovery, `add --all --from` to pull a whole setup into the library, `install --all --to` to push it to the new provider. Audience tag: developers switching or evaluating new AI tools. All commands verified against the live syllago 0.10.0 binary.
+
+### Changed
+- `src/pages/index.astro` — flipped the `dd-row` ↔ `dd-row dd-row-reverse` orientation on the Share, Team, and Loadouts deep-dive sections so the alternating left/right rhythm is preserved after the new section was inserted at slot 2.
+
 ## 2026-04-25
 
 ### Fixed
@@ -35,6 +43,10 @@ All notable changes to the syllago documentation site.
 - 18 doc files — converted 126 section headings from Title Case to sentence-style capitalization per the `Syllago.Headings` rule. Notable rewrites: `syllago Format` → `Syllago format` (rules.mdx typo), bare identifier heading `disabledTools` → backticked `` `disabledTools` `` (mcp-configs.mdx), and numbered section headings in `hooks-v1.mdx` (`2. Canonical Format` → `2. Canonical format`, etc.).
 - GitHub repo settings for `OpenScribbler/syllago-docs`: enabled secret scanning, secret scanning push protection, Dependabot security updates, auto-merge, and delete-branch-on-merge.
 - Branch protection on `main`: require PR before merge (0 approvals, solo-dev friendly), require `Validate Actions` status check to pass on an up-to-date branch, require resolved conversations, block force-push and branch deletion, dismiss stale reviews. Admin bypass enabled — direct pushes from maintainers still work when needed.
+
+### Fixed
+- `src/pages/index.astro` — corrected two loadout commands in the "One click and go" section. `syllago loadout create` does not accept a positional name argument (it's interactive), and `syllago loadout apply <name>` without flags only previews — the prose claimed it applied. Switched the example to `syllago loadout apply ... --keep` so the command matches the "everything configured" intent.
+- `src/pages/index.astro` — replaced `syllago sync-and-export` with `syllago sync-install`. Verified against installed CLI v0.9.0: the command was renamed (the auto-synced `sync-and-export.mdx` is stale and will need a follow-up sync). The landing page is now accurate against the live binary.
 
 ## 2026-04-22 (docs accuracy review — 170 files verified against syllago source)
 

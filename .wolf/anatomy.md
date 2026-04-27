@@ -229,6 +229,39 @@
 
 - `completed-brainstorm-with-17-locked-decisions-2026-04-14T23-55-02-285Z.json` (~1034 tok)
 
+## design-previews/
+
+> Standalone HTML landing-page explorations (2026-04-24). Self-contained, inline CSS/JS, opened directly via file:// or any static server. Not part of the Astro build. Each preview has a distinct background, hover/cursor interaction, and tone of copy; lift the chosen direction into `src/pages/index.astro`.
+
+- `01-spotlight.html` — Dark, cursor-tracked radial spotlight, serif headline (~10.5k)
+- `02-zine.html` — Cream paper, tilting sticker badges, hand-drawn underlines (~10.9k)
+- `03-arcade.html` — CRT scanlines, pixel cursor, achievement-toast on scroll (~11.2k)
+- `04-terminal.html` — Boot-sequence typewriter + working keybinds (?, g d, g g, r, esc) (~13.6k)
+- `05-aurora.html` — Animated mesh-gradient blobs, glassmorphism, magnetic CTAs (~11.5k)
+- `06-brutalist.html` — Archivo Black manifesto, halftone, sticker rotation (~11.5k)
+- `07-cyberpunk.html` — Canvas ASCII rain + glitch-decryption hover on headline (~12.8k)
+- `08-card-catalog.html` — Sepia paper, rotated index cards with stamps, typewriter type (~12.5k)
+- `09-magazine.html` — Editorial drop caps, asymmetric grid, footnote-tooltip snark (~12.7k)
+- `10-zen.html` — Sparse light/dark, cursor-trail dots, click ripples, breathing headline (~11.6k)
+- `11-spotrain.html` — 01 base + 07 ASCII rain on cursor activity + cycling hero phrase (skills/rules/agents/hooks/commands) (~13.2k)
+- `index.html` — Iframe gallery (1280×800 scaled to fit) — click any tile to open full-size (~16.5k)
+
+## design-previews/fantasy/
+
+> 16-bit / pixel-art / isometric landing-page set (2026-04-24). Fantasy + cyberpunk fusion. Self-contained HTML, inline SVG sprites with `shape-rendering:crispEdges`. Each variant uses Press Start 2P / VT323 / Pirata One / MedievalSharp / Pixelify Sans via Google Fonts.
+
+- `01-castle.html` — Iso fortress + provider banner flutter + knight-mage party at gate (~14.5k)
+- `02-tower.html` — Tall mage tower with 4 neon runes orbiting; synthwave grid floor (~13k)
+- `03-dungeon.html` — Top-down tabletop dungeon, 6 rooms = 6 features, hover marginalia (~15.3k)
+- `04-questlog.html` — Faux JRPG menu UI: portrait, stats, inventory grid, quest log (~11.9k)
+- `05-skyislands.html` — Iso floating islands w/ landmarks (crystal, gatehouse, vault); vapor sunset (~12.9k)
+- `06-forge.html` — Synthwave smithy with animated sparks; weapon being forged (~13k)
+- `07-titlescreen.html` — CRT boot screen, blinking PRESS START, 12-provider character select (~11.2k)
+- `08-bossbattle.html` — FF-style fight vs FORMAT DRIFT; HP bars, action menu, party row (~14k)
+- `09-tavern.html` — Iso pub interior with bartender + provider-colored bottles + patron grid (~19.4k)
+- `10-bazaar.html` — Iso marketplace, striped awnings, gold counter (always 0g, free) (~15.2k)
+- `index.html` — Iframe gallery (1280×800 scaled .45×) of all 10 + meta tags per direction (~13.9k)
+
 ## docs/
 
 - `cli-reference-architecture.md` — CLI Reference Architecture (~1708 tok)
