@@ -6,9 +6,9 @@
   "lastChangedAt": "2026-04-11T00:00:00Z",
   "sources": [
     {
-      "uri": "https://cursor.com/docs/agents",
+      "uri": "https://cursor.com/docs/agent/overview",
       "type": "documentation",
-      "fetched_at": "2026-04-11T00:00:00Z"
+      "fetched_at": "2026-04-22T04:38:00Z"
     }
   ],
   "canonicalMappings": {
@@ -47,7 +47,7 @@
       "id": "agent_file_format",
       "name": "Markdown + YAML frontmatter agent files",
       "summary": "Custom agents are .md files with YAML frontmatter (name, description, model, readonly, is_background) and a Markdown system-prompt body.",
-      "source_ref": "https://cursor.com/docs/agents",
+      "source_ref": "https://cursor.com/docs/agent/overview",
       "required": null,
       "conversion": "translated"
     },
@@ -55,7 +55,7 @@
       "id": "readonly_flag",
       "name": "readonly frontmatter flag",
       "summary": "readonly: true restricts the agent to read-only tools so it cannot edit files or run mutating commands.",
-      "source_ref": "https://cursor.com/docs/agents",
+      "source_ref": "https://cursor.com/docs/agent/overview",
       "required": null,
       "provider_field": "readonly",
       "conversion": "embedded"
@@ -64,7 +64,7 @@
       "id": "is_background_flag",
       "name": "is_background frontmatter flag",
       "summary": "is_background: true marks the agent as eligible to run in Cursor's background agents queue for concurrent execution.",
-      "source_ref": "https://cursor.com/docs/agents",
+      "source_ref": "https://cursor.com/docs/agent/overview",
       "required": null,
       "provider_field": "is_background",
       "conversion": "embedded"
@@ -73,7 +73,7 @@
       "id": "builtin_subagents",
       "name": "Built-in Explore, Bash, and Browser subagents",
       "summary": "Cursor ships three built-in subagents (Explore, Bash, Browser) that are harness-provided and not overridable via files; only user-authored agents under .cursor/agents/ or ~/.cursor/agents/ are portable.",
-      "source_ref": "https://cursor.com/docs/agents",
+      "source_ref": "https://cursor.com/docs/agent/overview",
       "required": null,
       "conversion": "not-portable"
     },
@@ -81,7 +81,7 @@
       "id": "agent_scopes",
       "name": "Project and user-global agent scopes",
       "summary": "Custom agents live in .cursor/agents/ at the project root or ~/.cursor/agents/ for user-global scope, following the same layout as Cursor's other content types.",
-      "source_ref": "https://cursor.com/docs/agents",
+      "source_ref": "https://cursor.com/docs/agent/overview",
       "required": null,
       "conversion": "translated"
     }

@@ -47,9 +47,17 @@ Fired when a CLI command completes successfully.
 | `to_provider` | `string` | Target provider for conversion | `"claude-code"` | `convert` |
 | `source_filter` | `string` | Content source filter (library, shared, or registry) | `"library"` | `list` |
 | `item_count` | `int` | Number of items in the result set | `12` | `list`, `registry_items` |
-| `mode` | `string` | Loadout application mode | `"try"` | `loadout_apply` |
+| `mode` | `string` | Operational mode (loadout 'try', add 'monolithic') | `"try"` | `loadout_apply`, `add` |
+| `discovery_candidate_count` | `int` | Number of monolithic rule files considered by add (D18) | `3` | `add` |
+| `selected_count` | `int` | Number of monolithic rule files actually imported (D18) | `2` | `add` |
+| `split_method` | `string` | Splitter heuristic used for monolithic rule imports (D3) | `"h2"` | `add` |
+| `scope` | `string` | Scope label for the imported sources (project, global, mixed) | `"project"` | `add` |
 | `action_count` | `int` | Number of actions performed by loadout | `5` | `loadout_apply` |
 | `registry_count` | `int` | Number of registries involved | `2` | `registry_sync` |
+| `moat_tier` | `string` | Resolved MOAT trust tier for the item (UNSIGNED, SIGNED, DUAL-ATTESTED) | `"SIGNED"` | `install` |
+| `moat_gated` | `string` | MOAT install-gate outcome (proceed, hard-block, publisher-warn, private-prompt, tier-below-policy) | `"proceed"` | `install` |
+| `verification_state` | `string` | D16 verification state for rule-append installs (fresh, clean, modified) | `"clean"` | `install` |
+| `decision_action` | `string` | D17 decision action taken during re-install (proceed, replace, skip, drop_record, append_fresh, keep) | `"replace"` | `install` |
 
 ## `tui_session_started`
 
@@ -82,4 +90,4 @@ These categories of data are **never** included in telemetry events, regardless 
 - All telemetry code is in [`cli/internal/telemetry/`](https://github.com/OpenScribbler/syllago/tree/main/cli/internal/telemetry)
 - The event catalog source of truth is [`catalog.go`](https://github.com/OpenScribbler/syllago/blob/main/cli/internal/telemetry/catalog.go)
 
-*Generated from syllago 0.9.0 on 2026-04-18.*
+*Generated from syllago 0.10.0 on 2026-04-26.*

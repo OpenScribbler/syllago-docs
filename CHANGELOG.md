@@ -19,6 +19,14 @@ All notable changes to the syllago documentation site.
 - `src/content/docs/using-syllago/cli-reference/info-formats.mdx`, `info-providers.mdx` — superseded by the top-level `formats.mdx` and `providers.mdx`.
 - `src/content/docs/using-syllago/cli-reference/rename.mdx` — the `rename` command was removed in syllago 0.10.0.
 - `src/content/docs/using-syllago/cli-reference/sync-and-export.mdx` — renamed to `sync-install.mdx`.
+- `src/data/capabilities/cursor-commands.json`, `sidebar.ts` cursor "Commands" entry — Cursor no longer surfaces a commands content type in syllago 0.10.0's capabilities snapshot. The provider page sidebar entry was removed accordingly.
+
+### Synced (capabilities, providers, canonical keys)
+- `src/data/providers/*.json`, `src/data/data-quality/*.json` (15 providers each) — provider metadata and data-quality snapshots regenerated. New entries for `crush`.
+- `src/data/capabilities/*.json` — Cursor capabilities updated; `windsurf-commands.json` regenerated.
+- `src/data/canonical-keys/commands-{argument_substitution,builtin_commands}.json` — canonical-key snapshots regenerated.
+- `src/content/docs/reference/canonical-keys/*.mdx` (33 files), `src/content/docs/reference/{agents,capabilities,commands,mcp-configs,rules,skills}-matrix.mdx`, `hook-events.mdx`, `telemetry.mdx` — auto-generated from the regenerated data via `bun run sync-capabilities` / `sync-providers`.
+- `src/content/docs/using-syllago/content-types/index.mdx`, `src/content/docs/using-syllago/providers/index.mdx` — managed-block re-render against the new provider/capability data.
 
 ## 2026-04-25
 

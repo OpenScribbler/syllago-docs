@@ -15,7 +15,6 @@ How each provider stores and installs commands.
 |----------|--------|---------------|:-------:|
 | [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
-| [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
 | [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
 | [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
@@ -33,7 +32,6 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 |----------|----------------|-------------------|
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude/commands` | `~/.claude/commands` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/commands` | `~/.gemini/commands` |
-| [Cursor](/using-syllago/providers/cursor/) | `.cursor/commands` | `~/.cursor/commands` |
 | [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/workflows`, `~/.codeium/windsurf/global_workflows` | `~/.codeium/windsurf/global_workflows` |
 | [Codex](/using-syllago/providers/codex/) | `.codex/commands` | `~/.codex` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/commands` | `~/.copilot/commands` |
@@ -47,23 +45,23 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 
 Which frontmatter fields each provider recognizes in commands files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Factory Droid | Pi |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `agent` | ✓ | — | — | — | — | ✓ | — | — | ✓ | — | — |
-| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — |
-| `argument-hint` | ✓ | — | — | — | ✓ | ✓ | — | — | — | — | — |
-| `context` | ✓ | — | — | — | — | — | — | — | — | — | — |
-| `description` | ✓ | ✓ | — | — | ✓ | ✓ | — | — | ✓ | — | — |
-| `disable-model-invocation` | ✓ | — | — | — | — | — | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — | — | — | — | — | — |
-| `model` | ✓ | — | — | — | — | ✓ | — | — | ✓ | — | — |
-| `name` | ✓ | ✓ | — | — | — | ✓ | — | — | — | — | — |
-| `prompt` | — | ✓ | — | — | — | — | — | — | — | — | — |
-| `subtask` | — | — | — | — | — | — | — | — | ✓ | — | — |
-| `tools` | — | — | — | — | — | ✓ | — | — | — | — | — |
-| `user-invocable` | ✓ | — | — | — | — | — | — | — | — | — | — |
+| Field | Claude Code | Gemini CLI | Windsurf | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Factory Droid | Pi |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | ✓ | — | — | ✓ | — | — |
+| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | ✓ | ✓ | — | — | — | — | — |
+| `context` | ✓ | — | — | — | — | — | — | — | — | — |
+| `description` | ✓ | ✓ | — | ✓ | ✓ | — | — | ✓ | — | — |
+| `disable-model-invocation` | ✓ | — | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — | — |
+| `model` | ✓ | — | — | — | ✓ | — | — | ✓ | — | — |
+| `name` | ✓ | ✓ | — | — | ✓ | — | — | — | — | — |
+| `prompt` | — | ✓ | — | — | — | — | — | — | — | — |
+| `subtask` | — | — | — | — | — | — | — | ✓ | — | — |
+| `tools` | — | — | — | — | ✓ | — | — | — | — | — |
+| `user-invocable` | ✓ | — | — | — | — | — | — | — | — | — |
 
-**Not supported by:** [Zed](/using-syllago/providers/zed/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/), [Crush](/using-syllago/providers/crush/).
+**Not supported by:** [Cursor](/using-syllago/providers/cursor/), [Zed](/using-syllago/providers/zed/), [Kiro](/using-syllago/providers/kiro/), [Amp](/using-syllago/providers/amp/), [Crush](/using-syllago/providers/crush/).
 
 ## See Also
 
@@ -71,4 +69,4 @@ Which frontmatter fields each provider recognizes in commands files. A checkmark
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.9.0 on 2026-04-18.*
+*Generated from syllago 0.10.0 on 2026-04-26.*

@@ -4,6 +4,8 @@
   "slug": "cursor",
   "configDir": ".cursor",
   "emitPath": "{project}/.cursor/rules/syllago-context.mdc",
+  "docsURL": "https://cursor.com/docs",
+  "category": "standalone-app",
   "content": {
     "agents": {
       "supported": true,
@@ -24,14 +26,8 @@
       ]
     },
     "commands": {
-      "supported": true,
-      "fileFormat": "md",
-      "installMethod": "filesystem",
-      "installPath": "{home}/.cursor/commands",
-      "symlinkSupport": true,
-      "discoveryPaths": [
-        "{project}/.cursor/commands"
-      ]
+      "supported": false,
+      "symlinkSupport": false
     },
     "hooks": {
       "supported": true,

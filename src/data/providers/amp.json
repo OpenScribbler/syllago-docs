@@ -4,6 +4,8 @@
   "slug": "amp",
   "configDir": ".config/amp",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://ampcode.com/manual",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": false,

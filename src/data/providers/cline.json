@@ -4,6 +4,8 @@
   "slug": "cline",
   "configDir": ".clinerules",
   "emitPath": "{project}/.clinerules",
+  "docsURL": "https://docs.cline.bot",
+  "category": "ide-extension",
   "content": {
     "agents": {
       "supported": false,

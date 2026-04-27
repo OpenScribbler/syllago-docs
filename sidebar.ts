@@ -131,7 +131,6 @@ export const sidebar: SidebarItem[] = [
               { label: 'Hooks', link: '/using-syllago/providers/cursor/hooks/' },
               { label: 'Rules', link: '/using-syllago/providers/cursor/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/cursor/mcp/' },
-              { label: 'Commands', link: '/using-syllago/providers/cursor/commands/' },
               { label: 'Agents', link: '/using-syllago/providers/cursor/agents/' },
             ],
           },
