@@ -21,6 +21,11 @@ All notable changes to the syllago documentation site.
 - `src/content/docs/using-syllago/cli-reference/sync-and-export.mdx` — renamed to `sync-install.mdx`.
 - `src/data/capabilities/cursor-commands.json`, `sidebar.ts` cursor "Commands" entry — Cursor no longer surfaces a commands content type in syllago 0.10.0's capabilities snapshot. The provider page sidebar entry was removed accordingly.
 
+### Synced (errors)
+- `src/content/docs/errors/moat-008.mdx` (new) — `MOAT_008 — Moat Revocation Block`.
+- `src/content/docs/errors/moat-009.mdx` (new) — `MOAT_009 — Moat Tier Below Policy`.
+- `src/content/docs/errors/index.mdx`, `install-005.mdx`, `item-001.mdx`, `moat-001.mdx`, `moat-002.mdx`, `moat-005.mdx`, `privacy-001.mdx`, `registry-002.mdx`, `registry-004.mdx`, `registry-006.mdx`, `registry-007.mdx` — re-synced from the syllago 0.10.0 error catalog via `bun run sync-errors`.
+
 ### Synced (capabilities, providers, canonical keys)
 - `src/data/providers/*.json`, `src/data/data-quality/*.json` (15 providers each) — provider metadata and data-quality snapshots regenerated. New entries for `crush`.
 - `src/data/capabilities/*.json` — Cursor capabilities updated; `windsurf-commands.json` regenerated.
