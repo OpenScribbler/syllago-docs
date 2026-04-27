@@ -1,6 +1,6 @@
 ---
 title: "syllago loadout apply"
-description: "Apply a loadout"
+description: "Preview or apply a loadout (default: preview; use --try or --keep to apply)"
 ---
 
 ## Synopsis
@@ -11,11 +11,14 @@ syllago loadout apply [name] [flags]
 
 ## Description
 
-Apply a loadout to configure the current project for Claude Code.
+Apply a loadout to configure the current project for one or more providers.
 
-Default mode (no flags): preview what would happen without making changes.
---try: apply temporarily; reverts automatically when the session ends.
+Running with no flags is always safe: it previews planned changes without
+modifying anything. Use --try or --keep to actually apply the loadout.
+
+--try:  apply temporarily; reverts automatically when the session ends.
 --keep: apply permanently; run "syllago loadout remove" to undo.
+--to:   target a specific provider (overrides the provider declared in the manifest).
 
 ## Options
 
@@ -24,7 +27,6 @@ Default mode (no flags): preview what would happen without making changes.
 | `--base-dir` | `string` | — | No | Override base directory for content installation |
 | `--keep` | `bool` | — | No | Apply permanently |
 | `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
-| `--preview` | `bool` | — | No | Dry run: show planned actions without applying |
 | `--to` | `string` | — | No | Target provider (overrides manifest provider; defaults to claude-code if unset) |
 | `--try` | `bool` | — | No | Apply temporarily; auto-revert on session end |
 

@@ -16,6 +16,8 @@ Install content from your library into a provider's location.
 By default uses a symlink so edits in your library are reflected immediately.
 Use --method copy to place a standalone copy instead.
 
+Hooks and MCP configs are merged into the provider's settings file rather than linked.
+
 ## Options
 
 | Flag | Type | Default | Required | Description |
@@ -25,8 +27,10 @@ Use --method copy to place a standalone copy instead.
 | `-n`, `--dry-run` | `bool` | — | No | Show what would happen without making changes |
 | `--force` | `bool` | — | No | Proceed past high-severity scanner findings |
 | `--hook-scanner` | `stringSlice` | — | No | Path to external hook scanner binary (repeatable) |
-| `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
+| `--method` | `string` | `symlink` | No | Install method: symlink (default), copy, or append (monolithic-file rules) |
 | `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
+| `--on-clean` | `string` | — | No | Action when rule is already installed cleanly: replace|skip |
+| `--on-modified` | `string` | — | No | Action when install record is stale: drop-record|append-fresh|keep |
 | `--to` | `string` | — | No | Provider to install into |
 | `--to-all` | `bool` | — | No | Install to all detected providers |
 | `--type` | `string` | — | No | Filter to a specific content type |

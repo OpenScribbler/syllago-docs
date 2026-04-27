@@ -6,9 +6,19 @@ All notable changes to the syllago documentation site.
 
 ### Added
 - `src/pages/index.astro` — new "Switch tools without starting over" deep-dive section (slot 2 of 5) covering the migration workflow: `add --from` for discovery, `add --all --from` to pull a whole setup into the library, `install --all --to` to push it to the new provider. Audience tag: developers switching or evaluating new AI tools. All commands verified against the live syllago 0.10.0 binary.
+- `src/content/docs/using-syllago/cli-reference/edit.mdx`, `formats.mdx`, `providers.mdx`, `refresh.mdx`, `sync-install.mdx` — new top-level commands surfaced in syllago 0.10.0 (`info formats` and `info providers` were promoted to top-level `formats` / `providers`; `sync-and-export` was renamed `sync-install`). Auto-synced from `syllago --help` via `bun run sync-commands`.
+- `src/content/docs/using-syllago/cli-reference/capmon-backfill.mdx`, `moat-sign.mdx` — new capmon and moat subcommands added in syllago 0.10.0.
 
 ### Changed
 - `src/pages/index.astro` — flipped the `dd-row` ↔ `dd-row dd-row-reverse` orientation on the Share, Team, and Loadouts deep-dive sections so the alternating left/right rhythm is preserved after the new section was inserted at slot 2.
+- `src/content/docs/using-syllago/cli-reference/*.mdx` (~30 files) — re-synced flag tables, examples, and synopses against syllago 0.10.0. Notable: `add` and `install` gained `--all` / `--from` / `--to` for migration workflows; loadout subcommands updated; `info` is now a thin parent for `formats` / `providers`.
+- `src/content/docs/using-syllago/cli-reference/index.mdx`, `src/generated/cli-sidebar.json` — CLI reference index and sidebar regenerated to reflect the new command tree.
+- `src/content/docs/advanced/troubleshooting.mdx` — fixed two now-broken links: `info-providers` → `providers` (the page moved when the command was promoted to top-level). Was failing the post-build link-validation gate.
+
+### Removed
+- `src/content/docs/using-syllago/cli-reference/info-formats.mdx`, `info-providers.mdx` — superseded by the top-level `formats.mdx` and `providers.mdx`.
+- `src/content/docs/using-syllago/cli-reference/rename.mdx` — the `rename` command was removed in syllago 0.10.0.
+- `src/content/docs/using-syllago/cli-reference/sync-and-export.mdx` — renamed to `sync-install.mdx`.
 
 ## 2026-04-25
 

@@ -1,0 +1,55 @@
+---
+title: "syllago refresh"
+description: "Check for and apply content updates from registries"
+---
+
+## Synopsis
+
+```
+syllago refresh [name] [flags]
+```
+
+## Description
+
+Compares installed content versions against their source registries
+and updates items where a newer version is available.
+
+Version comparison uses semver from .syllago.yaml metadata.
+Items installed from local projects (not registries) are skipped.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--all` | `bool` | — | No | Refresh all installed items |
+| `--dry-run` | `bool` | — | No | Show what would be updated without changing anything |
+| `--registry` | `string` | — | No | Only refresh items from this registry |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Refresh a specific item
+  syllago refresh my-skill
+
+  # Check and refresh all installed items
+  syllago refresh --all
+
+  # Dry-run: show what would be updated
+  syllago refresh --all --dry-run
+
+  # Only refresh items from a specific registry
+  syllago refresh --all --registry team-rules
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/refresh.go)</small>

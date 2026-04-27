@@ -19,10 +19,6 @@ Provide a type or type/name to add content.
 Syllago handles format conversion automatically. Once added, content can be
 installed to any supported provider with "syllago install --to &lt;provider&gt;".
 
-After adding, use "syllago install" to activate content in a provider.
-
-Hooks-specific flags (--exclude, --scope) are only meaningful when adding hooks.
-
 ## Options
 
 | Flag | Type | Default | Required | Description |
@@ -30,14 +26,15 @@ Hooks-specific flags (--exclude, --scope) are only meaningful when adding hooks.
 | `--all` | `bool` | — | No | Add all discovered content (cannot combine with positional target) |
 | `--base-dir` | `string` | — | No | Override base directory for content discovery |
 | `--dry-run` | `bool` | — | No | Show what would be written without actually writing |
-| `--exclude` | `stringArray` | — | No | Skip hooks by auto-derived name (hooks only) |
+| `--exclude` | `stringArray` | — | No | Skip hooks by auto-derived name (hooks and MCP only) |
 | `-f`, `--force` | `bool` | — | No | Overwrite existing item without prompting |
-| `--from` | `string` | — | Yes | Provider to add from (required) |
+| `--from` | `stringArray` | — | Yes | Provider to add from, or path to a monolithic rule file (repeatable for files) |
 | `--name` | `string` | — | No | Display name for hooks/MCP (stored in .syllago.yaml metadata) |
 | `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
-| `--scope` | `string` | `all` | No | Settings scope to read from: global, project, or all (hooks/mcp only) |
+| `--scope` | `string` | `all` | No | Settings scope to read from: global, project, or all (hooks and MCP only) |
 | `--source-registry` | `string` | — | No | Registry name for taint tracking |
 | `--source-visibility` | `string` | — | No | Source registry visibility (public, private, unknown) |
+| `--split` | `string` | — | No | Splitter heuristic: h2|h3|h4|marker:&lt;literal&gt;|single|llm (monolithic --from only) |
 | `--trusted-root` | `string` | — | No | Path to Sigstore trusted_root.json (overrides registry config and the bundled default) |
 
 ## Global Options

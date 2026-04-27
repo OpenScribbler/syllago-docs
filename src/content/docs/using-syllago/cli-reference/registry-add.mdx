@@ -20,6 +20,7 @@ syllago registry add <git-url> [flags]
 | `--signing-issuer` | `string` | — | No | OIDC issuer URL (default: GitHub Actions issuer) |
 | `--signing-repository-id` | `string` | — | No | GitHub numeric repository ID (required for GitHub Actions issuer) |
 | `--signing-repository-owner-id` | `string` | — | No | GitHub numeric repository-owner ID (required for GitHub Actions issuer) |
+| `--yes` | `bool` | — | No | Auto-accept TOFU during the chained post-add sync (required for MOAT registries that self-declare via registry.yaml without an allowlist match) |
 
 ## Global Options
 
