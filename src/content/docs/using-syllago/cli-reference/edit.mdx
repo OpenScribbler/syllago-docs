@@ -1,0 +1,57 @@
+---
+title: "syllago edit"
+description: "Edit a content item's display name or description"
+---
+
+## Synopsis
+
+```
+syllago edit <name> [flags]
+```
+
+## Description
+
+Updates display name and/or description stored in the item's .syllago.yaml metadata.
+
+Only the metadata file is changed — the directory name, install paths, and all
+references remain exactly as they are.
+
+The display name and description appear in the TUI, list output, and anywhere
+items are presented to users.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--description` | `string` | — | No | New description for the item |
+| `--name` | `string` | — | No | New display name for the item |
+| `--type` | `string` | — | No | Content type to disambiguate (skills, hooks, mcp, etc.) |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Set a display name for a hook
+  syllago edit my-hook --name "Pre-commit Linter"
+
+  # Set a description
+  syllago edit my-hook --description "Runs ESLint before every commit"
+
+  # Update both at once
+  syllago edit my-hook --name "Pre-commit Linter" --description "Runs ESLint before every commit"
+
+  # Disambiguate by type when name exists in multiple types
+  syllago edit my-item --name "Better Name" --type hooks
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/edit.go)</small>

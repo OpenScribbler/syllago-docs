@@ -4,6 +4,8 @@
   "slug": "kiro",
   "configDir": ".kiro",
   "emitPath": "{project}/.kiro/steering",
+  "docsURL": "https://kiro.dev/docs",
+  "category": "standalone-app",
   "content": {
     "agents": {
       "supported": true,

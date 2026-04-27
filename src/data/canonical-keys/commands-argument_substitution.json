@@ -21,10 +21,6 @@
       "supported": false,
       "mechanism": "command file format undocumented; no evidence of argument substitution in plugin.json schema or available sources"
     },
-    "cursor": {
-      "supported": false,
-      "mechanism": "Cursor's custom command documentation does not describe a dedicated argument-placeholder syntax; command bodies are plain Markdown."
-    },
     "factory-droid": {
       "supported": true,
       "mechanism": "$ARGUMENTS substitution in Markdown-type commands; equivalent to Claude Code's $ARGUMENTS pattern; Executable commands receive args via shell process stdin/args"

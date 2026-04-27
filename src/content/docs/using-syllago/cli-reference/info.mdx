@@ -1,16 +1,17 @@
 ---
 title: "syllago info"
-description: "Show syllago capabilities"
+description: "Show machine-readable capability manifest"
 ---
 
-Machine-readable capability manifest. Useful for agents discovering syllago's features.
+## Synopsis
 
-## Subcommands
+```
+syllago info
+```
 
-| Command | Description |
-|---------|-------------|
-| [`formats`](/using-syllago/cli-reference/info-formats/) | List supported file formats |
-| [`providers`](/using-syllago/cli-reference/info-providers/) | List providers or show data quality for a specific slug |
+## Description
+
+Outputs a structured summary of syllago's version, detected providers, registries, and supported content types. Useful for agents and CI scripts discovering syllago's features.
 
 ## Global Options
 
@@ -21,6 +22,16 @@ Machine-readable capability manifest. Useful for agents discovering syllago's fe
 | `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
 | `-v`, `--verbose` | `bool` | — | No | Verbose output |
 
+## Examples
+
+```bash
+  # Show capabilities summary
+  syllago info
+
+  # JSON output for agent consumption
+  syllago info --json
+```
+
 ---
 
-<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/info_cmd.go)</small>
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/info.go)</small>

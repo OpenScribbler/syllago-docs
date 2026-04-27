@@ -4,6 +4,8 @@
   "slug": "codex",
   "configDir": ".codex",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://github.com/openai/codex",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

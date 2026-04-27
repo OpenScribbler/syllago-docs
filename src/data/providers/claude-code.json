@@ -4,6 +4,8 @@
   "slug": "claude-code",
   "configDir": ".claude",
   "emitPath": "{project}/CLAUDE.md",
+  "docsURL": "https://docs.claude.com/en/docs/claude-code",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

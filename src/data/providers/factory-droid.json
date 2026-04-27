@@ -4,6 +4,8 @@
   "slug": "factory-droid",
   "configDir": ".factory",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://docs.factory.ai",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

@@ -1,20 +1,25 @@
 ---
-title: "syllago capmon diff"
-description: "Show field-level changes in provider-capabilities since a git ref"
+title: "syllago capmon backfill"
+description: "Populate missing content_hash values in a provider format doc"
 ---
 
 ## Synopsis
 
 ```
-syllago capmon diff [flags]
+syllago capmon backfill [flags]
 ```
+
+## Description
+
+Fetch each source URI in the provider's FormatDoc and write the SHA-256 hash back into the file, preserving comments and key order. By default only sources whose content_hash is empty are fetched; use --force to re-baseline every source. Sources with fetch_method: chromedp are fetched via a headless browser.
 
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
-| `--provider` | `string` | — | No | Limit diff to this provider slug |
-| `--since` | `string` | — | No | Git ref to diff against (default: HEAD~1) |
+| `--force` | `bool` | — | No | Re-fetch and overwrite existing content_hash values |
+| `--formats-dir` | `string` | `docs/provider-formats` | No | Directory containing provider format docs |
+| `--provider` | `string` | — | No | Provider slug to backfill (required) |
 
 ## Global Options
 
@@ -28,9 +33,9 @@ syllago capmon diff [flags]
 ## See Also
 
 - [syllago capmon](/using-syllago/cli-reference/capmon/)
-- [syllago capmon backfill](/using-syllago/cli-reference/capmon-backfill/)
 - [syllago capmon check](/using-syllago/cli-reference/capmon-check/)
 - [syllago capmon derive](/using-syllago/cli-reference/capmon-derive/)
+- [syllago capmon diff](/using-syllago/cli-reference/capmon-diff/)
 - [syllago capmon extract](/using-syllago/cli-reference/capmon-extract/)
 - [syllago capmon fetch](/using-syllago/cli-reference/capmon-fetch/)
 - [syllago capmon generate](/using-syllago/cli-reference/capmon-generate/)

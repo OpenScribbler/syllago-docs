@@ -4,6 +4,8 @@
   "slug": "roo-code",
   "configDir": ".roo",
   "emitPath": "{project}/.roo/rules",
+  "docsURL": "https://docs.roocode.com",
+  "category": "ide-extension",
   "content": {
     "agents": {
       "supported": true,

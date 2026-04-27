@@ -4,6 +4,8 @@
   "slug": "opencode",
   "configDir": ".config/opencode",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://opencode.ai/docs",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

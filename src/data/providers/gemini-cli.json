@@ -4,6 +4,8 @@
   "slug": "gemini-cli",
   "configDir": ".gemini",
   "emitPath": "{project}/GEMINI.md",
+  "docsURL": "https://github.com/google-gemini/gemini-cli",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

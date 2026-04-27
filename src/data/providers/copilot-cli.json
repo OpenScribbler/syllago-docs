@@ -4,6 +4,8 @@
   "slug": "copilot-cli",
   "configDir": ".copilot",
   "emitPath": "{project}/.github/copilot-instructions.md",
+  "docsURL": "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/copilot-cli",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": true,

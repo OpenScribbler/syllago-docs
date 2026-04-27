@@ -12,6 +12,10 @@
         "slug": "using-syllago/cli-reference/capmon"
       },
       {
+        "label": "backfill",
+        "slug": "using-syllago/cli-reference/capmon-backfill"
+      },
+      {
         "label": "check",
         "slug": "using-syllago/cli-reference/capmon-check"
       },
@@ -134,26 +138,20 @@
     "slug": "using-syllago/cli-reference/doctor"
   },
   {
+    "label": "edit",
+    "slug": "using-syllago/cli-reference/edit"
+  },
+  {
     "label": "explain",
     "slug": "using-syllago/cli-reference/explain"
   },
   {
+    "label": "formats",
+    "slug": "using-syllago/cli-reference/formats"
+  },
+  {
     "label": "info",
-    "collapsed": true,
-    "items": [
-      {
-        "label": "info",
-        "slug": "using-syllago/cli-reference/info"
-      },
-      {
-        "label": "formats",
-        "slug": "using-syllago/cli-reference/info-formats"
-      },
-      {
-        "label": "providers",
-        "slug": "using-syllago/cli-reference/info-providers"
-      }
-    ]
+    "slug": "using-syllago/cli-reference/info"
   },
   {
     "label": "init",
@@ -224,10 +222,22 @@
         "slug": "using-syllago/cli-reference/moat"
       },
       {
+        "label": "sign",
+        "slug": "using-syllago/cli-reference/moat-sign"
+      },
+      {
         "label": "trust",
         "slug": "using-syllago/cli-reference/moat-trust"
       }
     ]
+  },
+  {
+    "label": "providers",
+    "slug": "using-syllago/cli-reference/providers"
+  },
+  {
+    "label": "refresh",
+    "slug": "using-syllago/cli-reference/refresh"
   },
   {
     "label": "registry",
@@ -266,10 +276,6 @@
   {
     "label": "remove",
     "slug": "using-syllago/cli-reference/remove"
-  },
-  {
-    "label": "rename",
-    "slug": "using-syllago/cli-reference/rename"
   },
   {
     "label": "sandbox",
@@ -334,8 +340,8 @@
     "slug": "using-syllago/cli-reference/share"
   },
   {
-    "label": "sync-and-export",
-    "slug": "using-syllago/cli-reference/sync-and-export"
+    "label": "sync-install",
+    "slug": "using-syllago/cli-reference/sync-install"
   },
   {
     "label": "telemetry",
@@ -366,10 +372,6 @@
   {
     "label": "uninstall",
     "slug": "using-syllago/cli-reference/uninstall"
-  },
-  {
-    "label": "update",
-    "slug": "using-syllago/cli-reference/update"
   },
   {
     "label": "update",

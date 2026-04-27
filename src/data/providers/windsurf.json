@@ -4,6 +4,8 @@
   "slug": "windsurf",
   "configDir": ".codeium/windsurf",
   "emitPath": "{project}/.windsurf/rules",
+  "docsURL": "https://docs.windsurf.com",
+  "category": "standalone-app",
   "content": {
     "agents": {
       "supported": false,

@@ -4,6 +4,8 @@
   "slug": "crush",
   "configDir": ".config/crush",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://github.com/charmbracelet/crush",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": false,

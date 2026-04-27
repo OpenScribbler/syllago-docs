@@ -4,6 +4,8 @@
   "slug": "pi",
   "configDir": ".pi",
   "emitPath": "{project}/AGENTS.md",
+  "docsURL": "https://github.com/badlogic/pi-mono",
+  "category": "cli",
   "content": {
     "agents": {
       "supported": false,

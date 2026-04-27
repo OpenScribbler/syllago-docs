@@ -4,6 +4,8 @@
   "slug": "zed",
   "configDir": ".config/zed",
   "emitPath": "{project}/.rules",
+  "docsURL": "https://zed.dev/docs",
+  "category": "standalone-app",
   "content": {
     "agents": {
       "supported": false,

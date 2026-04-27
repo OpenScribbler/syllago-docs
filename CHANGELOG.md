@@ -2,6 +2,37 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-26
+
+### Added
+- `src/pages/index.astro` — new "Switch tools without starting over" deep-dive section (slot 2 of 5) covering the migration workflow: `add --from` for discovery, `add --all --from` to pull a whole setup into the library, `install --all --to` to push it to the new provider. Audience tag: developers switching or evaluating new AI tools. All commands verified against the live syllago 0.10.0 binary.
+- `src/content/docs/using-syllago/cli-reference/edit.mdx`, `formats.mdx`, `providers.mdx`, `refresh.mdx`, `sync-install.mdx` — new top-level commands surfaced in syllago 0.10.0 (`info formats` and `info providers` were promoted to top-level `formats` / `providers`; `sync-and-export` was renamed `sync-install`). Auto-synced from `syllago --help` via `bun run sync-commands`.
+- `src/content/docs/using-syllago/cli-reference/capmon-backfill.mdx`, `moat-sign.mdx` — new capmon and moat subcommands added in syllago 0.10.0.
+
+### Changed
+- `src/pages/index.astro` — flipped the `dd-row` ↔ `dd-row dd-row-reverse` orientation on the Share, Team, and Loadouts deep-dive sections so the alternating left/right rhythm is preserved after the new section was inserted at slot 2.
+- `src/content/docs/using-syllago/cli-reference/*.mdx` (~30 files) — re-synced flag tables, examples, and synopses against syllago 0.10.0. Notable: `add` and `install` gained `--all` / `--from` / `--to` for migration workflows; loadout subcommands updated; `info` is now a thin parent for `formats` / `providers`.
+- `src/content/docs/using-syllago/cli-reference/index.mdx`, `src/generated/cli-sidebar.json` — CLI reference index and sidebar regenerated to reflect the new command tree.
+- `src/content/docs/advanced/troubleshooting.mdx` — fixed two now-broken links: `info-providers` → `providers` (the page moved when the command was promoted to top-level). Was failing the post-build link-validation gate.
+
+### Removed
+- `src/content/docs/using-syllago/cli-reference/info-formats.mdx`, `info-providers.mdx` — superseded by the top-level `formats.mdx` and `providers.mdx`.
+- `src/content/docs/using-syllago/cli-reference/rename.mdx` — the `rename` command was removed in syllago 0.10.0.
+- `src/content/docs/using-syllago/cli-reference/sync-and-export.mdx` — renamed to `sync-install.mdx`.
+- `src/data/capabilities/cursor-commands.json`, `sidebar.ts` cursor "Commands" entry — Cursor no longer surfaces a commands content type in syllago 0.10.0's capabilities snapshot. The provider page sidebar entry was removed accordingly.
+
+### Synced (errors)
+- `src/content/docs/errors/moat-008.mdx` (new) — `MOAT_008 — Moat Revocation Block`.
+- `src/content/docs/errors/moat-009.mdx` (new) — `MOAT_009 — Moat Tier Below Policy`.
+- `src/content/docs/errors/index.mdx`, `install-005.mdx`, `item-001.mdx`, `moat-001.mdx`, `moat-002.mdx`, `moat-005.mdx`, `privacy-001.mdx`, `registry-002.mdx`, `registry-004.mdx`, `registry-006.mdx`, `registry-007.mdx` — re-synced from the syllago 0.10.0 error catalog via `bun run sync-errors`.
+
+### Synced (capabilities, providers, canonical keys)
+- `src/data/providers/*.json`, `src/data/data-quality/*.json` (15 providers each) — provider metadata and data-quality snapshots regenerated. New entries for `crush`.
+- `src/data/capabilities/*.json` — Cursor capabilities updated; `windsurf-commands.json` regenerated.
+- `src/data/canonical-keys/commands-{argument_substitution,builtin_commands}.json` — canonical-key snapshots regenerated.
+- `src/content/docs/reference/canonical-keys/*.mdx` (33 files), `src/content/docs/reference/{agents,capabilities,commands,mcp-configs,rules,skills}-matrix.mdx`, `hook-events.mdx`, `telemetry.mdx` — auto-generated from the regenerated data via `bun run sync-capabilities` / `sync-providers`.
+- `src/content/docs/using-syllago/content-types/index.mdx`, `src/content/docs/using-syllago/providers/index.mdx` — managed-block re-render against the new provider/capability data.
+
 ## 2026-04-25
 
 ### Fixed
@@ -35,6 +66,10 @@ All notable changes to the syllago documentation site.
 - 18 doc files — converted 126 section headings from Title Case to sentence-style capitalization per the `Syllago.Headings` rule. Notable rewrites: `syllago Format` → `Syllago format` (rules.mdx typo), bare identifier heading `disabledTools` → backticked `` `disabledTools` `` (mcp-configs.mdx), and numbered section headings in `hooks-v1.mdx` (`2. Canonical Format` → `2. Canonical format`, etc.).
 - GitHub repo settings for `OpenScribbler/syllago-docs`: enabled secret scanning, secret scanning push protection, Dependabot security updates, auto-merge, and delete-branch-on-merge.
 - Branch protection on `main`: require PR before merge (0 approvals, solo-dev friendly), require `Validate Actions` status check to pass on an up-to-date branch, require resolved conversations, block force-push and branch deletion, dismiss stale reviews. Admin bypass enabled — direct pushes from maintainers still work when needed.
+
+### Fixed
+- `src/pages/index.astro` — corrected two loadout commands in the "One click and go" section. `syllago loadout create` does not accept a positional name argument (it's interactive), and `syllago loadout apply <name>` without flags only previews — the prose claimed it applied. Switched the example to `syllago loadout apply ... --keep` so the command matches the "everything configured" intent.
+- `src/pages/index.astro` — replaced `syllago sync-and-export` with `syllago sync-install`. Verified against installed CLI v0.9.0: the command was renamed (the auto-synced `sync-and-export.mdx` is stale and will need a follow-up sync). The landing page is now accurate against the live binary.
 
 ## 2026-04-22 (docs accuracy review — 170 files verified against syllago source)
 

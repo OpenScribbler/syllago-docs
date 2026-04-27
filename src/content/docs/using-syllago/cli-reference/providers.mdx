@@ -1,12 +1,12 @@
 ---
-title: "syllago info providers"
+title: "syllago providers"
 description: "List providers or show data quality for a specific slug"
 ---
 
 ## Synopsis
 
 ```
-syllago info providers [slug]
+syllago providers [slug]
 ```
 
 ## Global Options
@@ -22,21 +22,16 @@ syllago info providers [slug]
 
 ```bash
   # List providers and their supported types
-  syllago info providers
+  syllago providers
 
   # JSON output
-  syllago info providers --json
+  syllago providers --json
 
   # Data quality summary for one provider
-  syllago info providers claude-code
-  syllago info providers claude-code --json
+  syllago providers claude-code
+  syllago providers claude-code --json
 ```
-
-## See Also
-
-- [syllago info](/using-syllago/cli-reference/info/)
-- [syllago info formats](/using-syllago/cli-reference/info-formats/)
 
 ---
 
-<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/info_cmd.go)</small>
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/providers.go)</small>
