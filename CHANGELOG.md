@@ -2,6 +2,11 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-04-28
+
+### Changed
+- `src/content/docs/index.mdx`, `src/pages/index.astro` — updated landing page tagline from "package manager for AI coding tool content" to "content manager for AI coding tools" (Starlight description + standalone landing `<title>`).
+
 ## 2026-04-26
 
 ### Added
