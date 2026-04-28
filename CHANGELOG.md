@@ -7,6 +7,11 @@ All notable changes to the syllago documentation site.
 ### Changed
 - `src/content/docs/index.mdx`, `src/pages/index.astro` — updated landing page tagline from "package manager for AI coding tool content" to "content manager for AI coding tools" (Starlight description + standalone landing `<title>`).
 
+### Fixed
+- `src/content/docs/using-syllago/syllago-yaml.mdx` — removed two broken links to the deleted `syllago create` command. Line 8 now lists only `add` (and "sync content") as the operations that maintain `.syllago.yaml`. Line 141 was rerouted to `syllago loadout create`, which still emits `source: created` per `metadata/backfill.go`.
+- `src/content/docs/using-syllago/collections/library.mdx` — removed the "Create from scratch" subsection. It documented `syllago create skills <name>` and `syllago create rules <name> --provider <slug>`, neither of which exists in syllago 0.10.0+. The remaining content-creation entry points are `syllago add` (from a provider) and `syllago loadout create` (loadouts only).
+- These three references were causing CI link-validation to fail after PR #30 bumped `starlight-links-validator` to a stricter version that catches references to pages the prebuild sync deletes.
+
 ## 2026-04-26
 
 ### Added

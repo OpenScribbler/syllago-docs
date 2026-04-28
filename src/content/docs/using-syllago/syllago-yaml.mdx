@@ -5,7 +5,7 @@ description: Reference for the .syllago.yaml metadata file that accompanies ever
 
 Every content item in your [library](/using-syllago/collections/library/) has a `.syllago.yaml` file that tracks the item's identity, provenance, and [type](/using-syllago/content-types/) — syllago uses it to manage, inspect, and convert content.
 
-You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`create`](/using-syllago/cli-reference/create/), [`add`](/using-syllago/cli-reference/add/), or sync content.
+You rarely need to edit `.syllago.yaml` by hand. Syllago generates and maintains it automatically when you [`add`](/using-syllago/cli-reference/add/) or sync content.
 
 ## Field reference
 
@@ -138,7 +138,7 @@ added_at: 2026-03-12T17:16:18Z
 added_by: Holden Hewett
 ```
 
-Content created with [`syllago create`](/using-syllago/cli-reference/create/) sets `source: created` to mark it as locally scaffolded. The `added_by` field records the user who created it.
+Content created with [`syllago loadout create`](/using-syllago/cli-reference/loadout-create/) sets `source: created` to mark it as locally scaffolded. The `added_by` field records the user who created it.
 
 ### Imported from a registry
 
