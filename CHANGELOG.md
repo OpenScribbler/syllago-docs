@@ -12,6 +12,9 @@ All notable changes to the syllago documentation site.
 - `src/content/docs/using-syllago/collections/library.mdx` — removed the "Create from scratch" subsection. It documented `syllago create skills <name>` and `syllago create rules <name> --provider <slug>`, neither of which exists in syllago 0.10.0+. The remaining content-creation entry points are `syllago add` (from a provider) and `syllago loadout create` (loadouts only).
 - These three references were causing CI link-validation to fail after PR #30 bumped `starlight-links-validator` to a stricter version that catches references to pages the prebuild sync deletes.
 
+### Added
+- `.github/workflows/lint.yml` — added a `Build` job that runs `bun run build` (which includes `starlight-links-validator`) on every PR. Previously link validation only ran post-merge in `deploy.yml`, which is how the broken `create/` links shipped to main and broke the deploy. The new job mirrors the deploy build steps (Node 22, bun, D2 cache + install, `bun run build`) minus the artifact upload.
+
 ## 2026-04-26
 
 ### Added
