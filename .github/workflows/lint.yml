@@ -40,3 +40,37 @@ jobs:
           reporter: github-pr-review
           fail_on_error: false
           vale_flags: "--config=.vale.ini"
+
+  build:
+    name: Build
+    needs: validate-actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Cache D2 binary
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v4
+        id: d2-cache
+        with:
+          path: /usr/local/bin/d2
+          key: d2-v0.7.1-linux-amd64
+
+      - name: Install D2
+        run: .github/scripts/install-d2.sh
+
+      - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run build
