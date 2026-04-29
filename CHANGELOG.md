@@ -15,6 +15,11 @@ All notable changes to the syllago documentation site.
 ### Added
 - `.github/workflows/lint.yml` — added a `Build` job that runs `bun run build` (which includes `starlight-links-validator`) on every PR. Previously link validation only ran post-merge in `deploy.yml`, which is how the broken `create/` links shipped to main and broke the deploy. The new job mirrors the deploy build steps (Node 22, bun, D2 cache + install, `bun run build`) minus the artifact upload.
 
+### Synced (syllago 0.10.0 → 0.10.3)
+- `src/content/docs/using-syllago/cli-reference/create.mdx` (deleted), `cli-reference/index.mdx`, `src/generated/cli-sidebar.json` — `syllago create` was removed upstream; the auto-generated reference page, the Core Commands table row, and the sidebar entry are all dropped to match. (Narrative-page references were already cleaned up earlier on 2026-04-28.)
+- `src/content/docs/reference/canonical-keys/*.mdx` (45 files), `reference/{agents,commands,hook-events,mcp-configs,rules,skills}-matrix.mdx`, `reference/telemetry.mdx`, `errors/index.mdx`, `using-syllago/providers/index.mdx` — version-stamp + timestamp bumps from regenerating against syllago 0.10.3 (`bun run sync`). No content-shape changes; just the "Generated from syllago 0.10.X on YYYY-MM-DD" footer/header lines.
+- `src/data/data-quality/*.json` (15 files) — `generatedAt` timestamps refreshed.
+
 ## 2026-04-26
 
 ### Added
