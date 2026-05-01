@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import starlightThemeFlexoki from 'starlight-theme-flexoki';
 import starlightLinksValidator from 'starlight-links-validator';
 import starlightLlmsTxt from 'starlight-llms-txt';
+import starlightLlmActions from 'starlight-llm-actions';
 import starlightHeadingBadges from 'starlight-heading-badges';
 import starlightImageZoom from 'starlight-image-zoom';
 import astroD2 from 'astro-d2';
@@ -45,6 +46,15 @@ const integrations = [
         exclude: ['/using-syllago/providers/*', '/using-syllago/providers/*/*'],
       }),
       starlightLlmsTxt(),
+      starlightLlmActions({
+        // syllago-docs already publishes per-page markdown via
+        // `src/pages/[...slug].md.ts` (which uses entryToSimpleMarkdown
+        // for proper MDX→markdown conversion). Skip the plugin's
+        // bundled route.
+        injectRoute: false,
+        // No pages opt out of the dropdown today.
+        pageOptOut: false,
+      }),
       starlightHeadingBadges(),
       starlightImageZoom(),
     ],
@@ -70,7 +80,6 @@ const integrations = [
       baseUrl: 'https://github.com/OpenScribbler/syllago-docs/edit/main/',
     },
     components: {
-      PageTitle: './src/components/overrides/PageTitle.astro',
       SiteTitle: './src/components/overrides/SiteTitle.astro',
       SkipLink: './src/components/overrides/SkipLink.astro',
     },
