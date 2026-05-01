@@ -1,0 +1,10 @@
+{
+  "id": "amp-agents",
+  "provider": "amp",
+  "contentType": "agents",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

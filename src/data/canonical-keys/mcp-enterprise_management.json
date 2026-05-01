@@ -35,7 +35,7 @@
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "Factory Droid does not document organization-level MCP management"
+      "mechanism": "only user-level and project-level configuration scopes documented; no organization/enterprise admin layer"
     },
     "gemini-cli": {
       "supported": false,

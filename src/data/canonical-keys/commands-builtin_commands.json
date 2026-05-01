@@ -18,8 +18,8 @@
       "mechanism": "no implementation details captured; slash commands feature exists but format and capabilities are undocumented in cached sources"
     },
     "copilot-cli": {
-      "supported": false,
-      "mechanism": "Copilot CLI has no standalone slash-command mechanism; extensibility is via plugins that bundle agents/skills/hooks; command format within plugins is undocumented"
+      "supported": true,
+      "mechanism": "~50 built-in slash commands documented under the 'Slash commands in the interactive interface' heading of the CLI command reference (e.g. /help, /mcp, /init, /clear, /agent, /delegate, /review, /add-dir, /fleet, /research, /plugin); 'Command-line commands' heading covers the top-level `copilot` subcommands"
     },
     "factory-droid": {
       "supported": false,

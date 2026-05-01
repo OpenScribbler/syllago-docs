@@ -35,7 +35,7 @@
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "Factory Droid does not document MCP resource referencing"
+      "mechanism": "no @-mention or resource referencing syntax for MCP resources documented"
     },
     "gemini-cli": {
       "supported": true,

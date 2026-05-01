@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "per-droid model preference field independent of global model setting; enables mixed-model agent compositions"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "model frontmatter field (string); accepts a specific model id (e.g., 'gemini-3-preview') or 'inherit' (default) which uses the parent session's model. Optional 'temperature' field (0.0-2.0, default 1) sets per-subagent sampling temperature."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "model field in agent JSON config overrides workspace default for that agent"

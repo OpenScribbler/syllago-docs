@@ -1,0 +1,10 @@
+{
+  "id": "pi-mcp",
+  "provider": "pi",
+  "contentType": "mcp",
+  "status": "unsupported",
+  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "sources": [],
+  "canonicalMappings": {},
+  "providerExtensions": []
+}

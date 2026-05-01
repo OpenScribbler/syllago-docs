@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "Two scopes: project (.gemini/agents/*.md) and user/global (~/.gemini/agents/*.md). Both directories are scanned at session start and merged into a single registry; explicit collision-precedence behavior is not documented upstream."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "project (.kiro/agents/) + global (~/.kiro/agents/); global overrides local on name collision — reverse of most Kiro content types"

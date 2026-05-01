@@ -34,8 +34,8 @@
       "mechanism": "Cursor documents three MCP transports: stdio for local processes, sse for Server-Sent Events, and streamable-http for HTTP-based remote servers."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid MCP transport types not documented beyond basic MCP support"
+      "supported": true,
+      "mechanism": "two transports documented: http (remote endpoints) and stdio (local processes); 'Adding HTTP Servers' and 'Adding Stdio Servers' headings"
     },
     "gemini-cli": {
       "supported": true,

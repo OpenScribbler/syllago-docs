@@ -34,8 +34,8 @@
       "mechanism": "Cursor does not document per-server tool allowlists or blocklists for MCP servers."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid does not document per-server MCP tool filtering"
+      "supported": true,
+      "mechanism": "per-server tool disable via disabledTools field in Configuration Schema"
     },
     "gemini-cli": {
       "supported": true,

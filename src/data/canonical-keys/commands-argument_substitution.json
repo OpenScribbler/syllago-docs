@@ -19,7 +19,7 @@
     },
     "copilot-cli": {
       "supported": false,
-      "mechanism": "command file format undocumented; no evidence of argument substitution in plugin.json schema or available sources"
+      "mechanism": "built-in slash commands accept literal positional arguments (e.g. /add-dir PATH, /init suppress) but Copilot CLI does not document a user-authored custom-command mechanism with template-substitution syntax (no $ARGUMENTS, $1/$2, or {{args}} interpolation)"
     },
     "factory-droid": {
       "supported": true,

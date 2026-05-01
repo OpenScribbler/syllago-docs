@@ -1,0 +1,153 @@
+name: Sync Upstream
+
+on:
+  repository_dispatch:
+    types: [syllago-release]
+  schedule:
+    - cron: '0 14 * * 1'  # Monday 14:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: true
+
+jobs:
+  validate-actions:
+    name: Validate Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Validate action SHA pins
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash .github/scripts/validate-actions.sh
+
+  sync:
+    name: Sync
+    needs: validate-actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: '22'
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Cache D2 binary
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v4
+        id: d2-cache
+        with:
+          path: /usr/local/bin/d2
+          key: d2-v0.7.1-linux-amd64
+
+      - name: Install D2
+        run: .github/scripts/install-d2.sh
+
+      - name: Run sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run sync
+
+      - name: Detect drift
+        id: drift
+        env:
+          DISPATCH_TAG: ${{ github.event.client_payload.tag }}
+        run: |
+          if git diff --quiet src/; then
+            TAG="${DISPATCH_TAG:-latest}"
+            echo "## Sync status: in sync with syllago $TAG" >> "$GITHUB_STEP_SUMMARY"
+            echo "drift=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "drift=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Classify diff
+        if: steps.drift.outputs.drift == 'true'
+        run: bun scripts/classify-sync-diff.ts > /tmp/classification.json
+
+      - name: Extract tag
+        if: steps.drift.outputs.drift == 'true'
+        id: tag
+        run: |
+          TAG="$(jq -r '.tag' /tmp/classification.json)"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Generate CHANGELOG entry
+        if: steps.drift.outputs.drift == 'true'
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: bun scripts/generate-sync-changelog.ts --classification /tmp/classification.json --tag "$TAG"
+
+      - name: Commit changes
+        if: steps.drift.outputs.drift == 'true'
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(sync): regenerate auto-content against syllago $TAG"
+
+      - name: Force-push to rolling branch
+        if: steps.drift.outputs.drift == 'true'
+        run: git push --force origin HEAD:chore/sync-upstream
+
+      - name: Local build
+        if: steps.drift.outputs.drift == 'true'
+        id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          bun astro build
+          echo "result=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Create or update PR
+        if: steps.drift.outputs.drift == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.tag.outputs.tag }}
+          BUILD_RESULT: ${{ steps.build.outputs.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TITLE="chore(sync): regenerate auto-content against syllago $TAG"
+
+          BODY_FILE="$(mktemp)"
+          jq -r '.summary_md' /tmp/classification.json > "$BODY_FILE"
+
+          if [ "$BUILD_RESULT" != "0" ]; then
+            {
+              echo ""
+              echo "> ⚠ Local build failed. See [run logs]($RUN_URL)."
+            } >> "$BODY_FILE"
+          fi
+
+          EXISTING="$(gh pr list --head chore/sync-upstream --json number --jq '.[0].number')"
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "$TITLE" --body-file "$BODY_FILE"
+          else
+            gh pr create --base main --head chore/sync-upstream --title "$TITLE" --body-file "$BODY_FILE"
+          fi
+
+      - name: Reflect build result
+        if: steps.drift.outputs.drift == 'true'
+        env:
+          BUILD_RESULT: ${{ steps.build.outputs.result }}
+        run: exit "$BUILD_RESULT"

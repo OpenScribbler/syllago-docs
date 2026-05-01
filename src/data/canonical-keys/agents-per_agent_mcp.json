@@ -25,6 +25,10 @@
       "supported": false,
       "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "mcpServers object in frontmatter; declares inline MCP server configurations scoped to this subagent. Each entry follows the same shape as the global mcpServers config and is isolated to the subagent's invocation."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"

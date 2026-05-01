@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with system prompt, model preference, and tooling policy"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "Markdown files with YAML frontmatter (delimited by ---) in .gemini/agents/*.md (project) or ~/.gemini/agents/*.md (user/global); the file body becomes the subagent's system prompt."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "JSON config files in .kiro/agents/ (project) or ~/.kiro/agents/ (global); prompt field accepts inline string or file:// URI to external .md file"
