@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "categorical tool policy using named categories (filesystem, shell, search, browser, web_fetch); differs from per-tool allowlists used by other providers"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "tools array in frontmatter; supports wildcards: '*' for all built-in and MCP tools, 'mcp_*' for all MCP tools, 'mcp_<server-name>_*' for tools from a single MCP server. If omitted, the subagent inherits the full tool set from the parent session."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"

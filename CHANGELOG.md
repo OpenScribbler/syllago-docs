@@ -2,6 +2,11 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-05-01
+
+### Changed
+- `src/content/docs/reference/capabilities-matrix.mdx`, all `src/content/docs/reference/canonical-keys/*.mdx`, `src/content/docs/using-syllago/cli-reference/index.mdx`, `src/content/docs/using-syllago/providers/index.mdx` — regenerated from syllago 0.11.0; updates gemini-cli agents coverage (agent_scopes, definition_format, invocation_patterns, model_selection, per_agent_mcp, tool_restrictions now supported), adds copilot-cli builtin_commands support, and bumps generation timestamps from 2026-04-27 to 2026-04-29.
+
 ## 2026-04-28
 
 ### Changed

@@ -34,8 +34,8 @@
       "mechanism": "Cursor's MCP documentation does not describe OAuth 2.0 flows for remote servers."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid MCP does not document OAuth 2.0 authentication"
+      "supported": true,
+      "mechanism": "OAuth tokens documented under 'OAuth Tokens' heading; most HTTP servers support OAuth with token storage in system keyring"
     },
     "gemini-cli": {
       "supported": false,

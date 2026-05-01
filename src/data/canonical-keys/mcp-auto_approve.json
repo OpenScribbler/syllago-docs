@@ -35,7 +35,7 @@
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "Factory Droid does not document pre-configured auto-approval for MCP tools"
+      "mechanism": "no auto-approve / always-allow field documented in Configuration Schema"
     },
     "gemini-cli": {
       "supported": false,

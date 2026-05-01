@@ -35,7 +35,7 @@
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "Factory Droid MCP configuration does not document environment variable expansion"
+      "mechanism": "Configuration schema shows env field for stdio servers but no expansion syntax (e.g. ${VAR}) is documented"
     },
     "gemini-cli": {
       "supported": true,

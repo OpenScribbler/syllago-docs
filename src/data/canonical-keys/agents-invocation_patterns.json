@@ -25,6 +25,10 @@
       "supported": true,
       "mechanism": "exposed as subagent_type targets for the Task tool; droids enabled by default with live progress reporting in UI"
     },
+    "gemini-cli": {
+      "supported": true,
+      "mechanism": "Two patterns: (1) automatic delegation by the main agent based on task relevance and the subagent's description, (2) explicit @-mention at the start of a prompt (e.g., '@codebase_investigator review this'); /agents list/enable/disable/configure manages the registry."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "keyboard shortcut binding for IDE invocation; welcomeMessage shown on agent start; manual selection via agent picker"

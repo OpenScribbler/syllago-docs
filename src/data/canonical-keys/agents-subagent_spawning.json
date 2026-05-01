@@ -18,12 +18,16 @@
       "mechanism": "agents run as subagents with isolated context windows; Git-SHA-based versioning ensures consistency across PR interactions"
     },
     "cursor": {
-      "supported": false,
-      "mechanism": "Cursor custom agent files do not document spawning additional subagents from a user-defined agent; the three built-in subagents (Explore, Bash, Browser) are harness-provided, not file-overridable."
+      "supported": true,
+      "mechanism": "Since Cursor 2.5, subagents can launch child subagents to create a tree of coordinated work. Nested launches require Task tool access and can be restricted by hooks or tool policies."
     },
     "factory-droid": {
       "supported": true,
       "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
+    },
+    "gemini-cli": {
+      "supported": false,
+      "mechanism": "Recursion is explicitly prevented — subagents cannot invoke other subagents even when granted the '*' tool wildcard. The documentation states this is to avoid infinite loops and excessive token usage."
     },
     "kiro": {
       "supported": false,

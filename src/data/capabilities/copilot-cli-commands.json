@@ -6,29 +6,19 @@
   "lastChangedAt": "2026-04-11T00:00:00Z",
   "sources": [
     {
-      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-cli-plugins.md",
-      "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:21.135764955Z"
-    },
-    {
-      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-plugin-reference.md",
+      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-command-reference.md",
       "type": "reference",
-      "fetched_at": "2026-04-11T21:50:21.389196848Z"
-    },
-    {
-      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/plugins-creating.md",
-      "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:21.588936107Z"
+      "fetched_at": "2026-04-28T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "argument_substitution": {
       "supported": false,
-      "mechanism": "command file format undocumented; no evidence of argument substitution in plugin.json schema or available sources"
+      "mechanism": "built-in slash commands accept literal positional arguments (e.g. /add-dir PATH, /init suppress) but Copilot CLI does not document a user-authored custom-command mechanism with template-substitution syntax (no $ARGUMENTS, $1/$2, or {{args}} interpolation)"
     },
     "builtin_commands": {
-      "supported": false,
-      "mechanism": "Copilot CLI has no standalone slash-command mechanism; extensibility is via plugins that bundle agents/skills/hooks; command format within plugins is undocumented"
+      "supported": true,
+      "mechanism": "~50 built-in slash commands documented under the 'Slash commands in the interactive interface' heading of the CLI command reference (e.g. /help, /mcp, /init, /clear, /agent, /delegate, /review, /add-dir, /fleet, /research, /plugin); 'Command-line commands' heading covers the top-level `copilot` subcommands"
     }
   },
   "providerExtensions": [
