@@ -7,7 +7,7 @@
   "providers": {
     "claude-code": {
       "supported": true,
-      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+      "mechanism": "~75 built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, /effort, /context, /copy, /diff, /btw, /recap, /rewind, /sandbox, /teleport, /ultraplan, /ultrareview, etc.) plus 6 bundled-skill commands; not user-modifiable; availability varies by platform and plan"
     },
     "cline": {
       "supported": true,

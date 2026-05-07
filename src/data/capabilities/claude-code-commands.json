@@ -8,7 +8,7 @@
     {
       "uri": "https://code.claude.com/docs/en/commands.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:49Z"
+      "fetched_at": "2026-05-03T16:30:00Z"
     }
   ],
   "canonicalMappings": {
@@ -18,7 +18,7 @@
     },
     "builtin_commands": {
       "supported": true,
-      "mechanism": "extensive set of built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, etc.) plus bundled-skill commands (/batch, /debug, /loop); not user-modifiable"
+      "mechanism": "~75 built-in slash commands (/help, /clear, /compact, /config, /model, /mcp, /memory, /plan, /effort, /context, /copy, /diff, /btw, /recap, /rewind, /sandbox, /teleport, /ultraplan, /ultrareview, etc.) plus 6 bundled-skill commands; not user-modifiable; availability varies by platform and plan"
     }
   },
   "providerExtensions": [
@@ -33,7 +33,7 @@
     {
       "id": "builtin_commands",
       "name": "Built-In Commands",
-      "summary": "Roughly 60 built-in CLI commands (/clear, /compact, /config, /mcp, /memory, /plan, /agents, /skills, etc.); availability varies by platform and plan.",
+      "summary": "Roughly 75 built-in CLI commands (/clear, /compact, /config, /mcp, /memory, /plan, /agents, /skills, /effort, /context, /copy, /diff, /btw, /recap, /rewind, /sandbox, /teleport, /autofix-pr, /ultraplan, /ultrareview, etc.); availability varies by platform and plan.",
       "source_ref": "https://code.claude.com/docs/en/commands.md",
       "required": null,
       "conversion": "not-portable"
@@ -41,7 +41,7 @@
     {
       "id": "bundled_skill_commands",
       "name": "Bundled Skill Commands",
-      "summary": "Some commands ship as bundled skills rather than CLI logic (/batch, /claude-api, /debug, /loop, /simplify); use the skill mechanism.",
+      "summary": "Six commands ship as bundled skills rather than CLI logic (/batch, /claude-api, /debug, /fewer-permission-prompts, /loop, /simplify); use the skill mechanism.",
       "source_ref": "https://code.claude.com/docs/en/commands.md",
       "required": null,
       "conversion": "not-portable"

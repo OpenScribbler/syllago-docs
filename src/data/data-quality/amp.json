@@ -1,10 +1,10 @@
 {
   "id": "amp",
   "provider": "amp",
-  "totalExtensions": 30,
-  "unspecifiedRequiredCount": 30,
-  "unspecifiedValueTypeCount": 30,
-  "unspecifiedExamplesCount": 30,
+  "totalExtensions": 33,
+  "unspecifiedRequiredCount": 33,
+  "unspecifiedValueTypeCount": 33,
+  "unspecifiedExamplesCount": 33,
   "trackingIssue": null,
-  "generatedAt": "2026-04-29T05:50:18Z"
+  "generatedAt": "2026-05-04T01:23:16Z"
 }

@@ -8,7 +8,7 @@
     {
       "uri": "https://code.claude.com/docs/en/skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:46Z"
+      "fetched_at": "2026-05-03T15:42:00Z"
     }
   ],
   "canonicalMappings": {
@@ -27,7 +27,7 @@
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)",
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false); also prevents the skill from being preloaded into subagents via the skills frontmatter field",
       "provider_field": "disable-model-invocation",
       "extension_id": "auto_invocation"
     },
@@ -116,7 +116,7 @@
     {
       "id": "effort_override",
       "name": "Per-Skill Effort Level",
-      "summary": "Overrides the session effort level (low/medium/high/max) while the skill is active.",
+      "summary": "Overrides the session effort level (low/medium/high/xhigh/max) while the skill is active.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "effort",
@@ -161,7 +161,7 @@
     {
       "id": "argument_substitution",
       "name": "Argument and Session Variable Substitution",
-      "summary": "Skills support $ARGUMENTS, $N, ${CLAUDE_SESSION_ID}, and ${CLAUDE_SKILL_DIR} string substitutions in skill body content.",
+      "summary": "Skills support $ARGUMENTS, $N, ${CLAUDE_SESSION_ID}, ${CLAUDE_SKILL_DIR}, and ${CLAUDE_EFFORT} string substitutions in skill body content. Named arguments declared in the arguments frontmatter field use $name syntax.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#available-string-substitutions",
       "required": null,
       "conversion": "preserved"
@@ -234,7 +234,7 @@
     {
       "id": "description_context_budget",
       "name": "Skill Description Context Budget",
-      "summary": "Skill descriptions share a dynamic budget (1% of context, 8,000 char fallback) with a 250-char per-entry cap, raisable via SLASH_COMMAND_TOOL_CHAR_BUDGET.",
+      "summary": "Skill descriptions share a dynamic budget (1% of context, 8,000 char fallback) with a 1,536-character per-entry cap (combined description + when_to_use text), raisable via SLASH_COMMAND_TOOL_CHAR_BUDGET.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skill-descriptions-are-cut-short",
       "required": null,
       "conversion": "not-portable"
@@ -246,6 +246,24 @@
       "source_ref": "https://code.claude.com/docs/en/skills.md",
       "required": null,
       "conversion": "embedded"
+    },
+    {
+      "id": "when_to_use",
+      "name": "When-to-Use Context Field",
+      "summary": "Additional context for when Claude should invoke the skill, such as trigger phrases or example requests. Appended to description in the skill listing and counts toward the 1,536-character cap.",
+      "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
+      "required": null,
+      "provider_field": "when_to_use",
+      "conversion": "embedded"
+    },
+    {
+      "id": "named_arguments",
+      "name": "Named Positional Arguments via arguments Frontmatter",
+      "summary": "Named positional arguments for $name substitution in skill content. Declared as a space-separated string or YAML list in the arguments frontmatter field; names map to argument positions in order.",
+      "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
+      "required": null,
+      "provider_field": "arguments",
+      "conversion": "preserved"
     }
   ]
 }

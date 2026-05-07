@@ -8,7 +8,7 @@
     {
       "uri": "https://code.claude.com/docs/en/sub-agents.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:47Z"
+      "fetched_at": "2026-05-03T16:30:00Z"
     }
   ],
   "canonicalMappings": {
@@ -134,6 +134,15 @@
       "required": null,
       "provider_field": "mcpServers",
       "conversion": "embedded"
+    },
+    {
+      "id": "agent_fork_mode",
+      "name": "Forked Subagents (Experimental)",
+      "summary": "Experimental fork mode (CLAUDE_CODE_FORK_SUBAGENT=1, CC v2.1.117+): forks inherit the full conversation context instead of starting fresh, used for side tasks that need full background; /fork command spawns a fork instead of aliasing /branch.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#fork-the-current-conversation",
+      "required": null,
+      "provider_field": "CLAUDE_CODE_FORK_SUBAGENT",
+      "conversion": "not-portable"
     }
   ]
 }

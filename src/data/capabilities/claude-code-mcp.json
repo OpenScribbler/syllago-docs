@@ -8,7 +8,7 @@
     {
       "uri": "https://code.claude.com/docs/en/mcp.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:45Z"
+      "fetched_at": "2026-05-03T16:30:00Z"
     }
   ],
   "canonicalMappings": {
@@ -58,7 +58,7 @@
     {
       "id": "mcp_installation_scopes",
       "name": "Three Installation Scopes (local, project, user)",
-      "summary": "Three install scopes: local (~/.claude.json per-project, default), project (.mcp.json shareable), user (~/.claude.json global).",
+      "summary": "Three install scopes: local (~/.claude.json per-project, default; was 'project' in older versions), project (.mcp.json shareable with team), user (~/.claude.json global across projects; was 'global' in older versions).",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#mcp-installation-scopes",
       "required": null,
       "conversion": "translated"
@@ -66,7 +66,7 @@
     {
       "id": "mcp_oauth_authentication",
       "name": "OAuth 2.0 Authentication for Remote Servers",
-      "summary": "OAuth 2.0 with dynamic client registration, CIMD discovery, token storage in keychain/credentials file, and auto-refresh.",
+      "summary": "OAuth 2.0 for HTTP servers: dynamic client registration or CIMD auto-discovery; pre-configured credentials via --client-id/--client-secret; fixed callback port via --callback-port or oauth.callbackPort; oauth.scopes pins requested scope set; oauth.authServerMetadataUrl overrides discovery chain; token storage in keychain/credentials file with auto-refresh.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#authenticate-with-remote-mcp-servers",
       "required": null,
       "provider_field": "oauth",
@@ -83,7 +83,7 @@
     {
       "id": "mcp_tool_search",
       "name": "MCP Tool Search (Deferred Tool Loading)",
-      "summary": "MCP tool schemas are deferred via ToolSearch; controlled by ENABLE_TOOL_SEARCH (default/true/auto/auto:N/false), requires Sonnet 4+ or Opus 4+.",
+      "summary": "MCP tool schemas are deferred via ToolSearch; controlled by ENABLE_TOOL_SEARCH (default/true/auto/auto:N/false), requires Sonnet 4+ or Opus 4+; per-server alwaysLoad: true exempts a server from deferral (CC v2.1.121+); per-tool _meta anthropic/alwaysLoad: true does the same for individual tools.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#scale-with-mcp-tool-search",
       "required": null,
       "provider_field": "ENABLE_TOOL_SEARCH",
@@ -169,6 +169,23 @@
       "name": "Import MCP Servers from Claude Desktop",
       "summary": "claude mcp add-from-claude-desktop interactively imports server configs from Claude Desktop (macOS and WSL only).",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#import-mcp-servers-from-claude-desktop",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_headers_helper",
+      "name": "Dynamic Headers via headersHelper",
+      "summary": "headersHelper field specifies a shell command that runs at connection time and returns JSON headers; enables Kerberos, short-lived tokens, or custom SSO without static credentials.",
+      "source_ref": "https://code.claude.com/docs/en/mcp.md#use-dynamic-headers-for-custom-authentication",
+      "required": null,
+      "provider_field": "headersHelper",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_reconnection",
+      "name": "Automatic Reconnection with Exponential Backoff",
+      "summary": "HTTP and SSE servers reconnect automatically on disconnect: up to 5 attempts, starting at 1s, doubling each retry; initial connection retried up to 3 times for transient errors (CC v2.1.121+); stdio servers are not reconnected.",
+      "source_ref": "https://code.claude.com/docs/en/mcp.md#automatic-reconnection",
       "required": null,
       "conversion": "not-portable"
     }
