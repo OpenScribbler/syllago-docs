@@ -29,12 +29,14 @@ installed to any supported provider with "syllago install --to &lt;provider&gt;"
 | `--exclude` | `stringArray` | — | No | Skip hooks by auto-derived name (hooks and MCP only) |
 | `-f`, `--force` | `bool` | — | No | Overwrite existing item without prompting |
 | `--from` | `stringArray` | — | Yes | Provider to add from, or path to a monolithic rule file (repeatable for files) |
+| `--install` | `bool` | — | No | Install added items immediately after adding (requires --to) |
 | `--name` | `string` | — | No | Display name for hooks/MCP (stored in .syllago.yaml metadata) |
 | `--no-input` | `bool` | — | No | Disable interactive prompts, use defaults |
 | `--scope` | `string` | `all` | No | Settings scope to read from: global, project, or all (hooks and MCP only) |
 | `--source-registry` | `string` | — | No | Registry name for taint tracking |
 | `--source-visibility` | `string` | — | No | Source registry visibility (public, private, unknown) |
 | `--split` | `string` | — | No | Splitter heuristic: h2|h3|h4|marker:&lt;literal&gt;|single|llm (monolithic --from only) |
+| `--to` | `string` | — | No | Target provider for --install |
 | `--trusted-root` | `string` | — | No | Path to Sigstore trusted_root.json (overrides registry config and the bundled default) |
 
 ## Global Options

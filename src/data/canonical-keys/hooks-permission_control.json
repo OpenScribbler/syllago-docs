@@ -7,7 +7,7 @@
   "providers": {
     "amp": {
       "supported": true,
-      "mechanism": "permissions_system: Amp has a permissions system that hooks interact with to make tool availability decisions"
+      "mechanism": "amp.permissions ordered first-match-wins rule list returns one of allow / reject / ask / delegate for every tool invocation before execution; default fallback is ask on the main thread and reject in sub-agents"
     },
     "claude-code": {
       "supported": true,

@@ -8,12 +8,12 @@
     {
       "uri": "https://code.claude.com/docs/en/hooks.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:48:17Z"
+      "fetched_at": "2026-05-03T16:30:00Z"
     },
     {
       "uri": "https://code.claude.com/docs/en/hooks-guide.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:48:17Z"
+      "fetched_at": "2026-05-03T16:30:00Z"
     },
     {
       "uri": "hooks-example-hooks.json",
@@ -46,7 +46,7 @@
     },
     "handler_types": {
       "supported": true,
-      "mechanism": "Four types: command (shell), http (POST to URL), prompt (LLM evaluation), agent (subagent with tools); prompt/agent restricted to subset of events"
+      "mechanism": "Five types: command (shell), http (POST to URL), mcp_tool (MCP tool call), prompt (LLM evaluation), agent (subagent with tools, experimental); prompt/agent restricted to subset of events"
     },
     "hook_scopes": {
       "supported": true,
@@ -73,15 +73,15 @@
     {
       "id": "hook_events",
       "name": "Hook Event Set",
-      "summary": "24 hook events spanning session, turn, and tool-call cadences (SessionStart, PreToolUse, PostToolUse, PermissionRequest, FileChanged, etc.).",
+      "summary": "29 hook events spanning session, turn, and tool-call cadences: Setup, SessionStart, SessionEnd, InstructionsLoaded, UserPromptSubmit, UserPromptExpansion, PreToolUse, PermissionRequest, PermissionDenied, PostToolUse, PostToolUseFailure, PostToolBatch, Stop, StopFailure, Notification, SubagentStart, SubagentStop, TaskCreated, TaskCompleted, TeammateIdle, ConfigChange, CwdChanged, FileChanged, WorktreeCreate, WorktreeRemove, PreCompact, PostCompact, Elicitation, ElicitationResult.",
       "source_ref": "https://code.claude.com/docs/en/hooks.md#hook-lifecycle",
       "required": null,
       "conversion": "translated"
     },
     {
       "id": "hook_handler_types",
-      "name": "Four Hook Handler Types",
-      "summary": "Hooks can be command (shell), http (POST), prompt (LLM eval), or agent (subagent); prompt/agent restricted to a subset of events.",
+      "name": "Five Hook Handler Types",
+      "summary": "Hooks can be command (shell), http (POST), mcp_tool (call an MCP tool), prompt (LLM eval), or agent (subagent, experimental); prompt/agent restricted to a subset of events.",
       "source_ref": "https://code.claude.com/docs/en/hooks.md#hook-handler-fields",
       "required": null,
       "provider_field": "type",
@@ -180,6 +180,42 @@
       "source_ref": "https://code.claude.com/docs/en/hooks.md#elicitation",
       "required": null,
       "conversion": "embedded"
+    },
+    {
+      "id": "hook_if_field",
+      "name": "Conditional Handler Execution via if Field",
+      "summary": "Handlers accept an if field using permission-rule syntax to gate execution on conditions; requires CC v2.1.85+.",
+      "source_ref": "https://code.claude.com/docs/en/hooks-guide.md#conditional-execution",
+      "required": null,
+      "provider_field": "if",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "hook_asyncRewake",
+      "name": "asyncRewake on Background Command Hooks",
+      "summary": "Command hooks with asyncRewake: true wake Claude after completing background execution, delivering a system message on the next turn.",
+      "source_ref": "https://code.claude.com/docs/en/hooks-guide.md#run-hooks-in-the-background",
+      "required": null,
+      "provider_field": "asyncRewake",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "hook_disable_all",
+      "name": "disableAllHooks Setting",
+      "summary": "Setting disableAllHooks: true in settings.json disables all hook execution for that scope; useful for debugging or locked-down environments.",
+      "source_ref": "https://code.claude.com/docs/en/hooks-guide.md#disable-hooks",
+      "required": null,
+      "provider_field": "disableAllHooks",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "hook_allow_managed_only",
+      "name": "allowManagedHooksOnly Enterprise Setting",
+      "summary": "Enterprise policy setting allowManagedHooksOnly: true restricts hook execution to only managed (admin-deployed) hooks, blocking user and project hooks.",
+      "source_ref": "https://code.claude.com/docs/en/hooks-guide.md#enterprise-hook-controls",
+      "required": null,
+      "provider_field": "allowManagedHooksOnly",
+      "conversion": "not-portable"
     }
   ]
 }

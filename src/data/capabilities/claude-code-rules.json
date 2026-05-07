@@ -8,7 +8,7 @@
     {
       "uri": "https://code.claude.com/docs/en/memory.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:19Z"
+      "fetched_at": "2026-05-03T15:42:00Z"
     }
   ],
   "canonicalMappings": {
@@ -18,7 +18,7 @@
     },
     "auto_memory": {
       "supported": true,
-      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; requires CC v2.1.59+; enabled by default"
+      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; requires CC v2.1.59+; enabled by default; disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting; subagents can also maintain their own auto memory"
     },
     "cross_provider_recognition": {
       "supported": false,
@@ -30,7 +30,7 @@
     },
     "hierarchical_loading": {
       "supported": true,
-      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root; .claude/rules/ files discovered recursively; user-level rules load before project rules"
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules load before project rules"
     }
   },
   "providerExtensions": [
@@ -61,7 +61,7 @@
     {
       "id": "auto_memory",
       "name": "Auto Memory",
-      "summary": "Claude auto-saves cross-session notes to ~/.claude/projects/<project>/memory/MEMORY.md; toggled via autoMemoryEnabled (CC v2.1.59+).",
+      "summary": "Claude auto-saves cross-session notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; toggled via autoMemoryEnabled (CC v2.1.59+); disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting. Subagents can also maintain their own auto memory.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#auto-memory",
       "required": null,
       "provider_field": "autoMemoryEnabled",
@@ -70,7 +70,7 @@
     {
       "id": "claude_md_excludes",
       "name": "Exclude CLAUDE.md Files by Pattern",
-      "summary": "Skips ancestor CLAUDE.md or rules files by path/glob; managed CLAUDE.md cannot be excluded.",
+      "summary": "claudeMdExcludes setting accepts glob patterns matched against absolute file paths to skip ancestor CLAUDE.md or rules files. Managed policy CLAUDE.md files cannot be excluded.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#exclude-specific-claude-md-files",
       "required": null,
       "provider_field": "claudeMdExcludes",
@@ -79,7 +79,7 @@
     {
       "id": "add_dir_rules_loading",
       "name": "Rules Loading from Additional Directories via Environment Variable",
-      "summary": "Setting CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 enables loading CLAUDE.md and .claude/rules/ from --add-dir directories.",
+      "summary": "Setting CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 enables loading CLAUDE.md, .claude/CLAUDE.md, .claude/rules/*.md, and CLAUDE.local.md from --add-dir directories.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#load-from-additional-directories",
       "required": null,
       "conversion": "not-portable"
@@ -87,8 +87,32 @@
     {
       "id": "managed_org_claude_md",
       "name": "Organization-Wide Managed CLAUDE.md",
-      "summary": "Centrally deployed CLAUDE.md at system paths (e.g. /etc/claude-code/CLAUDE.md) cannot be excluded and applies to all users.",
+      "summary": "Centrally deployed CLAUDE.md at OS-specific system paths cannot be excluded and applies to all users. Paths: macOS: /Library/Application Support/ClaudeCode/CLAUDE.md; Linux/WSL: /etc/claude-code/CLAUDE.md; Windows: C:\\Program Files\\ClaudeCode\\CLAUDE.md.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#deploy-organization-wide-claude-md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agents_md_cross_import",
+      "name": "AGENTS.md Cross-File Import via @-Syntax",
+      "summary": "Claude Code reads CLAUDE.md (not AGENTS.md natively), but CLAUDE.md can import AGENTS.md via @AGENTS.md syntax, making both Claude Code and tools that read AGENTS.md consume the same instructions.",
+      "source_ref": "https://code.claude.com/docs/en/memory.md#agents.md",
+      "required": null,
+      "conversion": "embedded"
+    },
+    {
+      "id": "html_comment_stripping",
+      "name": "HTML Comment Stripping in CLAUDE.md",
+      "summary": "Block-level HTML comments (<!-- -->) in CLAUDE.md files are stripped before content is injected into Claude's context. Comments inside code blocks are preserved.",
+      "source_ref": "https://code.claude.com/docs/en/memory.md#how-claude-md-files-load",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "claude_code_new_init_flow",
+      "name": "Interactive Multi-Phase /init Flow via CLAUDE_CODE_NEW_INIT",
+      "summary": "Setting CLAUDE_CODE_NEW_INIT=1 enables an interactive /init flow: asks which artifacts to set up (CLAUDE.md, skills, hooks), explores the codebase with a subagent, fills in gaps, and presents a reviewable proposal before writing.",
+      "source_ref": "https://code.claude.com/docs/en/memory.md#set-up-a-project-claude-md",
       "required": null,
       "conversion": "not-portable"
     }

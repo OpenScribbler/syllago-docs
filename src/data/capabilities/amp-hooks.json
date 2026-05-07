@@ -3,17 +3,12 @@
   "provider": "amp",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-04-29T00:00:00Z",
   "sources": [
-    {
-      "uri": "https://ampcode.com/manual/hooks.md",
-      "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:36Z"
-    },
     {
       "uri": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:36Z"
+      "fetched_at": "2026-04-29T16:15:03Z"
     }
   ],
   "canonicalMappings": {
@@ -53,7 +48,7 @@
     },
     "permission_control": {
       "supported": true,
-      "mechanism": "permissions_system: Amp has a permissions system that hooks interact with to make tool availability decisions"
+      "mechanism": "amp.permissions ordered first-match-wins rule list returns one of allow / reject / ask / delegate for every tool invocation before execution; default fallback is ask on the main thread and reject in sub-agents"
     }
   },
   "providerExtensions": [
@@ -61,7 +56,7 @@
       "id": "settings_json_merge",
       "name": "JSON merge into amp.hooks array",
       "summary": "Hooks are stored as an array under the 'amp.hooks' key inside '.amp/settings.json' (workspace) or user-scope settings; they are not a standalone hooks file.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "amp.hooks",
       "conversion": "not-portable"
@@ -70,7 +65,7 @@
       "id": "command_handler_only",
       "name": "Command handler type only",
       "summary": "The hook 'action' field invokes a shell command (declarative pre-execute 'send-user-message' and post-execute 'redact-tool-input' actions); no HTTP, LLM, or agent handler types are documented.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "action",
       "conversion": "translated"
@@ -79,7 +74,7 @@
       "id": "hook_events",
       "name": "Hook trigger events",
       "summary": "Two events: 'tool:pre-execute' (before tool runs) and 'tool:post-execute' (after); each event accepts only specific actions. Canonical mapping: before_tool_execute → tool:pre-execute, after_tool_execute → tool:post-execute.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "event",
       "conversion": "translated"
@@ -88,7 +83,7 @@
       "id": "hook_action_send_user_message",
       "name": "Hook action: send-user-message",
       "summary": "Pre-execute action that injects a user message and cancels the pending tool call to enforce behavioral constraints.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "action.type",
       "conversion": "not-portable"
@@ -97,7 +92,7 @@
       "id": "hook_action_redact_tool_input",
       "name": "Hook action: redact-tool-input",
       "summary": "Post-execute action that redacts tool input fields after execution to avoid storing sensitive arguments.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "action.type",
       "conversion": "not-portable"
@@ -106,7 +101,7 @@
       "id": "hook_match_input_contains",
       "name": "Hook match condition: input.contains",
       "summary": "Filter hook firing by exact literal substring match in tool input — no regex or glob support.",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "input.contains",
       "conversion": "translated"
@@ -115,7 +110,7 @@
       "id": "hook_config_location",
       "name": "Hook configuration in settings file",
       "summary": "Hook definitions live as an array in Amp settings files (.amp/settings.json or user-scope settings).",
-      "source_ref": "https://ampcode.com/manual/hooks.md",
+      "source_ref": "https://ampcode.com/manual?internal#hooks",
       "required": null,
       "provider_field": "amp.hooks",
       "conversion": "not-portable"
@@ -132,7 +127,7 @@
     {
       "id": "permissions_match_conditions",
       "name": "Permission match condition types",
-      "summary": "Match values support globs, regex (slash-delimited), arrays (OR), literals, and nested objects with dot notation.",
+      "summary": "Match values support glob patterns ('*'), regex (strings starting and ending with '/'), arrays (OR across entries), literals (boolean/number/null/undefined as exact match), and nested objects (deep property matching with dot notation for objects and numeric strings for array indices). Tool name field also accepts globs (e.g., 'Bash', 'mcp__playwright__*').",
       "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "required": null,
       "provider_field": "matches",
@@ -141,10 +136,27 @@
     {
       "id": "permissions_delegate_action",
       "name": "Permission delegate action",
-      "summary": "Delegate decisions to an external program (JSON via stdin, exit code = decision); plugin API is the recommended successor.",
+      "summary": "Delegate decisions to an external program named in the rule's 'to' field (must be on $PATH or an absolute path). Amp pipes tool parameters as JSON to stdin and exports AMP_THREAD_ID, AGENT_TOOL_NAME, and AGENT=amp env vars. Exit status: 0=allow, 1=ask operator, ≥2=reject (stderr surfaced to the model). Plugin API is the documented successor; a compatibility plugin enforcing amp.permissions rules is planned.",
       "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "required": null,
       "provider_field": "action",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "permissions_reject_message",
+      "name": "Permission reject with continuation message",
+      "summary": "A 'reject' rule may carry a 'message' string returned to the model; when set, the rejection continues the conversation with that feedback instead of halting it.",
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null,
+      "provider_field": "message",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "permissions_default_behavior",
+      "name": "Default action when no rule matches",
+      "summary": "If no user rule and no built-in rule matches, Amp asks the operator on the main thread and rejects the call in sub-agents. Built-in rules (e.g., allowing 'ls' via Bash) are consulted after user rules.",
+      "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
+      "required": null,
       "conversion": "not-portable"
     },
     {
@@ -159,7 +171,7 @@
     {
       "id": "permissions_cli",
       "name": "Permissions CLI (amp permissions)",
-      "summary": "'amp permissions' subcommands (list/add/edit/test) manage rules in a UNIX-shell-style text format without editing JSON.",
+      "summary": "'amp permissions' subcommands manage rules in a UNIX-shell-style text format without editing JSON: 'list' (with '--builtin' for built-ins only), 'add' (e.g., 'add reject web_search'), 'edit' (opens $EDITOR; also accepts STDIN), and 'test' (dry-runs a tool+args call and prints the matched rule, action, and source). Single/double-quoted strings supported; unquoted true/false/null/numbers parsed as JSON literals; values containing '*' must be quoted.",
       "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "required": null,
       "conversion": "not-portable"

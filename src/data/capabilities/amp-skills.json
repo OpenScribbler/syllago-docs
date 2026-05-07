@@ -3,12 +3,12 @@
   "provider": "amp",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-04-29T00:00:00Z",
   "sources": [
     {
       "uri": "https://ampcode.com/manual/agent-skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:40Z"
+      "fetched_at": "2026-04-29T16:15:06Z"
     }
   ],
   "canonicalMappings": {
@@ -64,7 +64,7 @@
     {
       "id": "mcp_bundling",
       "name": "MCP server bundling",
-      "summary": "Bundle an MCP server with the skill via mcp.json (local command or remote URL); tools stay hidden until skill loads.",
+      "summary": "Bundle an MCP server with the skill via mcp.json (local command/args/env or remote url/headers); supports an includeTools glob-pattern allowlist to filter exposed tools; tools stay hidden until skill loads.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
       "required": null,
       "conversion": "not-portable"
@@ -88,7 +88,15 @@
     {
       "id": "skill_cli",
       "name": "CLI and command palette skill management",
-      "summary": "Manage skills via 'amp skill' CLI or command palette (add/list/remove); supports GitHub shorthand paths.",
+      "summary": "Manage skills via 'amp skill' CLI or command palette (Ctrl+O in the CLI) using 'skill: add', 'skill: list', 'skill: remove'; install from GitHub shorthand (org/repo/path), git URL, or local path.",
+      "source_ref": "https://ampcode.com/manual/agent-skills.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "building_skills_assistant",
+      "name": "Built-in 'building-skills' skill",
+      "summary": "Amp ships a built-in 'building-skills' skill that authors new skills tailored to the current codebase via natural-language request (e.g., 'Create a skill for deploying to staging'); user picks 'project-specific' or 'user-wide' scope.",
       "source_ref": "https://ampcode.com/manual/agent-skills.md",
       "required": null,
       "conversion": "not-portable"

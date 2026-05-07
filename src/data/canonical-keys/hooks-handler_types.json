@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "Four types: command (shell), http (POST to URL), prompt (LLM evaluation), agent (subagent with tools); prompt/agent restricted to subset of events"
+      "mechanism": "Five types: command (shell), http (POST to URL), mcp_tool (MCP tool call), prompt (LLM evaluation), agent (subagent with tools, experimental); prompt/agent restricted to subset of events"
     },
     "cline": {
       "supported": false,

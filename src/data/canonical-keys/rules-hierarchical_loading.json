@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root; .claude/rules/ files discovered recursively; user-level rules load before project rules"
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules load before project rules"
     },
     "cline": {
       "supported": false,
