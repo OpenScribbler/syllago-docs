@@ -3,12 +3,12 @@
   "provider": "amp",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-29T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "type": "documentation",
-      "fetched_at": "2026-04-29T16:15:03Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     }
   ],
   "canonicalMappings": {
@@ -136,7 +136,7 @@
     {
       "id": "permissions_delegate_action",
       "name": "Permission delegate action",
-      "summary": "Delegate decisions to an external program named in the rule's 'to' field (must be on $PATH or an absolute path). Amp pipes tool parameters as JSON to stdin and exports AMP_THREAD_ID, AGENT_TOOL_NAME, and AGENT=amp env vars. Exit status: 0=allow, 1=ask operator, ≥2=reject (stderr surfaced to the model). Plugin API is the documented successor; a compatibility plugin enforcing amp.permissions rules is planned.",
+      "summary": "Delegate decisions to an external program named in the rule's 'to' field (must be on $PATH). Amp pipes tool parameters as JSON to stdin and exports AMP_THREAD_ID, AGENT_TOOL_NAME, and AGENT=amp env vars. Exit status: 0=allow, 1=ask operator, ≥2=reject (stderr surfaced to the model). Plugin API is the documented successor; a compatibility plugin enforcing amp.permissions rules is planned.",
       "source_ref": "https://ampcode.com/manual/appendix/permissions-reference.md",
       "required": null,
       "provider_field": "action",

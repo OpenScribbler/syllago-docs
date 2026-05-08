@@ -3,12 +3,12 @@
   "provider": "cursor",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://cursor.com/docs/hooks",
       "type": "documentation",
-      "fetched_at": "2026-04-22T04:38:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -17,20 +17,20 @@
       "mechanism": "Hooks run synchronously; no async/background flag documented."
     },
     "context_injection": {
-      "supported": false,
-      "mechanism": "Cursor hooks do not document a mechanism to inject additional context into the agent session."
+      "supported": true,
+      "mechanism": "Hooks can inject context at session initialization via the sessionStart event, enabling custom context to be added to the agent's active session at startup."
     },
     "decision_control": {
       "supported": true,
-      "mechanism": "Exit codes drive decisions: non-zero blocks the action and surfaces stderr, zero allows it to proceed; JSON on stdout can also return structured decision fields."
+      "mechanism": "Exit codes drive decisions: exit code 2 blocks the action, exit code 0 allows it to proceed; JSON on stdout can also return structured decision fields."
     },
     "handler_types": {
-      "supported": false,
-      "mechanism": "Cursor hooks execute shell commands only (type: command); no HTTP, LLM prompt, or agent handler types documented."
+      "supported": true,
+      "mechanism": "Two handler types documented: command (shell scripts communicating over stdio via JSON) and prompt (LLM-evaluated natural language conditions for policy enforcement without custom scripting)."
     },
     "hook_scopes": {
       "supported": true,
-      "mechanism": "Project-scope hooks live under .cursor/hooks/ and are wired through .cursor/settings.json; user-global hooks live under ~/.cursor/ using the same shape."
+      "mechanism": "Four scopes documented in priority order: Enterprise (system-wide MDM-managed), Team (cloud-distributed for Enterprise plans), Project (.cursor/hooks/ in the repository), and User (global personal configuration at ~/.cursor/hooks/)."
     },
     "input_modification": {
       "supported": false,
@@ -53,7 +53,7 @@
     {
       "id": "hook_events",
       "name": "Cursor hook event set",
-      "summary": "Cursor documents a large set of camelCase lifecycle events including beforeShellExecution, beforeReadFile, beforeSubmitPrompt, afterFileEdit, stop, and related pre/post tool hooks.",
+      "summary": "Cursor documents lifecycle events for both Agent (sessionStart, preToolUse, beforeShellExecution, afterFileEdit, stop, and related pre/post tool hooks) and Cursor Tab inline completions (beforeTabFileRead and related Tab-specific hooks).",
       "source_ref": "https://cursor.com/docs/hooks",
       "required": null,
       "conversion": "translated"
@@ -61,11 +61,19 @@
     {
       "id": "command_handler_type",
       "name": "Command (shell) handler type",
-      "summary": "Each hook entry uses type: command with a shell command string; this is the only handler type documented for Cursor.",
+      "summary": "Command-based hooks execute shell scripts that receive JSON via stdin; exit code 0 indicates success and exit code 2 blocks actions.",
       "source_ref": "https://cursor.com/docs/hooks",
       "required": null,
       "provider_field": "type",
       "conversion": "translated"
+    },
+    {
+      "id": "prompt_handler_type",
+      "name": "Prompt (LLM) handler type",
+      "summary": "Prompt-based hooks leverage an LLM to evaluate natural language conditions, enabling policy enforcement without custom scripting — the model determines whether to allow or block based on a natural language rule.",
+      "source_ref": "https://cursor.com/docs/hooks",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "timeout_ms",
@@ -107,6 +115,30 @@
       "id": "settings_wiring",
       "name": "Hooks wired through .cursor/settings.json",
       "summary": "Hook files under .cursor/hooks/ are activated via entries in .cursor/settings.json; enabling or disabling a hook means editing the settings file, not moving the hook file itself.",
+      "source_ref": "https://cursor.com/docs/hooks",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "enterprise_team_scopes",
+      "name": "Enterprise and Team hook scopes",
+      "summary": "Cursor supports Enterprise (MDM-managed system-wide) and Team (cloud-distributed for Enterprise plans) hook scopes above the Project and User levels, enabling organization-wide hook policy deployment.",
+      "source_ref": "https://cursor.com/docs/hooks",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "cursor_tab_hooks",
+      "name": "Cursor Tab inline completion hooks",
+      "summary": "Separate hook events (e.g., beforeTabFileRead) fire for Cursor Tab inline completion operations, distinct from Agent hook events, enabling separate control policies for inline vs. Agent-mode completions.",
+      "source_ref": "https://cursor.com/docs/hooks",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "partner_ecosystem",
+      "name": "Partner ecosystem hooks",
+      "summary": "Cursor partners with ecosystem vendors (MintMCP, Semgrep, Snyk, 1Password, and others) who have built pre-built hook integrations covering security scanning, governance, and secrets management.",
       "source_ref": "https://cursor.com/docs/hooks",
       "required": null,
       "conversion": "not-portable"

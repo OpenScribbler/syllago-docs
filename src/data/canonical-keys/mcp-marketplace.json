@@ -31,11 +31,11 @@
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Cursor ships an in-IDE MCP directory for discovering and installing community MCP servers."
+      "mechanism": "Cursor ships an in-IDE MCP Marketplace for discovering and installing community MCP servers with one-click installation."
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "Quick Start: Add from Registry — 40+ pre-configured servers organized into categories (Development & Testing, Project Management, Payments, Design, Infrastructure)"
+      "mechanism": "Quick Start: Add from Registry via /mcp command — 40+ pre-configured servers (Figma, Linear, Sentry, Notion, Supabase, Stripe, Vercel, Playwright, HubSpot, MongoDB) organized into categories"
     },
     "gemini-cli": {
       "supported": false,
@@ -55,7 +55,7 @@
     },
     "zed": {
       "supported": true,
-      "mechanism": "Zed exposes an in-app MCP server gallery where servers can be browsed and installed"
+      "mechanism": "Zed exposes an in-app MCP server gallery (zed: extensions filtered to context-servers, or Agent Panel > View Server Extensions) where servers can be browsed and installed"
     }
   }
 }

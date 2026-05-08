@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (recommended)"
+      "mechanism": "yaml frontmatter key: description (recommended, not required; if omitted uses first paragraph of markdown content)"
     },
     "cline": {
       "supported": true,

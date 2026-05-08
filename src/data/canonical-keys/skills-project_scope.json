@@ -51,7 +51,7 @@
     },
     "pi": {
       "supported": true,
-      "mechanism": ".pi/skills/<name>/SKILL.md or .agents/skills/<name>/SKILL.md"
+      "mechanism": ".pi/skills/<name>/SKILL.md or .agents/skills/<name>/SKILL.md (checked in cwd and ancestor directories up to git repo root, or filesystem root)"
     },
     "roo-code": {
       "supported": true,

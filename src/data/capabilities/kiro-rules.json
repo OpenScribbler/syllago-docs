@@ -3,18 +3,18 @@
   "provider": "kiro",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://kiro.dev/docs/steering/",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:23Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "activation_mode": {
       "supported": true,
-      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, auto, and manual inclusion modes"
     },
     "auto_memory": {
       "supported": false,
@@ -37,7 +37,7 @@
     {
       "id": "kiro_steering_inclusion_mode",
       "name": "Inclusion mode frontmatter field",
-      "summary": "Frontmatter field controlling when a steering file loads (always, conditional via globs, manual, or auto).",
+      "summary": "Frontmatter field controlling when a steering file loads: 'always' (every interaction), 'conditional' (when active file matches glob patterns), 'auto' (model decides based on relevance), or 'manual' (explicit user invocation via hashtag).",
       "source_ref": "https://kiro.dev/docs/steering/",
       "required": null,
       "provider_field": "inclusion",
@@ -54,7 +54,7 @@
     {
       "id": "kiro_foundational_steering",
       "name": "Foundational steering files (auto-created)",
-      "summary": "Kiro auto-creates product_requirements.md, tech_stack.md, and architecture.md on workspace init.",
+      "summary": "Kiro auto-creates three baseline steering files on workspace init: product_requirements.md (business context), tech_stack.md (frameworks and tools), and architecture.md (organization patterns).",
       "source_ref": "https://kiro.dev/docs/steering/",
       "required": null,
       "conversion": "not-portable"
@@ -63,6 +63,14 @@
       "id": "kiro_agents_md_recognition",
       "name": "AGENTS.md root file recognition",
       "summary": "Kiro reads repo-root AGENTS.md as a steering source, matching the cross-provider AGENTS.md convention.",
+      "source_ref": "https://kiro.dev/docs/steering/",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "kiro_team_steering",
+      "name": "Team steering via MDM or central repository",
+      "summary": "Organizations can deploy centralized steering files across all developer workspaces via MDM solutions or central repositories, enabling organization-wide standardization without per-workspace setup.",
       "source_ref": "https://kiro.dev/docs/steering/",
       "required": null,
       "conversion": "not-portable"

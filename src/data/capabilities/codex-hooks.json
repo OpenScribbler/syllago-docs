@@ -3,27 +3,27 @@
   "provider": "codex",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/pre-tool-use.command.input.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:21.065805364Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/pre-tool-use.command.output.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:21.220512802Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/post-tool-use.command.input.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:21.374127199Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/post-tool-use.command.output.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:21.577843767Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/session-start.command.input.schema.json",
@@ -33,7 +33,7 @@
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/session-start.command.output.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:21.985920278Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/user-prompt-submit.command.input.schema.json",
@@ -43,7 +43,7 @@
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/user-prompt-submit.command.output.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:48:22.428009291Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/schema/generated/stop.command.input.schema.json",
@@ -58,7 +58,7 @@
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/app-server-protocol/schema/typescript/v2/HookEventName.ts",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:48:23.030284673Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/app-server-protocol/schema/typescript/v2/HookHandlerType.ts",
@@ -76,14 +76,14 @@
       "fetched_at": "2026-04-11T21:48:23.551768221Z"
     },
     {
-      "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/src/engine/config.rs",
+      "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/src/engine/schema_loader.rs",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:48:23.670864217Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/hooks/src/types.rs",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:48:23.78180342Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -112,8 +112,8 @@
       "mechanism": "hook_updated_input: Codex PreToolUse hooks return modified input arguments that replace the original tool input"
     },
     "json_io_protocol": {
-      "supported": false,
-      "mechanism": "Codex hooks communicate via exit codes and stdout text; no structured JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Codex hooks communicate via structured JSON on stdin (typed per-event payload conforming to the event input schema) and stdout (typed response conforming to the event output schema); exit codes alone are not the protocol"
     },
     "matcher_patterns": {
       "supported": true,
@@ -128,8 +128,8 @@
     {
       "id": "hook_events",
       "name": "Hook Events",
-      "summary": "Five hook events: PreToolUse, PostToolUse, SessionStart, UserPromptSubmit, Stop (PascalCase in config.toml, camelCase in TS protocol).",
-      "source_ref": "config.rs (HookEvents struct), HookEventName.ts",
+      "summary": "Six hook events: PreToolUse, PostToolUse, PermissionRequest, SessionStart, UserPromptSubmit, Stop (PascalCase in config.toml, camelCase in TS protocol).",
+      "source_ref": "schema_loader.rs (GeneratedHookSchemas struct fields), config.schema.json (HooksToml), HookEventName.ts",
       "required": null,
       "conversion": "translated"
     },
@@ -137,7 +137,7 @@
       "id": "hook_handler_types",
       "name": "Hook Handler Types",
       "summary": "Each hook entry has a type: command (shell), prompt (LLM prompt), or agent (sub-agent delegation).",
-      "source_ref": "config.rs (HookHandlerConfig enum), HookHandlerType.ts",
+      "source_ref": "config.schema.json (HookHandlerConfig enum), HookHandlerType.ts",
       "required": null,
       "provider_field": "type",
       "conversion": "translated"
@@ -146,7 +146,7 @@
       "id": "hook_matcher",
       "name": "Tool Matcher (PreToolUse / PostToolUse)",
       "summary": "Optional matcher string on PreToolUse/PostToolUse entries filters which tool calls trigger the hook (absent = all tools).",
-      "source_ref": "config.rs (MatcherGroup.matcher)",
+      "source_ref": "config.schema.json (MatcherGroup.matcher)",
       "required": null,
       "provider_field": "matcher",
       "conversion": "translated"
@@ -155,7 +155,7 @@
       "id": "hook_execution_mode",
       "name": "Hook Execution Mode (sync / async)",
       "summary": "Hook handlers run sync (blocking) or async (fire-and-forget) via the async flag on command handlers / HookExecutionMode.",
-      "source_ref": "HookExecutionMode.ts, config.rs (HookHandlerConfig::Command.async)",
+      "source_ref": "HookExecutionMode.ts, config.schema.json (HookHandlerConfig::Command.async)",
       "required": null,
       "provider_field": "async",
       "conversion": "translated"
@@ -179,7 +179,7 @@
     {
       "id": "hook_suppress_output",
       "name": "Suppress Output Flag",
-      "summary": "Hook output suppressOutput boolean (default false) hides stdout/stderr from the user; available on all five event schemas.",
+      "summary": "Hook output suppressOutput boolean (default false) hides stdout/stderr from the user; available on all six event schemas.",
       "source_ref": "pre-tool-use.command.output.schema.json (suppressOutput)",
       "required": null,
       "provider_field": "suppressOutput",
@@ -188,7 +188,7 @@
     {
       "id": "hook_system_message",
       "name": "System Message Injection",
-      "summary": "Hook output systemMessage field injects extra context into the current turn's system message; available on all five event schemas.",
+      "summary": "Hook output systemMessage field injects extra context into the current turn's system message; available on all six event schemas.",
       "source_ref": "pre-tool-use.command.output.schema.json (systemMessage)",
       "required": null,
       "provider_field": "systemMessage",
@@ -219,6 +219,15 @@
       "source_ref": "pre-tool-use.command.output.schema.json (PreToolUsePermissionDecisionWire)",
       "required": null,
       "provider_field": "hookSpecificOutput.permissionDecision",
+      "conversion": "translated"
+    },
+    {
+      "id": "hook_updated_mcp_tool_output",
+      "name": "Updated MCP Tool Output (PostToolUse)",
+      "summary": "PostToolUse output updatedMCPToolOutput field allows hooks to replace the MCP tool's response before it is returned to the model.",
+      "source_ref": "post-tool-use.command.output.schema.json (PostToolUseHookSpecificOutputWire.updatedMCPToolOutput)",
+      "required": null,
+      "provider_field": "hookSpecificOutput.updatedMCPToolOutput",
       "conversion": "translated"
     }
   ]

@@ -23,7 +23,7 @@
     },
     "copilot-cli": {
       "supported": true,
-      "mechanism": "skill directory under ~/.copilot/skills/<name>/, ~/.claude/skills/<name>/, or ~/.agents/skills/<name>/"
+      "mechanism": "skill directory under ~/.copilot/skills/<name>/ or ~/.agents/skills/<name>/ in the user home directory"
     },
     "crush": {
       "supported": true,
@@ -31,7 +31,7 @@
     },
     "cursor": {
       "supported": true,
-      "mechanism": "~/.agents/skills/<name>/SKILL.md for user-global scope via the cross-provider Agent Skills convention."
+      "mechanism": "~/.agents/skills/<name>/SKILL.md and ~/.cursor/skills/<name>/SKILL.md for user-level scope; both paths are documented."
     },
     "factory-droid": {
       "supported": true,

@@ -3,7 +3,7 @@
   "provider": "copilot-cli",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
@@ -13,7 +13,7 @@
     {
       "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/context/mcp.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:48:25.329663064Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -46,23 +46,23 @@
       "mechanism": "mcp_tool_allow_deny_flags: Copilot CLI supports per-tool allow and deny flags to control which MCP tools are exposed"
     },
     "transport_types": {
-      "supported": false,
-      "mechanism": "Copilot CLI MCP transport types not documented"
+      "supported": true,
+      "mechanism": "Copilot CLI supports both local (stdio) and remote (HTTP/SSE) MCP server types, confirmed in concepts/context/mcp.md"
     }
   },
   "providerExtensions": [
     {
       "id": "builtin_github_mcp_server",
       "name": "Built-In GitHub MCP Server",
-      "summary": "A GitHub MCP server ships inside the Copilot CLI binary and is always present in the tool set, overriding any same-name user config.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
+      "summary": "A GitHub MCP server ships inside the Copilot CLI binary and is always present in the tool set, available without additional configuration; it can be disabled via --disable-builtin-mcps.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/context/mcp.md",
       "required": null,
       "conversion": "not-portable"
     },
     {
       "id": "interactive_mcp_management",
       "name": "Interactive /mcp Slash Commands",
-      "summary": "The /mcp slash-command suite (add, show, edit, delete, disable, enable) manages MCP servers at runtime without restart.",
+      "summary": "The /mcp slash-command suite (add, show, edit, delete, disable, enable, auth, reload) manages MCP servers at runtime without restart.",
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers.md",
       "required": null,
       "conversion": "not-portable"
@@ -79,8 +79,24 @@
     {
       "id": "mcp_tool_allow_deny_flags",
       "name": "Per-Tool Allow/Deny CLI Flags",
-      "summary": "The --allow-tool, --deny-tool, and --allow-all-tools CLI flags grant or deny MCP tools (and built-in tools) without manual approval.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/copilot-cli/about-copilot-cli.md",
+      "summary": "The --allow-tool, --deny-tool, --available-tools, --excluded-tools, and --allow-all-tools CLI flags grant or deny MCP tools (and built-in tools) without manual approval; --disable-builtin-mcps and --disable-mcp-server disable servers.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-command-reference.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "github_mcp_toolset_control",
+      "name": "GitHub MCP Server Toolset Control",
+      "summary": "The --add-github-mcp-tool, --add-github-mcp-toolset, and --enable-all-github-mcp-tools flags selectively enable GitHub MCP server tools beyond the default CLI subset.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-command-reference.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "github_mcp_registry",
+      "name": "GitHub MCP Registry",
+      "summary": "The GitHub MCP Registry (github.com/mcp) is a curated list of MCP servers from partners and the community, usable for discovery alongside the built-in GitHub MCP server.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/context/mcp.md",
       "required": null,
       "conversion": "not-portable"
     }

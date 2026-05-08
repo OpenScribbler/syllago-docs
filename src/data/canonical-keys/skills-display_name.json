@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name)"
+      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name; lowercase letters, numbers, hyphens only, max 64 characters)"
     },
     "cline": {
       "supported": true,
@@ -27,7 +27,7 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard"
+      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard. Validated: must be alphanumeric with hyphens, max 64 chars."
     },
     "cursor": {
       "supported": true,

@@ -1,10 +1,10 @@
 {
   "id": "kiro",
   "provider": "kiro",
-  "totalExtensions": 25,
-  "unspecifiedRequiredCount": 25,
-  "unspecifiedValueTypeCount": 25,
-  "unspecifiedExamplesCount": 25,
+  "totalExtensions": 31,
+  "unspecifiedRequiredCount": 31,
+  "unspecifiedValueTypeCount": 31,
+  "unspecifiedExamplesCount": 31,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

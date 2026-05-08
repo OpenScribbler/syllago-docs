@@ -31,11 +31,11 @@
     },
     "cursor": {
       "supported": false,
-      "mechanism": "Cursor does not document organization-level managed MCP policy controls."
+      "mechanism": "Cursor does not document organization-level managed MCP policy controls beyond the general hook and rule enterprise scopes."
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "only user-level and project-level configuration scopes documented; no organization/enterprise admin layer"
+      "mechanism": "only user-level (~/.factory/mcp.json) and project-level (.factory/mcp.json) configuration scopes documented; no organization/enterprise admin layer"
     },
     "gemini-cli": {
       "supported": false,
@@ -46,8 +46,8 @@
       "mechanism": "Kiro does not document organization-level MCP management"
     },
     "opencode": {
-      "supported": false,
-      "mechanism": "No organization-level MCP management documented"
+      "supported": true,
+      "mechanism": "Organizations can provide default MCP server configurations via a .well-known/opencode endpoint; users can override remote defaults in their local opencode.json; local config values take precedence over remote defaults"
     },
     "roo-code": {
       "supported": false,

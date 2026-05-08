@@ -3,7 +3,7 @@
   "provider": "codex",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/docs/agents_md.md",
@@ -13,7 +13,7 @@
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/AGENTS.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:01.867399674Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {

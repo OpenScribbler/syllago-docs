@@ -3,12 +3,12 @@
   "provider": "factory-droid",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration/skills",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:31Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -73,6 +73,14 @@
       "id": "auto_invocation",
       "name": "Auto-Invocation",
       "summary": "The Droid automatically invokes matching skills based on the description field; gated by user-invocable and disable-model-invocation flags.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/skills",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "argument_substitution",
+      "name": "Argument Substitution in Skills",
+      "summary": "Skills accept arguments via $ARGUMENTS variable when invoked with /skill-name <arguments>; argument-hint frontmatter field provides autocomplete usage examples.",
       "source_ref": "https://docs.factory.ai/cli/configuration/skills",
       "required": null,
       "conversion": "translated"

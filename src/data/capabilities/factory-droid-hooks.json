@@ -3,62 +3,62 @@
   "provider": "factory-droid",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration/hooks-guide",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:21.993498315Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://docs.factory.ai/reference/hooks-reference",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:22.150307964Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "async_execution": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks run synchronously; no async execution documented"
+      "supported": true,
+      "mechanism": "Matching hooks for the same event execute concurrently (in parallel); deduplication consolidates identical commands automatically"
     },
     "context_injection": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot inject context into the agent session"
+      "supported": true,
+      "mechanism": "additionalContext field in PostToolUse, UserPromptSubmit, and SessionStart hook output injects information into the agent session; systemMessage field in JSON output provides session-level injection"
     },
     "decision_control": {
       "supported": true,
-      "mechanism": "hook_exit_code_behavior: Factory Droid hooks use exit codes to signal block (non-zero) or allow (zero) decisions on the triggering action"
+      "mechanism": "PreToolUse hooks return JSON with allow/deny/ask decision field; exit code 2 blocks with stderr fed back to Droid; non-zero non-2 shows stderr to user as non-blocking error"
     },
     "handler_types": {
       "supported": false,
-      "mechanism": "Factory Droid hooks execute shell commands only; no other handler types documented"
+      "mechanism": "Factory Droid hooks execute shell commands only (type: command); no other handler types documented"
     },
     "hook_scopes": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks are project-scoped; no multi-scope configuration documented"
+      "supported": true,
+      "mechanism": "Four scopes documented: user-level (~/.factory/settings.json), project-level (.factory/settings.json), local-uncommitted (.factory/settings.local.json), and enterprise managed policies"
     },
     "input_modification": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot modify tool input before execution"
+      "supported": true,
+      "mechanism": "PreToolUse hooks return updatedInput in JSON output to modify tool parameters before execution"
     },
     "json_io_protocol": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Hooks receive JSON via stdin containing session_id, transcript_path, cwd, permission_mode, hook_event_name, and event-specific fields; hooks return JSON output with continue, stopReason, suppressOutput, systemMessage, and event-specific fields"
     },
     "matcher_patterns": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks fire on configured lifecycle events; no per-tool pattern matching documented"
+      "supported": true,
+      "mechanism": "PreToolUse and PostToolUse hooks use matcher strings supporting exact tool names, regex patterns (Edit|Create, Notebook.*), MCP tool patterns (mcp__<server>__<tool>), and wildcard (*) to match all tools"
     },
     "permission_control": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"
+      "supported": true,
+      "mechanism": "PreToolUse hooks return allow, deny, or ask in the JSON decision field to bypass, block, or escalate tool permission decisions"
     }
   },
   "providerExtensions": [
     {
       "id": "hook_events",
       "name": "Hook Events",
-      "summary": "Nine hook events including PreToolUse (block), PostToolUse (rerun), UserPromptSubmit (modify inputText), Stop, SubagentStop, PreCompact, SessionStart, SessionEnd, Notification.",
+      "summary": "Nine hook events: PreToolUse (block/allow/ask/modify input), PostToolUse (block with reasoning/add context), UserPromptSubmit (block or add context), Stop (block stopping), SubagentStop (block stopping), PreCompact (inject memory), SessionStart (add context), SessionEnd (cleanup), Notification (custom alerts).",
       "source_ref": "https://docs.factory.ai/reference/hooks-reference",
       "required": null,
       "conversion": "translated"
@@ -66,7 +66,7 @@
     {
       "id": "hook_config_structure",
       "name": "Hook Config Structure",
-      "summary": "JSON config under top-level hooks key with matcher patterns (exact, regex, or *) routing to command-type entries.",
+      "summary": "JSON config under top-level hooks key; each event maps to an array of matcher objects, each with a matcher string and a hooks array of {type: command, command: string, timeout?: number} entries.",
       "source_ref": "https://docs.factory.ai/cli/configuration/hooks-guide",
       "required": null,
       "provider_field": "hooks",
@@ -75,7 +75,7 @@
     {
       "id": "hook_scope_files",
       "name": "Hook Scope Files",
-      "summary": "Hooks live in scoped settings files: ~/.factory/settings.json (global), .factory/settings.json (project), .factory/settings.local.json (local), plus plugin settings.",
+      "summary": "Hooks live in scoped settings files: ~/.factory/settings.json (user-level), .factory/settings.json (project-level), .factory/settings.local.json (local uncommitted), plus enterprise managed policies.",
       "source_ref": "https://docs.factory.ai/cli/configuration/hooks-guide",
       "required": null,
       "conversion": "not-portable"
@@ -83,7 +83,7 @@
     {
       "id": "hook_exit_code_behavior",
       "name": "Hook Exit Code Behavior",
-      "summary": "Exit code 2 suppresses output; JSON output fields decision, reason, stopReason, inputText, suppressOutput; FACTORY_TOOL_INPUT env var provided.",
+      "summary": "Exit code 0 = success (stdout shown in transcript, or adds context for UserPromptSubmit/SessionStart); exit code 2 = blocking error (stderr fed back to Droid); other non-zero = non-blocking error (stderr shown to user). JSON output fields: continue, stopReason, suppressOutput, systemMessage, plus event-specific fields (allow/deny/ask/updatedInput for PreToolUse; block/additionalContext for PostToolUse and UserPromptSubmit; block for Stop/SubagentStop; additionalContext for SessionStart).",
       "source_ref": "https://docs.factory.ai/reference/hooks-reference",
       "required": null,
       "conversion": "translated"
@@ -96,6 +96,30 @@
       "required": null,
       "provider_field": "PreCompact",
       "conversion": "translated"
+    },
+    {
+      "id": "hook_input_env",
+      "name": "Hook Input: JSON stdin and Environment Variables",
+      "summary": "Hooks receive full JSON context via stdin (session_id, transcript_path, cwd, permission_mode, hook_event_name, plus event-specific tool data). Environment variables available include FACTORY_PROJECT_DIR (project root) and standard shell environment.",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "hook_execution_details",
+      "name": "Hook Execution Details",
+      "summary": "Default timeout is 60 seconds per command (configurable via timeout field). Matching hooks for the same event run concurrently. Identical commands are automatically deduplicated. Plugin hooks via plugins/[name]/hooks/hooks.json use ${DROID_PLUGIN_ROOT} env var and merge with user configurations.",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_tool_matchers",
+      "name": "MCP Tool Hook Matchers",
+      "summary": "MCP tools follow the naming pattern mcp__<server>__<tool> and can be matched with regex patterns in PreToolUse/PostToolUse matchers (e.g., mcp__memory__.* for all memory server tools, mcp__.*__write.* for write operations across all MCP servers).",
+      "source_ref": "https://docs.factory.ai/reference/hooks-reference",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

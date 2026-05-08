@@ -27,11 +27,11 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard"
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard. Note: the Go Skill struct in skills.go does not have a corresponding field — behavior is inferred from the standard, not from explicit Crush source handling."
     },
     "cursor": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false)."
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false); when true, the skill is converted into an explicit slash command rather than a context-aware tool the model can auto-invoke."
     },
     "factory-droid": {
       "supported": true,

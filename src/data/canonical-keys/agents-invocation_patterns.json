@@ -7,7 +7,7 @@
   "providers": {
     "claude-code": {
       "supported": true,
-      "mechanism": "natural language (Claude auto-delegates), @agent-<name> @-mention, or --agent flag at startup for session-wide agent; 3 patterns"
+      "mechanism": "natural language (Claude auto-delegates), @agent-<name> @-mention from typeahead, or --agent flag at startup for session-wide agent; plugin subagents appear as <plugin>:<name> in typeahead"
     },
     "codex": {
       "supported": true,
@@ -19,11 +19,11 @@
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI."
+      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI. Subagents can be spawned by other agents for parallel execution workstreams."
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "exposed as subagent_type targets for the Task tool; droids enabled by default with live progress reporting in UI"
+      "mechanism": "exposed as subagent_type targets for the Task tool; primary assistant delegates mid-session; droids enabled by default with live progress streaming in UI"
     },
     "gemini-cli": {
       "supported": true,
@@ -35,7 +35,7 @@
     },
     "opencode": {
       "supported": true,
-      "mechanism": "Agent name derives from the filename (configEntryNameFromPath). Agents with mode: primary can be selected as the session agent; agents with mode: subagent are invoked by other agents via description-driven matching; mode: all allows both."
+      "mechanism": "Primary agents are cycled via the Tab key or the switch_agent keybind. Subagents are invoked automatically by primary agents for specialized tasks based on their description, or manually by @-mentioning the subagent name in a message. Agent name derives from the filename (configEntryNameFromPath)."
     },
     "roo-code": {
       "supported": true,

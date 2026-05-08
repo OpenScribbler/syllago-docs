@@ -26,8 +26,8 @@
       "mechanism": "mcp_tool_allow_deny_flags: Copilot CLI supports per-tool allow and deny flags to control which MCP tools are exposed"
     },
     "crush": {
-      "supported": false,
-      "mechanism": "Per-server tool allow/block list not documented in the Crush MCP schema"
+      "supported": true,
+      "mechanism": "MCPConfig has a disabled_tools array (list of tool names to exclude from a specific server). This enables per-server tool filtering at the configuration level."
     },
     "cursor": {
       "supported": false,
@@ -46,20 +46,20 @@
       "mechanism": "kiro_mcp_disabled_tools: Kiro supports per-server tool disable configuration to control which MCP tools are available to the agent"
     },
     "opencode": {
-      "supported": false,
-      "mechanism": "No per-server tool allowlist/blocklist documented"
+      "supported": true,
+      "mechanism": "MCP tools are filtered via the global tools map in opencode.json using the server name as a prefix (e.g., mymcpservername_*: false); glob patterns (* and ?) are supported; per-agent tool access is controlled via the agent's permission or tools map"
     },
     "roo-code": {
       "supported": true,
       "mechanism": "per_server_tool_filtering: alwaysAllow and disabledTools arrays on each server entry filter which MCP tools are exposed and which bypass confirmation"
     },
     "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf exposes all tools from connected MCP servers; no per-server tool allowlist or blocklist documented"
+      "supported": true,
+      "mechanism": "tool_limit_100: individual MCP tools can be toggled on or off per server via the Cascade panel UI; disabled tools are tracked in a disabledTools array separate from whitelist matching"
     },
     "zed": {
-      "supported": false,
-      "mechanism": "no per-server include/exclude tool filter documented in Zed MCP configuration"
+      "supported": true,
+      "mechanism": "Per-profile per-server tool enable/disable maps are supported via context_servers.<name>.tools in agent profile config; enable_all_context_servers: false allows disabling all servers except those explicitly listed in the profile"
     }
   }
 }

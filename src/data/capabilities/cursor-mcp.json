@@ -3,38 +3,38 @@
   "provider": "cursor",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://cursor.com/docs/mcp",
       "type": "documentation",
-      "fetched_at": "2026-04-22T04:38:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "auto_approve": {
-      "supported": false,
-      "mechanism": "Cursor does not document pre-configured auto-approval for specific MCP tools."
+      "supported": true,
+      "mechanism": "Users can configure permanent permissions through permissions.json files so that specific MCP tools do not require per-invocation approval; auto-run functionality can also be enabled globally."
     },
     "enterprise_management": {
       "supported": false,
-      "mechanism": "Cursor does not document organization-level managed MCP policy controls."
+      "mechanism": "Cursor does not document organization-level managed MCP policy controls beyond the general hook and rule enterprise scopes."
     },
     "env_var_expansion": {
       "supported": true,
-      "mechanism": "Server env blocks reference environment variables so secrets can be read from the shell environment rather than hardcoded."
+      "mechanism": "Server configuration supports variable interpolation using ${env:NAME} for environment variables, ${userHome} for the user's home directory, and ${workspaceFolder} for the workspace root — not limited to env blocks alone."
     },
     "marketplace": {
       "supported": true,
-      "mechanism": "Cursor ships an in-IDE MCP directory for discovering and installing community MCP servers."
+      "mechanism": "Cursor ships an in-IDE MCP Marketplace for discovering and installing community MCP servers with one-click installation."
     },
     "oauth_support": {
-      "supported": false,
-      "mechanism": "Cursor's MCP documentation does not describe OAuth 2.0 flows for remote servers."
+      "supported": true,
+      "mechanism": "Remote servers using the streamable-http transport support OAuth authentication; static client credentials can be used instead of dynamic registration. The documentation explicitly notes OAuth as a streamable-http capability."
     },
     "resource_referencing": {
-      "supported": false,
-      "mechanism": "Cursor's MCP documentation does not describe referencing MCP resources by URI."
+      "supported": true,
+      "mechanism": "MCP resources (structured data sources) are documented as a supported protocol capability alongside tools, prompts, roots, elicitation, and Apps."
     },
     "tool_filtering": {
       "supported": false,
@@ -42,14 +42,14 @@
     },
     "transport_types": {
       "supported": true,
-      "mechanism": "Cursor documents three MCP transports: stdio for local processes, sse for Server-Sent Events, and streamable-http for HTTP-based remote servers."
+      "mechanism": "Cursor documents three MCP transports: stdio for local processes managed by Cursor, sse for Server-Sent Events (local or remote, multi-user), and streamable-http for HTTP-based servers (local or remote, multi-user) with OAuth authentication support."
     }
   },
   "providerExtensions": [
     {
       "id": "mcp_transport_types",
       "name": "Three MCP transport mechanisms",
-      "summary": "Supports stdio, sse, and streamable-http transports chosen by the server configuration.",
+      "summary": "Supports stdio (local, single-user), sse (local/remote, multi-user via Server-Sent Events), and streamable-http (local/remote, multi-user via HTTP) transports chosen by the server configuration.",
       "source_ref": "https://cursor.com/docs/mcp",
       "required": null,
       "provider_field": "type",
@@ -66,7 +66,7 @@
     {
       "id": "env_variable_passthrough",
       "name": "Environment variables in server env blocks",
-      "summary": "Per-server env maps pass environment variables (including secrets sourced from the user's shell) to stdio servers.",
+      "summary": "Per-server env maps pass environment variables (including secrets sourced from the user's shell) to stdio servers; configuration also supports ${env:NAME}, ${userHome}, and ${workspaceFolder} interpolation syntax.",
       "source_ref": "https://cursor.com/docs/mcp",
       "required": null,
       "provider_field": "env",
@@ -74,11 +74,28 @@
     },
     {
       "id": "mcp_directory",
-      "name": "In-IDE MCP directory",
-      "summary": "Cursor exposes an MCP directory inside the IDE for browsing and installing community MCP servers without editing mcp.json by hand.",
+      "name": "In-IDE MCP Marketplace",
+      "summary": "Cursor exposes an MCP Marketplace inside the IDE for browsing and one-click installing community MCP servers without editing mcp.json by hand.",
       "source_ref": "https://cursor.com/docs/mcp",
       "required": null,
       "conversion": "not-portable"
+    },
+    {
+      "id": "permissions_json",
+      "name": "permissions.json for permanent MCP tool approval",
+      "summary": "Users can configure permanent per-tool approval through permissions.json files, preventing repeated approval prompts for trusted MCP tools.",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "provider_field": "permissions",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_protocol_capabilities",
+      "name": "Full MCP protocol capability set: tools, prompts, resources, roots, elicitation, Apps",
+      "summary": "Cursor supports the full MCP protocol capability surface including tools (executable functions), prompts (templated workflows), resources (structured data sources), roots (server-initiated URI inquiries), elicitation (user information requests), and Apps (interactive UI extensions).",
+      "source_ref": "https://cursor.com/docs/mcp",
+      "required": null,
+      "conversion": "preserved"
     }
   ]
 }

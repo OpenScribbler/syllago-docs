@@ -3,17 +3,17 @@
   "provider": "zed",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://zed.dev/docs/ai/rules",
       "type": "documentation",
-      "fetched_at": "2026-04-11T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/zed-industries/zed/main/.rules",
       "type": "example",
-      "fetched_at": "2026-04-11T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     }
   ],
   "canonicalMappings": {
@@ -27,7 +27,7 @@
     },
     "cross_provider_recognition": {
       "supported": true,
-      "mechanism": "Zed discovers .rules, .cursorrules, and CLAUDE.md at project root, so rule files authored for other agents are picked up"
+      "mechanism": "Zed discovers rule files from multiple providers at project root using a priority-ordered list: .rules, .cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, AGENT.md, AGENTS.md, CLAUDE.md, GEMINI.md — the first matching file wins"
     },
     "file_imports": {
       "supported": false,
@@ -42,10 +42,26 @@
     {
       "id": "cross_provider_rule_files",
       "name": "Cross-provider rule file recognition",
-      "summary": "At project root, Zed recognizes .rules, .cursorrules, and CLAUDE.md so rule content authored for other agents is used without renaming.",
+      "summary": "At project root, Zed recognizes a priority-ordered list of rule filenames from multiple providers: .rules (preferred), .cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, AGENT.md, AGENTS.md, CLAUDE.md, GEMINI.md. The first matching file is used.",
       "source_ref": "https://zed.dev/docs/ai/rules",
       "required": null,
       "conversion": "preserved"
+    },
+    {
+      "id": "rules_library",
+      "name": "Rules Library editor",
+      "summary": "Zed provides a dedicated Rules Library editor (agent panel > ... > Rules..., or cmd-alt-l on macOS / ctrl-alt-l on Windows/Linux) with syntax highlighting, inline assistant support, title editing from the editor title bar, and duplicate/delete controls.",
+      "source_ref": "https://zed.dev/docs/ai/rules",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "default_rules",
+      "name": "Default rules (paper clip icon)",
+      "summary": "Any rule in the Rules Library can be set as default by clicking the paper clip icon, making it automatically included in every new Agent Panel interaction. Default rules are managed through the Rules Library UI.",
+      "source_ref": "https://zed.dev/docs/ai/rules",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

@@ -3,12 +3,12 @@
   "provider": "claude-code",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://code.claude.com/docs/en/mcp.md",
       "type": "documentation",
-      "fetched_at": "2026-05-03T16:30:00Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -30,7 +30,7 @@
     },
     "oauth_support": {
       "supported": true,
-      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration; token storage in macOS keychain or credentials file; auto-refresh"
+      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration or CIMD auto-discovery; token storage in macOS keychain or credentials file; auto-refresh; oauth.scopes pins requested scope set; authServerMetadataUrl overrides discovery chain"
     },
     "resource_referencing": {
       "supported": true,
@@ -58,7 +58,7 @@
     {
       "id": "mcp_installation_scopes",
       "name": "Three Installation Scopes (local, project, user)",
-      "summary": "Three install scopes: local (~/.claude.json per-project, default; was 'project' in older versions), project (.mcp.json shareable with team), user (~/.claude.json global across projects; was 'global' in older versions).",
+      "summary": "Three install scopes: local (~/.claude.json per-project, default; was 'project' in older CC versions), project (.mcp.json shareable with team), user (~/.claude.json global across projects; was 'global' in older CC versions). Scope precedence: local > project > user > plugin-provided > claude.ai connectors. The workspace server name is reserved and skipped at load time.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#mcp-installation-scopes",
       "required": null,
       "conversion": "translated"
@@ -66,7 +66,7 @@
     {
       "id": "mcp_oauth_authentication",
       "name": "OAuth 2.0 Authentication for Remote Servers",
-      "summary": "OAuth 2.0 for HTTP servers: dynamic client registration or CIMD auto-discovery; pre-configured credentials via --client-id/--client-secret; fixed callback port via --callback-port or oauth.callbackPort; oauth.scopes pins requested scope set; oauth.authServerMetadataUrl overrides discovery chain; token storage in keychain/credentials file with auto-refresh.",
+      "summary": "OAuth 2.0 for HTTP servers: dynamic client registration or CIMD auto-discovery; pre-configured credentials via --client-id/--client-secret; fixed callback port via --callback-port or oauth.callbackPort; oauth.scopes pins requested scope set (space-separated string per RFC 6749 §3.3; offline_access appended automatically if server advertises it); oauth.authServerMetadataUrl overrides discovery chain; token storage in keychain/credentials file with auto-refresh; MCP_CLIENT_SECRET env var for scripted credential supply.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#authenticate-with-remote-mcp-servers",
       "required": null,
       "provider_field": "oauth",
@@ -75,7 +75,7 @@
     {
       "id": "mcp_env_var_expansion",
       "name": "Environment Variable Expansion in .mcp.json",
-      "summary": "${VAR} and ${VAR:-default} expansion in command, args, env, url, and headers fields of .mcp.json.",
+      "summary": "${VAR} and ${VAR:-default} expansion in command, args, env, url, and headers fields of .mcp.json. Missing required variables with no default cause a config parse failure.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#environment-variable-expansion",
       "required": null,
       "conversion": "translated"
@@ -83,7 +83,7 @@
     {
       "id": "mcp_tool_search",
       "name": "MCP Tool Search (Deferred Tool Loading)",
-      "summary": "MCP tool schemas are deferred via ToolSearch; controlled by ENABLE_TOOL_SEARCH (default/true/auto/auto:N/false), requires Sonnet 4+ or Opus 4+; per-server alwaysLoad: true exempts a server from deferral (CC v2.1.121+); per-tool _meta anthropic/alwaysLoad: true does the same for individual tools.",
+      "summary": "MCP tool schemas are deferred via ToolSearch; controlled by ENABLE_TOOL_SEARCH (unset=default defer, true=force defer including Vertex/non-first-party, auto=threshold 10%, auto:N=custom %, false=load all upfront); requires Sonnet 4+ or Opus 4+; Haiku models do not support tool search; disabled by default on Vertex AI and when ANTHROPIC_BASE_URL points to non-first-party host. Per-server alwaysLoad: true (CC v2.1.121+) exempts a server from deferral and blocks startup until connected. Per-tool _meta anthropic/alwaysLoad: true does same for individual tools.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#scale-with-mcp-tool-search",
       "required": null,
       "provider_field": "ENABLE_TOOL_SEARCH",
@@ -92,7 +92,7 @@
     {
       "id": "mcp_resources",
       "name": "MCP Resources via @-Mention",
-      "summary": "MCP resources referenced via @server:protocol://path syntax; appear in @ autocomplete and auto-fetched when included.",
+      "summary": "MCP resources referenced via @server:protocol://path syntax; appear in @ autocomplete and auto-fetched when included. Resource paths are fuzzy-searchable.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#use-mcp-resources",
       "required": null,
       "conversion": "embedded"
@@ -100,7 +100,7 @@
     {
       "id": "mcp_prompts_as_commands",
       "name": "MCP Prompts as Slash Commands",
-      "summary": "MCP server prompts surface as /mcp__<servername>__<promptname> slash commands with space-separated arguments.",
+      "summary": "MCP server prompts surface as /mcp__<servername>__<promptname> slash commands with space-separated arguments. Server and prompt names are normalized; spaces become underscores.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#use-mcp-prompts-as-commands",
       "required": null,
       "conversion": "embedded"
@@ -116,7 +116,7 @@
     {
       "id": "mcp_output_limits",
       "name": "MCP Output Token Limits and Per-Tool Annotation",
-      "summary": "MAX_MCP_OUTPUT_TOKENS (default 25k) caps tool output; per-tool _meta annotations raise text limit up to 500k chars; oversized results spill to file.",
+      "summary": "MAX_MCP_OUTPUT_TOKENS (default 25k) caps tool output; warning displayed at 10k tokens. Per-tool _meta anthropic/maxResultSizeChars raises text limit up to 500k chars for that tool; applies independently of MAX_MCP_OUTPUT_TOKENS for text content. Image data still subject to MAX_MCP_OUTPUT_TOKENS. Oversized results spill to file.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#mcp-output-limits-and-warnings",
       "required": null,
       "provider_field": "MAX_MCP_OUTPUT_TOKENS",
@@ -125,7 +125,7 @@
     {
       "id": "mcp_managed_config",
       "name": "Managed MCP Configuration for Organizations",
-      "summary": "Enterprise control via managed-mcp.json (exclusive) or allowedMcpServers/deniedMcpServers (policy) keyed by serverName, serverCommand, or serverUrl.",
+      "summary": "Enterprise control via managed-mcp.json (exclusive — users cannot add or modify servers) or allowedMcpServers/deniedMcpServers (policy — users can add servers within constraints) keyed by serverName, serverCommand, or serverUrl.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#managed-mcp-configuration",
       "required": null,
       "provider_field": "allowedMcpServers",
@@ -134,7 +134,7 @@
     {
       "id": "mcp_plugin_bundling",
       "name": "Plugin-Bundled MCP Servers",
-      "summary": "Plugins bundle MCP servers via .mcp.json or plugin.json mcpServers key; uses ${CLAUDE_PLUGIN_ROOT}/${CLAUDE_PLUGIN_DATA} variables.",
+      "summary": "Plugins bundle MCP servers via .mcp.json or plugin.json mcpServers key; uses ${CLAUDE_PLUGIN_ROOT}/${CLAUDE_PLUGIN_DATA} variables; reload with /reload-plugins during a session.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#plugin-provided-mcp-servers",
       "required": null,
       "provider_field": "mcpServers",
@@ -175,7 +175,7 @@
     {
       "id": "mcp_headers_helper",
       "name": "Dynamic Headers via headersHelper",
-      "summary": "headersHelper field specifies a shell command that runs at connection time and returns JSON headers; enables Kerberos, short-lived tokens, or custom SSO without static credentials.",
+      "summary": "headersHelper field specifies a shell command that runs at connection time (10-second timeout) and returns JSON headers; enables Kerberos, short-lived tokens, or custom SSO. Sets CLAUDE_CODE_MCP_SERVER_NAME and CLAUDE_CODE_MCP_SERVER_URL env vars. For project/local scope, runs only after workspace trust dialog acceptance.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#use-dynamic-headers-for-custom-authentication",
       "required": null,
       "provider_field": "headersHelper",
@@ -184,8 +184,16 @@
     {
       "id": "mcp_reconnection",
       "name": "Automatic Reconnection with Exponential Backoff",
-      "summary": "HTTP and SSE servers reconnect automatically on disconnect: up to 5 attempts, starting at 1s, doubling each retry; initial connection retried up to 3 times for transient errors (CC v2.1.121+); stdio servers are not reconnected.",
+      "summary": "HTTP and SSE servers reconnect automatically on disconnect: up to 5 attempts, starting at 1s, doubling each retry; initial connection retried up to 3 times for transient errors (CC v2.1.121+); authentication and not-found errors are not retried. stdio servers are not reconnected.",
       "source_ref": "https://code.claude.com/docs/en/mcp.md#automatic-reconnection",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_claudeai_servers",
+      "name": "Claude.ai Connector Servers",
+      "summary": "MCP servers configured in Claude.ai are automatically available in Claude Code when logged in with a Claude.ai account. Local server definitions take precedence over claude.ai connectors at the same endpoint. Disable via ENABLE_CLAUDEAI_MCP_SERVERS=false.",
+      "source_ref": "https://code.claude.com/docs/en/mcp.md#use-mcp-servers-from-claude-ai",
       "required": null,
       "conversion": "not-portable"
     }

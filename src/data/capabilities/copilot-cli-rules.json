@@ -3,7 +3,7 @@
   "provider": "copilot-cli",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
@@ -18,7 +18,7 @@
     {
       "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/customization-cheat-sheet.md",
       "type": "reference",
-      "fetched_at": "2026-04-11T21:50:12.792866253Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -75,6 +75,14 @@
       "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions.md",
       "required": null,
       "conversion": "embedded"
+    },
+    {
+      "id": "no_custom_instructions_flag",
+      "name": "--no-custom-instructions CLI Flag",
+      "summary": "The --no-custom-instructions flag disables loading of custom instructions from AGENTS.md and related files for a session, enabling a clean-slate run.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/reference/copilot-cli-reference/cli-command-reference.md",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

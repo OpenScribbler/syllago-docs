@@ -27,11 +27,11 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "cross_provider_convention: Crush reads AGENTS.md, the cross-provider rules convention shared across multiple agents"
+      "mechanism": "Crush reads AGENTS.md, CRUSH.md, CLAUDE.md, GEMINI.md (and .local variants) as context files. The active filename is controlled by the initialize_as option (default: AGENTS.md); context_paths allows configuring an arbitrary list of additional file paths."
     },
     "cursor": {
-      "supported": false,
-      "mechanism": "Cursor reads its own .cursor/rules/*.mdc and legacy .cursorrules file; no documented recognition of other providers' rule files."
+      "supported": true,
+      "mechanism": "Cursor documents AGENTS.md as an officially supported alternative to .cursor/rules/*.mdc — a plain markdown file without frontmatter metadata that is recognized and loaded alongside project rules."
     },
     "factory-droid": {
       "supported": true,
@@ -47,7 +47,7 @@
     },
     "opencode": {
       "supported": true,
-      "mechanism": "OpenCode reads both AGENTS.md (cross-provider convention) and CLAUDE.md (historical Claude Code convention) from project root"
+      "mechanism": "OpenCode reads AGENTS.md (cross-provider convention) and CLAUDE.md (Claude Code fallback) from project root and parent directories; ~/.config/opencode/AGENTS.md and ~/.claude/CLAUDE.md at global scope; CLAUDE.md compat can be disabled via OPENCODE_DISABLE_CLAUDE_CODE env var"
     },
     "pi": {
       "supported": false,
@@ -59,11 +59,11 @@
     },
     "windsurf": {
       "supported": true,
-      "mechanism": "agents_md_auto_scoping: Windsurf reads AGENTS.md files from other providers and applies them with workspace-aware scoping"
+      "mechanism": "agents_md_auto_scoping: Windsurf reads both AGENTS.md and agents.md (case-insensitive) files from other providers and applies them with workspace-aware scoping"
     },
     "zed": {
       "supported": true,
-      "mechanism": "Zed discovers .rules, .cursorrules, and CLAUDE.md at project root, so rule files authored for other agents are picked up"
+      "mechanism": "Zed discovers rule files from multiple providers at project root using a priority-ordered list: .rules, .cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, AGENT.md, AGENTS.md, CLAUDE.md, GEMINI.md — the first matching file wins"
     }
   }
 }

@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "hook_async_execution: async: true on command handlers runs hook in background without blocking; decisions ignored; systemMessage delivered on next turn"
+      "mechanism": "hook_async_execution: async: true on command handlers runs hook in background without blocking; decisions ignored; systemMessage delivered on next turn; asyncRewake: true also wakes Claude on exit code 2"
     },
     "cline": {
       "supported": false,
@@ -25,13 +25,17 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks run synchronously; no async execution documented"
     },
+    "crush": {
+      "supported": false,
+      "mechanism": "Hooks are synchronous; each fires before the tool executes and must complete within the configured timeout."
+    },
     "cursor": {
       "supported": false,
       "mechanism": "Hooks run synchronously; no async/background flag documented."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks run synchronously; no async execution documented"
+      "supported": true,
+      "mechanism": "Matching hooks for the same event execute concurrently (in parallel); deduplication consolidates identical commands automatically"
     },
     "gemini-cli": {
       "supported": false,
@@ -43,11 +47,11 @@
     },
     "pi": {
       "supported": false,
-      "mechanism": "Pi hooks run synchronously; no async execution documented"
+      "mechanism": "Pi extension handlers are awaited synchronously in registration order; no fire-and-forget async execution documented"
     },
     "windsurf": {
       "supported": false,
-      "mechanism": "Windsurf hooks run synchronously; no async/background execution documented"
+      "mechanism": "Windsurf hooks run synchronously; post_cascade_response and post_cascade_response_with_transcript fire asynchronously after the response but hooks themselves do not execute fire-and-forget"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "id": "windsurf",
   "provider": "windsurf",
-  "totalExtensions": 22,
-  "unspecifiedRequiredCount": 22,
-  "unspecifiedValueTypeCount": 22,
-  "unspecifiedExamplesCount": 22,
+  "totalExtensions": 25,
+  "unspecifiedRequiredCount": 25,
+  "unspecifiedValueTypeCount": 25,
+  "unspecifiedExamplesCount": 25,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

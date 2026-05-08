@@ -1,10 +1,10 @@
 {
   "id": "cursor",
   "provider": "cursor",
-  "totalExtensions": 26,
-  "unspecifiedRequiredCount": 26,
-  "unspecifiedValueTypeCount": 26,
-  "unspecifiedExamplesCount": 26,
+  "totalExtensions": 40,
+  "unspecifiedRequiredCount": 40,
+  "unspecifiedValueTypeCount": 40,
+  "unspecifiedExamplesCount": 40,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

@@ -3,22 +3,22 @@
   "provider": "codex",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core-skills/src/model.rs",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:50:06Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core-skills/src/loader.rs",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:50:06Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
-      "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core-skills/docs/skills.md",
+      "uri": "https://raw.githubusercontent.com/openai/codex/main/docs/skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:06Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {

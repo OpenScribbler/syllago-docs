@@ -14,24 +14,28 @@
       "mechanism": "Command hooks receive event JSON on stdin; respond with JSON on stdout (exit 0); structured fields: continue, stopReason, suppressOutput, systemMessage, hookSpecificOutput"
     },
     "cline": {
-      "supported": false,
-      "mechanism": "Cline hooks communicate via exit codes and output text; no structured JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Hooks receive a JSON object via stdin (taskId, hookName, clineVersion, timestamp, workspaceRoots, userId, model, plus hook-specific fields) and return JSON to stdout with cancel (bool), contextModification (string), and errorMessage (string); debug output goes to stderr"
     },
     "codex": {
-      "supported": false,
-      "mechanism": "Codex hooks communicate via exit codes and stdout text; no structured JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Codex hooks communicate via structured JSON on stdin (typed per-event payload conforming to the event input schema) and stdout (typed response conforming to the event output schema); exit codes alone are not the protocol"
     },
     "copilot-cli": {
       "supported": false,
       "mechanism": "Copilot CLI hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+    },
+    "crush": {
+      "supported": true,
+      "mechanism": "Hooks receive a JSON object on stdin containing tool name and parameters. The hook subprocess may return a JSON object with decision (allow/deny/none) and optional context fields."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Command hooks receive event data as JSON on stdin and may return structured JSON on stdout to signal decisions and supply output fields."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks communicate via exit codes; no JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Hooks receive JSON via stdin containing session_id, transcript_path, cwd, permission_mode, hook_event_name, and event-specific fields; hooks return JSON output with continue, stopReason, suppressOutput, systemMessage, and event-specific fields"
     },
     "gemini-cli": {
       "supported": true,

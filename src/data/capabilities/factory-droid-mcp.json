@@ -3,12 +3,12 @@
   "provider": "factory-droid",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration/mcp",
       "type": "documentation",
-      "fetched_at": "2026-04-28T00:00:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -18,19 +18,19 @@
     },
     "enterprise_management": {
       "supported": false,
-      "mechanism": "only user-level and project-level configuration scopes documented; no organization/enterprise admin layer"
+      "mechanism": "only user-level (~/.factory/mcp.json) and project-level (.factory/mcp.json) configuration scopes documented; no organization/enterprise admin layer"
     },
     "env_var_expansion": {
-      "supported": false,
-      "mechanism": "Configuration schema shows env field for stdio servers but no expansion syntax (e.g. ${VAR}) is documented"
+      "supported": true,
+      "mechanism": "stdio server add command accepts --env KEY=VALUE flags; env field documented in configuration schema for stdio servers"
     },
     "marketplace": {
       "supported": true,
-      "mechanism": "Quick Start: Add from Registry — 40+ pre-configured servers organized into categories (Development & Testing, Project Management, Payments, Design, Infrastructure)"
+      "mechanism": "Quick Start: Add from Registry via /mcp command — 40+ pre-configured servers (Figma, Linear, Sentry, Notion, Supabase, Stripe, Vercel, Playwright, HubSpot, MongoDB) organized into categories"
     },
     "oauth_support": {
       "supported": true,
-      "mechanism": "OAuth tokens documented under 'OAuth Tokens' heading; most HTTP servers support OAuth with token storage in system keyring"
+      "mechanism": "OAuth authentication supported for HTTP servers; tokens stored globally in system keyring rather than per-project; managed via /mcp interactive manager"
     },
     "resource_referencing": {
       "supported": false,
@@ -42,14 +42,14 @@
     },
     "transport_types": {
       "supported": true,
-      "mechanism": "two transports documented: http (remote endpoints) and stdio (local processes); 'Adding HTTP Servers' and 'Adding Stdio Servers' headings"
+      "mechanism": "two transports documented: http (remote cloud endpoints, droid mcp add <name> <url> --type http) and stdio (local processes, droid mcp add <name> '<command>' [--env KEY=VALUE...])"
     }
   },
   "providerExtensions": [
     {
       "id": "mcp_manager_ui",
       "name": "Interactive MCP Manager (/mcp)",
-      "summary": "Interactive Manager invoked via /mcp slash command for connecting and managing MCP servers without manual JSON editing.",
+      "summary": "Interactive Manager invoked via /mcp slash command for browsing servers, viewing tools, enabling/disabling connections, authenticating via OAuth, and managing configurations without manual JSON editing.",
       "source_ref": "https://docs.factory.ai/cli/configuration/mcp",
       "required": null,
       "conversion": "not-portable"
@@ -64,8 +64,24 @@
     },
     {
       "id": "registry_categories",
-      "name": "Categorized server registry",
-      "summary": "Pre-configured servers organized into categories (Development & Testing, Project Management & Documentation, Payments & Commerce, Design & Media, Infrastructure & DevOps) for discovery via Quick Start: Add from Registry.",
+      "name": "Categorized Server Registry",
+      "summary": "Pre-configured servers organized into categories (Development & Testing, Project Management & Documentation, Payments & Commerce, Design & Media, Infrastructure & DevOps) for discovery via Quick Start: Add from Registry in the /mcp manager.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/mcp",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_config_files",
+      "name": "Dedicated MCP Configuration Files",
+      "summary": "MCP configurations are stored in dedicated files: ~/.factory/mcp.json (user-level, takes priority) and .factory/mcp.json (project-level, committed to repo). User config wins when both define the same server. OAuth tokens always store globally in the system keyring.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/mcp",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "mcp_cli_commands",
+      "name": "MCP CLI Management Commands",
+      "summary": "Servers are managed via droid mcp add <name> <url> --type http [--header 'KEY: VALUE'...] for HTTP servers and droid mcp add <name> '<command>' [--env KEY=VALUE...] for stdio servers; removed via droid mcp remove <name>.",
       "source_ref": "https://docs.factory.ai/cli/configuration/mcp",
       "required": null,
       "conversion": "not-portable"

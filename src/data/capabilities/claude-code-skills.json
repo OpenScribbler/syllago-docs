@@ -3,12 +3,12 @@
   "provider": "claude-code",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://code.claude.com/docs/en/skills.md",
       "type": "documentation",
-      "fetched_at": "2026-05-03T15:42:00Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -22,7 +22,7 @@
     },
     "description": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (recommended)",
+      "mechanism": "yaml frontmatter key: description (recommended, not required; if omitted uses first paragraph of markdown content)",
       "provider_field": "description"
     },
     "disable_model_invocation": {
@@ -33,7 +33,7 @@
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name)",
+      "mechanism": "yaml frontmatter key: name (optional, falls back to directory name; lowercase letters, numbers, hyphens only, max 64 characters)",
       "provider_field": "name"
     },
     "global_scope": {
@@ -56,7 +56,7 @@
     },
     "user_invocable": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true)",
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true); controls /menu visibility only, not Skill tool access",
       "provider_field": "user-invocable"
     }
   },
@@ -98,7 +98,7 @@
     {
       "id": "allowed_tools",
       "name": "Allowed Tools Pre-Approval",
-      "summary": "Pre-approves tool calls while the skill is active; does not restrict tool availability.",
+      "summary": "Pre-approves tool calls while the skill is active; does not restrict tool availability. Accepts space-separated string or YAML list. For project skills, takes effect after workspace trust dialog is accepted.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#pre-approve-tools-for-a-skill",
       "required": null,
       "provider_field": "allowed-tools",
@@ -107,7 +107,7 @@
     {
       "id": "model_override",
       "name": "Per-Skill Model Override",
-      "summary": "Overrides the session model while this skill is active.",
+      "summary": "Overrides the session model for the current turn while this skill is active; session model resumes on next prompt. Accepts same values as /model or 'inherit'.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "model",
@@ -125,7 +125,7 @@
     {
       "id": "subagent_execution",
       "name": "Subagent Execution via context fork",
-      "summary": "Runs the skill in an isolated subagent with no conversation history when set to fork; companion agent field selects the subagent type.",
+      "summary": "Runs the skill in an isolated subagent with no conversation history when set to fork; companion agent field selects the subagent type (e.g., Explore, Plan).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#run-skills-in-a-subagent",
       "required": null,
       "provider_field": "context",
@@ -134,7 +134,7 @@
     {
       "id": "skill_scoped_hooks",
       "name": "Skill-Scoped Lifecycle Hooks",
-      "summary": "Attaches lifecycle hooks that fire only while this skill is active.",
+      "summary": "Attaches lifecycle hooks that fire only while this skill is active; supports once: true flag on individual handlers (honored only in skill frontmatter, not settings files).",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "hooks",
@@ -143,7 +143,7 @@
     {
       "id": "path_activation_filter",
       "name": "Path-Based Activation Filter",
-      "summary": "Limits auto-activation to file glob matches; explicit /skill-name invocation remains unrestricted.",
+      "summary": "Limits auto-activation to file glob matches; accepts comma-separated string or YAML list; explicit /skill-name invocation remains unrestricted.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "paths",
@@ -152,7 +152,7 @@
     {
       "id": "shell_selection",
       "name": "Per-Skill Shell Selection",
-      "summary": "Selects bash (default) or powershell for inline command execution blocks within the skill.",
+      "summary": "Selects bash (default) or powershell for inline command execution blocks within the skill. Requires CLAUDE_CODE_USE_POWERSHELL_TOOL=1 for powershell.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
       "required": null,
       "provider_field": "shell",
@@ -161,7 +161,7 @@
     {
       "id": "argument_substitution",
       "name": "Argument and Session Variable Substitution",
-      "summary": "Skills support $ARGUMENTS, $N, ${CLAUDE_SESSION_ID}, ${CLAUDE_SKILL_DIR}, and ${CLAUDE_EFFORT} string substitutions in skill body content. Named arguments declared in the arguments frontmatter field use $name syntax.",
+      "summary": "Skills support $ARGUMENTS (all args), $ARGUMENTS[N] (0-based index), $N (shorthand for $ARGUMENTS[N]), $name (named argument from arguments frontmatter), ${CLAUDE_SESSION_ID}, ${CLAUDE_SKILL_DIR}, and ${CLAUDE_EFFORT} string substitutions. Named arguments declared as space-separated string or YAML list in arguments frontmatter map to positions in order.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#available-string-substitutions",
       "required": null,
       "conversion": "preserved"
@@ -177,7 +177,7 @@
     {
       "id": "skill_content_lifecycle",
       "name": "Skill Content Lifecycle and Compaction Behavior",
-      "summary": "Skill content enters context once per invocation and is partially re-attached after auto-compaction within a 25,000-token combined budget.",
+      "summary": "Skill content enters context once per invocation and stays for the session. Auto-compaction re-attaches the most recent invocation of each skill (first 5,000 tokens each) within a 25,000-token combined budget, filling from most-recently-invoked first.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skill-content-lifecycle",
       "required": null,
       "conversion": "not-portable"
@@ -209,7 +209,7 @@
     {
       "id": "skill_permission_rules",
       "name": "Skill Permission Rules",
-      "summary": "Skill, Skill(name), and Skill(name *) permission rules restrict which skills Claude may invoke programmatically.",
+      "summary": "Skill, Skill(name), and Skill(name *) permission rules restrict which skills Claude may invoke programmatically. A few built-in commands (/init, /review, /security-review) are also available through the Skill tool.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#restrict-claudes-skill-access",
       "required": null,
       "conversion": "embedded"
@@ -217,7 +217,7 @@
     {
       "id": "disable_skill_shell_execution_policy",
       "name": "Organization Policy to Disable Shell Execution in Skills",
-      "summary": "Disables inline shell command injection for user/project/plugin/added-directory skills.",
+      "summary": "Disables inline shell command injection for user/project/plugin/added-directory skills; each command replaced with '[shell command execution disabled by policy]'. Bundled and managed skills are not affected.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#inject-dynamic-context",
       "required": null,
       "provider_field": "disableSkillShellExecution",
@@ -226,7 +226,7 @@
     {
       "id": "bundled_skills",
       "name": "Bundled Skills",
-      "summary": "Claude Code ships built-in prompt-based skills (/simplify, /batch, /debug, /loop, /claude-api) immune to the shell-execution policy.",
+      "summary": "Claude Code ships built-in prompt-based skills (/simplify, /batch, /debug, /loop, /claude-api, /fewer-permission-prompts) immune to the shell-execution policy.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#bundled-skills",
       "required": null,
       "conversion": "not-portable"
@@ -234,7 +234,7 @@
     {
       "id": "description_context_budget",
       "name": "Skill Description Context Budget",
-      "summary": "Skill descriptions share a dynamic budget (1% of context, 8,000 char fallback) with a 1,536-character per-entry cap (combined description + when_to_use text), raisable via SLASH_COMMAND_TOOL_CHAR_BUDGET.",
+      "summary": "Skill descriptions share a dynamic budget (1% of context, 8,000 char fallback) with a 1,536-character per-entry cap (combined description + when_to_use text), raisable via SLASH_COMMAND_TOOL_CHAR_BUDGET. Individual skills can be set to name-only in skillOverrides to free budget.",
       "source_ref": "https://code.claude.com/docs/en/skills.md#skill-descriptions-are-cut-short",
       "required": null,
       "conversion": "not-portable"
@@ -264,6 +264,32 @@
       "required": null,
       "provider_field": "arguments",
       "conversion": "preserved"
+    },
+    {
+      "id": "skill_overrides_setting",
+      "name": "skillOverrides Setting for External Visibility Control",
+      "summary": "The skillOverrides setting in settings.json controls skill visibility without editing SKILL.md. States: 'on' (name+description in context, in /menu), 'name-only' (name only in context, in /menu), 'user-invocable-only' (hidden from Claude, in /menu), 'off' (hidden from both). The /skills menu writes this setting interactively. Plugin skills are not affected.",
+      "source_ref": "https://code.claude.com/docs/en/skills.md#override-skill-visibility-from-settings",
+      "required": null,
+      "provider_field": "skillOverrides",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "live_change_detection",
+      "name": "Live Change Detection for Skill Directories",
+      "summary": "Adding, editing, or removing a skill file takes effect within the current session without restarting. Creating a top-level skills directory that did not exist at session start requires a restart.",
+      "source_ref": "https://code.claude.com/docs/en/skills.md#live-change-detection",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "subagent_agent_field",
+      "name": "Per-Skill Subagent Type Selection",
+      "summary": "The agent frontmatter field selects which subagent type executes the skill when context: fork is set (e.g., 'Explore', 'Plan').",
+      "source_ref": "https://code.claude.com/docs/en/skills.md#frontmatter-reference",
+      "required": null,
+      "provider_field": "agent",
+      "conversion": "embedded"
     }
   ]
 }

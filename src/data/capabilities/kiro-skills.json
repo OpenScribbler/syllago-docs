@@ -3,12 +3,12 @@
   "provider": "kiro",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://kiro.dev/docs/powers/create/",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:49Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -79,7 +79,7 @@
     {
       "id": "kiro_keywords",
       "name": "keywords frontmatter field",
-      "summary": "Array of activation trigger words used by Kiro's automatic power-loading system.",
+      "summary": "Array of activation trigger words used by Kiro's automatic power-loading system. When a user mentions a keyword in conversation, Kiro activates the matching power.",
       "source_ref": "https://kiro.dev/docs/powers/create/",
       "required": null,
       "provider_field": "keywords",
@@ -88,7 +88,7 @@
     {
       "id": "steering_files",
       "name": "steering/ directory",
-      "summary": "Optional steering/ subdirectory containing workflow-specific guidance files loaded on-demand.",
+      "summary": "Optional steering/ subdirectory containing workflow-specific guidance files loaded on-demand. Complex powers can map different steering files to specific workflows to avoid context overload.",
       "source_ref": "https://kiro.dev/docs/powers/create/",
       "required": null,
       "conversion": "embedded"
@@ -96,7 +96,7 @@
     {
       "id": "bundled_mcp_config",
       "name": "mcp.json bundled in power directory",
-      "summary": "Optional mcp.json inside the power directory declaring MCP servers; server names in POWER.md must match keys.",
+      "summary": "Optional mcp.json inside the power directory declaring MCP servers; server names referenced in POWER.md must match keys in this file. Environment variables are recommended for API keys and secrets.",
       "source_ref": "https://kiro.dev/docs/powers/create/",
       "required": null,
       "conversion": "not-portable"
@@ -104,7 +104,7 @@
     {
       "id": "onboarding_section",
       "name": "Onboarding section in POWER.md",
-      "summary": "Dedicated '# Onboarding' section whose instructions Kiro runs automatically on first activation.",
+      "summary": "Dedicated '# Onboarding' section whose instructions Kiro runs automatically on first activation, covering dependency validation and setup explanation.",
       "source_ref": "https://kiro.dev/docs/powers/create/",
       "required": null,
       "conversion": "not-portable"

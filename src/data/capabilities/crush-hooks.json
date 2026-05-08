@@ -2,9 +2,91 @@
   "id": "crush-hooks",
   "provider": "crush",
   "contentType": "hooks",
-  "status": "unsupported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
-  "sources": [],
-  "canonicalMappings": {},
-  "providerExtensions": []
+  "status": "supported",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
+  "sources": [
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "type": "source_code",
+      "fetched_at": "2026-05-06T12:57:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/AGENTS.md",
+      "type": "source_code",
+      "fetched_at": "2026-05-06T12:57:00Z"
+    },
+    {
+      "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/builtin/crush-config/SKILL.md",
+      "type": "source_code",
+      "fetched_at": "2026-05-06T12:57:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "async_execution": {
+      "supported": false,
+      "mechanism": "Hooks are synchronous; each fires before the tool executes and must complete within the configured timeout."
+    },
+    "context_injection": {
+      "supported": true,
+      "mechanism": "The hook JSON response may include an optional context field; this content is injected into the agent context for the current turn.",
+      "provider_field": "context"
+    },
+    "decision_control": {
+      "supported": true,
+      "mechanism": "Hook subprocess exit code controls tool execution: exit code 2 blocks the tool call (deny). Other exit codes allow it. The hook may also return a JSON decision field with values allow, deny, or none."
+    },
+    "handler_types": {
+      "supported": true,
+      "mechanism": "Hooks are shell commands (command field in HookConfig). Each hook fires a subprocess with the tool context passed on stdin."
+    },
+    "hook_scopes": {
+      "supported": true,
+      "mechanism": "Hooks are configured in crush.json under the hooks key, which applies at the project or user-global config level (same config file scope as MCP and other settings)."
+    },
+    "input_modification": {
+      "supported": false,
+      "mechanism": "Hooks receive tool context on stdin and can return context to the agent, but modifying tool input parameters is not documented."
+    },
+    "json_io_protocol": {
+      "supported": true,
+      "mechanism": "Hooks receive a JSON object on stdin containing tool name and parameters. The hook subprocess may return a JSON object with decision (allow/deny/none) and optional context fields."
+    },
+    "matcher_patterns": {
+      "supported": true,
+      "mechanism": "HookConfig has a matcher field: a regex pattern tested against the tool name. An empty matcher matches all tools.",
+      "provider_field": "matcher"
+    },
+    "permission_control": {
+      "supported": true,
+      "mechanism": "Hooks run before permission checks. Exit code 2 blocks the tool call entirely, taking effect before the built-in permission gate."
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "event_keyed_map",
+      "name": "Event-keyed hook map",
+      "summary": "The hooks config key is an object keyed by event name (e.g. PreToolUse), with each value being an array of HookConfig objects. This allows multiple hooks per event and per-tool matcher filtering.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "provider_field": "hooks",
+      "conversion": "translated"
+    },
+    {
+      "id": "hook_timeout",
+      "name": "Per-hook timeout",
+      "summary": "Each HookConfig entry has a timeout field (integer, seconds, default 30) that limits how long the hook subprocess may run before being killed.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "provider_field": "timeout",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "pre_permission_execution",
+      "name": "Hooks fire before permission checks",
+      "summary": "Crush's hookedTool decorator runs hook commands before the built-in permission gate, giving hooks full veto power over tool calls independent of configured permissions.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/AGENTS.md",
+      "required": null,
+      "conversion": "not-portable"
+    }
+  ]
 }

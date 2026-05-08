@@ -3,12 +3,12 @@
   "provider": "cursor",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://cursor.com/docs/subagents",
       "type": "documentation",
-      "fetched_at": "2026-04-28T23:45:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -22,7 +22,7 @@
     },
     "invocation_patterns": {
       "supported": true,
-      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI."
+      "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI. Subagents can be spawned by other agents for parallel execution workstreams."
     },
     "model_selection": {
       "supported": true,
@@ -84,6 +84,14 @@
       "source_ref": "https://cursor.com/docs/subagents",
       "required": null,
       "conversion": "translated"
+    },
+    {
+      "id": "agent_patterns",
+      "name": "Common subagent coordination patterns",
+      "summary": "Cursor documents three recommended subagent patterns: verification agents (validate completed work), debugger agents (specialize in root cause analysis), and orchestrator patterns (coordinate multiple specialist subagents sequentially).",
+      "source_ref": "https://cursor.com/docs/subagents",
+      "required": null,
+      "conversion": "preserved"
     }
   ]
 }

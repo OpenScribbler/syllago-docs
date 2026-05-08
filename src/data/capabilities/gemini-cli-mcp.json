@@ -3,17 +3,17 @@
   "provider": "gemini-cli",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:46:22Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:22Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/tutorials/mcp-setup.md",
@@ -39,8 +39,8 @@
       "mechanism": "Gemini CLI does not have an in-IDE MCP marketplace"
     },
     "oauth_support": {
-      "supported": false,
-      "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"
+      "supported": true,
+      "mechanism": "oauth_authentication: Gemini CLI supports OAuth 2.0 for remote MCP servers via SSE or HTTP transports; authProviderType selects dynamic_discovery, google_credentials, or service_account_impersonation; tokens stored in ~/.gemini/mcp-oauth-tokens.json and auto-refreshed"
     },
     "resource_referencing": {
       "supported": true,
@@ -113,6 +113,23 @@
       "id": "resource_referencing",
       "name": "MCP resource referencing via @ syntax",
       "summary": "MCP server resources are exposed in the @ completion menu and inlined into prompts via @server://resource/path references.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "oauth_authentication",
+      "name": "OAuth 2.0 for remote MCP servers",
+      "summary": "Remote MCP servers (SSE or HTTP transport) can require OAuth 2.0; authProviderType chooses dynamic_discovery (auto-detects endpoints from 401 responses), google_credentials (Google ADC), or service_account_impersonation (IAP-protected Cloud Run). Tokens stored in ~/.gemini/mcp-oauth-tokens.json and refreshed automatically. Managed interactively via /mcp auth.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
+      "required": null,
+      "provider_field": "authProviderType",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "env_sanitization",
+      "name": "Automatic environment variable redaction for MCP processes",
+      "summary": "When spawning MCP server processes, Gemini CLI redacts sensitive variables from the inherited environment (GEMINI_API_KEY, GOOGLE_API_KEY, and anything matching *TOKEN*, *SECRET*, *PASSWORD*, *KEY*, *AUTH*, *CREDENTIAL*, or certificate patterns) unless the variable is explicitly listed in the server's env block.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/tools/mcp-server.md",
       "required": null,
       "conversion": "not-portable"

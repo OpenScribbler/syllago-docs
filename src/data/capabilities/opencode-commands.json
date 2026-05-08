@@ -3,29 +3,29 @@
   "provider": "opencode",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://opencode.ai/docs/commands/",
       "type": "documentation",
-      "fetched_at": ""
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
     "argument_substitution": {
       "supported": true,
-      "mechanism": "Named arguments via $VAR tokens substituted from user input at invocation (pattern observed in custom_commands.go — e.g. $ISSUE_NUMBER)."
+      "mechanism": "Commands support $ARGUMENTS (all arguments as a single string) and positional parameters $1, $2, $3, etc. for individual arguments; all placeholders are substituted from user input at invocation time"
     },
     "builtin_commands": {
-      "supported": false,
-      "mechanism": "OpenCode documentation describes only user-authored slash commands loaded from .opencode/commands/ and ~/.config/opencode/commands/; no built-in commands are documented for this namespace."
+      "supported": true,
+      "mechanism": "OpenCode ships built-in commands including /init, /undo, /redo, /share, and /help; custom commands can override built-in commands if given the same name"
     }
   },
   "providerExtensions": [
     {
       "id": "agent_binding",
       "name": "Per-command agent binding",
-      "summary": "Frontmatter agent field routes the command to a specific named agent.",
+      "summary": "Frontmatter agent field routes the command to a specific named agent. If the agent is a subagent, the command triggers a subagent invocation by default (can be disabled with subtask: false).",
       "source_ref": "https://opencode.ai/docs/commands/",
       "required": null,
       "provider_field": "agent",
@@ -43,11 +43,36 @@
     {
       "id": "subtask",
       "name": "Subtask execution flag",
-      "summary": "Frontmatter subtask field runs the command as an isolated subtask rather than in the current session.",
+      "summary": "Frontmatter subtask boolean forces the command to trigger a subagent invocation, preventing pollution of the primary context. Useful even when the agent's mode is primary.",
       "source_ref": "https://opencode.ai/docs/commands/",
       "required": null,
       "provider_field": "subtask",
       "conversion": "embedded"
+    },
+    {
+      "id": "shell_output_injection",
+      "name": "Shell output injection",
+      "summary": "Commands support !`shell command` syntax in the template body. The shell command runs in the project root and its stdout is injected into the prompt at invocation time.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "conversion": "embedded"
+    },
+    {
+      "id": "file_reference_injection",
+      "name": "@filename file content injection",
+      "summary": "Commands support @path/to/file syntax in the template body. The file content is automatically included in the prompt at invocation time.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "conversion": "embedded"
+    },
+    {
+      "id": "json_template_field",
+      "name": "template field for JSON-defined commands",
+      "summary": "When commands are defined inline in opencode.json under the command key, the prompt body is specified via a template string field (rather than markdown body). description, agent, model, and subtask are also valid fields.",
+      "source_ref": "https://opencode.ai/docs/commands/",
+      "required": null,
+      "provider_field": "template",
+      "conversion": "translated"
     }
   ]
 }

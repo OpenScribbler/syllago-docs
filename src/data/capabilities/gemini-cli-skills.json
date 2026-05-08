@@ -3,12 +3,12 @@
   "provider": "gemini-cli",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:41Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -70,6 +70,31 @@
       "id": "skill_creator",
       "name": "Built-in skill-creator skill",
       "summary": "Bundled skill that scaffolds new skill directories with SKILL.md and standard subdirectories from a natural language prompt.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "skills_settings",
+      "name": "skills.enabled and skills.disabled settings",
+      "summary": "settings.json skills object supports an enabled boolean (default: true) to toggle the entire skill system, and a disabled string array to suppress individual skills by name without removing them.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+      "required": null,
+      "provider_field": "skills.disabled",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "skills_directory_alias",
+      "name": ".agents/skills/ directory alias",
+      "summary": ".agents/skills/ is accepted as an alias for .gemini/skills/ (and ~/.agents/skills/ for ~/.gemini/skills/), providing compatibility with other agent tools following the Agent Skills standard.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "skills_management_commands",
+      "name": "gemini skills CLI subcommands",
+      "summary": "gemini skills install <url> installs a skill from a Git repository; gemini skills link . symlinks a local skill directory into the user skills path for iterative development; node scripts/package_skill.cjs packages a skill as a .skill zip file.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/creating-skills.md",
       "required": null,
       "conversion": "not-portable"

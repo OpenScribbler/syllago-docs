@@ -1,10 +1,10 @@
 {
   "id": "factory-droid",
   "provider": "factory-droid",
-  "totalExtensions": 24,
-  "unspecifiedRequiredCount": 24,
-  "unspecifiedValueTypeCount": 24,
-  "unspecifiedExamplesCount": 24,
+  "totalExtensions": 34,
+  "unspecifiedRequiredCount": 34,
+  "unspecifiedValueTypeCount": 34,
+  "unspecifiedExamplesCount": 34,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "Six scopes: user (~/.claude/settings.json), project (.claude/settings.json), local (.claude/settings.local.json), managed policy, plugin (hooks/hooks.json), component frontmatter"
+      "mechanism": "Six scopes: user (~/.claude/settings.json), project (.claude/settings.json), local (.claude/settings.local.json), managed policy, plugin (hooks/hooks.json), component frontmatter (skill/agent)"
     },
     "cline": {
       "supported": true,
@@ -25,13 +25,17 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks are configured at a single scope level; no multi-scope configuration documented"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "Hooks are configured in crush.json under the hooks key, which applies at the project or user-global config level (same config file scope as MCP and other settings)."
+    },
     "cursor": {
       "supported": true,
-      "mechanism": "Project-scope hooks live under .cursor/hooks/ and are wired through .cursor/settings.json; user-global hooks live under ~/.cursor/ using the same shape."
+      "mechanism": "Four scopes documented in priority order: Enterprise (system-wide MDM-managed), Team (cloud-distributed for Enterprise plans), Project (.cursor/hooks/ in the repository), and User (global personal configuration at ~/.cursor/hooks/)."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks are project-scoped; no multi-scope configuration documented"
+      "supported": true,
+      "mechanism": "Four scopes documented: user-level (~/.factory/settings.json), project-level (.factory/settings.json), local-uncommitted (.factory/settings.local.json), and enterprise managed policies"
     },
     "gemini-cli": {
       "supported": false,
@@ -42,8 +46,8 @@
       "mechanism": "Kiro hooks are project-scoped; no multi-scope configuration documented"
     },
     "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks are project-scoped; no multi-scope configuration documented"
+      "supported": true,
+      "mechanism": "Extensions load from global scope (~/.pi/agent/extensions/) and project-local scope (.pi/extensions/); both scopes are auto-discovered and can be combined"
     },
     "windsurf": {
       "supported": true,

@@ -1,10 +1,10 @@
 {
   "id": "crush",
   "provider": "crush",
-  "totalExtensions": 5,
-  "unspecifiedRequiredCount": 5,
-  "unspecifiedValueTypeCount": 5,
-  "unspecifiedExamplesCount": 5,
+  "totalExtensions": 13,
+  "unspecifiedRequiredCount": 13,
+  "unspecifiedValueTypeCount": 13,
+  "unspecifiedExamplesCount": 13,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

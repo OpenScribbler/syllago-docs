@@ -7,7 +7,7 @@
   "providers": {
     "claude-code": {
       "supported": true,
-      "mechanism": "5 scopes (highest-first): managed settings (org-wide), CLI --agents flag (session), project (.claude/agents/), user (~/.claude/agents/), plugin; highest-priority wins on name collision"
+      "mechanism": "5 scopes (highest-first): managed settings (org-wide, priority 1), CLI --agents flag (current session, priority 2), project (.claude/agents/, priority 3), user (~/.claude/agents/, priority 4), plugin agents/ directory (priority 5); highest-priority wins on name collision"
     },
     "codex": {
       "supported": true,
@@ -23,7 +23,7 @@
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
+      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence; top-level files only, no recursion"
     },
     "gemini-cli": {
       "supported": true,
@@ -35,7 +35,7 @@
     },
     "opencode": {
       "supported": true,
-      "mechanism": "Two scopes: project (.opencode/agents/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
+      "mechanism": "Two scopes: project (.opencode/agents/ or .opencode/agent/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
     },
     "roo-code": {
       "supported": true,

@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration; token storage in macOS keychain or credentials file; auto-refresh"
+      "mechanism": "mcp_oauth_authentication: OAuth 2.0 for HTTP MCP servers; dynamic client registration or CIMD auto-discovery; token storage in macOS keychain or credentials file; auto-refresh; oauth.scopes pins requested scope set; authServerMetadataUrl overrides discovery chain"
     },
     "cline": {
       "supported": false,
@@ -30,36 +30,36 @@
       "mechanism": "Crush MCP does not document OAuth 2.0 authentication for remote servers"
     },
     "cursor": {
-      "supported": false,
-      "mechanism": "Cursor's MCP documentation does not describe OAuth 2.0 flows for remote servers."
+      "supported": true,
+      "mechanism": "Remote servers using the streamable-http transport support OAuth authentication; static client credentials can be used instead of dynamic registration. The documentation explicitly notes OAuth as a streamable-http capability."
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "OAuth tokens documented under 'OAuth Tokens' heading; most HTTP servers support OAuth with token storage in system keyring"
+      "mechanism": "OAuth authentication supported for HTTP servers; tokens stored globally in system keyring rather than per-project; managed via /mcp interactive manager"
     },
     "gemini-cli": {
-      "supported": false,
-      "mechanism": "Gemini CLI MCP does not document OAuth 2.0 authentication for remote servers"
+      "supported": true,
+      "mechanism": "oauth_authentication: Gemini CLI supports OAuth 2.0 for remote MCP servers via SSE or HTTP transports; authProviderType selects dynamic_discovery, google_credentials, or service_account_impersonation; tokens stored in ~/.gemini/mcp-oauth-tokens.json and auto-refreshed"
     },
     "kiro": {
       "supported": false,
-      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication"
+      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication; remote server auth uses static headers"
     },
     "opencode": {
-      "supported": false,
-      "mechanism": "No OAuth 2.0 authentication for remote MCP servers documented"
+      "supported": true,
+      "mechanism": "Remote MCP servers support OAuth 2.0 authentication with Dynamic Client Registration (RFC 7591). OpenCode auto-detects 401 responses and initiates the OAuth flow, storing tokens in ~/.local/share/opencode/mcp-auth.json. Pre-registered client credentials can be supplied via the oauth object (clientId, clientSecret, scope). OAuth can be disabled per-server by setting oauth: false."
     },
     "roo-code": {
       "supported": false,
       "mechanism": "No OAuth 2.0 authentication flow documented for Roo Code MCP servers"
     },
     "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf MCP does not document OAuth 2.0 authentication for remote servers"
+      "supported": true,
+      "mechanism": "Windsurf supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
     },
     "zed": {
-      "supported": false,
-      "mechanism": "Zed MCP configuration does not document OAuth 2.0 authentication for MCP servers"
+      "supported": true,
+      "mechanism": "When a remote MCP server is configured with a url but no Authorization header, Zed prompts the user to authenticate using the standard MCP OAuth flow"
     }
   }
 }

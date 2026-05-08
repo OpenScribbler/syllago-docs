@@ -7,7 +7,7 @@
   "providers": {
     "claude-code": {
       "supported": true,
-      "mechanism": "mcpServers frontmatter field: list of server names referencing already-configured workspace servers or inline server definitions"
+      "mechanism": "mcpServers frontmatter field: list of server names referencing already-configured workspace servers or inline server definitions; ignored for plugin subagents"
     },
     "codex": {
       "supported": false,
@@ -23,7 +23,7 @@
     },
     "factory-droid": {
       "supported": false,
-      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
+      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide; droids can use MCP tools via the mcp tool category"
     },
     "gemini-cli": {
       "supported": true,
@@ -31,11 +31,11 @@
     },
     "kiro": {
       "supported": true,
-      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"
+      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/settings/mcp.json is merged into agent's server set"
     },
     "opencode": {
       "supported": false,
-      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration."
+      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration. Per-agent tool access to MCP tools is controlled via the permission map (e.g., mymcp_*: deny) rather than a separate MCP config."
     },
     "roo-code": {
       "supported": false,

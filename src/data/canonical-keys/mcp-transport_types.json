@@ -22,32 +22,32 @@
       "mechanism": "Codex MCP transport types not documented beyond basic MCP support; likely stdio only"
     },
     "copilot-cli": {
-      "supported": false,
-      "mechanism": "Copilot CLI MCP transport types not documented"
+      "supported": true,
+      "mechanism": "Copilot CLI supports both local (stdio) and remote (HTTP/SSE) MCP server types, confirmed in concepts/context/mcp.md"
     },
     "crush": {
       "supported": true,
-      "mechanism": "transport_types: Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration"
+      "mechanism": "Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration; default transport is stdio"
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Cursor documents three MCP transports: stdio for local processes, sse for Server-Sent Events, and streamable-http for HTTP-based remote servers."
+      "mechanism": "Cursor documents three MCP transports: stdio for local processes managed by Cursor, sse for Server-Sent Events (local or remote, multi-user), and streamable-http for HTTP-based servers (local or remote, multi-user) with OAuth authentication support."
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "two transports documented: http (remote endpoints) and stdio (local processes); 'Adding HTTP Servers' and 'Adding Stdio Servers' headings"
+      "mechanism": "two transports documented: http (remote cloud endpoints, droid mcp add <name> <url> --type http) and stdio (local processes, droid mcp add <name> '<command>' [--env KEY=VALUE...])"
     },
     "gemini-cli": {
       "supported": true,
       "mechanism": "transport_types: Gemini CLI documents supported MCP transport protocols including stdio and HTTP"
     },
     "kiro": {
-      "supported": false,
-      "mechanism": "Kiro MCP transport types not documented beyond basic MCP support"
+      "supported": true,
+      "mechanism": "Kiro supports stdio (local process via command + args) and remote (HTTPS endpoint or localhost HTTP via url + optional headers) server types"
     },
     "opencode": {
       "supported": true,
-      "mechanism": "transport_types: OpenCode documents stdio transport; remote transports (http/sse) are available on sst/opencode depending on version"
+      "mechanism": "OpenCode supports two transport types: local (type: local, launched via command array with stdio communication) and remote (type: remote, connected via URL supporting HTTP/SSE streamable-HTTP)"
     },
     "roo-code": {
       "supported": true,
@@ -59,7 +59,7 @@
     },
     "zed": {
       "supported": true,
-      "mechanism": "MCP servers are configured with a stdio command under context_servers in settings.json"
+      "mechanism": "Zed supports both stdio (local command + args + env) and HTTP/HTTPS (remote URL + headers) transports. Stdio servers use the command/args/env shape; remote servers use url + optional headers. Both use the same MCP protocol initialization."
     }
   }
 }

@@ -30,8 +30,8 @@
       "mechanism": "MCP resource referencing (as distinct from tool calls) not documented in Crush"
     },
     "cursor": {
-      "supported": false,
-      "mechanism": "Cursor's MCP documentation does not describe referencing MCP resources by URI."
+      "supported": true,
+      "mechanism": "MCP resources (structured data sources) are documented as a supported protocol capability alongside tools, prompts, roots, elicitation, and Apps."
     },
     "factory-droid": {
       "supported": false,

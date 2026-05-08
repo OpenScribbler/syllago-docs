@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "hook_matcher_patterns: exact string, pipe-separated list, or JavaScript regex; matches on tool_name or event-specific fields"
+      "mechanism": "hook_matcher_patterns: exact string, pipe-separated list, or JavaScript regex; matches on tool_name or event-specific fields; if field uses permission-rule syntax for per-subcommand filtering"
     },
     "cline": {
       "supported": false,
@@ -25,13 +25,17 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks fire on all events of their configured type; no per-tool filtering documented"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "HookConfig has a matcher field: a regex pattern tested against the tool name. An empty matcher matches all tools."
+    },
     "cursor": {
       "supported": true,
       "mechanism": "Hook entries accept a matcher string that filters which tool or event fires the hook (for example a specific shell command or tool name)."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks fire on configured lifecycle events; no per-tool pattern matching documented"
+      "supported": true,
+      "mechanism": "PreToolUse and PostToolUse hooks use matcher strings supporting exact tool names, regex patterns (Edit|Create, Notebook.*), MCP tool patterns (mcp__<server>__<tool>), and wildcard (*) to match all tools"
     },
     "gemini-cli": {
       "supported": true,
@@ -39,11 +43,11 @@
     },
     "kiro": {
       "supported": false,
-      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool filtering documented"
+      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool name filtering or regex matching documented"
     },
     "pi": {
       "supported": false,
-      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool filtering documented"
+      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool name filtering at the subscription level — tool discrimination is done in handler code"
     },
     "windsurf": {
       "supported": false,

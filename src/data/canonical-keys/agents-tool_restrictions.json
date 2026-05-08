@@ -7,7 +7,7 @@
   "providers": {
     "claude-code": {
       "supported": true,
-      "mechanism": "tools allowlist and disallowedTools denylist in frontmatter; Agent(type) syntax restricts which subagent types a main-thread agent can spawn"
+      "mechanism": "tools allowlist and disallowedTools denylist in frontmatter; if both set, disallowedTools applied first then tools resolved against remaining pool; Agent(type) syntax in tools allowlist restricts which subagent types a main-thread agent can spawn"
     },
     "codex": {
       "supported": false,
@@ -23,7 +23,7 @@
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "categorical tool policy using named categories (filesystem, shell, search, browser, web_fetch); differs from per-tool allowlists used by other providers"
+      "mechanism": "tools field accepts a category string (read-only, edit, execute, web, mcp), an explicit array of tool IDs ([\"Read\", \"Edit\", \"Execute\"], case-sensitive), or omission for all tools; TodoWrite is automatically included for all droids"
     },
     "gemini-cli": {
       "supported": true,
@@ -31,11 +31,11 @@
     },
     "kiro": {
       "supported": true,
-      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"
+      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (@server_name); allowedTools list for tools requiring no user approval; toolsSettings map for per-tool behavioral config"
     },
     "opencode": {
       "supported": true,
-      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool, replacing the deprecated tools allow/deny map."
+      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool using named permission keys (read, edit, bash, glob, grep, list, task, external_directory, todowrite, webfetch, websearch, lsp, skill, question, doom_loop) or wildcard glob patterns against tool names. Keys that support fine-grained control (read, edit, glob, grep, list, bash, task, external_directory, lsp, skill) accept either a shorthand action string or an object of glob/pattern → action."
     },
     "roo-code": {
       "supported": true,

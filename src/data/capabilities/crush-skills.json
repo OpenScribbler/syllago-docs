@@ -3,17 +3,17 @@
   "provider": "crush",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
       "type": "source_code",
-      "fetched_at": "2026-04-17T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/builtin/crush-config/SKILL.md",
       "type": "source_code",
-      "fetched_at": "2026-04-17T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     }
   ],
   "canonicalMappings": {
@@ -32,12 +32,12 @@
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard",
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional boolean) per the Agent Skills standard. Note: the Go Skill struct in skills.go does not have a corresponding field — behavior is inferred from the standard, not from explicit Crush source handling.",
       "provider_field": "disable-model-invocation"
     },
     "display_name": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard",
+      "mechanism": "yaml frontmatter key: name (required); follows the Anthropic Agent Skills standard. Validated: must be alphanumeric with hyphens, max 64 chars.",
       "provider_field": "name"
     },
     "global_scope": {
@@ -81,6 +81,14 @@
       "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
       "required": null,
       "conversion": "preserved"
+    },
+    {
+      "id": "name_directory_constraint",
+      "name": "Skill name must match directory name",
+      "summary": "Crush validates that the skill name from SKILL.md frontmatter matches the directory basename containing the SKILL.md file. Skills failing this check are rejected at load time.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/internal/skills/skills.go",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

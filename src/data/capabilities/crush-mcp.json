@@ -3,17 +3,17 @@
   "provider": "crush",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
       "type": "source_code",
-      "fetched_at": "2026-04-17T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/charmbracelet/crush/main/README.md",
       "type": "documentation",
-      "fetched_at": "2026-04-17T00:00:00Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     }
   ],
   "canonicalMappings": {
@@ -27,7 +27,7 @@
     },
     "env_var_expansion": {
       "supported": true,
-      "mechanism": "env_variable_expansion: Crush MCP configuration supports environment variable references in server env blocks"
+      "mechanism": "Crush MCP configuration supports environment variable references in server env blocks"
     },
     "marketplace": {
       "supported": false,
@@ -42,12 +42,13 @@
       "mechanism": "MCP resource referencing (as distinct from tool calls) not documented in Crush"
     },
     "tool_filtering": {
-      "supported": false,
-      "mechanism": "Per-server tool allow/block list not documented in the Crush MCP schema"
+      "supported": true,
+      "mechanism": "MCPConfig has a disabled_tools array (list of tool names to exclude from a specific server). This enables per-server tool filtering at the configuration level.",
+      "provider_field": "disabled_tools"
     },
     "transport_types": {
       "supported": true,
-      "mechanism": "transport_types: Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration"
+      "mechanism": "Crush documents stdio, http, and sse transports in its JSON schema for MCP server configuration; default transport is stdio"
     }
   },
   "providerExtensions": [
@@ -66,6 +67,24 @@
       "summary": "MCP servers, tools, permissions, and model settings all share a single crush.json config file rather than being split across multiple settings files.",
       "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
       "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "per_server_disabled_tools",
+      "name": "Per-server disabled_tools list",
+      "summary": "Each MCP server entry in crush.json supports a disabled_tools array to exclude specific tool names from that server's tool registration. This is a per-server block list, not a global filter.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "provider_field": "disabled_tools",
+      "conversion": "translated"
+    },
+    {
+      "id": "per_server_headers",
+      "name": "Per-server custom HTTP headers",
+      "summary": "HTTP and SSE transport entries support a headers object for attaching custom request headers (e.g. auth tokens) to server connections.",
+      "source_ref": "https://raw.githubusercontent.com/charmbracelet/crush/main/schema.json",
+      "required": null,
+      "provider_field": "headers",
       "conversion": "not-portable"
     }
   ]

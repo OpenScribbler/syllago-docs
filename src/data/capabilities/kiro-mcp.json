@@ -3,12 +3,12 @@
   "provider": "kiro",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://kiro.dev/docs/mcp/configuration/",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:48:29Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -21,8 +21,8 @@
       "mechanism": "Kiro does not document organization-level MCP management"
     },
     "env_var_expansion": {
-      "supported": false,
-      "mechanism": "Kiro MCP configuration does not document environment variable expansion"
+      "supported": true,
+      "mechanism": "kiro_mcp_env_var_expansion: Environment variables referenced dynamically using ${VARIABLE_NAME} syntax within MCP config values; recommended pattern for secrets instead of hardcoded values"
     },
     "marketplace": {
       "supported": false,
@@ -30,7 +30,7 @@
     },
     "oauth_support": {
       "supported": false,
-      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication"
+      "mechanism": "Kiro MCP does not document OAuth 2.0 authentication; remote server auth uses static headers"
     },
     "resource_referencing": {
       "supported": false,
@@ -41,8 +41,8 @@
       "mechanism": "kiro_mcp_disabled_tools: Kiro supports per-server tool disable configuration to control which MCP tools are available to the agent"
     },
     "transport_types": {
-      "supported": false,
-      "mechanism": "Kiro MCP transport types not documented beyond basic MCP support"
+      "supported": true,
+      "mechanism": "Kiro supports stdio (local process via command + args) and remote (HTTPS endpoint or localhost HTTP via url + optional headers) server types"
     }
   },
   "providerExtensions": [
@@ -67,7 +67,7 @@
     {
       "id": "kiro_mcp_disabled_flag",
       "name": "disabled flag per server entry",
-      "summary": "Per-server 'disabled: true' flag deactivating a server without removing its configuration.",
+      "summary": "Per-server 'disabled: true' flag deactivating a server without removing its configuration. Allows temporarily disabling a server while preserving its definition.",
       "source_ref": "https://kiro.dev/docs/mcp/configuration/",
       "required": null,
       "provider_field": "disabled",
@@ -76,10 +76,18 @@
     {
       "id": "kiro_mcp_remote_servers",
       "name": "Remote server support (url + headers)",
-      "summary": "Remote MCP servers configured with 'url' (HTTPS/localhost HTTP) and optional 'headers' map for auth.",
+      "summary": "Remote MCP servers configured with 'url' (HTTPS or localhost HTTP endpoint) and optional 'headers' map for authentication. Configuration applies automatically upon saving.",
       "source_ref": "https://kiro.dev/docs/mcp/configuration/",
       "required": null,
       "provider_field": "url",
+      "conversion": "embedded"
+    },
+    {
+      "id": "kiro_mcp_env_var_expansion",
+      "name": "Environment variable expansion in MCP config values",
+      "summary": "MCP config values support ${VARIABLE_NAME} syntax to reference environment variables at runtime. Recommended for API keys and secrets to avoid storing sensitive values directly in config files.",
+      "source_ref": "https://kiro.dev/docs/mcp/configuration/",
+      "required": null,
       "conversion": "embedded"
     }
   ]

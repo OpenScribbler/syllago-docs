@@ -3,7 +3,7 @@
   "provider": "gemini-cli",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/core/subagents.md",
@@ -114,6 +114,15 @@
       "summary": "Remote subagents (kind: remote) are also Markdown files with YAML frontmatter at the same locations; a list format permits multiple remote subagents in a single file (mixed local+remote or multiple local agents in one file is not supported).",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/core/remote-agents.md",
       "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agent_settings_overrides",
+      "name": "agents.overrides settings key",
+      "summary": "settings.json agents.overrides map applies per-agent configuration overrides by agent name, supporting enabled (boolean to disable an agent), modelConfig (arbitrary model params), and runConfig (maxTimeMinutes, maxTurns) without editing individual agent files.",
+      "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
+      "required": null,
+      "provider_field": "agents.overrides",
       "conversion": "not-portable"
     }
   ]

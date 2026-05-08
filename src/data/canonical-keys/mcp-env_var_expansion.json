@@ -18,8 +18,8 @@
       "mechanism": "Cline MCP configuration does not document environment variable expansion syntax"
     },
     "codex": {
-      "supported": false,
-      "mechanism": "Codex MCP configuration does not document environment variable expansion"
+      "supported": true,
+      "mechanism": "mcp_env_vars: Codex RawMcpServerConfig supports an env_vars array of McpServerEnvVar entries; each entry is either a plain string or a structured object with name and optional source fields enabling named environment variable sourcing"
     },
     "copilot-cli": {
       "supported": false,
@@ -27,27 +27,27 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "env_variable_expansion: Crush MCP configuration supports environment variable references in server env blocks"
+      "mechanism": "Crush MCP configuration supports environment variable references in server env blocks"
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Server env blocks reference environment variables so secrets can be read from the shell environment rather than hardcoded."
+      "mechanism": "Server configuration supports variable interpolation using ${env:NAME} for environment variables, ${userHome} for the user's home directory, and ${workspaceFolder} for the workspace root — not limited to env blocks alone."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Configuration schema shows env field for stdio servers but no expansion syntax (e.g. ${VAR}) is documented"
+      "supported": true,
+      "mechanism": "stdio server add command accepts --env KEY=VALUE flags; env field documented in configuration schema for stdio servers"
     },
     "gemini-cli": {
       "supported": true,
       "mechanism": "env_variable_expansion: Gemini CLI MCP configuration supports environment variable expansion for secrets and paths"
     },
     "kiro": {
-      "supported": false,
-      "mechanism": "Kiro MCP configuration does not document environment variable expansion"
+      "supported": true,
+      "mechanism": "kiro_mcp_env_var_expansion: Environment variables referenced dynamically using ${VARIABLE_NAME} syntax within MCP config values; recommended pattern for secrets instead of hardcoded values"
     },
     "opencode": {
       "supported": true,
-      "mechanism": "env_variable_expansion: environment variables configured in server env blocks"
+      "mechanism": "Remote MCP server headers and OAuth fields support {env:VAR_NAME} syntax for environment variable interpolation; local servers accept an environment object with key-value pairs"
     },
     "roo-code": {
       "supported": true,
@@ -55,7 +55,7 @@
     },
     "windsurf": {
       "supported": true,
-      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${VAR} interpolation for environment variables"
+      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
     },
     "zed": {
       "supported": false,

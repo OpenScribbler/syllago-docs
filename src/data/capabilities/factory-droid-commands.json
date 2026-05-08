@@ -3,29 +3,30 @@
   "provider": "factory-droid",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:24.284728649Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "argument_substitution": {
       "supported": true,
-      "mechanism": "$ARGUMENTS substitution in Markdown-type commands; equivalent to Claude Code's $ARGUMENTS pattern; Executable commands receive args via shell process stdin/args"
+      "mechanism": "$ARGUMENTS substitution in Markdown-type commands expands to text typed after the command name; argument-hint frontmatter field provides autocomplete usage hint; executable commands receive arguments as positional shell parameters",
+      "provider_field": "$ARGUMENTS"
     },
     "builtin_commands": {
       "supported": false,
-      "mechanism": "no built-in slash commands documented; Factory commands are user-defined Markdown templates or executables"
+      "mechanism": "no built-in slash commands documented; Factory commands are user-defined Markdown templates or executable scripts"
     }
   },
   "providerExtensions": [
     {
       "id": "two_command_types",
       "name": "Two Command Types",
-      "summary": "Commands are either Markdown templates (with $ARGUMENTS substitution) or Executable scripts whose stdout is injected into the conversation.",
+      "summary": "Commands are either Markdown templates (with $ARGUMENTS substitution and optional YAML frontmatter for description and argument-hint) or Executable scripts (must have shebang line, receive args as positional params, stdout up to 64 KB posted back to chat along with script contents).",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
       "required": null,
       "conversion": "translated"
@@ -33,7 +34,7 @@
     {
       "id": "command_discovery_paths",
       "name": "Command Discovery Paths",
-      "summary": "Commands are discovered from .factory/commands/ (project) or ~/.factory/commands/ (personal); filename becomes the slash command name.",
+      "summary": "Commands discovered from .factory/commands/ (workspace/project, shared with teammates) or ~/.factory/commands/ (personal, cross-project). Only Markdown files and scripts with shebangs register. Filenames become lowercase slugs (spaces become hyphens), so 'Code Review.mdx' becomes /code-review.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
       "required": null,
       "conversion": "translated"
@@ -42,6 +43,14 @@
       "id": "skills_supersede_commands",
       "name": "Skills Supersede Commands",
       "summary": "Factory's docs recommend skills over commands for new work; commands remain supported only for backwards compatibility.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "commands_ui_reload",
+      "name": "Commands UI Hot Reload",
+      "summary": "/commands UI supports pressing R to reload commands from disk without restarting the session; includes an import feature to convert existing .agents or .claude commands into Factory format.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-slash-commands",
       "required": null,
       "conversion": "not-portable"

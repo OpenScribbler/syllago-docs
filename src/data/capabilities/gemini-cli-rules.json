@@ -3,7 +3,7 @@
   "provider": "gemini-cli",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/gemini-md.md",

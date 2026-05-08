@@ -3,17 +3,17 @@
   "provider": "windsurf",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://docs.windsurf.com/windsurf/cascade/memories.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:51:03.688687431Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:51:03.792139198Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -23,19 +23,19 @@
     },
     "auto_memory": {
       "supported": true,
-      "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in .windsurf/memories/ as rule-like files"
+      "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in ~/.codeium/windsurf/memories/ as rule-like files"
     },
     "cross_provider_recognition": {
       "supported": true,
-      "mechanism": "agents_md_auto_scoping: Windsurf reads AGENTS.md files from other providers and applies them with workspace-aware scoping"
+      "mechanism": "agents_md_auto_scoping: Windsurf reads both AGENTS.md and agents.md (case-insensitive) files from other providers and applies them with workspace-aware scoping"
     },
     "file_imports": {
       "supported": false,
       "mechanism": "No @-import or file inclusion syntax documented for Windsurf rule files"
     },
     "hierarchical_loading": {
-      "supported": false,
-      "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+      "supported": true,
+      "mechanism": "rules_hierarchical_discovery: Windsurf discovers .windsurf/rules/ directories in the current workspace, all sub-directories, and parent directories up to the git root; rules from all levels are merged and deduplicated"
     }
   },
   "providerExtensions": [
@@ -50,8 +50,8 @@
     },
     {
       "id": "agents_md_auto_scoping",
-      "name": "AGENTS.md: location-based auto-scoping without frontmatter",
-      "summary": "AGENTS.md files use no frontmatter; root-level files are always-on while subdirectory files become auto-glob rules scoped to that subtree.",
+      "name": "AGENTS.md and agents.md: location-based auto-scoping without frontmatter",
+      "summary": "Both AGENTS.md and agents.md (case-insensitive) are recognized; root-level files are always-on while subdirectory files become auto-glob rules scoped to that subtree.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/agents-md.md",
       "required": null,
       "conversion": "not-portable"
@@ -69,6 +69,14 @@
       "name": "Auto-generated memories distinct from rules",
       "summary": "Cascade auto-generates workspace-scoped memories during conversations, stored separately from user-authored Rules and not committed to git.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#memories",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "rules_hierarchical_discovery",
+      "name": "Multi-level hierarchical rules discovery",
+      "summary": "Windsurf searches for .windsurf/rules/ directories in the current workspace, all subdirectories, and parent directories up to the git root; rules from multiple locations are merged and deduplicated, displayed with shortest relative paths.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/memories.md#rules-discovery",
       "required": null,
       "conversion": "not-portable"
     }

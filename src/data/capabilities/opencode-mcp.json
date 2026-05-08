@@ -3,58 +3,105 @@
   "provider": "opencode",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://opencode.ai/docs/mcp-servers/",
       "type": "documentation",
-      "fetched_at": ""
-    },
-    {
-      "uri": "https://raw.githubusercontent.com/sst/opencode/dev/schema.json",
-      "type": "schema",
-      "fetched_at": ""
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
     "enterprise_management": {
-      "supported": false,
-      "mechanism": "No organization-level MCP management documented"
+      "supported": true,
+      "mechanism": "Organizations can provide default MCP server configurations via a .well-known/opencode endpoint; users can override remote defaults in their local opencode.json; local config values take precedence over remote defaults"
     },
     "env_var_expansion": {
       "supported": true,
-      "mechanism": "env_variable_expansion: environment variables configured in server env blocks"
+      "mechanism": "Remote MCP server headers and OAuth fields support {env:VAR_NAME} syntax for environment variable interpolation; local servers accept an environment object with key-value pairs"
     },
     "oauth_support": {
-      "supported": false,
-      "mechanism": "No OAuth 2.0 authentication for remote MCP servers documented"
+      "supported": true,
+      "mechanism": "Remote MCP servers support OAuth 2.0 authentication with Dynamic Client Registration (RFC 7591). OpenCode auto-detects 401 responses and initiates the OAuth flow, storing tokens in ~/.local/share/opencode/mcp-auth.json. Pre-registered client credentials can be supplied via the oauth object (clientId, clientSecret, scope). OAuth can be disabled per-server by setting oauth: false."
     },
     "tool_filtering": {
-      "supported": false,
-      "mechanism": "No per-server tool allowlist/blocklist documented"
+      "supported": true,
+      "mechanism": "MCP tools are filtered via the global tools map in opencode.json using the server name as a prefix (e.g., mymcpservername_*: false); glob patterns (* and ?) are supported; per-agent tool access is controlled via the agent's permission or tools map"
     },
     "transport_types": {
       "supported": true,
-      "mechanism": "transport_types: OpenCode documents stdio transport; remote transports (http/sse) are available on sst/opencode depending on version"
+      "mechanism": "OpenCode supports two transport types: local (type: local, launched via command array with stdio communication) and remote (type: remote, connected via URL supporting HTTP/SSE streamable-HTTP)"
     }
   },
   "providerExtensions": [
     {
-      "id": "stdio_transport",
-      "name": "stdio MCP transport",
-      "summary": "Local MCP servers launched via command/args/env and communicate over stdio.",
+      "id": "local_transport",
+      "name": "Local (stdio) MCP transport",
+      "summary": "Local MCP servers are launched via a command array (command field) with optional environment variables (environment field). Communicate over stdio. Type must be set to local.",
       "source_ref": "https://opencode.ai/docs/mcp-servers/",
       "required": null,
       "provider_field": "type",
       "conversion": "translated"
     },
     {
+      "id": "remote_transport",
+      "name": "Remote (HTTP/SSE) MCP transport",
+      "summary": "Remote MCP servers are connected via URL (url field) with optional headers object. Type must be set to remote. Supports OAuth 2.0 and custom authorization headers.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "provider_field": "type",
+      "conversion": "translated"
+    },
+    {
+      "id": "enabled_flag",
+      "name": "Server enabled/disabled flag",
+      "summary": "Each MCP server entry supports an enabled boolean flag to temporarily disable a server without removing its configuration. Defaults to enabled.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "provider_field": "enabled",
+      "conversion": "translated"
+    },
+    {
+      "id": "server_timeout",
+      "name": "Per-server tool fetch timeout",
+      "summary": "The timeout field (in milliseconds, default 5000) controls how long OpenCode waits for the MCP server to respond with its tool list on startup.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "provider_field": "timeout",
+      "conversion": "embedded"
+    },
+    {
       "id": "jsonc_config",
       "name": "JSONC config file format",
-      "summary": "MCP servers are configured in opencode.json or opencode.jsonc at the project root; JSONC allows comments.",
+      "summary": "MCP servers are configured under the mcp key in opencode.json or opencode.jsonc at the project root or ~/.config/opencode/. JSONC allows comments.",
       "source_ref": "https://opencode.ai/docs/mcp-servers/",
       "required": null,
       "conversion": "translated"
+    },
+    {
+      "id": "oauth_config",
+      "name": "OAuth 2.0 configuration object",
+      "summary": "Remote servers support an oauth configuration object with clientId, clientSecret, and scope fields for pre-registered client credentials. Setting oauth: false disables automatic OAuth detection for servers using API keys.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "provider_field": "oauth",
+      "conversion": "embedded"
+    },
+    {
+      "id": "remote_org_defaults",
+      "name": "Organization remote MCP defaults",
+      "summary": "Organizations can publish default MCP server configurations via a .well-known/opencode HTTP endpoint. Users can opt-in to specific servers by enabling them in their local config; local config overrides remote defaults.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "conversion": "embedded"
+    },
+    {
+      "id": "mcp_auth_commands",
+      "name": "MCP auth management CLI commands",
+      "summary": "opencode mcp auth <server-name> triggers OAuth browser flow; opencode mcp list shows all servers and auth status; opencode mcp logout <server-name> removes stored credentials; opencode mcp debug <server-name> diagnoses auth and connectivity.",
+      "source_ref": "https://opencode.ai/docs/mcp-servers/",
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

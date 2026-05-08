@@ -3,12 +3,12 @@
   "provider": "gemini-cli",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/cli/custom-commands.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:35Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {

@@ -3,26 +3,26 @@
   "provider": "cursor",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://cursor.com/docs/rules",
       "type": "documentation",
-      "fetched_at": "2026-04-22T04:38:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "activation_mode": {
       "supported": true,
-      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Auto-Attached (globs frontmatter matches edited files), Agent Requested (description frontmatter triggers model to pull in the rule), and Manual (no frontmatter triggers, referenced explicitly with @ruleName)."
+      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Apply to Specific Files (globs frontmatter matches edited files via glob syntax), Apply Intelligently (description frontmatter lets the Agent determine relevance), and Apply Manually (no frontmatter triggers, referenced explicitly with @ruleName)."
     },
     "auto_memory": {
       "supported": false,
       "mechanism": "Cursor does not document an AI-generated auto-memory system distinct from user-authored rules."
     },
     "cross_provider_recognition": {
-      "supported": false,
-      "mechanism": "Cursor reads its own .cursor/rules/*.mdc and legacy .cursorrules file; no documented recognition of other providers' rule files."
+      "supported": true,
+      "mechanism": "Cursor documents AGENTS.md as an officially supported alternative to .cursor/rules/*.mdc — a plain markdown file without frontmatter metadata that is recognized and loaded alongside project rules."
     },
     "file_imports": {
       "supported": true,
@@ -30,14 +30,14 @@
     },
     "hierarchical_loading": {
       "supported": true,
-      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping."
+      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping. AGENTS.md also supports nested files in subdirectories for granular context-specific guidance."
     }
   },
   "providerExtensions": [
     {
       "id": "mdc_file_format",
       "name": "MDC (Markdown + frontmatter) file format",
-      "summary": "Rules are .mdc files — Markdown bodies with YAML-style frontmatter exposing description, alwaysApply, and globs fields.",
+      "summary": "Rules are .mdc or .md files — Markdown bodies with YAML-style frontmatter exposing description, alwaysApply, and globs fields. Both extensions are documented.",
       "source_ref": "https://cursor.com/docs/rules",
       "required": null,
       "conversion": "translated"
@@ -45,7 +45,7 @@
     {
       "id": "globs_activation",
       "name": "Glob-based auto-attach",
-      "summary": "globs frontmatter array attaches a rule automatically whenever the agent edits or reads a matching file path.",
+      "summary": "globs frontmatter array attaches a rule automatically whenever the agent edits or reads a matching file path (e.g., src/**/*.tsx, docs/**/*.md).",
       "source_ref": "https://cursor.com/docs/rules",
       "required": null,
       "provider_field": "globs",
@@ -63,7 +63,7 @@
     {
       "id": "agent_requested_description",
       "name": "Agent-requested activation via description",
-      "summary": "A description-only frontmatter (no globs, no alwaysApply) lets the model decide when to pull the rule in based on the description text.",
+      "summary": "A description-only frontmatter (no globs, no alwaysApply) lets the Agent decide when to pull the rule in based on the description text.",
       "source_ref": "https://cursor.com/docs/rules",
       "required": null,
       "provider_field": "description",
@@ -100,6 +100,38 @@
       "source_ref": "https://cursor.com/docs/rules",
       "required": null,
       "conversion": "translated"
+    },
+    {
+      "id": "agents_md_alternative",
+      "name": "AGENTS.md plain markdown alternative",
+      "summary": "Cursor officially recognizes AGENTS.md as a simpler markdown alternative to .cursor/rules/*.mdc — no frontmatter metadata required; nested AGENTS.md files in subdirectories provide granular context-specific guidance.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "team_rules",
+      "name": "Team rules via dashboard",
+      "summary": "Enterprise plan users can enforce organization-wide rules through the Cursor dashboard with enforcement options; rules are distributed to all team members without requiring per-repo file changes.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "remote_rules",
+      "name": "Remote rules from GitHub repositories",
+      "summary": "Rules can be imported from external GitHub repositories directly into a project, enabling shared rule sets across teams without copying files.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "create_rule_command",
+      "name": "/create-rule slash command",
+      "summary": "Typing /create-rule in chat scaffolds a new rule file; Cursor also surfaces rule creation through the settings UI.",
+      "source_ref": "https://cursor.com/docs/rules",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

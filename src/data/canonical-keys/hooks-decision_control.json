@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "block: exit code 2 or decision=block; allow: permissionDecision=allow in hookSpecificOutput; modify: updatedInput replaces tool input before execution"
+      "mechanism": "block: exit code 2 or decision=block; allow: permissionDecision=allow in hookSpecificOutput; modify: updatedInput replaces tool input before execution; PermissionDenied event supports {retry: true} to allow model retry"
     },
     "cline": {
       "supported": true,
@@ -25,13 +25,17 @@
       "supported": true,
       "mechanism": "pre_tool_use_deny: Copilot CLI PreToolUse hooks can deny (block) the tool invocation; no allow or modify documented"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "Hook subprocess exit code controls tool execution: exit code 2 blocks the tool call (deny). Other exit codes allow it. The hook may also return a JSON decision field with values allow, deny, or none."
+    },
     "cursor": {
       "supported": true,
-      "mechanism": "Exit codes drive decisions: non-zero blocks the action and surfaces stderr, zero allows it to proceed; JSON on stdout can also return structured decision fields."
+      "mechanism": "Exit codes drive decisions: exit code 2 blocks the action, exit code 0 allows it to proceed; JSON on stdout can also return structured decision fields."
     },
     "factory-droid": {
       "supported": true,
-      "mechanism": "hook_exit_code_behavior: Factory Droid hooks use exit codes to signal block (non-zero) or allow (zero) decisions on the triggering action"
+      "mechanism": "PreToolUse hooks return JSON with allow/deny/ask decision field; exit code 2 blocks with stderr fed back to Droid; non-zero non-2 shows stderr to user as non-blocking error"
     },
     "gemini-cli": {
       "supported": true,
@@ -42,12 +46,12 @@
       "mechanism": "Kiro hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
     },
     "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+      "supported": true,
+      "mechanism": "tool_call handlers return { block: true, reason? } to prevent tool execution; tool_call errors also block the tool (fail-safe behavior)"
     },
     "windsurf": {
       "supported": false,
-      "mechanism": "Windsurf hooks are observational; no mechanism to block, allow, or modify the triggering action documented"
+      "mechanism": "Windsurf hooks are observational by default; pre-hooks can block via exit code 2 but cannot allow or modify the triggering action"
     }
   }
 }

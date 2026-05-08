@@ -3,12 +3,12 @@
   "provider": "cursor",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://cursor.com/docs/skills",
       "type": "documentation",
-      "fetched_at": "2026-04-22T04:38:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -32,7 +32,7 @@
     },
     "disable_model_invocation": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false).",
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false); when true, the skill is converted into an explicit slash command rather than a context-aware tool the model can auto-invoke.",
       "provider_field": "disable-model-invocation"
     },
     "display_name": {
@@ -42,9 +42,10 @@
     },
     "global_scope": {
       "supported": true,
-      "mechanism": "~/.agents/skills/<name>/SKILL.md for user-global scope via the cross-provider Agent Skills convention.",
+      "mechanism": "~/.agents/skills/<name>/SKILL.md and ~/.cursor/skills/<name>/SKILL.md for user-level scope; both paths are documented.",
       "paths": [
-        "~/.agents/skills/<name>/SKILL.md"
+        "~/.agents/skills/<name>/SKILL.md",
+        "~/.cursor/skills/<name>/SKILL.md"
       ]
     },
     "license": {
@@ -70,15 +71,15 @@
       "mechanism": ""
     },
     "user_invocable": {
-      "supported": false,
-      "mechanism": ""
+      "supported": true,
+      "mechanism": "When disable-model-invocation is true, the skill becomes an explicit slash command invocable by the user rather than auto-invoked by the model."
     }
   },
   "providerExtensions": [
     {
       "id": "supporting_files",
       "name": "Supporting file directories",
-      "summary": "Optional sibling files and directories alongside SKILL.md (scripts/, references/, assets/) hold executable scripts, static references, and templates used while the skill is active.",
+      "summary": "Optional sibling files and directories alongside SKILL.md (scripts/, references/, assets/) hold executable scripts, static references, and templates used while the skill is active; resources load on-demand to maintain efficient context usage.",
       "source_ref": "https://cursor.com/docs/skills",
       "required": null,
       "conversion": "preserved"
@@ -90,6 +91,30 @@
       "source_ref": "https://cursor.com/docs/skills",
       "required": null,
       "conversion": "preserved"
+    },
+    {
+      "id": "glob_scoping",
+      "name": "Glob-based skill scoping",
+      "summary": "Skills can be scoped to specific files using glob patterns, preventing irrelevant skills from being suggested during unrelated work.",
+      "source_ref": "https://cursor.com/docs/skills",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "monorepo_colocation",
+      "name": "Monorepo colocated skill scoping",
+      "summary": "In monorepos, skills placed in a package subdirectory automatically scope to that directory's context without requiring explicit path configuration.",
+      "source_ref": "https://cursor.com/docs/skills",
+      "required": null,
+      "conversion": "preserved"
+    },
+    {
+      "id": "migrate_to_skills_command",
+      "name": "/migrate-to-skills built-in command",
+      "summary": "Cursor 2.4 ships a built-in /migrate-to-skills command that converts existing rules and slash commands into the skills format.",
+      "source_ref": "https://cursor.com/docs/skills",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

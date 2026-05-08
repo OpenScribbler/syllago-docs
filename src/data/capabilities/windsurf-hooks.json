@@ -3,18 +3,18 @@
   "provider": "windsurf",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://docs.windsurf.com/windsurf/cascade/hooks.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:51:05.350405506Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
     "async_execution": {
       "supported": false,
-      "mechanism": "Windsurf hooks run synchronously; no async/background execution documented"
+      "mechanism": "Windsurf hooks run synchronously; post_cascade_response and post_cascade_response_with_transcript fire asynchronously after the response but hooks themselves do not execute fire-and-forget"
     },
     "context_injection": {
       "supported": false,
@@ -22,7 +22,7 @@
     },
     "decision_control": {
       "supported": false,
-      "mechanism": "Windsurf hooks are observational; no mechanism to block, allow, or modify the triggering action documented"
+      "mechanism": "Windsurf hooks are observational by default; pre-hooks can block via exit code 2 but cannot allow or modify the triggering action"
     },
     "handler_types": {
       "supported": false,
@@ -53,7 +53,7 @@
     {
       "id": "twelve_hook_events",
       "name": "Twelve hook event types",
-      "summary": "Twelve named event types span the agent lifecycle (pre/post read, write, run, mcp_tool_use, user_prompt, cascade_response, setup_worktree); pre-hooks can block via exit code 2.",
+      "summary": "Twelve named event types span the agent lifecycle (pre/post read, write, run, mcp_tool_use, user_prompt, cascade_response, cascade_response_with_transcript, setup_worktree); pre-hooks can block via exit code 2.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#hook-events",
       "required": null,
       "conversion": "translated"
@@ -61,7 +61,7 @@
     {
       "id": "json_stdin_context",
       "name": "JSON context delivered via stdin",
-      "summary": "Each hook receives a JSON object on stdin with common fields (agent_action_name, trajectory_id, tool_info) plus event-specific data.",
+      "summary": "Each hook receives a JSON object on stdin with common fields (agent_action_name, trajectory_id, execution_id, timestamp, model_name, tool_info) plus event-specific data.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#common-input-structure",
       "required": null,
       "conversion": "translated"
@@ -89,6 +89,15 @@
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#post_cascade_response_with_transcript",
       "required": null,
       "provider_field": "post_cascade_response_with_transcript",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "powershell_cross_platform",
+      "name": "Windows PowerShell command field for cross-platform hooks",
+      "summary": "Each hook accepts an optional `powershell` field for Windows-specific commands; on Windows, `powershell` takes priority over `command`. On macOS/Linux, `powershell` is ignored and `command` is used.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/hooks.md#configuration-options",
+      "required": null,
+      "provider_field": "powershell",
       "conversion": "not-portable"
     }
   ]

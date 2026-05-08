@@ -25,13 +25,17 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks cannot inject context into the agent session"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "The hook JSON response may include an optional context field; this content is injected into the agent context for the current turn."
+    },
     "cursor": {
-      "supported": false,
-      "mechanism": "Cursor hooks do not document a mechanism to inject additional context into the agent session."
+      "supported": true,
+      "mechanism": "Hooks can inject context at session initialization via the sessionStart event, enabling custom context to be added to the agent's active session at startup."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot inject context into the agent session"
+      "supported": true,
+      "mechanism": "additionalContext field in PostToolUse, UserPromptSubmit, and SessionStart hook output injects information into the agent session; systemMessage field in JSON output provides session-level injection"
     },
     "gemini-cli": {
       "supported": false,
@@ -42,8 +46,8 @@
       "mechanism": "Kiro hooks cannot inject context into the agent session"
     },
     "pi": {
-      "supported": false,
-      "mechanism": "Pi hooks cannot inject context into the agent session via hook output"
+      "supported": true,
+      "mechanism": "before_agent_start handlers return { message: { customType, content, display } } to inject a persistent message stored in session and sent to LLM; context handlers return { messages } to modify the message array before each LLM call"
     },
     "windsurf": {
       "supported": false,

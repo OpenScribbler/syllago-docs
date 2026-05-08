@@ -1,10 +1,10 @@
 {
   "id": "cline",
   "provider": "cline",
-  "totalExtensions": 25,
-  "unspecifiedRequiredCount": 25,
-  "unspecifiedValueTypeCount": 25,
-  "unspecifiedExamplesCount": 25,
+  "totalExtensions": 27,
+  "unspecifiedRequiredCount": 27,
+  "unspecifiedValueTypeCount": 27,
+  "unspecifiedExamplesCount": 27,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

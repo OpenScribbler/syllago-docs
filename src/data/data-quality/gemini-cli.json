@@ -1,10 +1,10 @@
 {
   "id": "gemini-cli",
   "provider": "gemini-cli",
-  "totalExtensions": 36,
-  "unspecifiedRequiredCount": 36,
-  "unspecifiedValueTypeCount": 36,
-  "unspecifiedExamplesCount": 36,
+  "totalExtensions": 42,
+  "unspecifiedRequiredCount": 42,
+  "unspecifiedValueTypeCount": 42,
+  "unspecifiedExamplesCount": 42,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

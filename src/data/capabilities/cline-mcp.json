@@ -3,17 +3,17 @@
   "provider": "cline",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/mcp/configuring-mcp-servers",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:56.128380982Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
-      "uri": "https://docs.cline.bot/mcp/transport-mechanisms",
+      "uri": "https://docs.cline.bot/mcp/mcp-transport-mechanisms",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:56.739049379Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -92,6 +92,14 @@
       "required": null,
       "provider_field": "url",
       "conversion": "translated"
+    },
+    {
+      "id": "stdio_vs_sse_deployment",
+      "name": "STDIO vs SSE: Per-User vs Centralized Deployment Model",
+      "summary": "STDIO requires per-user installation with local resource use; SSE enables centralized single-server deployment serving multiple concurrent users over HTTP/HTTPS with server-side resource consumption.",
+      "source_ref": "https://docs.cline.bot/mcp/mcp-transport-mechanisms",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

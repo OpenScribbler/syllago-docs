@@ -1,10 +1,10 @@
 {
   "id": "opencode",
   "provider": "opencode",
-  "totalExtensions": 14,
-  "unspecifiedRequiredCount": 14,
-  "unspecifiedValueTypeCount": 14,
-  "unspecifiedExamplesCount": 14,
+  "totalExtensions": 30,
+  "unspecifiedRequiredCount": 30,
+  "unspecifiedValueTypeCount": 30,
+  "unspecifiedExamplesCount": 30,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

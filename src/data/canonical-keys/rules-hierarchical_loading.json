@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules load before project rules"
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules (~/.claude/rules/) load before project rules; rules without paths frontmatter load unconditionally"
     },
     "cline": {
       "supported": false,
@@ -27,11 +27,11 @@
     },
     "crush": {
       "supported": false,
-      "mechanism": "Crush documents AGENTS.md at the project root only; no hierarchical/subdirectory loading documented"
+      "mechanism": "Crush documents context files at the project root only; no hierarchical/subdirectory loading documented"
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping."
+      "mechanism": "Rules can live in nested .cursor/rules/ directories within a project; rules in a subtree apply when working with files under that subtree, enabling monorepo-style scoping. AGENTS.md also supports nested files in subdirectories for granular context-specific guidance."
     },
     "factory-droid": {
       "supported": true,
@@ -47,7 +47,7 @@
     },
     "opencode": {
       "supported": true,
-      "mechanism": "Project-root AGENTS.md/CLAUDE.md combined with global context files at ~/.config/opencode/"
+      "mechanism": "OpenCode traverses up from the current directory collecting AGENTS.md (or CLAUDE.md fallback) at each level; global files at ~/.config/opencode/AGENTS.md and ~/.claude/CLAUDE.md are appended; all matching files are combined into context"
     },
     "pi": {
       "supported": false,
@@ -58,8 +58,8 @@
       "mechanism": "mode_scoped_loading: files under .roo/rules/ load universally; files under .roo/rules-<mode>/ load conditionally based on the active mode"
     },
     "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf rule files are global or workspace-scoped; no subdirectory precedence model documented"
+      "supported": true,
+      "mechanism": "rules_hierarchical_discovery: Windsurf discovers .windsurf/rules/ directories in the current workspace, all sub-directories, and parent directories up to the git root; rules from all levels are merged and deduplicated"
     },
     "zed": {
       "supported": false,

@@ -3,48 +3,48 @@
   "provider": "pi",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
-      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/types.ts",
+      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/core/extensions/types.ts",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:50:57Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:57Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     },
     {
-      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/runner.ts",
+      "uri": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/core/extensions/runner.ts",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:50:57Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
     "async_execution": {
       "supported": false,
-      "mechanism": "Pi hooks run synchronously; no async execution documented"
+      "mechanism": "Pi extension handlers are awaited synchronously in registration order; no fire-and-forget async execution documented"
     },
     "context_injection": {
-      "supported": false,
-      "mechanism": "Pi hooks cannot inject context into the agent session via hook output"
+      "supported": true,
+      "mechanism": "before_agent_start handlers return { message: { customType, content, display } } to inject a persistent message stored in session and sent to LLM; context handlers return { messages } to modify the message array before each LLM call"
     },
     "decision_control": {
-      "supported": false,
-      "mechanism": "Pi hooks are observational; no mechanism to block, allow, or modify tool invocations documented"
+      "supported": true,
+      "mechanism": "tool_call handlers return { block: true, reason? } to prevent tool execution; tool_call errors also block the tool (fail-safe behavior)"
     },
     "handler_types": {
       "supported": true,
       "mechanism": "pi_extension_typescript_native: Pi hooks support TypeScript/native extension handler type beyond shell commands"
     },
     "hook_scopes": {
-      "supported": false,
-      "mechanism": "Pi hooks are project-scoped; no multi-scope configuration documented"
+      "supported": true,
+      "mechanism": "Extensions load from global scope (~/.pi/agent/extensions/) and project-local scope (.pi/extensions/); both scopes are auto-discovered and can be combined"
     },
     "input_modification": {
       "supported": true,
-      "mechanism": "pi_extension_tool_call_blocking: Pi extensions can intercept and modify tool call inputs before execution"
+      "mechanism": "tool_call handlers mutate event.input in place to modify tool arguments before execution; later handlers see prior mutations"
     },
     "json_io_protocol": {
       "supported": false,
@@ -52,11 +52,11 @@
     },
     "matcher_patterns": {
       "supported": false,
-      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool filtering documented"
+      "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool name filtering at the subscription level — tool discrimination is done in handler code"
     },
     "permission_control": {
       "supported": false,
-      "mechanism": "Pi hooks cannot make permission decisions about tool availability"
+      "mechanism": "Pi extensions cannot make availability decisions for tools; tool_call block controls invocation flow but does not remove a tool from the available set; setActiveTools() is available but is not a hook return mechanism"
     }
   },
   "providerExtensions": [
@@ -70,16 +70,16 @@
     },
     {
       "id": "pi_extension_event_model",
-      "name": "Rich lifecycle event model with 21 event types",
-      "summary": "Extensions subscribe via pi.on() to 21+ events spanning session, agent, turn, message, tool, model, and input lifecycle phases.",
-      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/extensions/types.ts",
+      "name": "Rich lifecycle event model with 29 named event types",
+      "summary": "Extensions subscribe via pi.on() to 29 named events spanning resources, session, agent, turn, message, tool execution, tool call/result, model, thinking level, user bash, and input lifecycle phases.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/src/core/extensions/types.ts",
       "required": null,
       "conversion": "not-portable"
     },
     {
       "id": "pi_extension_tool_call_blocking",
       "name": "tool_call event can block or mutate tool execution",
-      "summary": "tool_call handlers can return { block: true, reason } or mutate event.input in place; later handlers see prior mutations.",
+      "summary": "tool_call handlers can return { block: true, reason } or mutate event.input in place; later handlers see prior mutations. tool_call errors also block the tool (fail-safe).",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
       "required": null,
       "conversion": "not-portable"
@@ -95,7 +95,7 @@
     {
       "id": "pi_extension_register_tool",
       "name": "registerTool() adds LLM-callable tools",
-      "summary": "Extensions register LLM-callable tools (name, label, description, TypeBox schema, execute) via pi.registerTool(); can override built-ins.",
+      "summary": "Extensions register LLM-callable tools (name, label, description, TypeBox schema, execute) via pi.registerTool(); can override built-ins. New tools are immediately available to the LLM without /reload.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
       "required": null,
       "conversion": "not-portable"
@@ -111,7 +111,7 @@
     {
       "id": "pi_extension_custom_ui",
       "name": "Full TUI component access and UI primitives",
-      "summary": "ctx.ui exposes dialogs, status, widgets, header/footer replacement, and custom TUI overlays with keyboard focus.",
+      "summary": "ctx.ui exposes dialogs, status, widgets, header/footer replacement, custom TUI overlays with keyboard focus, theme management, editor text control, and custom editor components.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
       "required": null,
       "conversion": "not-portable"
@@ -128,6 +128,30 @@
       "id": "pi_extension_hot_reload",
       "name": "Hot reload with /reload command",
       "summary": "Auto-discovered extensions support /reload hot reload; CLI-flag-loaded extensions do not, and resources_discover can also trigger reload.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "pi_extension_before_agent_start_inject",
+      "name": "before_agent_start can inject messages and modify system prompt",
+      "summary": "before_agent_start handlers return { message, systemPrompt } to inject a persistent LLM-visible message and/or replace the chained system prompt for the turn. systemPromptOptions exposes the structured data Pi uses to build the system prompt.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "pi_extension_user_bash_intercept",
+      "name": "user_bash event intercepts ! and !! commands",
+      "summary": "user_bash handlers can intercept user-executed shell commands (! prefix), provide custom BashOperations (e.g., SSH), or return a full replacement BashResult.",
+      "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "pi_extension_set_active_tools",
+      "name": "setActiveTools() for runtime tool enable/disable",
+      "summary": "Extensions call pi.setActiveTools(names) to enable or disable tools (including dynamically added tools) at runtime. pi.getActiveTools() and pi.getAllTools() inspect the current tool set.",
       "source_ref": "https://raw.githubusercontent.com/badlogic/pi-mono/main/packages/coding-agent/docs/extensions.md",
       "required": null,
       "conversion": "not-portable"

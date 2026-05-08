@@ -3,12 +3,12 @@
   "provider": "kiro",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:51Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -26,11 +26,11 @@
     },
     "model_selection": {
       "supported": true,
-      "mechanism": "model field in agent JSON config overrides workspace default for that agent"
+      "mechanism": "model field in agent JSON config overrides workspace default for that agent; falls back to default if specified model is unavailable"
     },
     "per_agent_mcp": {
       "supported": true,
-      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/mcp.json is merged into agent's server set"
+      "mechanism": "inline mcpServers map per agent config; includeMcpJson boolean controls whether workspace .kiro/settings/mcp.json is merged into agent's server set"
     },
     "subagent_spawning": {
       "supported": false,
@@ -38,14 +38,14 @@
     },
     "tool_restrictions": {
       "supported": true,
-      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (mcp:serverName:toolName); toolsSettings for per-tool config objects"
+      "mechanism": "tools array with exact names, wildcards (computer_*), or MCP-namespaced refs (@server_name); allowedTools list for tools requiring no user approval; toolsSettings map for per-tool behavioral config"
     }
   },
   "providerExtensions": [
     {
       "id": "kiro_agent_file_uri_prompt",
       "name": "File URI for externalizing agent prompt",
-      "summary": "Load the system prompt from an external Markdown file via a 'file://path' URI instead of embedding inline text.",
+      "summary": "Load the system prompt from an external Markdown file via a 'file://path' URI instead of embedding inline text. Allows complex prompts to be maintained separately for better organization and reuse across agents.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "prompt",
@@ -54,20 +54,38 @@
     {
       "id": "kiro_agent_tool_aliases",
       "name": "toolAliases for collision remapping",
-      "summary": "Per-agent 'toolAliases' map renaming tools to resolve naming collisions across MCP servers.",
+      "summary": "Per-agent 'toolAliases' map renaming tools to resolve naming collisions across MCP servers, or to create more intuitive naming. Useful when multiple MCP servers provide similarly-named tools.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "toolAliases",
       "conversion": "embedded"
     },
     {
+      "id": "kiro_agent_allowed_tools",
+      "name": "allowedTools list for no-approval tool execution",
+      "summary": "Per-agent list of tools that execute without requiring user approval. Supports exact matches and glob-pattern wildcards like '@server/read_*' or '@git-*/status'.",
+      "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
+      "required": null,
+      "provider_field": "allowedTools",
+      "conversion": "embedded"
+    },
+    {
       "id": "kiro_agent_resources",
       "name": "Resources attachment (files, skills, knowledge-base)",
-      "summary": "Attach files, skills, or knowledge-base entries into the agent's context via a configured resources list.",
+      "summary": "Attach files, skills, or knowledge-base entries into the agent's context via a configured resources list. File resources load immediately; skills load metadata first then full content on-demand; knowledge bases enable searching indexed documentation.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "resources",
       "conversion": "embedded"
+    },
+    {
+      "id": "kiro_agent_hooks",
+      "name": "Hooks defined within agent config",
+      "summary": "Per-agent hooks defined in the agent's JSON config, triggered at lifecycle points including agent startup, user prompt submission, before/after tool use, and response completion.",
+      "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
+      "required": null,
+      "provider_field": "hooks",
+      "conversion": "not-portable"
     },
     {
       "id": "kiro_agent_inline_mcp_servers",
@@ -81,7 +99,7 @@
     {
       "id": "kiro_agent_include_mcp_json",
       "name": "includeMcpJson flag",
-      "summary": "Boolean flag controlling whether workspace .kiro/mcp.json merges into the agent's available MCP servers.",
+      "summary": "Boolean flag controlling whether workspace .kiro/settings/mcp.json merges into the agent's available MCP servers.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "includeMcpJson",
@@ -90,7 +108,7 @@
     {
       "id": "kiro_agent_tools_settings",
       "name": "toolsSettings per-tool configuration map",
-      "summary": "Provide per-tool configuration objects for fine-grained behavioral settings via a map keyed by tool name.",
+      "summary": "Provide per-tool configuration objects for fine-grained behavioral settings via a map keyed by tool name. Used for restricting file write operations to particular directories or limiting shell command execution.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "toolsSettings",
@@ -99,7 +117,7 @@
     {
       "id": "kiro_agent_keyboard_shortcut",
       "name": "keyboardShortcut binding",
-      "summary": "Bind an IDE keyboard shortcut string for quick agent invocation from the editor.",
+      "summary": "Bind an IDE keyboard shortcut string (e.g. 'ctrl+a') for quick agent invocation from the editor.",
       "source_ref": "https://kiro.dev/docs/cli/custom-agents/configuration-reference/",
       "required": null,
       "provider_field": "keyboardShortcut",

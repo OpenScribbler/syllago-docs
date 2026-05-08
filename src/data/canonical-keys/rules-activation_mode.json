@@ -27,11 +27,11 @@
     },
     "crush": {
       "supported": false,
-      "mechanism": "Crush rule files (AGENTS.md) load unconditionally as project context; no conditional activation syntax documented"
+      "mechanism": "Crush rule files load unconditionally as project context; no conditional activation syntax documented"
     },
     "cursor": {
       "supported": true,
-      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Auto-Attached (globs frontmatter matches edited files), Agent Requested (description frontmatter triggers model to pull in the rule), and Manual (no frontmatter triggers, referenced explicitly with @ruleName)."
+      "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Apply to Specific Files (globs frontmatter matches edited files via glob syntax), Apply Intelligently (description frontmatter lets the Agent determine relevance), and Apply Manually (no frontmatter triggers, referenced explicitly with @ruleName)."
     },
     "factory-droid": {
       "supported": false,
@@ -43,7 +43,7 @@
     },
     "kiro": {
       "supported": true,
-      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, and manual inclusion modes"
+      "mechanism": "kiro_steering_inclusion_mode: Kiro steering files support always, conditional, auto, and manual inclusion modes"
     },
     "opencode": {
       "supported": false,

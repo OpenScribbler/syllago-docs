@@ -3,12 +3,12 @@
   "provider": "kiro",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://kiro.dev/docs/hooks/",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:46Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -26,7 +26,7 @@
     },
     "handler_types": {
       "supported": false,
-      "mechanism": "Kiro hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
+      "mechanism": "Kiro hooks execute shell commands or predefined agent prompts; no HTTP, LLM-as-hook, or TypeScript extension handler types documented"
     },
     "hook_scopes": {
       "supported": false,
@@ -42,7 +42,7 @@
     },
     "matcher_patterns": {
       "supported": false,
-      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool filtering documented"
+      "mechanism": "Kiro hooks fire on configured lifecycle events; no per-tool name filtering or regex matching documented"
     },
     "permission_control": {
       "supported": false,
@@ -53,7 +53,7 @@
     {
       "id": "kiro_hook_agent_prompt_action",
       "name": "Predefined agent prompt as hook action",
-      "summary": "Hook action type that runs a predefined agent prompt through the Kiro agent instead of a shell command.",
+      "summary": "Hook action type that runs a predefined agent prompt through the Kiro agent instead of a shell command. Configured via the IDE panel.",
       "source_ref": "https://kiro.dev/docs/hooks/",
       "required": null,
       "conversion": "not-portable"
@@ -77,7 +77,23 @@
     {
       "id": "kiro_hooks_ui_only",
       "name": "Hooks configured via IDE UI only",
-      "summary": "Kiro hooks live as IDE-panel state with no documented file format — configuration is not portable.",
+      "summary": "Kiro hooks are created either by describing desired functionality in natural language (Kiro generates the configuration) or by manually completing a form with title, description, event type, action type, and execution instructions. No documented file-based configuration format — configuration is not portable.",
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "kiro_hook_file_operation_triggers",
+      "name": "File operation triggers (save, create, delete)",
+      "summary": "Hook triggers that fire on file save, file create, and file delete events within the IDE, enabling automated responses to file lifecycle changes.",
+      "source_ref": "https://kiro.dev/docs/hooks/",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "kiro_hook_manual_trigger",
+      "name": "Manual on-demand hook trigger",
+      "summary": "Hook trigger type that fires only on explicit user request, enabling on-demand automation without automatic event-based execution.",
       "source_ref": "https://kiro.dev/docs/hooks/",
       "required": null,
       "conversion": "not-portable"

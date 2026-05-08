@@ -11,7 +11,7 @@
     },
     "claude-code": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true)"
+      "mechanism": "yaml frontmatter key: user-invocable (optional bool, default true); controls /menu visibility only, not Skill tool access"
     },
     "cline": {
       "supported": false,
@@ -30,8 +30,8 @@
       "mechanism": ""
     },
     "cursor": {
-      "supported": false,
-      "mechanism": ""
+      "supported": true,
+      "mechanism": "When disable-model-invocation is true, the skill becomes an explicit slash command invocable by the user rather than auto-invoked by the model."
     },
     "factory-droid": {
       "supported": true,

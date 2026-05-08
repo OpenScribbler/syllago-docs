@@ -1,10 +1,10 @@
 {
   "id": "copilot-cli",
   "provider": "copilot-cli",
-  "totalExtensions": 23,
-  "unspecifiedRequiredCount": 23,
-  "unspecifiedValueTypeCount": 23,
-  "unspecifiedExamplesCount": 23,
+  "totalExtensions": 29,
+  "unspecifiedRequiredCount": 29,
+  "unspecifiedValueTypeCount": 29,
+  "unspecifiedExamplesCount": 29,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

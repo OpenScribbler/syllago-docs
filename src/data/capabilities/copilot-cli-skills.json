@@ -3,17 +3,17 @@
   "provider": "copilot-cli",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/concepts/agents/about-agent-skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:18Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     },
     {
-      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-skills.md",
+      "uri": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:18Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -41,10 +41,9 @@
     },
     "global_scope": {
       "supported": true,
-      "mechanism": "skill directory under ~/.copilot/skills/<name>/, ~/.claude/skills/<name>/, or ~/.agents/skills/<name>/",
+      "mechanism": "skill directory under ~/.copilot/skills/<name>/ or ~/.agents/skills/<name>/ in the user home directory",
       "paths": [
         "~/.copilot/skills/<name>/SKILL.md",
-        "~/.claude/skills/<name>/SKILL.md",
         "~/.agents/skills/<name>/SKILL.md"
       ]
     },
@@ -87,15 +86,23 @@
       "id": "plugin_scope",
       "name": "Plugin Scope",
       "summary": "Skills bundled via plugins occupy a separate management namespace and must be managed through the plugin, not /skills remove.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-skills.md",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-skills.md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "skill_toggle",
+      "name": "Per-Skill Enable/Disable Toggle",
+      "summary": "The /skills command (with no subcommand) opens an interactive toggle UI — up/down keys navigate and space bar enables or disables individual skills without removing them.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-skills.md",
       "required": null,
       "conversion": "not-portable"
     },
     {
       "id": "cli_management_commands",
       "name": "CLI Skill Management Commands",
-      "summary": "The /skills slash-command suite (list, info, add, reload, remove, toggle UI) provides runtime skill management without restart.",
-      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/create-skills.md",
+      "summary": "The /skills slash-command suite (list, info, add, reload, remove) provides runtime skill management without restart; /skills remove works only for directly-added skills, not plugin-bundled skills.",
+      "source_ref": "https://raw.githubusercontent.com/github/docs/main/content/copilot/how-tos/copilot-cli/customize-copilot/add-skills.md",
       "required": null,
       "conversion": "not-portable"
     }

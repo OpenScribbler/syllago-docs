@@ -3,17 +3,17 @@
   "provider": "cline",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/customization/skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:46Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
-      "uri": "https://raw.githubusercontent.com/cline/cline/main/assets/skills/create-pull-request/SKILL.md",
-      "type": "example",
-      "fetched_at": "2026-04-11T21:49:46Z"
+      "uri": "https://docs.cline.bot/customization/skills",
+      "type": "documentation",
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {

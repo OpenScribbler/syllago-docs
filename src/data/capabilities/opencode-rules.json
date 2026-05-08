@@ -3,12 +3,12 @@
   "provider": "opencode",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://opencode.ai/docs/rules/",
       "type": "documentation",
-      "fetched_at": ""
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -22,15 +22,15 @@
     },
     "cross_provider_recognition": {
       "supported": true,
-      "mechanism": "OpenCode reads both AGENTS.md (cross-provider convention) and CLAUDE.md (historical Claude Code convention) from project root"
+      "mechanism": "OpenCode reads AGENTS.md (cross-provider convention) and CLAUDE.md (Claude Code fallback) from project root and parent directories; ~/.config/opencode/AGENTS.md and ~/.claude/CLAUDE.md at global scope; CLAUDE.md compat can be disabled via OPENCODE_DISABLE_CLAUDE_CODE env var"
     },
     "file_imports": {
-      "supported": false,
-      "mechanism": "No documented import directive for rule files"
+      "supported": true,
+      "mechanism": "The instructions array in opencode.json (or ~/.config/opencode/opencode.json) lists additional rule files by relative path, glob pattern, or remote URL; all are combined with AGENTS.md and loaded into context"
     },
     "hierarchical_loading": {
       "supported": true,
-      "mechanism": "Project-root AGENTS.md/CLAUDE.md combined with global context files at ~/.config/opencode/"
+      "mechanism": "OpenCode traverses up from the current directory collecting AGENTS.md (or CLAUDE.md fallback) at each level; global files at ~/.config/opencode/AGENTS.md and ~/.claude/CLAUDE.md are appended; all matching files are combined into context"
     }
   },
   "providerExtensions": [
@@ -45,10 +45,26 @@
     {
       "id": "claude_md_compat",
       "name": "CLAUDE.md compatibility",
-      "summary": "OpenCode also reads CLAUDE.md at project root for compatibility with Claude Code projects.",
+      "summary": "OpenCode reads CLAUDE.md at project root and ~/.claude/CLAUDE.md globally as fallbacks when no AGENTS.md exists. Compat can be fully disabled via OPENCODE_DISABLE_CLAUDE_CODE=1, or partially via OPENCODE_DISABLE_CLAUDE_CODE_PROMPT=1 (global only) or OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1.",
       "source_ref": "https://opencode.ai/docs/rules/",
       "required": null,
       "conversion": "preserved"
+    },
+    {
+      "id": "instructions_array",
+      "name": "instructions array in opencode.json",
+      "summary": "The instructions field in opencode.json (or the global ~/.config/opencode/opencode.json) accepts a list of relative file paths, glob patterns (e.g., packages/*/AGENTS.md), or remote HTTPS URLs pointing to additional instruction files. All are fetched and combined with AGENTS.md content. Remote URLs are fetched with a 5-second timeout.",
+      "source_ref": "https://opencode.ai/docs/rules/",
+      "required": null,
+      "conversion": "translated"
+    },
+    {
+      "id": "init_command",
+      "name": "/init command for AGENTS.md generation",
+      "summary": "The /init slash command scans the project and generates or updates AGENTS.md with project-specific guidance including build/lint/test commands, architecture notes, and conventions.",
+      "source_ref": "https://opencode.ai/docs/rules/",
+      "required": null,
+      "conversion": "embedded"
     }
   ]
 }

@@ -38,10 +38,10 @@ Fired when a CLI command completes successfully.
 | Property | Type | Description | Example | Commands |
 |----------|------|-------------|---------|----------|
 | `command` | `string` | Command name (cobra command path) | `"install"` | all |
-| `provider` | `string` | Target provider slug | `"claude-code"` | `install`, `uninstall`, `loadout_apply`, `sandbox_run`, `sync-and-export`, `capmon_validate_spec`, `capmon_validate_format_doc`, `capmon_validate_sources`, `capmon_derive`, `capmon_check`, `capmon_onboard` |
+| `provider` | `string` | Target provider slug | `"claude-code"` | `install`, `uninstall`, `loadout_apply`, `sandbox_run`, `sync-and-export`, `capmon_validate_spec`, `capmon_validate_format_doc`, `capmon_validate_sources`, `capmon_derive`, `capmon_check`, `capmon_onboard`, `capmon_fetch` |
 | `content_type` | `string` | Content type filter or specific type | `"rules"` | `install`, `add`, `convert`, `create`, `uninstall`, `remove`, `list`, `share`, `sync-and-export`, `registry_items`, `capmon_validate_spec` |
 | `content_count` | `int` | Number of content items affected | `3` | `install`, `add` |
-| `dry_run` | `bool` | Whether --dry-run flag was used | `false` | `install`, `add`, `uninstall`, `remove`, `sync-and-export` |
+| `dry_run` | `bool` | Whether --dry-run flag was used | `false` | `install`, `add`, `uninstall`, `remove`, `sync-and-export`, `capmon_fetch` |
 | `from` | `string` | Source provider slug when adding cross-provider content | `"cursor"` | `add` |
 | `from_provider` | `string` | Source provider for conversion | `"cursor"` | `convert` |
 | `to_provider` | `string` | Target provider for conversion | `"claude-code"` | `convert` |
@@ -49,6 +49,8 @@ Fired when a CLI command completes successfully.
 | `filter` | `string` | State-based filter applied to list output (comma-separated states: in-library, not-in-library, project) | `"in-library"` | `list` |
 | `install` | `bool` | Whether --install was passed to chain add + install in a single command | `true` | `add` |
 | `item_count` | `int` | Number of items in the result set | `12` | `list`, `registry_items` |
+| `source_count` | `int` | Total number of provider sources targeted by capmon fetch | `15` | `capmon_fetch` |
+| `fetch_errors` | `int` | Number of sources that failed to fetch in capmon fetch | `0` | `capmon_fetch` |
 | `mode` | `string` | Operational mode (loadout 'try', add 'monolithic') | `"try"` | `loadout_apply`, `add` |
 | `discovery_candidate_count` | `int` | Number of monolithic rule files considered by add (D18) | `3` | `add` |
 | `selected_count` | `int` | Number of monolithic rule files actually imported (D18) | `2` | `add` |
@@ -92,4 +94,4 @@ These categories of data are **never** included in telemetry events, regardless 
 - All telemetry code is in [`cli/internal/telemetry/`](https://github.com/OpenScribbler/syllago/tree/main/cli/internal/telemetry)
 - The event catalog source of truth is [`catalog.go`](https://github.com/OpenScribbler/syllago/blob/main/cli/internal/telemetry/catalog.go)
 
-*Generated from syllago 0.12.0 on 2026-05-04.*
+*Generated from syllago 0.13.0 on 2026-05-08.*

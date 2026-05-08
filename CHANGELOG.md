@@ -2,6 +2,15 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-05-08
+
+### Added
+- `src/content/docs/using-syllago/cli-reference/capmon-fetch.mdx` — new `syllago capmon fetch` command: fetches provider source URLs and updates the hash cache, with `--provider`, `--sources-dir`, `--cache-root`, and `--dry-run` flags.
+
+### Synced (syllago v0.13.0)
+- New provider: **Crush** (Charmbracelet) — `src/data/providers/crush.json`, `src/data/capabilities/crush-*.json`, `src/data/data-quality/crush.json`. Crush supports MCP (stdio/http/sse transports, JSON config), rules (`AGENTS.md`), and skills (`~/.config/crush/skills`). Agents, commands, hooks, and loadouts are not yet supported.
+- Capability data enriched across most providers — 191 files regenerated. Largest diffs in `opencode`, `crush`, `cursor`, `kiro`, `factory-droid`, and `zed`.
+
 ## 2026-05-07
 
 ### Synced (syllago v0.12.0)

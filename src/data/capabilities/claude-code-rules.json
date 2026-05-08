@@ -3,12 +3,12 @@
   "provider": "claude-code",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://code.claude.com/docs/en/memory.md",
       "type": "documentation",
-      "fetched_at": "2026-05-03T15:42:00Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -18,7 +18,7 @@
     },
     "auto_memory": {
       "supported": true,
-      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; requires CC v2.1.59+; enabled by default; disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting; subagents can also maintain their own auto memory"
+      "mechanism": "Auto memory saves Claude's accumulated notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; requires CC v2.1.59+; enabled by default; disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting (accepted from policy/user settings and --settings flag, not from project or local settings); subagents can also maintain their own auto memory"
     },
     "cross_provider_recognition": {
       "supported": false,
@@ -30,14 +30,14 @@
     },
     "hierarchical_loading": {
       "supported": true,
-      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules load before project rules"
+      "mechanism": "CLAUDE.md files load from all ancestor directories up to repo root (ancestor files load in full at launch; subdirectory CLAUDE.md files beyond 200 lines threshold load on demand when Claude reads files in those subdirectories); .claude/rules/ files discovered recursively; user-level rules (~/.claude/rules/) load before project rules; rules without paths frontmatter load unconditionally"
     }
   },
   "providerExtensions": [
     {
       "id": "claude_md_files",
       "name": "CLAUDE.md Files",
-      "summary": "Persistent markdown instructions loaded from CLAUDE.md files at managed/project/user/local scopes; concatenated rather than overridden.",
+      "summary": "Persistent markdown instructions loaded from CLAUDE.md files at managed/project/user/local scopes; concatenated rather than overridden. Content is delivered as a user message after the system prompt, not enforced configuration.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#claude-md-files",
       "required": null,
       "conversion": "translated"
@@ -45,7 +45,7 @@
     {
       "id": "rules_directory",
       "name": "Path-Scoped Rules in .claude/rules/",
-      "summary": "Modular .md rule files in .claude/rules/ load unconditionally or via paths frontmatter glob filters that trigger on matching file access.",
+      "summary": "Modular .md rule files in .claude/rules/ load unconditionally or via paths frontmatter glob filters that trigger on matching file access. Symlinks are supported and circular symlinks are handled gracefully. Rules are discovered recursively and can be organized into subdirectories.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#organize-rules-with-claude/rules/",
       "required": null,
       "conversion": "translated"
@@ -53,7 +53,7 @@
     {
       "id": "file_imports",
       "name": "@-Import Syntax for CLAUDE.md",
-      "summary": "CLAUDE.md @path/to/file imports expand referenced files into context (up to 5 hops, requires per-project approval).",
+      "summary": "CLAUDE.md @path/to/file imports expand referenced files into context (up to 5 hops, requires per-project approval). Relative paths resolve relative to the containing file, not the working directory.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#import-additional-files",
       "required": null,
       "conversion": "preserved"
@@ -61,7 +61,7 @@
     {
       "id": "auto_memory",
       "name": "Auto Memory",
-      "summary": "Claude auto-saves cross-session notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; toggled via autoMemoryEnabled (CC v2.1.59+); disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting. Subagents can also maintain their own auto memory.",
+      "summary": "Claude auto-saves cross-session notes to ~/.claude/projects/<project>/memory/MEMORY.md; first 200 lines or 25KB loaded at session start; toggled via autoMemoryEnabled (CC v2.1.59+); disable via CLAUDE_CODE_DISABLE_AUTO_MEMORY=1; override storage location via autoMemoryDirectory setting (accepted from policy and user settings only). Topic files beyond MEMORY.md load on demand. All worktrees and subdirectories within the same git repo share one auto memory directory. Subagents can also maintain their own auto memory.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#auto-memory",
       "required": null,
       "provider_field": "autoMemoryEnabled",
@@ -70,7 +70,7 @@
     {
       "id": "claude_md_excludes",
       "name": "Exclude CLAUDE.md Files by Pattern",
-      "summary": "claudeMdExcludes setting accepts glob patterns matched against absolute file paths to skip ancestor CLAUDE.md or rules files. Managed policy CLAUDE.md files cannot be excluded.",
+      "summary": "claudeMdExcludes setting accepts glob patterns matched against absolute file paths to skip ancestor CLAUDE.md or rules files. Arrays merge across settings layers. Managed policy CLAUDE.md files cannot be excluded.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#exclude-specific-claude-md-files",
       "required": null,
       "provider_field": "claudeMdExcludes",
@@ -103,7 +103,7 @@
     {
       "id": "html_comment_stripping",
       "name": "HTML Comment Stripping in CLAUDE.md",
-      "summary": "Block-level HTML comments (<!-- -->) in CLAUDE.md files are stripped before content is injected into Claude's context. Comments inside code blocks are preserved.",
+      "summary": "Block-level HTML comments (<!-- -->) in CLAUDE.md files are stripped before content is injected into Claude's context. Comments inside code blocks are preserved. Comments remain visible when opening the file with the Read tool.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#how-claude-md-files-load",
       "required": null,
       "conversion": "not-portable"
@@ -113,6 +113,22 @@
       "name": "Interactive Multi-Phase /init Flow via CLAUDE_CODE_NEW_INIT",
       "summary": "Setting CLAUDE_CODE_NEW_INIT=1 enables an interactive /init flow: asks which artifacts to set up (CLAUDE.md, skills, hooks), explores the codebase with a subagent, fills in gaps, and presents a reviewable proposal before writing.",
       "source_ref": "https://code.claude.com/docs/en/memory.md#set-up-a-project-claude-md",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "user_level_rules",
+      "name": "User-Level Rules in ~/.claude/rules/",
+      "summary": "Personal rules in ~/.claude/rules/ apply to every project on the machine. User-level rules load before project rules, giving project rules higher priority.",
+      "source_ref": "https://code.claude.com/docs/en/memory.md#organize-rules-with-claude/rules/",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "claude_local_md",
+      "name": "CLAUDE.local.md for Personal Project-Specific Instructions",
+      "summary": "CLAUDE.local.md at the project root holds personal per-project preferences not committed to version control. Add to .gitignore. Within each directory, CLAUDE.local.md is appended after CLAUDE.md.",
+      "source_ref": "https://code.claude.com/docs/en/memory.md#choose-where-to-put-claude-md-files",
       "required": null,
       "conversion": "not-portable"
     }

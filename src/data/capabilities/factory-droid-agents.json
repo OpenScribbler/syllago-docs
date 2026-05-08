@@ -3,49 +3,49 @@
   "provider": "factory-droid",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration/custom-droids",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:33.339259873Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
     "agent_scopes": {
       "supported": true,
-      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence"
+      "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence; top-level files only, no recursion"
     },
     "definition_format": {
       "supported": true,
-      "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with system prompt, model preference, and tooling policy"
+      "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with YAML frontmatter (name, description, model, reasoningEffort, tools) and system prompt body"
     },
     "invocation_patterns": {
       "supported": true,
-      "mechanism": "exposed as subagent_type targets for the Task tool; droids enabled by default with live progress reporting in UI"
+      "mechanism": "exposed as subagent_type targets for the Task tool; primary assistant delegates mid-session; droids enabled by default with live progress streaming in UI"
     },
     "model_selection": {
       "supported": true,
-      "mechanism": "per-droid model preference field independent of global model setting; enables mixed-model agent compositions"
+      "mechanism": "model field accepts inherit (use parent session model) or a specific model identifier; custom BYOK models use custom: prefix; reasoningEffort (low/medium/high) is an additional per-droid field ignored when model is inherit"
     },
     "per_agent_mcp": {
       "supported": false,
-      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide"
+      "mechanism": "no per-droid MCP configuration documented; MCP is workspace-wide; droids can use MCP tools via the mcp tool category"
     },
     "subagent_spawning": {
       "supported": true,
-      "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /import-subagent converts Claude Code .claude/agents/*.md to droid format"
+      "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /droids menu (I key) imports Claude Code .claude/agents/*.md to droid format with field mapping and model family translation"
     },
     "tool_restrictions": {
       "supported": true,
-      "mechanism": "categorical tool policy using named categories (filesystem, shell, search, browser, web_fetch); differs from per-tool allowlists used by other providers"
+      "mechanism": "tools field accepts a category string (read-only, edit, execute, web, mcp), an explicit array of tool IDs ([\"Read\", \"Edit\", \"Execute\"], case-sensitive), or omission for all tools; TodoWrite is automatically included for all droids"
     }
   },
   "providerExtensions": [
     {
       "id": "droid_format",
       "name": "Custom Droid Format",
-      "summary": "Agents are flat .md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); top-level scan only, no recursion.",
+      "summary": "Agents are flat .md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); top-level scan only, no recursion. Frontmatter fields: name (required, lowercase/digits/-/_), description (optional, ≤500 chars), model, reasoningEffort, tools.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
       "required": null,
       "conversion": "translated"
@@ -61,7 +61,7 @@
     {
       "id": "tool_categories",
       "name": "Tool Categories",
-      "summary": "Droids restrict tools by named categories (filesystem, shell, search, browser, web_fetch) instead of per-tool allowlists.",
+      "summary": "Droids restrict tools by named category strings (read-only → Read/LS/Grep/Glob; edit → Create/Edit/ApplyPatch; execute → Execute; web → WebSearch/FetchUrl; mcp → dynamically populated MCP tools) or explicit tool ID arrays. TodoWrite is automatically included for all droids. When using Edit with OpenAI models, ApplyPatch is automatically included.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
       "required": null,
       "conversion": "embedded"
@@ -69,7 +69,7 @@
     {
       "id": "model_selection_per_droid",
       "name": "Per-Droid Model Selection",
-      "summary": "Each droid declares its own model preference independent of the global setting, enabling mixed-model agent compositions.",
+      "summary": "Each droid declares its own model preference (inherit or specific model ID; custom BYOK via custom: prefix) independent of the global setting, plus an optional reasoningEffort field (low/medium/high, ignored when model is inherit).",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
       "required": null,
       "conversion": "translated"
@@ -77,7 +77,15 @@
     {
       "id": "claude_code_subagent_import",
       "name": "Claude Code Subagent Import",
-      "summary": "The /import-subagent slash command converts .claude/agents/*.md files to Factory droid format for migration.",
+      "summary": "The /droids UI (press I) imports .claude/agents/*.md files from both project and personal scopes to Factory droid format; maps agent name → droid name, description → droid description, instructions → system prompt body, model families (inherit→inherit, sonnet→first Sonnet, etc.). Invalid tools listed with a warning; common remaps: Write → Edit/Create, BrowseURL → WebSearch/FetchUrl.",
+      "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "droids_management_ui",
+      "name": "Droids Management UI",
+      "summary": "/droids slash command opens a modal with list of droids (name, model, description, location badge, tools summary), a Create wizard (description, system prompt, identifier, model, tools), an Import from Claude Code option, and View/Edit/Delete/Reload actions. CLI normalizes filenames to lowercase-hyphenated on save.",
       "source_ref": "https://docs.factory.ai/cli/configuration/custom-droids",
       "required": null,
       "conversion": "not-portable"

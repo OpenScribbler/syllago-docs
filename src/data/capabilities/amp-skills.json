@@ -3,12 +3,12 @@
   "provider": "amp",
   "contentType": "skills",
   "status": "supported",
-  "lastChangedAt": "2026-04-29T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://ampcode.com/manual/agent-skills.md",
       "type": "documentation",
-      "fetched_at": "2026-04-29T16:15:06Z"
+      "fetched_at": "2026-05-06T12:57:00Z"
     }
   ],
   "canonicalMappings": {

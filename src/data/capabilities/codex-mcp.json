@@ -3,17 +3,17 @@
   "provider": "codex",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/core/config.schema.json",
       "type": "json_schema",
-      "fetched_at": "2026-04-11T21:50:05.04543904Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/openai/codex/main/codex-rs/docs/codex_mcp_interface.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:05.188896769Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -26,8 +26,8 @@
       "mechanism": "Codex does not document organization-level MCP management"
     },
     "env_var_expansion": {
-      "supported": false,
-      "mechanism": "Codex MCP configuration does not document environment variable expansion"
+      "supported": true,
+      "mechanism": "mcp_env_vars: Codex RawMcpServerConfig supports an env_vars array of McpServerEnvVar entries; each entry is either a plain string or a structured object with name and optional source fields enabling named environment variable sourcing"
     },
     "marketplace": {
       "supported": false,
@@ -54,7 +54,7 @@
     {
       "id": "mcp_servers_config",
       "name": "MCP Servers Config (config.toml mcp_servers)",
-      "summary": "MCP servers declared under mcp_servers in config.toml as RawMcpServerConfig entries (command/url, args, env, headers, OAuth, timeouts, enabled/disabled tools).",
+      "summary": "MCP servers declared under mcp_servers in config.toml as RawMcpServerConfig entries (command/url, args, env, env_vars, http_headers, env_http_headers, OAuth, timeouts, enabled/disabled tools, bearer_token_env_var, supports_parallel_tool_calls).",
       "source_ref": "config.schema.json (RawMcpServerConfig, mcp_servers)",
       "required": null,
       "provider_field": "mcp_servers",
@@ -81,7 +81,7 @@
     {
       "id": "mcp_server_interface",
       "name": "Codex MCP Server Interface (codex mcp-server)",
-      "summary": "Codex exposes itself as an MCP server via `codex mcp-server` (JSON-RPC 2.0 over stdio) for thread, turn, config, and event-stream control.",
+      "summary": "Codex exposes itself as an MCP server via `codex mcp-server` (JSON-RPC 2.0 over stdio). Primary v2 RPCs cover thread/turn/account/config/model/app/collaborationMode management. Approval requests (applyPatchApproval, execCommandApproval) flow server-to-client. Legacy v1 compatibility surface retained for existing clients. Experimental and subject to change.",
       "source_ref": "codex_mcp_interface.md",
       "required": null,
       "conversion": "not-portable"
@@ -93,6 +93,15 @@
       "source_ref": "config.schema.json (RawMcpServerConfig.enabled_tools, disabled_tools)",
       "required": null,
       "provider_field": "enabled_tools",
+      "conversion": "translated"
+    },
+    {
+      "id": "mcp_env_vars",
+      "name": "MCP Server Environment Variable Sourcing",
+      "summary": "Per-server env_vars array of McpServerEnvVar entries; each is either a plain string (env var name to pass through) or a structured object {name, source} for named/sourced env var injection.",
+      "source_ref": "config.schema.json (RawMcpServerConfig.env_vars, McpServerEnvVar)",
+      "required": null,
+      "provider_field": "env_vars",
       "conversion": "translated"
     }
   ]

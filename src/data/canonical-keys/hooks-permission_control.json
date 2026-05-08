@@ -25,13 +25,17 @@
       "supported": false,
       "mechanism": "Copilot CLI hooks can deny tool invocations (decision_control) but do not govern tool availability"
     },
+    "crush": {
+      "supported": true,
+      "mechanism": "Hooks run before permission checks. Exit code 2 blocks the tool call entirely, taking effect before the built-in permission gate."
+    },
     "cursor": {
       "supported": false,
       "mechanism": "Cursor hooks control allow/block via exit codes but do not govern tool availability through permission rule updates."
     },
     "factory-droid": {
-      "supported": false,
-      "mechanism": "Factory Droid hooks cannot make permission decisions about tool availability"
+      "supported": true,
+      "mechanism": "PreToolUse hooks return allow, deny, or ask in the JSON decision field to bypass, block, or escalate tool permission decisions"
     },
     "gemini-cli": {
       "supported": false,
@@ -43,7 +47,7 @@
     },
     "pi": {
       "supported": false,
-      "mechanism": "Pi hooks cannot make permission decisions about tool availability"
+      "mechanism": "Pi extensions cannot make availability decisions for tools; tool_call block controls invocation flow but does not remove a tool from the available set; setActiveTools() is available but is not a hook return mechanism"
     },
     "windsurf": {
       "supported": false,

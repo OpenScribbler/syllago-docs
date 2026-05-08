@@ -3,12 +3,12 @@
   "provider": "cline",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/customization/hooks",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:54.580789106Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -37,8 +37,8 @@
       "mechanism": "context_modification_output: Cline PreToolUse hooks can return modified context/input before tool execution"
     },
     "json_io_protocol": {
-      "supported": false,
-      "mechanism": "Cline hooks communicate via exit codes and output text; no structured JSON stdin/stdout protocol documented"
+      "supported": true,
+      "mechanism": "Hooks receive a JSON object via stdin (taskId, hookName, clineVersion, timestamp, workspaceRoots, userId, model, plus hook-specific fields) and return JSON to stdout with cancel (bool), contextModification (string), and errorMessage (string); debug output goes to stderr"
     },
     "matcher_patterns": {
       "supported": false,

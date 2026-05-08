@@ -3,17 +3,17 @@
   "provider": "cline",
   "contentType": "commands",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.cline.bot/customization/workflows.md",
       "type": "documentation",
-      "fetched_at": "2026-04-17T00:00:00Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     },
     {
       "uri": "https://docs.cline.bot/core-workflows/using-commands",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:20.322921534Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -50,6 +50,14 @@
       "source_ref": "https://docs.cline.bot/customization/workflows.md",
       "required": null,
       "conversion": "preserved"
+    },
+    {
+      "id": "xml_tool_syntax_in_workflows",
+      "name": "XML Tool Syntax in Workflow Bodies",
+      "summary": "Workflow markdown bodies can include XML tool syntax (e.g., <execute_command>, <read_file>, <ask_followup_question>) for precise tool invocation control alongside natural language steps.",
+      "source_ref": "https://docs.cline.bot/customization/workflows.md",
+      "required": null,
+      "conversion": "not-portable"
     },
     {
       "id": "builtin_slash_commands",

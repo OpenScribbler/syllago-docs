@@ -27,7 +27,7 @@
     },
     "crush": {
       "supported": false,
-      "mechanism": "No file import directive documented for AGENTS.md in Crush"
+      "mechanism": "No file import directive documented for context files in Crush"
     },
     "cursor": {
       "supported": true,
@@ -46,8 +46,8 @@
       "mechanism": "kiro_steering_file_references: Kiro steering files can reference other files using @file syntax"
     },
     "opencode": {
-      "supported": false,
-      "mechanism": "No documented import directive for rule files"
+      "supported": true,
+      "mechanism": "The instructions array in opencode.json (or ~/.config/opencode/opencode.json) lists additional rule files by relative path, glob pattern, or remote URL; all are combined with AGENTS.md and loaded into context"
     },
     "pi": {
       "supported": false,

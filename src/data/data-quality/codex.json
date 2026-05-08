@@ -1,10 +1,10 @@
 {
   "id": "codex",
   "provider": "codex",
-  "totalExtensions": 35,
-  "unspecifiedRequiredCount": 35,
-  "unspecifiedValueTypeCount": 35,
-  "unspecifiedExamplesCount": 35,
+  "totalExtensions": 37,
+  "unspecifiedRequiredCount": 37,
+  "unspecifiedValueTypeCount": 37,
+  "unspecifiedExamplesCount": 37,
   "trackingIssue": null,
-  "generatedAt": "2026-05-04T01:23:16Z"
+  "generatedAt": "2026-05-08T15:22:34Z"
 }

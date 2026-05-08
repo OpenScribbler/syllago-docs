@@ -3,12 +3,12 @@
   "provider": "factory-droid",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
       "uri": "https://docs.factory.ai/cli/configuration",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:26.856210369Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -58,6 +58,22 @@
       "required": null,
       "provider_field": "customInstructions",
       "conversion": "embedded"
+    },
+    {
+      "id": "settings_local_override",
+      "name": "Local Settings Override",
+      "summary": "settings.local.json alongside settings.json in any .factory/ folder provides machine-specific overrides that merge on top of the corresponding settings.json; intended to be gitignored.",
+      "source_ref": "https://docs.factory.ai/cli/configuration",
+      "required": null,
+      "conversion": "not-portable"
+    },
+    {
+      "id": "legacy_droid_yaml",
+      "name": "Legacy .droid.yaml Migration",
+      "summary": ".droid.yaml was an older project configuration surface; current configuration uses .factory/settings.json, AGENTS.md, and purpose-specific files (mcp, hooks, skills).",
+      "source_ref": "https://docs.factory.ai/cli/configuration",
+      "required": null,
+      "conversion": "not-portable"
     }
   ]
 }

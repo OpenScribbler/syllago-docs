@@ -3,7 +3,7 @@
   "provider": "gemini-cli",
   "contentType": "hooks",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/packages/core/src/hooks/types.ts",
@@ -13,12 +13,12 @@
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/schemas/settings.schema.json",
       "type": "source_code",
-      "fetched_at": "2026-04-11T21:50:38Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/index.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:50:38Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md",
@@ -68,7 +68,7 @@
     {
       "id": "hook_events",
       "name": "Hook event system",
-      "summary": "Eleven lifecycle events (BeforeTool, AfterTool, BeforeAgent, etc.) configured per-event in settings.json under the hooks key.",
+      "summary": "Eleven lifecycle events configured per-event in settings.json under the hooks key: BeforeTool, AfterTool, BeforeAgent, AfterAgent, BeforeToolSelection, BeforeModel, AfterModel, SessionStart, SessionEnd, PreCompress, and Notification.",
       "source_ref": "https://raw.githubusercontent.com/google-gemini/gemini-cli/main/docs/hooks/reference.md",
       "required": null,
       "provider_field": "hooks",

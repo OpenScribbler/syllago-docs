@@ -3,49 +3,49 @@
   "provider": "claude-code",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T14:00:00Z",
   "sources": [
     {
       "uri": "https://code.claude.com/docs/en/sub-agents.md",
       "type": "documentation",
-      "fetched_at": "2026-05-03T16:30:00Z"
+      "fetched_at": "2026-05-06T14:00:00Z"
     }
   ],
   "canonicalMappings": {
     "agent_scopes": {
       "supported": true,
-      "mechanism": "5 scopes (highest-first): managed settings (org-wide), CLI --agents flag (session), project (.claude/agents/), user (~/.claude/agents/), plugin; highest-priority wins on name collision"
+      "mechanism": "5 scopes (highest-first): managed settings (org-wide, priority 1), CLI --agents flag (current session, priority 2), project (.claude/agents/, priority 3), user (~/.claude/agents/, priority 4), plugin agents/ directory (priority 5); highest-priority wins on name collision"
     },
     "definition_format": {
       "supported": true,
-      "mechanism": "Markdown files with YAML frontmatter in .claude/agents/ (project) or ~/.claude/agents/ (user); file body becomes system prompt"
+      "mechanism": "Markdown files with YAML frontmatter in .claude/agents/ (project) or ~/.claude/agents/ (user); file body becomes system prompt; only name and description are required"
     },
     "invocation_patterns": {
       "supported": true,
-      "mechanism": "natural language (Claude auto-delegates), @agent-<name> @-mention, or --agent flag at startup for session-wide agent; 3 patterns"
+      "mechanism": "natural language (Claude auto-delegates), @agent-<name> @-mention from typeahead, or --agent flag at startup for session-wide agent; plugin subagents appear as <plugin>:<name> in typeahead"
     },
     "model_selection": {
       "supported": true,
-      "mechanism": "model frontmatter field accepts sonnet/opus/haiku alias, full model ID, or inherit (default); per-agent override"
+      "mechanism": "model frontmatter field accepts sonnet/opus/haiku alias, full model ID (e.g. claude-opus-4-7), or inherit (default); resolution order: CLAUDE_CODE_SUBAGENT_MODEL env var > per-invocation model param > frontmatter model > main conversation model"
     },
     "per_agent_mcp": {
       "supported": true,
-      "mechanism": "mcpServers frontmatter field: list of server names referencing already-configured workspace servers or inline server definitions"
+      "mechanism": "mcpServers frontmatter field: list of server names referencing already-configured workspace servers or inline server definitions; ignored for plugin subagents"
     },
     "subagent_spawning": {
       "supported": true,
-      "mechanism": "main-thread agents spawn subagents via Agent tool; subagents cannot spawn further subagents; Agent(type) in tools allowlist restricts which subagent types are allowed"
+      "mechanism": "main-thread agents spawn subagents via Agent tool; subagents cannot spawn further subagents; Agent(type) in tools allowlist restricts which subagent types are allowed; Agent without parentheses allows spawning any subagent; omitting Agent from tools list blocks all spawning"
     },
     "tool_restrictions": {
       "supported": true,
-      "mechanism": "tools allowlist and disallowedTools denylist in frontmatter; Agent(type) syntax restricts which subagent types a main-thread agent can spawn"
+      "mechanism": "tools allowlist and disallowedTools denylist in frontmatter; if both set, disallowedTools applied first then tools resolved against remaining pool; Agent(type) syntax in tools allowlist restricts which subagent types a main-thread agent can spawn"
     }
   },
   "providerExtensions": [
     {
       "id": "agent_file_format",
       "name": "Markdown + YAML Frontmatter Agent Files",
-      "summary": "Agents are .md files with YAML frontmatter; body is the system prompt, name and description are the only required fields.",
+      "summary": "Agents are .md files with YAML frontmatter; body is the system prompt, name and description are the only required fields. Subagents receive only their own system prompt plus basic environment details at startup, not the parent session's context.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#write-subagent-files",
       "required": null,
       "conversion": "translated"
@@ -53,7 +53,7 @@
     {
       "id": "agent_frontmatter_fields",
       "name": "Full Frontmatter Field Set",
-      "summary": "Frontmatter supports tools, disallowedTools, model, permissionMode, maxTurns, skills, mcpServers, hooks, memory, background, effort, isolation, color, initialPrompt.",
+      "summary": "Frontmatter supports tools, disallowedTools, model, permissionMode, maxTurns, skills, mcpServers, hooks, memory, background, effort, isolation, color, initialPrompt. Plugin subagents ignore hooks, mcpServers, and permissionMode for security reasons.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
       "required": null,
       "conversion": "embedded"
@@ -61,7 +61,7 @@
     {
       "id": "agent_scopes",
       "name": "Five Agent Scopes and Priority Ordering",
-      "summary": "Five agent scopes (highest first): managed settings, CLI --agents flag, project, user, plugin; highest-priority wins on name collision.",
+      "summary": "Five agent scopes (highest first): managed settings (priority 1), CLI --agents flag (priority 2, session-only inline JSON), project (priority 3), user (priority 4), plugin (priority 5). The --agents flag accepts same frontmatter fields as file-based agents using 'prompt' for the system prompt body.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#choose-the-subagent-scope",
       "required": null,
       "conversion": "translated"
@@ -69,7 +69,7 @@
     {
       "id": "agent_invocation_patterns",
       "name": "Three Invocation Patterns",
-      "summary": "Three invocation patterns: natural language auto-delegation, @agent-<name> mention, or --agent flag for session-wide agent.",
+      "summary": "Three invocation patterns: natural language auto-delegation, @agent-<name> mention (or @agent-<plugin>:<name> for plugin agents), or --agent flag for session-wide agent (replaces default system prompt; agent name setting persists on session resume).",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#invoke-subagents-explicitly",
       "required": null,
       "conversion": "embedded"
@@ -77,7 +77,7 @@
     {
       "id": "agent_tool_restrictions",
       "name": "Tool Allowlist, Denylist, and Agent-Spawning Restrictions",
-      "summary": "tools allowlist, disallowedTools denylist, and Agent(type) syntax restricting which subagent types a main-thread agent may spawn.",
+      "summary": "tools allowlist, disallowedTools denylist. Agent(type) in tools allowlist restricts which subagent types can be spawned; Agent without parentheses allows any; omit Agent entirely to block spawning. Use permissions.deny with Agent(subagent-name) to prevent Claude from using specific subagents. disallowedTools applied before tools if both present.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#control-subagent-capabilities",
       "required": null,
       "provider_field": "tools",
@@ -86,7 +86,7 @@
     {
       "id": "agent_persistent_memory",
       "name": "Persistent Cross-Session Memory",
-      "summary": "Gives an agent a persistent directory (user/project/local scope) seeded with MEMORY.md and Read/Write/Edit tools.",
+      "summary": "Gives an agent a persistent directory (user: ~/.claude/agent-memory/<name>/, project: .claude/agent-memory/<name>/, local: .claude/agent-memory-local/<name>/) seeded with MEMORY.md and Read/Write/Edit tools auto-enabled. First 200 lines or 25KB of MEMORY.md injected at startup.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#enable-persistent-memory",
       "required": null,
       "provider_field": "memory",
@@ -95,7 +95,7 @@
     {
       "id": "agent_background_foreground",
       "name": "Foreground vs Background Execution",
-      "summary": "Agents run foreground (blocking, interactive prompts) or background (concurrent, pre-approved tools); set background: true or press Ctrl+B.",
+      "summary": "Agents run foreground (blocking, interactive prompts pass through) or background (concurrent, pre-approved tools only; AskUserQuestion fails but agent continues); set background: true or press Ctrl+B. CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1 disables all background tasks.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#run-subagents-in-foreground-or-background",
       "required": null,
       "provider_field": "background",
@@ -113,7 +113,7 @@
     {
       "id": "agent_cli_defined",
       "name": "CLI-Defined Session Agents via --agents Flag",
-      "summary": "--agents flag accepts inline JSON agent definitions for the session only (not persisted); useful for testing and automation.",
+      "summary": "--agents flag accepts inline JSON agent definitions for the session only (not persisted). Accepts same frontmatter fields as file-based agents; uses 'prompt' key for the system prompt body.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#choose-the-subagent-scope",
       "required": null,
       "conversion": "not-portable"
@@ -121,7 +121,7 @@
     {
       "id": "agent_resume",
       "name": "Subagent Resumption",
-      "summary": "SendMessage tool resumes existing subagents (gated on CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1); transcripts persist independently of main conversation compaction.",
+      "summary": "SendMessage tool resumes existing subagents (gated on CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1); transcripts persist independently of main conversation compaction at ~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl; auto-resumes in background on SendMessage without requiring new Agent invocation.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#resume-subagents",
       "required": null,
       "conversion": "not-portable"
@@ -129,7 +129,7 @@
     {
       "id": "agent_mcp_scoping",
       "name": "Per-Agent MCP Server Scoping",
-      "summary": "Gives an agent inline or referenced MCP servers; inline definitions keep tool descriptions out of the parent context.",
+      "summary": "Gives an agent inline or referenced MCP servers; inline definitions keep tool descriptions out of the parent context; ignored for plugin subagents.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#scope-mcp-servers-to-a-subagent",
       "required": null,
       "provider_field": "mcpServers",
@@ -138,10 +138,54 @@
     {
       "id": "agent_fork_mode",
       "name": "Forked Subagents (Experimental)",
-      "summary": "Experimental fork mode (CLAUDE_CODE_FORK_SUBAGENT=1, CC v2.1.117+): forks inherit the full conversation context instead of starting fresh, used for side tasks that need full background; /fork command spawns a fork instead of aliasing /branch.",
+      "summary": "Experimental fork mode (CLAUDE_CODE_FORK_SUBAGENT=1, CC v2.1.117+): forks inherit the full conversation context instead of starting fresh; every subagent spawn runs in background in fork mode; /fork command spawns a fork instead of aliasing /branch; named subagents like Explore still spawn as before.",
       "source_ref": "https://code.claude.com/docs/en/sub-agents.md#fork-the-current-conversation",
       "required": null,
       "provider_field": "CLAUDE_CODE_FORK_SUBAGENT",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agent_color",
+      "name": "Per-Agent Display Color",
+      "summary": "The color frontmatter field sets a display color for the subagent in the task list and transcript. Accepts: red, blue, green, yellow, purple, orange, pink, or cyan.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
+      "required": null,
+      "provider_field": "color",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agent_initial_prompt",
+      "name": "Initial Prompt Auto-Submission",
+      "summary": "initialPrompt is auto-submitted as the first user turn when the agent runs as the main session agent (via --agent or agent setting). Commands and skills are processed. Prepended to any user-provided prompt.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#supported-frontmatter-fields",
+      "required": null,
+      "provider_field": "initialPrompt",
+      "conversion": "not-portable"
+    },
+    {
+      "id": "agent_preloaded_skills",
+      "name": "Preloaded Skills via skills Frontmatter",
+      "summary": "The skills frontmatter field injects full skill content into the subagent's context at startup (not just made available for invocation). Subagents do not inherit skills from parent conversation. Skills with disable-model-invocation: true cannot be preloaded; missing or disabled skills are skipped with a warning.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#preload-skills-into-subagents",
+      "required": null,
+      "provider_field": "skills",
+      "conversion": "embedded"
+    },
+    {
+      "id": "agent_permission_modes",
+      "name": "Per-Agent Permission Modes",
+      "summary": "permissionMode field controls permission handling: default (standard prompts), acceptEdits (auto-accept file edits in working dir or additionalDirectories), auto (background classifier), dontAsk (auto-deny non-allowed tools), bypassPermissions (skip all prompts except root/home removals), plan (read-only). Parent bypassPermissions or acceptEdits overrides subagent mode. Ignored for plugin subagents.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#permission-modes",
+      "required": null,
+      "provider_field": "permissionMode",
+      "conversion": "embedded"
+    },
+    {
+      "id": "agent_auto_compaction",
+      "name": "Subagent Auto-Compaction",
+      "summary": "Subagents support automatic compaction using the same logic as the main conversation (triggers at approximately 95% capacity by default; configurable via CLAUDE_AUTOCOMPACT_PCT_OVERRIDE). Compaction events logged in subagent transcript files.",
+      "source_ref": "https://code.claude.com/docs/en/sub-agents.md#auto-compaction",
+      "required": null,
       "conversion": "not-portable"
     }
   ]

@@ -3,12 +3,12 @@
   "provider": "windsurf",
   "contentType": "mcp",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:46:24.674713454Z"
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -22,23 +22,23 @@
     },
     "env_var_expansion": {
       "supported": true,
-      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${VAR} interpolation for environment variables"
+      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
     },
     "marketplace": {
       "supported": true,
       "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
     },
     "oauth_support": {
-      "supported": false,
-      "mechanism": "Windsurf MCP does not document OAuth 2.0 authentication for remote servers"
+      "supported": true,
+      "mechanism": "Windsurf supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
     },
     "resource_referencing": {
       "supported": false,
       "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
     },
     "tool_filtering": {
-      "supported": false,
-      "mechanism": "Windsurf exposes all tools from connected MCP servers; no per-server tool allowlist or blocklist documented"
+      "supported": true,
+      "mechanism": "tool_limit_100: individual MCP tools can be toggled on or off per server via the Cascade panel UI; disabled tools are tracked in a disabledTools array separate from whitelist matching"
     },
     "transport_types": {
       "supported": true,
@@ -64,8 +64,8 @@
     },
     {
       "id": "tool_limit_100",
-      "name": "100-tool cap across all MCP servers",
-      "summary": "Cascade caps total MCP tools at 100 across all configured servers; individual tools can be toggled to stay within the limit.",
+      "name": "100-tool cap across all MCP servers with per-tool toggle",
+      "summary": "Cascade caps total MCP tools at 100 across all configured servers; individual tools can be toggled on or off via the Cascade panel UI to stay within the limit. Disabled tools are tracked in a disabledTools array and are excluded from admin whitelist matching.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#configuring-mcp-tools",
       "required": null,
       "conversion": "not-portable"
@@ -73,18 +73,26 @@
     {
       "id": "enterprise_whitelist_and_registry",
       "name": "Enterprise MCP whitelist and custom registry",
-      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs.",
+      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs. Multiple registry URLs are supported; Windsurf takes the union of all registries.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises",
       "required": null,
       "conversion": "not-portable"
     },
     {
       "id": "mcp_marketplace",
-      "name": "In-IDE MCP marketplace",
-      "summary": "Built-in MCP marketplace accessible from the Cascade panel for one-click discovery and installation of MCP servers.",
+      "name": "In-IDE MCP marketplace with deeplink install",
+      "summary": "Built-in MCP marketplace accessible from the Cascade panel for one-click discovery and installation; supports deeplink format windsurf://windsurf-mcp-registry?serverName=<name> for direct server page navigation.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
       "required": null,
       "conversion": "not-portable"
+    },
+    {
+      "id": "oauth_per_transport",
+      "name": "OAuth support for all transport types",
+      "summary": "Windsurf supports OAuth authentication for MCP servers across all three transport types (stdio, Streamable HTTP, SSE), enabling authenticated remote server connections.",
+      "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
+      "required": null,
+      "conversion": "translated"
     }
   ]
 }

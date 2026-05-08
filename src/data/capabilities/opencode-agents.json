@@ -3,55 +3,55 @@
   "provider": "opencode",
   "contentType": "agents",
   "status": "supported",
-  "lastChangedAt": "2026-04-11T00:00:00Z",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
   "sources": [
     {
       "uri": "https://opencode.ai/docs/agents/",
       "type": "documentation",
-      "fetched_at": ""
+      "fetched_at": "2026-05-06T13:00:00Z"
     },
     {
       "uri": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
       "type": "source_code",
-      "fetched_at": ""
+      "fetched_at": "2026-05-06T13:00:00Z"
     }
   ],
   "canonicalMappings": {
     "agent_scopes": {
       "supported": true,
-      "mechanism": "Two scopes: project (.opencode/agents/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
+      "mechanism": "Two scopes: project (.opencode/agents/ or .opencode/agent/) and user-global (~/.config/opencode/agents/). Both scopes are loaded and coexist."
     },
     "definition_format": {
       "supported": true,
-      "mechanism": "Markdown files with YAML frontmatter loaded from .opencode/agents/*.md (project) and ~/.config/opencode/agents/*.md (global). The loader glob accepts both agent/ and agents/ directory names and recurses. Frontmatter declares description (required), mode, model, permission, steps, temperature, top_p, color, and hidden; the markdown body becomes the system prompt."
+      "mechanism": "Markdown files with YAML frontmatter loaded from .opencode/agents/*.md (project) and ~/.config/opencode/agents/*.md (global). The loader glob accepts both agent/ and agents/ directory names and recurses. Frontmatter declares description, mode, model, temperature, top_p, steps, permission, color, hidden, disable, variant, and prompt; the markdown body becomes the system prompt. Agents can also be defined inline in opencode.json under the agent key."
     },
     "invocation_patterns": {
       "supported": true,
-      "mechanism": "Agent name derives from the filename (configEntryNameFromPath). Agents with mode: primary can be selected as the session agent; agents with mode: subagent are invoked by other agents via description-driven matching; mode: all allows both."
+      "mechanism": "Primary agents are cycled via the Tab key or the switch_agent keybind. Subagents are invoked automatically by primary agents for specialized tasks based on their description, or manually by @-mentioning the subagent name in a message. Agent name derives from the filename (configEntryNameFromPath)."
     },
     "model_selection": {
       "supported": true,
-      "mechanism": "Frontmatter model field selects a specific model alias or full model string for the agent, overriding the session default.",
+      "mechanism": "Frontmatter model field selects a specific model using provider/model-id format, overriding the session default. Primary agents use the globally configured model if not specified; subagents use the invoking primary agent's model if not specified.",
       "provider_field": "model"
     },
     "per_agent_mcp": {
       "supported": false,
-      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration."
+      "mechanism": "OpenCode agent frontmatter does not document a per-agent mcpServers field; agents inherit the workspace MCP configuration. Per-agent tool access to MCP tools is controlled via the permission map (e.g., mymcp_*: deny) rather than a separate MCP config."
     },
     "subagent_spawning": {
       "supported": true,
-      "mechanism": "Agents with mode: subagent (or mode: all) can be invoked from other agents; delegation is driven by the callee's description field."
+      "mechanism": "Agents with mode: subagent (or mode: all) can be invoked from other agents via the Task tool; delegation is driven by the callee's description field. Task permissions (permission.task) on the orchestrating agent control which subagents it is allowed to invoke."
     },
     "tool_restrictions": {
       "supported": true,
-      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool, replacing the deprecated tools allow/deny map."
+      "mechanism": "The permission frontmatter map configures ask/allow/deny per tool using named permission keys (read, edit, bash, glob, grep, list, task, external_directory, todowrite, webfetch, websearch, lsp, skill, question, doom_loop) or wildcard glob patterns against tool names. Keys that support fine-grained control (read, edit, glob, grep, list, bash, task, external_directory, lsp, skill) accept either a shorthand action string or an object of glob/pattern → action."
     }
   },
   "providerExtensions": [
     {
       "id": "agent_mode",
       "name": "Agent mode (primary / subagent / all)",
-      "summary": "Frontmatter mode field selects whether the agent is a root primary agent, a subagent invoked by another agent, or both.",
+      "summary": "Frontmatter mode field selects whether the agent is a root primary agent, a subagent invoked by another agent, or both. Defaults to all if not specified. Built-in primary agents: Build (all tools) and Plan (restricted). Built-in subagents: General (full tools) and Explore (read-only).",
       "source_ref": "https://opencode.ai/docs/agents/",
       "required": null,
       "provider_field": "mode",
@@ -60,7 +60,7 @@
     {
       "id": "temperature",
       "name": "Sampling temperature override",
-      "summary": "Per-agent sampling temperature via frontmatter temperature field.",
+      "summary": "Per-agent sampling temperature via frontmatter temperature field. Range 0.0–1.0. If not specified, OpenCode uses model-specific defaults (typically 0 for most models, 0.55 for Qwen models).",
       "source_ref": "https://opencode.ai/docs/agents/",
       "required": null,
       "provider_field": "temperature",
@@ -69,7 +69,7 @@
     {
       "id": "top_p",
       "name": "top_p sampling override",
-      "summary": "Per-agent nucleus sampling top_p value via frontmatter.",
+      "summary": "Per-agent nucleus sampling top_p value (0.0–1.0) via frontmatter. Alternative to temperature for controlling response diversity.",
       "source_ref": "https://opencode.ai/docs/agents/",
       "required": null,
       "provider_field": "top_p",
@@ -78,7 +78,7 @@
     {
       "id": "steps",
       "name": "Per-step iteration limit",
-      "summary": "Frontmatter steps field caps the number of model steps for this agent. Replaces the deprecated maxSteps field.",
+      "summary": "Frontmatter steps field caps the number of agentic iterations before the agent is forced to respond with text only and summarize its work. Replaces the deprecated maxSteps field.",
       "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
       "required": null,
       "provider_field": "steps",
@@ -87,16 +87,25 @@
     {
       "id": "permission_map",
       "name": "Per-tool permission overrides",
-      "summary": "Frontmatter permission map configures ask/allow/deny behavior per tool, replacing the deprecated tools allow/deny map.",
+      "summary": "Frontmatter permission map configures ask/allow/deny behavior per tool, replacing the deprecated tools allow/deny map. Named keys gate logical tool groups; fine-grained keys accept glob/pattern→action objects. Permission keys: read, edit, bash, glob, grep, list, task, external_directory, todowrite, webfetch, websearch, lsp, skill, question, doom_loop.",
       "source_ref": "https://opencode.ai/docs/agents/",
       "required": null,
       "provider_field": "permission",
       "conversion": "translated"
     },
     {
+      "id": "task_permissions",
+      "name": "Task-level subagent invocation control",
+      "summary": "permission.task controls which subagents an agent can invoke via the Task tool using glob patterns. When set to deny, the subagent is removed from the Task tool description entirely. Rules are evaluated in order; last matching rule wins. Users can always @-mention subagents directly regardless of task permissions.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "permission.task",
+      "conversion": "embedded"
+    },
+    {
       "id": "color",
       "name": "Agent color tag",
-      "summary": "Optional color hint for UI display of the agent.",
+      "summary": "Optional color hint for UI display of the agent. Accepts a hex color string (#RRGGBB) or a theme color name (primary, secondary, accent, success, warning, error, info).",
       "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
       "required": null,
       "provider_field": "color",
@@ -105,10 +114,45 @@
     {
       "id": "hidden",
       "name": "Hidden from pickers",
-      "summary": "Boolean hidden flag excludes the agent from interactive selection UIs while still allowing programmatic invocation.",
+      "summary": "Boolean hidden flag (default: false) excludes a subagent from the @ autocomplete menu while still allowing programmatic invocation via the Task tool. Only applies to mode: subagent agents.",
       "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
       "required": null,
       "provider_field": "hidden",
+      "conversion": "embedded"
+    },
+    {
+      "id": "disable",
+      "name": "Disable agent",
+      "summary": "Boolean disable field (default: false) disables the agent entirely. Useful for turning off built-in agents without removing their config.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "disable",
+      "conversion": "embedded"
+    },
+    {
+      "id": "variant",
+      "name": "Default model variant",
+      "summary": "Optional variant field specifies the default model variant for this agent. Applies only when using the agent's configured model.",
+      "source_ref": "https://raw.githubusercontent.com/sst/opencode/dev/packages/opencode/src/config/agent.ts",
+      "required": null,
+      "provider_field": "variant",
+      "conversion": "embedded"
+    },
+    {
+      "id": "provider_passthrough_options",
+      "name": "Provider-specific model options passthrough",
+      "summary": "Any unrecognized fields in the agent config are promoted into an options map and passed through to the model provider. This allows provider-specific parameters (e.g., OpenAI reasoningEffort, textVerbosity) without schema changes.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
+      "provider_field": "options",
+      "conversion": "embedded"
+    },
+    {
+      "id": "agent_create_command",
+      "name": "Interactive agent creation command",
+      "summary": "The opencode agent create command interactively creates a new agent markdown file, prompting for scope (global or project), description, and permissions.",
+      "source_ref": "https://opencode.ai/docs/agents/",
+      "required": null,
       "conversion": "embedded"
     }
   ]

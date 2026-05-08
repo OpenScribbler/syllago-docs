@@ -3,12 +3,12 @@
   "provider": "cline",
   "contentType": "rules",
   "status": "supported",
-  "lastChangedAt": "2026-04-17T00:00:00Z",
+  "lastChangedAt": "2026-05-06T00:00:00Z",
   "sources": [
     {
-      "uri": "https://docs.cline.bot/customization/rules",
+      "uri": "https://docs.cline.bot/customization/cline-rules",
       "type": "documentation",
-      "fetched_at": "2026-04-11T21:49:51.899572822Z"
+      "fetched_at": "2026-05-06T00:00:00Z"
     }
   ],
   "canonicalMappings": {
@@ -38,7 +38,7 @@
       "id": "multi_source_rule_detection",
       "name": "Multi-Source Rule Detection",
       "summary": "Cline auto-loads rule files from .cursorrules, .windsurfrules, and AGENTS.md alongside its own .clinerules/ directory.",
-      "source_ref": "https://docs.cline.bot/customization/rules#supported-rule-types",
+      "source_ref": "https://docs.cline.bot/customization/cline-rules#supported-rule-types",
       "required": null,
       "conversion": "not-portable"
     },
@@ -46,7 +46,7 @@
       "id": "rule_toggle",
       "name": "Per-Rule Enable/Disable Toggle",
       "summary": "UI toggle in the Rules panel to enable or disable each rule file without deleting it.",
-      "source_ref": "https://docs.cline.bot/customization/rules#toggling-rules",
+      "source_ref": "https://docs.cline.bot/customization/cline-rules#toggling-rules",
       "required": null,
       "conversion": "not-portable"
     },
@@ -54,7 +54,7 @@
       "id": "conditional_rules_paths",
       "name": "Conditional Rules via YAML Frontmatter paths",
       "summary": "Gates rule activation to files matching a glob array; empty array disables, missing frontmatter is always-on.",
-      "source_ref": "https://docs.cline.bot/customization/rules#conditional-rules",
+      "source_ref": "https://docs.cline.bot/customization/cline-rules#conditional-rules",
       "required": null,
       "provider_field": "paths",
       "conversion": "embedded"
@@ -63,7 +63,7 @@
       "id": "newrule_slash_command",
       "name": "/newrule Slash Command for Interactive Rule Creation",
       "summary": "Built-in /newrule command guides the user through creating a .clinerules file interactively.",
-      "source_ref": "https://docs.cline.bot/customization/rules#creating-rules",
+      "source_ref": "https://docs.cline.bot/customization/cline-rules#creating-rules",
       "required": null,
       "conversion": "not-portable"
     }
