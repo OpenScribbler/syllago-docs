@@ -2,6 +2,19 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-05-11
+
+### Added
+- `src/content/docs/getting-started/why-syllago.mdx` — new top-of-funnel page that opens with the AI-tool fragmentation problem (per-provider rules/skills location table) and introduces syllago's primitives. Sits at the top of Getting Started before Installation.
+- `src/content/docs/getting-started/mental-models.mdx` — new conceptual page mapping syllago vocabulary (registry, library, loadout, provider, canonical key, hub-and-spoke, privacy gate, MOAT tier) to familiar tools (npm, virtualenv, Vercel, LLVM IR, Sigstore, etc.). Reduces vocabulary overload for new users.
+- `src/content/docs/getting-started/choose-your-path.mdx` — new persona-routing page with three paths: Solo developer (loadouts + TUI), Tech lead / maintainer (committed `.syllago/`, `sync-install` in CI), Platform administrator (private registries, MOAT, sandbox).
+- `src/content/docs/using-syllago/local-vs-global.mdx` — new architecture page explicitly contrasting committed `.syllago/` (per-project, Git-tracked) vs `~/.syllago/content/` (per-user) with side-by-side workflows and a decision guide. Addresses the "syllago is only for global content management" assumption.
+- `src/pages/index.astro` — new "Who is this for?" persona section (3-card grid) between the features grid and provider carousel, deep-linking to the corresponding sections of `choose-your-path`. Mobile-stacks via the existing 768px breakpoint.
+
+### Changed
+- `src/content/docs/getting-started/core-concepts.mdx` — prepended a brief problem-framing intro that points readers to the new `why-syllago` and `mental-models` pages before listing the four formal concepts.
+- `sidebar.ts` — wired three new entries into Getting Started (`why-syllago`, `mental-models`, `choose-your-path`) and one into Using Syllago (`local-vs-global`).
+
 ## 2026-05-08
 
 ### Added

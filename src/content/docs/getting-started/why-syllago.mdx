@@ -1,0 +1,52 @@
+---
+title: Why syllago
+description: AI coding tools don't agree on anything. Syllago is the content manager that makes them work as one.
+---
+
+If you've worked with more than one AI coding tool, you've felt this: each one wants its rules, skills, and configuration in a slightly different place, in a slightly different format. None of them know about the others. Sharing context across them is manual, fragile, and easy to get wrong.
+
+Syllago exists to fix that.
+
+## The fragmentation problem
+
+A typical workflow today might involve **Claude Code** in the terminal, **Cursor** as the IDE, and **Copilot CLI** for shell commands. Each describes the same thing differently:
+
+| Tool | Rules go in… | Skills go in… |
+|------|--------------|---------------|
+| Claude Code | `CLAUDE.md`, `.claude/` | `.claude/skills/` |
+| Cursor | `.cursorrules`, `.cursor/rules/*.mdc` | (no native equivalent) |
+| Windsurf | `.windsurfrules`, `.windsurf/rules/` | `.windsurf/workflows/` |
+| Copilot CLI | `.github/copilot-instructions.md` | (no native equivalent) |
+| Kiro | `.kiro/steering/` | (no native equivalent) |
+
+Add **Roo Code**, **Cline**, **Amp**, **Gemini CLI**, **Codex**, **OpenCode**, **Zed**, **Factory Droid**, **Crush**, and **Pi**, and the table grows in every dimension. MCP servers compound it — each client wires them up its own way.
+
+Without a manager, every team that uses more than one tool ends up with the same workarounds: shell scripts that copy files between locations, README sections explaining where to paste which thing, configuration drift between teammates who use different tools, broken toolchains when a provider renames a directory.
+
+## What syllago does
+
+Syllago is a content manager for AI coding tools — think `apt`, `brew`, or `npm`, but for AI-assistant configuration. You maintain one canonical copy of each item. Syllago layers three things on top:
+
+1. **Conversion.** When you install a skill to Cursor, syllago translates it into a Cursor-compatible rule. The same skill installed to Kiro becomes a steering file. Intent carries forward; format adapts. See [Format Conversion](/using-syllago/format-conversion/).
+2. **Compatibility checking.** [`syllago compat`](/using-syllago/cli-reference/compat/) reports which providers can fully consume an item and where features will degrade in translation, so you know before you publish.
+3. **Distribution.** Git-based [registries](/using-syllago/collections/registries/) let you publish org-wide standards and pull updates with one command. [Loadouts](/using-syllago/collections/loadouts/) bundle related items so you apply a whole stack as a unit and revert it cleanly.
+
+## What you actually manage
+
+Syllago breaks AI-tool configuration into a small set of tool-agnostic primitives:
+
+- **[Rules](/using-syllago/content-types/rules/)** — Markdown instructions governing style, architecture, and behavior.
+- **[Skills](/using-syllago/content-types/skills/)** — Multi-file workflow packages the AI can call to perform actions.
+- **[Agents](/using-syllago/content-types/agents/)** — Persona and steering definitions for the model.
+- **[MCP Configs](/using-syllago/content-types/mcp-configs/)** — Provider-agnostic settings for Model Context Protocol servers.
+- **[Hooks](/using-syllago/content-types/hooks/)** — Event listeners that trigger behavior on local events.
+- **[Commands](/using-syllago/content-types/commands/)** — Custom slash commands.
+
+You define each item once. Syllago decides what to do with it on each provider.
+
+## Where to go next
+
+- New to syllago? [Install it](/getting-started/installation/) and run the [Quick Start](/getting-started/quick-start/).
+- Want the formal model? [Core Concepts](/getting-started/core-concepts/).
+- Vocabulary feels unfamiliar? [Mental Models](/getting-started/mental-models/) maps every term to a tool you probably already know.
+- Looking for the path that matches your role? [Choose your path](/getting-started/choose-your-path/).
