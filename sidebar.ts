@@ -7,9 +7,12 @@ export const sidebar: SidebarItem[] = [
   {
     label: 'Getting Started',
     items: [
+      { label: 'Why syllago', slug: 'getting-started/why-syllago' },
       { label: 'Installation', slug: 'getting-started/installation' },
       { label: 'Quick Start', slug: 'getting-started/quick-start' },
       { label: 'Core Concepts', slug: 'getting-started/core-concepts' },
+      { label: 'Mental Models', slug: 'getting-started/mental-models' },
+      { label: 'Choose Your Path', slug: 'getting-started/choose-your-path' },
     ],
   },
   {
@@ -233,6 +236,7 @@ export const sidebar: SidebarItem[] = [
       },
       { label: '.syllago.yaml Format', slug: 'using-syllago/syllago-yaml' },
       { label: 'Format Conversion', slug: 'using-syllago/format-conversion' },
+      { label: 'Local vs. Global', slug: 'using-syllago/local-vs-global' },
     ],
   },
   {
@@ -359,7 +363,7 @@ export const sidebar: SidebarItem[] = [
   {
     label: 'Error Codes',
     collapsed: true,
-    autogenerate: { directory: 'errors' },
+    items: [{ autogenerate: { directory: 'errors' } }],
   },
   {
     label: 'For AI assistants',

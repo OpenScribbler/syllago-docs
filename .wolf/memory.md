@@ -954,3 +954,13 @@
 |------|--------|---------|---------|--------|
 | 17:24 | Created design-previews/ — 10 landing-page concept HTML files + iframe gallery index | design-previews/01-spotlight.html through 10-zen.html, design-previews/index.html | 11 self-contained pages, ~2.4k LOC, on-brand Flexoki palette, mouse/cursor effects per concept | ~24k |
 | 17:42 | Combined 01 + 07 into a new preview with hover-revealed ASCII rain and cycling hero phrase (Share/Sync/Ship/Wire/Publish your skills/rules/agents/hooks/commands) | design-previews/11-spotrain.html, design-previews/index.html, .wolf/anatomy.md | New 11th tile added to gallery, originals untouched. Cycle uses textContent + class swap (no innerHTML); rain fades from 0 → 0.10 while body.live | ~3.5k |
+
+## Session: 2026-05-11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 00:00 | Created 4 new conceptual docs pages from analysisv2 attachment | src/content/docs/getting-started/{why-syllago,mental-models,choose-your-path}.mdx, src/content/docs/using-syllago/local-vs-global.mdx | All link to existing pages (compat/sync-install/install/etc. verified to exist); standard title+description frontmatter matches docsSchema() | ~5k |
+| 00:00 | Updated core-concepts to lead with fragmentation problem framing | src/content/docs/getting-started/core-concepts.mdx | Two-paragraph intro pointing to why-syllago + mental-models, then the original four-concepts treatment | ~0.3k |
+| 00:00 | Added "Who is this for?" persona section to landing page | src/pages/index.astro | Three-card grid between features and provider carousel, deep-linking to choose-your-path anchors; reuses Flexoki palette, mobile-stacks via existing 768px breakpoint | ~2k |
+| 00:00 | Wired new pages into sidebar | sidebar.ts | Getting Started: +why-syllago/mental-models/choose-your-path (top + after Core Concepts). Using Syllago: +local-vs-global (next to Format Conversion) | ~0.4k |
+| 00:00 | Updated CHANGELOG with 2026-05-11 entry | CHANGELOG.md | Added/Changed subsections covering 4 new pages, landing-page section, core-concepts intro, sidebar wiring | ~0.5k |
