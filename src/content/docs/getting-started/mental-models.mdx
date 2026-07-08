@@ -12,11 +12,11 @@ Syllago borrows ideas from package managers, virtual environments, build tools, 
 | **[Registry](/using-syllago/collections/registries/)** | npm registry, Homebrew tap, `apt` source | A networked source of installable content that someone else maintains. |
 | **[Library](/using-syllago/collections/library/)** | `~/.npm/`, `~/.cargo/`, your local dotfiles | The on-machine store of content you own and edit. |
 | **[Loadout](/using-syllago/collections/loadouts/)** | Python `venv`, `docker-compose.yml`, a Terraform workspace | A named bundle you apply as a unit and revert cleanly. |
-| **[Provider](/using-syllago/providers/)** | A deploy target (Vercel, ECR, Heroku) | The thing your content ships to — `--to <provider>` is the destination. |
+| **[Provider](/using-syllago/providers/)** | A deploy target (Vercel, Netlify, Heroku) | The thing your content ships to — `--to <provider>` is the destination. |
 | **[Content type](/using-syllago/content-types/)** | A package or artifact format | The kind of thing (rule, skill, agent, hook…). Each type has its own conventions. |
 | **[Canonical key](/reference/canonical-keys/)** | An interface, or a portable IR | The tool-neutral name for a capability (e.g. `hierarchical_loading`) that providers implement differently. |
 | **[Format conversion](/using-syllago/format-conversion/)** | A transpiler (Babel, esbuild target) | What syllago does between its internal representation and each provider's native format. |
-| **Hub-and-spoke model** | LLVM IR, GraphQL between front and back ends | One neutral middle format; providers connect through it instead of converting pairwise. |
+| **Hub-and-spoke model** | A compiler's intermediate representation, GraphQL between front and back ends | One neutral middle format; providers connect through it instead of converting pairwise. |
 | **[Privacy gate](/advanced/registry-privacy/)** | A `.gitignore` for AI content | A guard that stops marked-private content from leaking to public registries. |
 | **[MOAT trust tier](/moat/trust-tiers/)** | Sigstore, npm provenance attestation | The signed-and-verified provenance level of a registry. |
 | **[Sandbox](/advanced/sandbox/)** | Docker, bubblewrap, an unprivileged user | A confined environment for running an AI provider with restricted FS, network, and env access. |
