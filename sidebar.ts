@@ -363,7 +363,7 @@ export const sidebar: SidebarItem[] = [
   {
     label: 'Error Codes',
     collapsed: true,
-    autogenerate: { directory: 'errors' },
+    items: [{ autogenerate: { directory: 'errors' } }],
   },
   {
     label: 'For AI assistants',
