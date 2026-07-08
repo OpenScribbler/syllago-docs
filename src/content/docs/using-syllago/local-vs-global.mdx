@@ -1,0 +1,81 @@
+---
+title: Local vs. Global
+description: Syllago works at the project level (committed to Git) or at the user level (shared across all your work). You don't have to pick one.
+---
+
+A common assumption about syllago is that it's only useful for org-wide content management — shared registries, cross-team standards, networked distribution. That's one mode. But syllago is equally happy as a local, repo-scoped tool whose state lives next to your code.
+
+The right question isn't "local or global?" It's "where does this particular piece of content belong?"
+
+## The two surfaces
+
+|  | **Local (per-project)** | **Global (per-user)** |
+|---|---|---|
+| Source of truth | `.syllago/` committed to the repo | `~/.syllago/content/` on your machine |
+| Who sees it | Anyone who clones the repo | Just you |
+| Survives a fresh checkout? | Yes | No (re-acquire from a registry) |
+| Best for | Project-specific rules, team standards, CI gates | Personal preferences, cross-project skills |
+| Created by | `syllago init` in the repo root | First `syllago add` from any provider |
+
+The two coexist. A given project's AI-tool setup can pull from both: project-specific rules from the local `.syllago/` directory, plus personal skills from your global library.
+
+## The local-only project
+
+```bash
+# In a project where you want config to ride with the repo
+cd my-project
+syllago init
+syllago add --from claude-code        # capture what you've already configured
+git add .syllago
+git commit -m "chore: scaffold syllago for this repo"
+```
+
+From there, anyone who clones the repo runs `syllago sync-install --to <their-provider>` and gets the same rules, skills, and MCP configs the team agreed on. No network calls to a registry, no `~/.syllago/`-state assumptions about each contributor's machine.
+
+This is the right mode for:
+
+- Style and architecture rules that only apply to *this* repo
+- Skills and hooks specific to the project's stack
+- Onboarding new contributors with a single `git clone`
+
+## The global / shared mode
+
+```bash
+# Add a team registry, sync it, install to your provider of choice
+syllago registry add https://github.com/org/ai-standards.git
+syllago registry sync
+syllago install team/python-rules --to claude-code
+```
+
+A registry is a Git repo of syllago content. Adding it makes its items available across every project on your machine. You can pull individual items into any project or apply a whole loadout from it.
+
+This is the right mode for:
+
+- Org-wide rules that should follow you between repos
+- Curated community collections
+- Distributing a polished "starter pack" of AI-tool configuration
+
+## Mixing the two
+
+In practice most teams use both. The split usually looks like:
+
+- **Repo-local `.syllago/`** holds rules and hooks specific to *this* codebase — style guides, build commands, file-layout conventions.
+- **Global registries** hold widely-reusable content — generic skills, security checklists, language-specific best practices.
+
+A project can override a registry item by keeping its own copy in `.syllago/`. Local content takes precedence over registry content with the same name.
+
+## Quick decision guide
+
+| If you want to… | Reach for… |
+|---|---|
+| Ship one repo's AI config to every contributor | Local `.syllago/`, committed |
+| Share content across many repos you own | Global library |
+| Distribute content across an org or team | Git registry |
+| Lock down what can or can't leave the org | Private registry + [privacy gate](/advanced/registry-privacy/) |
+| Apply a curated set of content as a unit | [Loadout](/using-syllago/collections/loadouts/) on top of either surface |
+
+## Related
+
+- [Collections overview](/using-syllago/collections/) — library, registries, and loadouts
+- [`.syllago.yaml` Format](/using-syllago/syllago-yaml/) — the shared file format
+- [Team setup](/advanced/team-setup/) — applying these patterns at scale
