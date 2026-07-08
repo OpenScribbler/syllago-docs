@@ -1,0 +1,46 @@
+---
+title: Choose Your Path
+description: Pick the route through the docs that matches what you're trying to do.
+---
+
+Syllago serves several different jobs, so the docs are dense enough that it helps to pick a path. Find your role below and follow the suggested route — you can wander into the rest later.
+
+## Solo developer
+
+You manage your own machine. You use one or two AI coding tools, want them in sync, and want to switch contexts between projects (Python work, frontend work, security audits) without retyping the same setup every time.
+
+**Read in order:**
+1. [Install syllago](/getting-started/installation/)
+2. [Quick Start: import from your existing tools](/getting-started/quick-start/)
+3. [Loadouts](/using-syllago/collections/loadouts/) — bundle a "Python stack" or "frontend review" profile and switch with one command
+4. [The TUI](/using-syllago/tui/) — browse, install, and manage content interactively
+
+**Commands you'll lean on:** `syllago init`, `syllago add`, `syllago install`, `syllago loadout create`, `syllago loadout apply --keep`, `syllago loadout remove`.
+
+## Tech lead / maintainer
+
+You own a repo and want every contributor (human or AI) to get the same AI-tool configuration when they clone it. You probably commit `.syllago/` to Git. You want CI to fail if the config drifts.
+
+**Read in order:**
+1. [Local vs. Global architecture](/using-syllago/local-vs-global/) — why and how to commit `.syllago/` to your repo
+2. [`.syllago.yaml` Format](/using-syllago/syllago-yaml/) — the file your team will share
+3. [`syllago sync-install`](/using-syllago/cli-reference/sync-install/) — one command in CI that pulls registries and installs to a provider
+4. [Team setup](/advanced/team-setup/) — multi-developer workflows
+
+**Commands you'll lean on:** `syllago init`, `syllago sync-install --to <provider>`, `syllago compat`, `syllago doctor`.
+
+## Platform administrator
+
+You're standing syllago up for an organization. You need a private registry, signed manifests, and guardrails that prevent internal rules from leaking to public registries.
+
+**Read in order:**
+1. [Registries](/using-syllago/collections/registries/) — how shared content distribution works
+2. [Registry privacy](/advanced/registry-privacy/) — privacy gates and taint propagation
+3. [MOAT trust tiers](/moat/trust-tiers/) — signing, provenance, and trusted roots
+4. [Sandbox](/advanced/sandbox/) — running AI providers under bubblewrap restrictions
+
+**Commands you'll lean on:** `syllago registry create`, `syllago manifest generate`, `syllago moat sign`, `syllago moat trust`, `syllago sandbox`.
+
+## Not sure which fits?
+
+If you're evaluating syllago for the first time, the solo-developer path is the shortest route to a working setup. The other roles build on top of that foundation — you can pick them up later as your needs grow.

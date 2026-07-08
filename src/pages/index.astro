@@ -279,6 +279,75 @@ const base = '';
         line-height: 1.5;
       }
 
+      /* ── Personas ── */
+      .personas {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem 3rem;
+      }
+
+      .personas-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .personas-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .personas-header p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+
+      .personas-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .persona-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        background: var(--bg-secondary);
+        transition: border-color 0.15s, transform 0.15s;
+        color: var(--text);
+      }
+
+      .persona-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+        color: var(--text);
+      }
+
+      .persona-card h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+      }
+
+      .persona-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        flex-grow: 1;
+      }
+
+      .persona-link {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .persona-card:hover .persona-link {
+        color: var(--accent-hover);
+      }
+
       /* ── Provider Carousel ── */
       .providers {
         max-width: 960px;
@@ -462,7 +531,8 @@ const base = '';
 
       /* ── Responsive ── */
       @media (max-width: 768px) {
-        .features-grid {
+        .features-grid,
+        .personas-grid {
           grid-template-columns: 1fr;
           gap: 1.5rem;
         }
@@ -571,6 +641,43 @@ const base = '';
             the same content from the same source.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- Personas -->
+    <section class="personas">
+      <div class="personas-header">
+        <h2>Who is this for?</h2>
+        <p>Syllago serves several jobs. Pick the path that matches what you're doing right now.</p>
+      </div>
+      <div class="personas-grid">
+        <a class="persona-card" href={base + '/getting-started/choose-your-path/#solo-developer'}>
+          <h3>Solo developer</h3>
+          <p>
+            You use one or two AI tools and want them in sync. Switch between
+            "Python stack" and "frontend review" contexts in one command with
+            loadouts and the TUI.
+          </p>
+          <span class="persona-link">Solo developer path &rarr;</span>
+        </a>
+        <a class="persona-card" href={base + '/getting-started/choose-your-path/#tech-lead--maintainer'}>
+          <h3>Tech lead / maintainer</h3>
+          <p>
+            You want every contributor cloning your repo to get the same AI
+            config. Commit <code>.syllago/</code>, run <code>syllago sync-install</code> in
+            CI, and keep the team from drifting.
+          </p>
+          <span class="persona-link">Tech lead path &rarr;</span>
+        </a>
+        <a class="persona-card" href={base + '/getting-started/choose-your-path/#platform-administrator'}>
+          <h3>Platform admin</h3>
+          <p>
+            You're rolling syllago out across an organization. Private
+            registries, signed manifests, privacy gates, and sandboxed
+            providers — without internal rules leaking out.
+          </p>
+          <span class="persona-link">Platform admin path &rarr;</span>
+        </a>
       </div>
     </section>
 
