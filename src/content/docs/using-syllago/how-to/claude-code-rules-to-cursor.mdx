@@ -1,0 +1,67 @@
+---
+title: Get your Claude Code rules into Cursor
+description: Import rules from Claude Code into your syllago library and install them into Cursor, with format conversion handled automatically.
+---
+
+You have rules configured in Claude Code and want the same guidance in Cursor — without maintaining two copies by hand. This guide moves them through syllago in four commands.
+
+## What you need
+
+- syllago [installed](/getting-started/installation/) and initialized (`syllago init`)
+- Claude Code with at least one rule configured (`CLAUDE.md` or `.claude/` rules)
+
+## 1. See what Claude Code has
+
+```bash
+syllago add --from claude-code
+```
+
+Without a positional argument, `add` runs in discovery mode: it lists the content Claude Code has available without importing anything.
+
+## 2. Import the rules into your library
+
+```bash
+# Import all rules
+syllago add rules --from claude-code
+
+# Or import one specific rule
+syllago add rules/security --from claude-code
+```
+
+The rules are copied into your library (`~/.syllago/content/`), where syllago manages them independently of Claude Code. Run `syllago list` to confirm what landed.
+
+## 3. Preview the install
+
+```bash
+syllago install security --to cursor --dry-run
+```
+
+`--dry-run` shows exactly what would be written to Cursor's directories without touching anything. Nothing changes until you run the command without the flag.
+
+## 4. Install to Cursor
+
+```bash
+syllago install security --to cursor
+```
+
+By default syllago installs a **symlink**, so future edits to the rule in your library show up in Cursor immediately. Pass `--method copy` if you want a standalone file instead.
+
+## 5. Verify it worked
+
+Look in your project's `.cursor/rules/` directory — you should see the rule as an `.mdc` file:
+
+```bash
+ls .cursor/rules/
+```
+
+Open Cursor and the rule is active. You can also confirm syllago's view of the install with `syllago list`.
+
+## What syllago converted for you
+
+Claude Code stores rules as plain Markdown; Cursor expects **MDC** format (`.mdc` files with metadata frontmatter like `description`, `alwaysApply`, and `globs`). syllago performs that conversion automatically during install — the copy in your library stays in canonical form, so the same rule can also be installed to any other provider. See [Format Conversion](/using-syllago/format-conversion/) for the details.
+
+## Related
+
+- [Cursor provider reference](/using-syllago/providers/cursor/) — file locations and capability details
+- [`syllago add`](/using-syllago/cli-reference/add/) and [`syllago install`](/using-syllago/cli-reference/install/) — full flag reference
+- [Rules](/using-syllago/content-types/rules/) — how syllago models rules across providers

@@ -20,6 +20,14 @@ export const sidebar: SidebarItem[] = [
     items: [
       { label: 'The TUI', slug: 'using-syllago/tui' },
       {
+        label: 'How-to Guides',
+        collapsed: true,
+        items: [
+          { label: 'Claude Code rules into Cursor', slug: 'using-syllago/how-to/claude-code-rules-to-cursor' },
+          { label: 'Install a community skill', slug: 'using-syllago/how-to/install-community-skill' },
+        ],
+      },
+      {
         label: 'CLI Reference',
         collapsed: true,
         items: cliSidebarItems as SidebarItem[],

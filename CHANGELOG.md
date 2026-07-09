@@ -2,6 +2,23 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-07-09
+
+### Added
+- `src/content/docs/using-syllago/how-to/claude-code-rules-to-cursor.mdx` — new task-based guide: import rules from Claude Code and install them into Cursor, with dry-run preview, verification steps, and an explanation of the Markdown→MDC conversion (#42).
+- `src/content/docs/using-syllago/how-to/install-community-skill.mdx` — new task-based guide: add a public registry, browse skills, and install one into Claude Code, including a MOAT trust-on-first-use note and verification steps (#46).
+- `src/content/docs/for-ai-assistants.mdx` — new "Verify it worked" section with a provider-list smoke-test question, so readers can confirm their AI assistant actually absorbed the llms.txt context (#56).
+
+### Changed
+- `src/content/docs/getting-started/quick-start.mdx` — restructured from Write the Docs Portland stress-test feedback (#54, #55, #38): Installation prerequisite callout at the top; anchor links on the two paths; "follow the terminal prompts" cue with multi-select key hints and an explanation of the "no project markers found" warning; registry section now explains that registries are user-created git repos (with a pointer to `registry create`); the fake `team/ai-configs` example URL replaced with the official OpenScribbler meta-registry; install step moved ahead of `syllago list` so readers reach the payoff sooner.
+- `sidebar.ts` — new "How-to Guides" group under Using Syllago with the two new guides.
+- `astro.config.mjs` — `starlight-llms-txt` now promotes the provider support matrix to the top of `llms-full.txt` so AI assistants can surface the provider list (#56).
+
+### Fixed
+- `src/content/docs/advanced/team-setup.mdx` — two references to the removed `syllago sync-and-export` command updated to `syllago sync-install`.
+- `src/content/docs/using-syllago/content-types/rules.mdx` — "Creating a rule" section referenced the removed `syllago create` command; now documents importing a rule file via `syllago add rules --from ./my-rule.md`.
+- `src/content/docs/using-syllago/syllago-yaml.mdx` — two field descriptions referenced the removed `syllago create` command; reworded to "scaffolded locally". `bun run lint:cli-refs` is clean again.
+
 ## 2026-05-11
 
 ### Added

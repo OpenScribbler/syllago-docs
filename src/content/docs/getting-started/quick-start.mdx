@@ -3,12 +3,18 @@ title: Quick Start
 description: Get up and running with syllago in under five minutes.
 ---
 
-This guide covers two paths to get started with syllago:
+import { Aside } from '@astrojs/starlight/components';
 
-1. **Import from your existing tools** — pull in rules, skills, or context you already have configured in an AI coding tool
-2. **Browse a registry** — discover and install shared content from a team or community registry
+In the next five minutes you'll move real content between AI coding tools — no manual format conversion, no copy-pasting config files.
 
-Both paths start with `syllago init`.
+<Aside type="note" title="Prerequisite">
+Install syllago first — see [Installation](/getting-started/installation/). Verify it's on your PATH with `syllago version`.
+</Aside>
+
+There are two paths to get started, depending on what you have today:
+
+1. [**Import from your existing tools**](#import-from-your-existing-tools) — pull in rules, skills, or context you already have configured in an AI coding tool
+2. [**Browse a registry**](#browse-a-registry) — discover and install shared content from a team or community registry
 
 ## Import from your existing tools
 
@@ -20,7 +26,11 @@ If you already have AI coding tools configured (Claude Code rules, Cursor rules,
 syllago init
 ```
 
-This detects AI coding tools (providers) on your machine and creates your config at `.syllago/config.json`. Follow the interactive prompts, or pass `--yes` to accept defaults.
+Follow the terminal prompts: `init` detects the AI coding tools (providers) on your machine and asks you to confirm which ones to manage. In the provider picker, **space** toggles a selection and **enter** confirms. When it finishes, your config exists at `.syllago/config.json`. To skip the prompts and accept defaults, pass `--yes`.
+
+<Aside type="tip">
+If you're running in an empty or brand-new directory, you may see `Warning: no project markers found (go.mod, package.json, etc.)`. That's expected — syllago just couldn't detect a project type, so it uses the current directory. It's safe to continue.
+</Aside>
 
 ### Discover available content
 
@@ -46,6 +56,19 @@ Content is copied into your library (`~/.syllago/content/`), where syllago manag
 
 > **Tip:** Use `--dry-run` to preview what would be written without making changes. Use `--all` to add everything at once.
 
+### Install to another provider
+
+```bash
+syllago install my-rule --to cursor
+```
+
+That's the payoff: the item moves from your library into Cursor's expected location, with the format converted automatically. By default, syllago uses a **symlink** so changes stay in sync. Pass `--method copy` if you need a standalone file.
+
+```bash
+# Preview what would happen without writing anything
+syllago install my-rule --to cursor --dry-run
+```
+
 ### See what you have
 
 ```bash
@@ -54,24 +77,9 @@ syllago list
 
 Output is grouped by type (rules, skills, agents, etc.). Use `--source` to filter by origin and `--type` to filter by content type.
 
-### Install to another provider
-
-```bash
-syllago install my-rule --to cursor
-```
-
-This installs the item from your library into Cursor's expected location, converting the format automatically. By default, syllago uses a **symlink** so changes stay in sync. Pass `--method copy` if you need a standalone file.
-
-```bash
-# Preview what would happen without writing anything
-syllago install my-rule --to cursor --dry-run
-```
-
-That's it — you've moved content from one AI coding tool to another with format conversion handled for you.
-
 ## Browse a registry
 
-Registries are git-based repos of shared content. Use them to pull in team standards, community collections, or curated configurations.
+Registries are git repos of shared content — team standards, community collections, curated configurations. A registry isn't a central remote service: it's an ordinary git repository that someone creates and publishes. You can add any registry you have the URL for, or [create your own](/using-syllago/cli-reference/registry-create/) with `syllago registry create`.
 
 ### Initialize syllago
 
@@ -81,10 +89,14 @@ Skip this if you already ran it above.
 syllago init
 ```
 
+Follow the terminal prompts to confirm the detected providers.
+
 ### Add a registry
 
+The example below uses the official [syllago meta-registry](https://github.com/OpenScribbler/syllago-meta-registry) — swap in your team's registry URL if you have one.
+
 ```bash
-syllago registry add https://github.com/team/ai-configs.git
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry.git
 ```
 
 You can optionally pass `--name` to give it a short alias, or `--ref` to pin a specific branch or tag.

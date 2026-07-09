@@ -126,11 +126,13 @@ Use strict TypeScript with explicit return types.
 
 ### Creating a rule
 
+Write your rule as a markdown file, then import it:
+
 ```bash
-syllago create rules my-rule --provider claude-code
+syllago add rules --from ./my-rule.md
 ```
 
-This scaffolds a new rule directory under `local/` with template files and `.syllago.yaml` metadata.
+When `--from` points at a file instead of a provider, syllago imports it into your library with `.syllago.yaml` metadata. You can also author the rule directly in your library — see [Library](/using-syllago/collections/library/) for the directory layout.
 
 ### Importing from a provider
 
