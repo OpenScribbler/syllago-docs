@@ -406,9 +406,12 @@
 
 ## src/content/docs/getting-started/
 
-- `core-concepts.mdx` — Providers (~1438 tok)
+- `choose-your-path.mdx` — Persona routing: Solo developer / Tech lead / Platform administrator (~700 tok)
+- `core-concepts.mdx` — Providers (with fragmentation-problem framing intro added 2026-05-11) (~1500 tok)
 - `installation.mdx` — System requirements (~678 tok)
+- `mental-models.mdx` — Vocabulary cheat sheet mapping syllago terms to npm/venv/LLVM/etc. (~650 tok)
 - `quick-start.mdx` — Import from your existing tools (~980 tok)
+- `why-syllago.mdx` — Top-of-funnel problem framing: per-provider rules/skills location table + intro to primitives (~800 tok)
 
 ## src/content/docs/moat/
 
@@ -480,6 +483,7 @@
 ## src/content/docs/using-syllago/
 
 - `format-conversion.mdx` — How conversion works (~2337 tok)
+- `local-vs-global.mdx` — Per-project `.syllago/` committed to Git vs per-user `~/.syllago/content/`; side-by-side workflows + decision guide (~900 tok)
 - `syllago-yaml.mdx` — Field reference (~2001 tok)
 - `tui.mdx` — or use the alias (~455 tok)
 
