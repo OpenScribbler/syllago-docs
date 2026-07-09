@@ -36,3 +36,17 @@ curl -s https://syllago.dev/llms-full.txt | pbcopy
 - Use `llms-small.txt` when you just need an overview or are working with smaller context windows
 - Use `llms-full.txt` when you need detailed information about specific features
 - The **Copy page** button (top-right of any page) copies individual page content for focused questions
+
+## Verify it worked
+
+After feeding the docs to your assistant, ask it a question whose answer lives in the docs — not in the model's general knowledge. A good smoke test:
+
+> Which providers does syllago support, and which of them support skills?
+
+The answer should list the providers from the [provider support matrix](/using-syllago/providers/) (Claude Code, Cursor, Gemini CLI, Windsurf, Codex, Copilot CLI, Zed, Cline, Roo Code, OpenCode, Kiro, Amp, Factory Droid, Pi, Crush) rather than guessing or telling you to run a command. If the assistant can't answer, it likely didn't receive the full file — try `llms-full.txt` rather than `llms-small.txt`, or paste the provider matrix page directly using its **Copy page** button.
+
+You can always get the authoritative list locally with:
+
+```bash
+syllago info providers
+```

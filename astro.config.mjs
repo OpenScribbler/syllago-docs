@@ -45,7 +45,13 @@ const integrations = [
         errorOnLocalLinks: false,
         exclude: ['/using-syllago/providers/*', '/using-syllago/providers/*/*'],
       }),
-      starlightLlmsTxt(),
+      starlightLlmsTxt({
+        // Keep the provider support matrix near the top of llms-full.txt so
+        // AI assistants can answer "which providers does syllago support?"
+        // without shelling out to `syllago info providers` (#56). Both id
+        // spellings listed to survive Astro id-shape changes.
+        promote: ['index*', 'using-syllago/providers', 'using-syllago/providers/index*'],
+      }),
       starlightLlmActions({
         // syllago-docs already publishes per-page markdown via
         // `src/pages/[...slug].md.ts` (which uses entryToSimpleMarkdown

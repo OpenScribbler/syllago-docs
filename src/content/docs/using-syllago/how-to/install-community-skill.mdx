@@ -1,0 +1,65 @@
+---
+title: Install a community skill into Claude Code
+description: Discover a skill in a public syllago registry and install it into Claude Code.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+This is syllago's "download a plugin" experience: find a skill someone else published, install it into Claude Code, and start using it — no manual file copying.
+
+## What you need
+
+- syllago [installed](/getting-started/installation/) and initialized (`syllago init`)
+- Claude Code installed
+
+## 1. Add a public registry
+
+A [registry](/using-syllago/collections/registries/) is a git repo of shared content. The example uses the official [syllago meta-registry](https://github.com/OpenScribbler/syllago-meta-registry):
+
+```bash
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry.git
+```
+
+<Aside type="note">
+If syllago asks you to confirm trust for the registry on first use, review the prompt and accept — this is MOAT's trust-on-first-use check. See [Trust tiers](/moat/trust-tiers/) for how registry trust works.
+</Aside>
+
+## 2. Sync it
+
+```bash
+syllago registry sync
+```
+
+This pulls the registry's latest content into a local clone. Syncing never modifies your library or your providers — it only updates what's available to browse.
+
+## 3. Browse the available skills
+
+```bash
+syllago registry items --type skills
+```
+
+This lists every skill across your registries. Pick one that looks useful — the examples below use a skill named `changelog-writer`; substitute the name you actually chose.
+
+## 4. Install it into Claude Code
+
+```bash
+syllago install changelog-writer --to claude-code
+```
+
+syllago resolves the skill from the registry, converts it to Claude Code's format, and symlinks it into place. Add `--dry-run` first if you want to see what would be written before committing.
+
+## 5. Verify and use it
+
+Claude Code reads skills from `~/.claude/skills/` (global) and `.claude/skills/` in a project. Confirm the install:
+
+```bash
+ls ~/.claude/skills/
+```
+
+Then start a Claude Code session and ask it to use the skill by name — Claude also invokes skills automatically when a task matches the skill's description.
+
+## Related
+
+- [Skills](/using-syllago/content-types/skills/) — how syllago models skills across providers
+- [Claude Code provider reference](/using-syllago/providers/claude-code/skills/) — file locations and capability details
+- [`syllago registry`](/using-syllago/cli-reference/registry/) — full registry command reference

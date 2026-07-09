@@ -110,7 +110,7 @@ This is separate from registry content. The registry holds the **what** (rules, 
 
 ## CI/CD integration
 
-Use `syllago sync-and-export` or `syllago install` in CI pipelines to automate content distribution. The `--json` flag produces machine-readable output suitable for scripting:
+Use `syllago sync-install` or `syllago install` in CI pipelines to automate content distribution. The `--json` flag produces machine-readable output suitable for scripting:
 
 ```bash
 syllago install --to claude-code --json
@@ -123,7 +123,7 @@ Examples of CI use cases:
 syllago install --to cursor --type skills --json
 
 # Sync registries and install in one step
-syllago sync-and-export --to claude-code --json
+syllago sync-install --to claude-code --json
 
 # Install only rules
 syllago install --to claude-code --type rules --json

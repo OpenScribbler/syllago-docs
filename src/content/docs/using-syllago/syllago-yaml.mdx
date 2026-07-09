@@ -33,7 +33,7 @@ These fields record where the content came from. They're populated when syllago 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `source` | string | Discriminator for the source kind. `created` means the item was scaffolded locally via `syllago create`; otherwise unset for imported content. |
+| `source` | string | Discriminator for the source kind. `created` means the item was scaffolded locally; otherwise unset for imported content. |
 | `source_provider` | string | Provider slug content was imported from (e.g. `claude-code`). |
 | `source_format` | string | Original file format (e.g. `md`, `mdc`, `json`, `toml`). |
 | `source_type` | string | How the content was acquired. One of: `git`, `filesystem`, `registry`, `provider`. |
@@ -63,7 +63,7 @@ Set on add to track where the content lives.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `created_at` | string (ISO 8601) | When the item was scaffolded via `syllago create`. |
+| `created_at` | string (ISO 8601) | When the item was scaffolded locally. |
 | `added_at` | string (ISO 8601) | When the item was added to the library. |
 | `added_by` | string | Who or what added the item — e.g. `syllago v0.9.0`, or a person's name. |
 
