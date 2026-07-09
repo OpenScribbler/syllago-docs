@@ -5,6 +5,7 @@ All notable changes to the syllago documentation site.
 ## 2026-07-09
 
 ### Added
+- `src/content/docs/getting-started/why-syllago.mdx` — new "Is syllago right for you?" section with honest comparisons: syllago vs. maintaining files by hand, syllago vs. rulesync (including where rulesync wins — broader tool coverage, CI-friendly generator model), and an explicit "When not to use syllago" list (#37).
 - `src/content/docs/using-syllago/how-to/claude-code-rules-to-cursor.mdx` — new task-based guide: import rules from Claude Code and install them into Cursor, with dry-run preview, verification steps, and an explanation of the Markdown→MDC conversion (#42).
 - `src/content/docs/using-syllago/how-to/install-community-skill.mdx` — new task-based guide: add a public registry, browse skills, and install one into Claude Code, including a MOAT trust-on-first-use note and verification steps (#46).
 - `src/content/docs/for-ai-assistants.mdx` — new "Verify it worked" section with a provider-list smoke-test question, so readers can confirm their AI assistant actually absorbed the llms.txt context (#56).
