@@ -24,7 +24,14 @@ export const sidebar: SidebarItem[] = [
         collapsed: true,
         items: [
           { label: 'Claude Code rules into Cursor', slug: 'using-syllago/how-to/claude-code-rules-to-cursor' },
+          { label: 'Cursor rules into Claude Code', slug: 'using-syllago/how-to/cursor-rules-to-claude-code' },
+          { label: 'Windsurf rules into Cline', slug: 'using-syllago/how-to/windsurf-rules-to-cline' },
+          { label: 'Keep rules in sync', slug: 'using-syllago/how-to/keep-rules-in-sync' },
           { label: 'Install a community skill', slug: 'using-syllago/how-to/install-community-skill' },
+          { label: 'Install from a GitHub registry', slug: 'using-syllago/how-to/install-from-github-registry' },
+          { label: 'Preview with --dry-run', slug: 'using-syllago/how-to/preview-with-dry-run' },
+          { label: 'Loadouts: work vs. personal', slug: 'using-syllago/how-to/loadouts-work-vs-personal' },
+          { label: 'Move to a new machine', slug: 'using-syllago/how-to/move-to-new-machine' },
         ],
       },
       {
