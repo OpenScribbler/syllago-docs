@@ -1,0 +1,67 @@
+---
+title: Get your Cursor rules into Claude Code
+description: Import rules from Cursor into your syllago library and install them into Claude Code, with format conversion handled automatically.
+---
+
+The reverse of [Claude Code rules into Cursor](/using-syllago/how-to/claude-code-rules-to-cursor/): you've built up rules in Cursor and want the same guidance in Claude Code.
+
+## What you need
+
+- syllago [installed](/getting-started/installation/) and initialized (`syllago init`)
+- Cursor with at least one rule configured (`.cursor/rules/` or `.cursorrules`)
+
+## 1. See what Cursor has
+
+```bash
+syllago add --from cursor
+```
+
+Discovery mode: this lists Cursor's available content without importing anything.
+
+## 2. Import the rules into your library
+
+```bash
+# Import all rules
+syllago add rules --from cursor
+
+# Or import one specific rule
+syllago add rules/typescript --from cursor
+```
+
+The rules land in your library (`~/.syllago/content/`) in syllago's canonical format. Run `syllago list` to confirm.
+
+## 3. Preview the install
+
+```bash
+syllago install typescript --to claude-code --dry-run
+```
+
+`--dry-run` shows exactly what would be written to Claude Code's directories without touching anything.
+
+## 4. Install to Claude Code
+
+```bash
+syllago install typescript --to claude-code
+```
+
+By default this is a **symlink**, so later edits to the rule in your library reach Claude Code immediately. Pass `--method copy` for a standalone file.
+
+## 5. Verify it worked
+
+Claude Code reads rules from `CLAUDE.md` and `.claude/rules/` in a project (and `~/.claude/rules/` globally). Check the install landed:
+
+```bash
+ls .claude/rules/
+```
+
+Start a Claude Code session and the rule is part of its context.
+
+## What syllago converted for you
+
+Cursor stores rules as **MDC** files (`.mdc` with `description`, `alwaysApply`, and `globs` frontmatter); Claude Code expects plain Markdown, with file-scoping expressed through a `paths` field. syllago maps the metadata and converts the format during install — your library copy stays canonical, so the same rule can go to any other provider too. See [Format Conversion](/using-syllago/format-conversion/) for the field-by-field details.
+
+## Related
+
+- [Claude Code provider reference](/using-syllago/providers/claude-code/rules/) — file locations and capability details
+- [`syllago add`](/using-syllago/cli-reference/add/) and [`syllago install`](/using-syllago/cli-reference/install/) — full flag reference
+- [Rules](/using-syllago/content-types/rules/) — how syllago models rules across providers

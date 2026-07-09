@@ -1,0 +1,84 @@
+---
+title: Move your AI tool configs to a new machine
+description: Carry your whole syllago library — rules, skills, loadouts — to a new machine and reinstall everything in minutes.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+New laptop, fresh OS install, or a work/personal machine split: instead of recreating every AI tool's configuration by hand, move your syllago library once and reinstall from it.
+
+Your library is plain files under `~/.syllago/` — there's no database or hidden state — so migration is a copy plus a reinstall.
+
+## 1. On the old machine: copy your library
+
+Transfer the `~/.syllago/` directory however you move files between machines:
+
+```bash
+# Example: straight over SSH
+rsync -a ~/.syllago/ new-machine:~/.syllago/
+```
+
+That directory contains your content (`content/` — rules, skills, agents, hooks, commands, and loadouts) plus configuration. Registry clones don't need to travel — you'll re-add registries on the new machine and they'll re-clone.
+
+<Aside type="tip">
+If you expect to do this more than once, put your library in a personal git registry instead: scaffold one with [`syllago registry create --new`](/using-syllago/cli-reference/registry-create/), push it somewhere private, and a new machine becomes `registry add` + `sync` + `install` — no file copying at all. See [Team Setup](/advanced/team-setup/) for the same pattern at team scale.
+</Aside>
+
+## 2. On the new machine: install syllago
+
+Follow [Installation](/getting-started/installation/), then confirm:
+
+```bash
+syllago version
+```
+
+## 3. Verify the library arrived
+
+```bash
+syllago list
+```
+
+You should see your rules, skills, and other items grouped by type, exactly as on the old machine. If the list is empty, the `~/.syllago/` copy didn't land where syllago expects — check the path.
+
+## 4. Re-add your registries
+
+Registry clones are local caches, so add each registry again:
+
+```bash
+syllago registry add https://github.com/your-org/syllago-registry.git
+syllago registry sync
+```
+
+`syllago registry list` on the old machine tells you what you had.
+
+## 5. Reinstall content to your providers
+
+Initialize in your project (`syllago init` detects which AI tools are installed on the new machine), then push library content back out:
+
+```bash
+# Preview first
+syllago install --all --to claude-code --dry-run
+
+# Install everything to one provider
+syllago install --all --to claude-code
+
+# Or fan out to every detected provider
+syllago install --all --to-all
+```
+
+If you use [loadouts](/using-syllago/collections/loadouts/), they traveled with your library — `syllago loadout apply <name> --keep` recreates a whole configuration in one command.
+
+## 6. Verify
+
+```bash
+syllago list
+syllago loadout status
+```
+
+Then open one of your AI tools and confirm it sees its rules — for example, Claude Code should show your rules in context from `.claude/rules/` or `CLAUDE.md`.
+
+## Related
+
+- [Library](/using-syllago/collections/library/) — what lives in `~/.syllago/content/`
+- [`syllago install`](/using-syllago/cli-reference/install/) — bulk install flags
+- [Team Setup](/advanced/team-setup/) — the registry-based version of this workflow
