@@ -44,6 +44,37 @@ Syllago breaks AI-tool configuration into a small set of tool-agnostic primitive
 
 You define each item once. Syllago decides what to do with it on each provider.
 
+## Is syllago right for you?
+
+Not every setup needs a content manager. Here's the honest comparison.
+
+### Compared to maintaining files by hand
+
+Manual maintenance is fine — genuinely — if you use one AI tool, or two tools with a handful of rules that rarely change. Copying a file twice a month is not a problem worth new tooling.
+
+The cost curve bends as tools and teammates multiply. Every copy is a chance to drift: you fix a rule in Claude Code and forget the Cursor version, a provider renames its config directory and your shell script silently writes to the old one, two teammates "share" a rule that diverged three edits ago. Syllago replaces N copies with one canonical item plus conversion, so an edit lands everywhere and [`syllago compat`](/using-syllago/cli-reference/compat/) tells you where translation will degrade.
+
+Rule of thumb: one tool, skip syllago. Two tools and light usage, either works. Three or more tools, or any team sharing, and a manager pays for itself.
+
+### Compared to rulesync
+
+[rulesync](https://github.com/dyoshikawa/rulesync) is the main alternative, and it's a good tool — mature, actively maintained, and supporting a substantially longer list of AI tools than syllago (40+ versus syllago's 15). If provider coverage is your deciding factor, check both support lists before choosing.
+
+The real difference is the model:
+
+- **rulesync is a generator.** You keep unified source files in a `.rulesync/` directory, typically committed to each repo, and run `rulesync generate` to write the tool-specific configs. It also imports existing configs and converts between tools. Sharing happens through whatever you use to share the repo.
+- **syllago is a package manager.** You keep items in a library, `install` them to providers (symlinked by default, so library edits propagate without a regenerate step), distribute them through git [registries](/using-syllago/collections/registries/), switch between sets with [loadouts](/using-syllago/collections/loadouts/), and verify registry content with [MOAT signing](/moat/).
+
+Choose rulesync if you want per-repo, committed, CI-regenerable configs with maximal tool coverage and an npm-based workflow. Choose syllago if you want a personal or team library that outlives any single repo, first-class distribution and trust for shared content, and installs that stay live without a build step.
+
+### When not to use syllago
+
+- **You use one AI tool.** Its native config format is simpler and better documented than any abstraction over it.
+- **Your whole team is standardized on a single tool.** Share the native files in a repo and move on.
+- **Your provider isn't supported.** Check the [provider matrix](/using-syllago/providers/) first; if your daily tool isn't on it, syllago can't help you yet.
+- **You need configs generated in CI as repo artifacts.** Syllago's library-and-install model is machine-local; a generator like rulesync fits that pipeline more naturally.
+- **You need API stability today.** Syllago is pre-1.0. Commands and formats are settling, but breaking changes still happen between releases.
+
 ## Where to go next
 
 - New to syllago? [Install it](/getting-started/installation/) and run the [Quick Start](/getting-started/quick-start/).
