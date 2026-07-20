@@ -4,72 +4,6 @@
     "slug": "using-syllago/cli-reference/add"
   },
   {
-    "label": "capmon",
-    "collapsed": true,
-    "items": [
-      {
-        "label": "capmon",
-        "slug": "using-syllago/cli-reference/capmon"
-      },
-      {
-        "label": "backfill",
-        "slug": "using-syllago/cli-reference/capmon-backfill"
-      },
-      {
-        "label": "check",
-        "slug": "using-syllago/cli-reference/capmon-check"
-      },
-      {
-        "label": "derive",
-        "slug": "using-syllago/cli-reference/capmon-derive"
-      },
-      {
-        "label": "diff",
-        "slug": "using-syllago/cli-reference/capmon-diff"
-      },
-      {
-        "label": "extract",
-        "slug": "using-syllago/cli-reference/capmon-extract"
-      },
-      {
-        "label": "fetch",
-        "slug": "using-syllago/cli-reference/capmon-fetch"
-      },
-      {
-        "label": "generate",
-        "slug": "using-syllago/cli-reference/capmon-generate"
-      },
-      {
-        "label": "onboard",
-        "slug": "using-syllago/cli-reference/capmon-onboard"
-      },
-      {
-        "label": "run",
-        "slug": "using-syllago/cli-reference/capmon-run"
-      },
-      {
-        "label": "seed",
-        "slug": "using-syllago/cli-reference/capmon-seed"
-      },
-      {
-        "label": "test-fixtures",
-        "slug": "using-syllago/cli-reference/capmon-test-fixtures"
-      },
-      {
-        "label": "validate-format-doc",
-        "slug": "using-syllago/cli-reference/capmon-validate-format-doc"
-      },
-      {
-        "label": "validate-sources",
-        "slug": "using-syllago/cli-reference/capmon-validate-sources"
-      },
-      {
-        "label": "verify",
-        "slug": "using-syllago/cli-reference/capmon-verify"
-      }
-    ]
-  },
-  {
     "label": "compat",
     "slug": "using-syllago/cli-reference/compat"
   },
@@ -230,10 +164,6 @@
   {
     "label": "providers",
     "slug": "using-syllago/cli-reference/providers"
-  },
-  {
-    "label": "refresh",
-    "slug": "using-syllago/cli-reference/refresh"
   },
   {
     "label": "registry",
