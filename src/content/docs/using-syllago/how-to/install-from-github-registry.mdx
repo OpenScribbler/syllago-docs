@@ -1,0 +1,74 @@
+---
+title: Install content from a GitHub registry
+description: Find public syllago registries on GitHub, add one, and install what it offers.
+---
+
+GitHub-hosted registries are how most community syllago content gets shared: any public git repo with syllago's registry structure works, no publishing infrastructure required. This guide covers finding one and installing from it.
+
+## 1. Find a registry
+
+A few places to look:
+
+- **The official [syllago meta-registry](https://github.com/OpenScribbler/syllago-meta-registry)** — OpenScribbler's curated index; the best first stop.
+- **GitHub search** — search for `syllago registry`; a syllago registry is just a git repo following syllago's [content structure](/using-syllago/collections/registries/).
+- **Community links** — teams and authors typically share their registry URL directly in a README or docs page, like any other repo.
+
+Any public repo URL you can `git clone`, you can add.
+
+## 2. Add it
+
+```bash
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry.git
+```
+
+Two optional flags worth knowing:
+
+```bash
+# Give it a short alias for later commands
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry.git --name meta
+
+# Pin to a branch or tag instead of tracking the default branch
+syllago registry add https://github.com/OpenScribbler/syllago-meta-registry.git --ref v1.0
+```
+
+Pinning with `--ref` is the right call when you want updates on your schedule, not the maintainer's.
+
+## 3. Sync
+
+```bash
+syllago registry sync
+```
+
+This clones (or pulls) the registry locally. Syncing never touches your library or your providers — it only updates what's available to browse.
+
+## 4. Browse what's available
+
+```bash
+# Everything, across all your registries
+syllago registry items
+
+# Just one registry, just one content type
+syllago registry items meta --type rules
+```
+
+## 5. Install something
+
+```bash
+syllago install some-rule --to claude-code
+```
+
+syllago resolves the item from your registries, converts it for the target provider, and symlinks it into place — add `--dry-run` to preview first. For a worked end-to-end example of this step (including trust prompts and verification), see [Install a community skill into Claude Code](/using-syllago/how-to/install-community-skill/).
+
+## Keeping registry content up to date
+
+```bash
+syllago registry sync          # pull the latest registry content
+syllago refresh --all --dry-run  # see which installed items have updates
+syllago refresh --all          # apply them
+```
+
+## Related
+
+- [Registries](/using-syllago/collections/registries/) — how registries work and their structure
+- [MOAT trust tiers](/moat/trust-tiers/) — how syllago decides whether to trust a registry
+- [`syllago registry`](/using-syllago/cli-reference/registry/) — full command reference

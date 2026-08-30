@@ -5,6 +5,7 @@ All notable changes to the syllago documentation site.
 ## 2026-07-09
 
 ### Added
+- Seven new how-to guides completing the WTD Portland sprint backlog, all under `src/content/docs/using-syllago/how-to/`: `cursor-rules-to-claude-code.mdx` (#43), `windsurf-rules-to-cline.mdx` (#50), `keep-rules-in-sync.mdx` (#47), `preview-with-dry-run.mdx` (#48), `loadouts-work-vs-personal.mdx` (#49), `move-to-new-machine.mdx` (#44), and `install-from-github-registry.mdx` (#52, discovery-focused, cross-linking the community-skill guide rather than duplicating the install flow). All commands verified against the CLI reference — notably `loadout create` is interactive (no name argument) and `loadout apply` previews by default.
 - `src/content/docs/getting-started/why-syllago.mdx` — new "Is syllago right for you?" section with honest comparisons: syllago vs. maintaining files by hand, syllago vs. rulesync (including where rulesync wins — broader tool coverage, CI-friendly generator model), and an explicit "When not to use syllago" list (#37).
 - `src/content/docs/using-syllago/how-to/claude-code-rules-to-cursor.mdx` — new task-based guide: import rules from Claude Code and install them into Cursor, with dry-run preview, verification steps, and an explanation of the Markdown→MDC conversion (#42).
 - `src/content/docs/using-syllago/how-to/install-community-skill.mdx` — new task-based guide: add a public registry, browse skills, and install one into Claude Code, including a MOAT trust-on-first-use note and verification steps (#46).
@@ -12,7 +13,7 @@ All notable changes to the syllago documentation site.
 
 ### Changed
 - `src/content/docs/getting-started/quick-start.mdx` — restructured from Write the Docs Portland stress-test feedback (#54, #55, #38): Installation prerequisite callout at the top; anchor links on the two paths; "follow the terminal prompts" cue with multi-select key hints and an explanation of the "no project markers found" warning; registry section now explains that registries are user-created git repos (with a pointer to `registry create`); the fake `team/ai-configs` example URL replaced with the official OpenScribbler meta-registry; install step moved ahead of `syllago list` so readers reach the payoff sooner.
-- `sidebar.ts` — new "How-to Guides" group under Using Syllago with the two new guides.
+- `sidebar.ts` — new "How-to Guides" group under Using Syllago with the two new guides; later expanded with the seven backlog guides (nine total).
 - `astro.config.mjs` — `starlight-llms-txt` now promotes the provider support matrix to the top of `llms-full.txt` so AI assistants can surface the provider list (#56).
 
 ### Fixed

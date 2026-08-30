@@ -1,0 +1,62 @@
+---
+title: Get your Windsurf rules into Cline
+description: Import rules from Windsurf into your syllago library and install them into Cline.
+---
+
+Moving rules between providers isn't limited to the big two. This guide takes rules from Windsurf into Cline — the same four-step flow works for any supported pair.
+
+## What you need
+
+- syllago [installed](/getting-started/installation/) and initialized (`syllago init`)
+- Windsurf with at least one rule configured (`.windsurf/rules/` or `.windsurfrules`)
+
+## 1. Import from Windsurf
+
+```bash
+# See what's available first
+syllago add --from windsurf
+
+# Import all rules
+syllago add rules --from windsurf
+```
+
+## 2. Review what was imported
+
+```bash
+syllago list --type rules
+```
+
+Each imported rule is now a canonical item in your library, independent of Windsurf.
+
+## 3. Preview the install
+
+```bash
+syllago install my-rule --to cline --dry-run
+```
+
+Nothing is written yet — the dry run shows the target paths and the converted content.
+
+## 4. Install to Cline
+
+```bash
+syllago install my-rule --to cline
+```
+
+Cline is a project-scoped provider: syllago writes into the current project's Cline config rather than a global directory, so run this from the project where you want the rule active.
+
+## 5. Verify it worked
+
+Cline reads rules from `.clinerules` in the project (and `~/Documents/Cline/Rules` globally):
+
+```bash
+ls .clinerules/
+```
+
+## Format differences to know about
+
+Both providers use Markdown rules, so the content itself carries over cleanly. The frontmatter differs: Windsurf supports `trigger`, `description`, and `globs`; Cline's rule format only expresses file scoping (its `paths` field, which syllago maps to and from `globs`). Windsurf-specific activation metadata like `trigger: manual` has no Cline equivalent — syllago warns when a field will degrade in translation, and you can check ahead of time with [`syllago compat`](/using-syllago/cli-reference/compat/).
+
+## Related
+
+- [Windsurf provider reference](/using-syllago/providers/windsurf/rules/) and [Cline provider reference](/using-syllago/providers/cline/rules/)
+- [Format Conversion](/using-syllago/format-conversion/) — how field mapping and degradation warnings work
