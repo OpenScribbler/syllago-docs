@@ -17,6 +17,11 @@
     }
   ],
   "canonicalMappings": {
+    "auto_invocable": {
+      "supported": true,
+      "mechanism": "Cline auto-invokes skills by matching user message against the description frontmatter field via the use_skill tool; no explicit @-mention syntax exists.",
+      "extension_id": "description_based_auto_invocation"
+    },
     "canonical_filename": {
       "supported": true,
       "mechanism": "Fixed filename SKILL.md required inside a named skill directory"
@@ -59,6 +64,10 @@
     "shared_scope": {
       "supported": false,
       "mechanism": ""
+    },
+    "skill_bundled_resources": {
+      "supported": true,
+      "mechanism": "Optional docs/, templates/, scripts/ subdirectories under SKILL.md are loaded on demand when the skill is invoked."
     },
     "user_invocable": {
       "supported": false,

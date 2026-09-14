@@ -12,6 +12,11 @@
     }
   ],
   "canonicalMappings": {
+    "auto_invocable": {
+      "supported": true,
+      "mechanism": "Keywords array in POWER.md frontmatter (key: keywords); Kiro activates the power when any listed keyword is mentioned in conversation.",
+      "extension_id": "kiro_keywords"
+    },
     "canonical_filename": {
       "supported": true,
       "mechanism": "Fixed filename POWER.md (required, all caps)"

@@ -12,6 +12,10 @@
     }
   ],
   "canonicalMappings": {
+    "auto_invocable": {
+      "supported": true,
+      "mechanism": "Cascade auto-invokes a skill when the user's request semantically matches its description frontmatter field."
+    },
     "canonical_filename": {
       "supported": true,
       "mechanism": "Fixed filename SKILL.md required in each skill directory. All scopes (workspace, global, system) use this same convention."
@@ -49,6 +53,10 @@
     "shared_scope": {
       "supported": true,
       "mechanism": "OS-specific system path deployed by enterprise IT; read-only for end users. macOS: /Library/Application Support/Windsurf/skills/<skill-name>/; Linux/WSL: /etc/windsurf/skills/<skill-name>/; Windows: C:\\ProgramData\\Windsurf\\skills\\<skill-name>\\."
+    },
+    "skill_bundled_resources": {
+      "supported": true,
+      "mechanism": "Arbitrary additional files alongside SKILL.md (scripts, checklists, templates) in the skill directory; all are loaded when the skill is invoked."
     },
     "user_invocable": {
       "supported": true,
