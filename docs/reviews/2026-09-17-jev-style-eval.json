@@ -1,0 +1,559 @@
+{
+  "generated_at": "2026-09-17T22:39:09.749Z",
+  "fixture": "src/test/fixtures/jev-style-eval.json",
+  "model": "jev-1.13.0",
+  "fixture_count": 30,
+  "overall_choice_accuracy": 0.967,
+  "usage": {
+    "input_tokens": 8376,
+    "output_tokens": 1448
+  },
+  "rules": {
+    "actor_clarity": {
+      "rule": "actor_clarity",
+      "label": "unclear actor",
+      "source": "https://developers.google.com/style/voice",
+      "choice_accuracy": 1,
+      "suggested_threshold": 0.85,
+      "violation_metrics": {
+        "threshold": 0.85,
+        "truePositive": 2,
+        "falsePositive": 0,
+        "trueNegative": 4,
+        "falseNegative": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "cases": [
+        {
+          "id": "actor-violation-1",
+          "rule": "actor_clarity",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "After the configuration is loaded, it is validated and then sent to it before it is stored.",
+          "outcome": "violation",
+          "confidence": 0.97,
+          "probabilities": {
+            "violation": 0.98,
+            "compliant": 0.02,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "actor-violation-2",
+          "rule": "actor_clarity",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "When the hook returns, it is applied before it is passed to the provider.",
+          "outcome": "violation",
+          "confidence": 0.82,
+          "probabilities": {
+            "violation": 0.88,
+            "compliant": 0.12,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "actor-compliant-1",
+          "rule": "actor_clarity",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "Syllago validates the file and then sends the validated configuration to Cursor.",
+          "outcome": "compliant",
+          "confidence": 0.95,
+          "probabilities": {
+            "violation": 0.03,
+            "compliant": 0.97,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "actor-compliant-2",
+          "rule": "actor_clarity",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "The file is saved after validation. The identity of the saving process does not affect this result.",
+          "outcome": "compliant",
+          "confidence": 0.7,
+          "probabilities": {
+            "violation": 0.19,
+            "compliant": 0.8,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "actor-na-1",
+          "rule": "actor_clarity",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "Registry privacy, trust boundaries, and package metadata.",
+          "outcome": "not_applicable",
+          "confidence": 0.98,
+          "probabilities": {
+            "violation": 0,
+            "compliant": 0.01,
+            "not_applicable": 0.99
+          }
+        },
+        {
+          "id": "actor-na-2",
+          "rule": "actor_clarity",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "A registry with fifteen providers and three trust levels.",
+          "outcome": "not_applicable",
+          "confidence": 0.98,
+          "probabilities": {
+            "violation": 0,
+            "compliant": 0.01,
+            "not_applicable": 0.99
+          }
+        }
+      ],
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1583,
+        "output_tokens": 287
+      }
+    },
+    "contextual_jargon": {
+      "rule": "contextual_jargon",
+      "label": "contextual jargon",
+      "source": "https://developers.google.com/style/jargon",
+      "choice_accuracy": 1,
+      "suggested_threshold": 0.75,
+      "violation_metrics": {
+        "threshold": 0.75,
+        "truePositive": 2,
+        "falsePositive": 0,
+        "trueNegative": 4,
+        "falseNegative": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "cases": [
+        {
+          "id": "jargon-violation-1",
+          "rule": "contextual_jargon",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "Frobnicate the quux through the ZORB layer before activating transmogrification.",
+          "outcome": "violation",
+          "confidence": 0.96,
+          "probabilities": {
+            "violation": 0.98,
+            "compliant": 0.02,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "jargon-violation-2",
+          "rule": "contextual_jargon",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "Use the break-glass swim lane to reduce the blast radius of the rollout.",
+          "outcome": "violation",
+          "confidence": 0.69,
+          "probabilities": {
+            "violation": 0.79,
+            "compliant": 0.2,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "jargon-compliant-1",
+          "rule": "contextual_jargon",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "Model Context Protocol (MCP) servers expose tools and resources to AI coding clients.",
+          "outcome": "compliant",
+          "confidence": 0.96,
+          "probabilities": {
+            "violation": 0.02,
+            "compliant": 0.97,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "jargon-compliant-2",
+          "rule": "contextual_jargon",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "Run `syllago compat`; the compatibility command reports features that cannot be translated.",
+          "outcome": "compliant",
+          "confidence": 0.36,
+          "probabilities": {
+            "violation": 0.42,
+            "compliant": 0.57,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "jargon-na-1",
+          "rule": "contextual_jargon",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "Choose a directory and continue to the next step.",
+          "outcome": "not_applicable",
+          "confidence": 0.55,
+          "probabilities": {
+            "violation": 0.01,
+            "compliant": 0.29,
+            "not_applicable": 0.7
+          }
+        },
+        {
+          "id": "jargon-na-2",
+          "rule": "contextual_jargon",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "The next section contains three examples.",
+          "outcome": "not_applicable",
+          "confidence": 0.74,
+          "probabilities": {
+            "violation": 0.01,
+            "compliant": 0.17,
+            "not_applicable": 0.82
+          }
+        }
+      ],
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1832,
+        "output_tokens": 299
+      }
+    },
+    "single_idea": {
+      "rule": "single_idea",
+      "label": "paragraph focus",
+      "source": "https://developers.google.com/style/paragraph-structure",
+      "choice_accuracy": 1,
+      "suggested_threshold": 0.8,
+      "violation_metrics": {
+        "threshold": 0.8,
+        "truePositive": 2,
+        "falsePositive": 0,
+        "trueNegative": 4,
+        "falseNegative": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "cases": [
+        {
+          "id": "focus-violation-1",
+          "rule": "single_idea",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "The registry stores packages for a team. The terminal uses a dark theme. Release tags identify versions.",
+          "outcome": "violation",
+          "confidence": 0.78,
+          "probabilities": {
+            "violation": 0.85,
+            "compliant": 0.11,
+            "not_applicable": 0.04
+          }
+        },
+        {
+          "id": "focus-violation-2",
+          "rule": "single_idea",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "Install the package with Bun. Syllago was named after a flock of birds. Production registries should require signatures.",
+          "outcome": "violation",
+          "confidence": 0.99,
+          "probabilities": {
+            "violation": 1,
+            "compliant": 0,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "focus-compliant-1",
+          "rule": "single_idea",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "A loadout groups related packages. Applying the loadout installs every package in the group, and removing it reverses those installations.",
+          "outcome": "compliant",
+          "confidence": 0.91,
+          "probabilities": {
+            "violation": 0.02,
+            "compliant": 0.94,
+            "not_applicable": 0.04
+          }
+        },
+        {
+          "id": "focus-compliant-2",
+          "rule": "single_idea",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "The compatibility command checks each target provider. It reports supported fields, translated fields, and information that would be lost.",
+          "outcome": "compliant",
+          "confidence": 0.79,
+          "probabilities": {
+            "violation": 0.07,
+            "compliant": 0.86,
+            "not_applicable": 0.07
+          }
+        },
+        {
+          "id": "focus-na-1",
+          "rule": "single_idea",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "Run the command.",
+          "outcome": "not_applicable",
+          "confidence": 0.79,
+          "probabilities": {
+            "violation": 0.03,
+            "compliant": 0.11,
+            "not_applicable": 0.86
+          }
+        },
+        {
+          "id": "focus-na-2",
+          "rule": "single_idea",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "Syllago installs packages.",
+          "outcome": "not_applicable",
+          "confidence": 0.64,
+          "probabilities": {
+            "violation": 0.03,
+            "compliant": 0.21,
+            "not_applicable": 0.76
+          }
+        }
+      ],
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1582,
+        "output_tokens": 287
+      }
+    },
+    "critical_information_first": {
+      "rule": "critical_information_first",
+      "label": "buried critical information",
+      "source": "https://developers.google.com/style/paragraph-structure#put_critical_information_first",
+      "choice_accuracy": 1,
+      "suggested_threshold": 0.75,
+      "violation_metrics": {
+        "threshold": 0.75,
+        "truePositive": 2,
+        "falsePositive": 0,
+        "trueNegative": 4,
+        "falseNegative": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      "cases": [
+        {
+          "id": "critical-violation-1",
+          "rule": "critical_information_first",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "The update command downloads metadata and prints a concise summary. Before running it, back up your only unpublished registry because the command can overwrite it.",
+          "outcome": "violation",
+          "confidence": 0.8,
+          "probabilities": {
+            "violation": 0.87,
+            "compliant": 0.13,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "critical-violation-2",
+          "rule": "critical_information_first",
+          "expected": "violation",
+          "type": "paragraph",
+          "text": "This option makes installation faster and uses fewer network requests. It permanently deletes the previous package version, so save a copy first.",
+          "outcome": "violation",
+          "confidence": 0.68,
+          "probabilities": {
+            "violation": 0.78,
+            "compliant": 0.21,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "critical-compliant-1",
+          "rule": "critical_information_first",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "Back up your unpublished registry before running the update command because the command can overwrite it. The command then downloads metadata and prints a summary.",
+          "outcome": "compliant",
+          "confidence": 0.86,
+          "probabilities": {
+            "violation": 0.09,
+            "compliant": 0.9,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "critical-compliant-2",
+          "rule": "critical_information_first",
+          "expected": "compliant",
+          "type": "paragraph",
+          "text": "Install Bubblewrap before enabling the sandbox. After installation, `syllago sandbox check` verifies the dependency.",
+          "outcome": "compliant",
+          "confidence": 0.87,
+          "probabilities": {
+            "violation": 0.07,
+            "compliant": 0.91,
+            "not_applicable": 0.02
+          }
+        },
+        {
+          "id": "critical-na-1",
+          "rule": "critical_information_first",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "The status command prints the active registry and installed package count.",
+          "outcome": "not_applicable",
+          "confidence": 1,
+          "probabilities": {
+            "violation": 0,
+            "compliant": 0,
+            "not_applicable": 1
+          }
+        },
+        {
+          "id": "critical-na-2",
+          "rule": "critical_information_first",
+          "expected": "not_applicable",
+          "type": "paragraph",
+          "text": "Registries use Git tags to identify released package versions.",
+          "outcome": "not_applicable",
+          "confidence": 0.99,
+          "probabilities": {
+            "violation": 0,
+            "compliant": 0,
+            "not_applicable": 1
+          }
+        }
+      ],
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1766,
+        "output_tokens": 287
+      }
+    },
+    "descriptive_heading": {
+      "rule": "descriptive_heading",
+      "label": "non-descriptive heading",
+      "source": "https://developers.google.com/style/headings",
+      "choice_accuracy": 0.833,
+      "suggested_threshold": 0.85,
+      "violation_metrics": {
+        "threshold": 0.85,
+        "truePositive": 1,
+        "falsePositive": 0,
+        "trueNegative": 4,
+        "falseNegative": 1,
+        "precision": 1,
+        "recall": 0.5,
+        "f1": 0.667
+      },
+      "cases": [
+        {
+          "id": "heading-violation-1",
+          "rule": "descriptive_heading",
+          "expected": "violation",
+          "type": "heading",
+          "text": "More information",
+          "followingText": "Install the registry by running `syllago registry add` with its Git URL.",
+          "outcome": "violation",
+          "confidence": 0.85,
+          "probabilities": {
+            "violation": 0.89,
+            "compliant": 0.1,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "heading-violation-2",
+          "rule": "descriptive_heading",
+          "expected": "violation",
+          "type": "heading",
+          "text": "Details",
+          "followingText": "Require signed commits before sharing packages from a production registry.",
+          "outcome": "compliant",
+          "confidence": 0.27,
+          "probabilities": {
+            "violation": 0.48,
+            "compliant": 0.51,
+            "not_applicable": 0.01
+          }
+        },
+        {
+          "id": "heading-compliant-1",
+          "rule": "descriptive_heading",
+          "expected": "compliant",
+          "type": "heading",
+          "text": "Install Bubblewrap on Linux",
+          "followingText": "Use your distribution's package manager to install Bubblewrap and Socat.",
+          "outcome": "compliant",
+          "confidence": 0.98,
+          "probabilities": {
+            "violation": 0.01,
+            "compliant": 0.99,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "heading-compliant-2",
+          "rule": "descriptive_heading",
+          "expected": "compliant",
+          "type": "heading",
+          "text": "Choose a registry scope",
+          "followingText": "Use a project registry for one repository or a global registry for all projects.",
+          "outcome": "compliant",
+          "confidence": 0.98,
+          "probabilities": {
+            "violation": 0.01,
+            "compliant": 0.99,
+            "not_applicable": 0
+          }
+        },
+        {
+          "id": "heading-na-1",
+          "rule": "descriptive_heading",
+          "expected": "not_applicable",
+          "type": "heading",
+          "text": "Install packages",
+          "followingText": "",
+          "outcome": "not_applicable",
+          "confidence": 0.94,
+          "probabilities": {
+            "violation": 0.03,
+            "compliant": 0.01,
+            "not_applicable": 0.96
+          }
+        },
+        {
+          "id": "heading-na-2",
+          "rule": "descriptive_heading",
+          "expected": "not_applicable",
+          "type": "heading",
+          "text": "Registry security",
+          "followingText": "",
+          "outcome": "not_applicable",
+          "confidence": 0.91,
+          "probabilities": {
+            "violation": 0.04,
+            "compliant": 0.02,
+            "not_applicable": 0.94
+          }
+        }
+      ],
+      "model": "jev-1.13.0",
+      "usage": {
+        "input_tokens": 1613,
+        "output_tokens": 288
+      }
+    }
+  }
+}

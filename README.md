@@ -38,9 +38,21 @@ export TYPESAFE_API_KEY="ts_..."
 bun run style:jev -- src/content/docs/getting-started/why-syllago.mdx
 ```
 
-The demo reports likely violations at `0.85` and review candidates at `0.50`.
-These are trial thresholds, not validated quality gates. Run it against a small
-labeled set and tune the rules and thresholds before considering CI use.
+The demo uses per-rule flag thresholds from `0.75` to `0.85` and review
+thresholds from `0.40` to `0.50`. These are trial thresholds, not validated
+quality gates. Run the labeled fixture evaluation to inspect their evidence:
+
+```bash
+bun run style:jev:eval
+```
+
+Build a combined, page-grouped Vale + Jev queue for the three representative
+trial pages:
+
+```bash
+bun run style:triage -- --json-output style-triage.json --markdown-output style-triage.md
+```
+
 `--help` shows the available options, including `--json`, `--max-blocks`, and
 `--fail-on-flag`.
 
@@ -52,7 +64,8 @@ bun run lint:vale
 ```
 
 See the [initial Google style trial](docs/reviews/2026-09-17-google-style-trial.md)
-for baseline results and known limitations.
+for the baseline, then the [evaluation report](docs/reviews/2026-09-17-style-evaluation.html)
+for calibration results, the three-page queue, and the current go/no-go assessment.
 
 ## CLI Reference Generation
 

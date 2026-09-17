@@ -14,6 +14,8 @@
     "lint:cli-refs": "bun scripts/lint-cli-refs.ts",
     "lint:vale": "vale src/content",
     "style:jev": "bun scripts/jev-style-demo.ts",
+    "style:jev:eval": "bun scripts/jev-style-eval.ts",
+    "style:triage": "bun scripts/style-triage.ts",
     "postinstall": "node scripts/patch-starlight-llms-txt.js",
     "prebuild": "bun scripts/sync-capabilities.ts && bun scripts/sync-commands.ts && bun scripts/sync-errors.ts && bun scripts/sync-providers.ts && bun scripts/sync-telemetry.ts",
     "build": "astro build",

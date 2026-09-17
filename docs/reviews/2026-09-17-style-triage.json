@@ -1,0 +1,589 @@
+{
+  "generated_at": "2026-09-17T22:41:43.401Z",
+  "pages": [
+    {
+      "file": "src/content/docs/getting-started/why-syllago.mdx",
+      "vale": [
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            110,
+            112
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 12
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            11,
+            13
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 19
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            48,
+            50
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 22
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            158,
+            161
+          ],
+          "Check": "Google.Will",
+          "Description": "",
+          "Link": "https://developers.google.com/style/tense",
+          "Message": "Avoid using 'will'.",
+          "Severity": "warning",
+          "Match": "will",
+          "Line": 31
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "isn't"
+            ]
+          },
+          "Span": [
+            152,
+            157
+          ],
+          "Check": "Google.Contractions",
+          "Description": "",
+          "Link": "https://developers.google.com/style/contractions",
+          "Message": "Use 'isn't' instead of 'is not'.",
+          "Severity": "suggestion",
+          "Match": "is not",
+          "Line": 53
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            459,
+            463
+          ],
+          "Check": "Google.Anthropomorphism",
+          "Description": "",
+          "Link": "https://developers.google.com/style/anthropomorphism",
+          "Message": "Don't attribute human qualities to software or hardware ('tells').",
+          "Severity": "suggestion",
+          "Match": "tells",
+          "Line": 55
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            487,
+            490
+          ],
+          "Check": "Google.Will",
+          "Description": "",
+          "Link": "https://developers.google.com/style/tense",
+          "Message": "Avoid using 'will'.",
+          "Severity": "warning",
+          "Match": "will",
+          "Line": 55
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            21,
+            35
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is standardized').",
+          "Severity": "suggestion",
+          "Match": "is standardized",
+          "Line": 73
+        }
+      ],
+      "jev": [],
+      "jevModel": "jev-1.13.0",
+      "jevUsage": {
+        "input_tokens": 12086,
+        "output_tokens": 2495
+      }
+    },
+    {
+      "file": "src/content/docs/getting-started/quick-start.mdx",
+      "vale": [
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            54,
+            54
+          ],
+          "Check": "Google.Semicolons",
+          "Description": "",
+          "Link": "https://developers.google.com/style/semicolons",
+          "Message": "Use semicolons judiciously.",
+          "Severity": "suggestion",
+          "Match": ";",
+          "Line": 6
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            1,
+            334
+          ],
+          "Check": "Google.OxfordComma",
+          "Description": "",
+          "Link": "https://developers.google.com/style/commas",
+          "Message": "Use the Oxford comma in ', space toggles a selection and enter confirms.'.",
+          "Severity": "warning",
+          "Match": ", space toggles a selection and enter confirms.",
+          "Line": 29
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            9,
+            17
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is copied').",
+          "Severity": "suggestion",
+          "Match": "is copied",
+          "Line": 55
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            50,
+            59
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('be written').",
+          "Severity": "suggestion",
+          "Match": "be written",
+          "Line": 57
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            8,
+            17
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is grouped').",
+          "Severity": "suggestion",
+          "Match": "is grouped",
+          "Line": 78
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "media type"
+            ]
+          },
+          "Span": [
+            119,
+            130
+          ],
+          "Check": "Google.WordListCase",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'media type' instead of 'content type'.",
+          "Severity": "warning",
+          "Match": "content type",
+          "Line": 78
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "preceding"
+            ]
+          },
+          "Span": [
+            33,
+            37
+          ],
+          "Check": "Google.WordListCase",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'preceding' instead of 'above'.",
+          "Severity": "warning",
+          "Match": "above",
+          "Line": 86
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            16,
+            21
+          ],
+          "Check": "Google.Timeless",
+          "Description": "",
+          "Link": "https://developers.google.com/style/timeless-documentation",
+          "Message": "Avoid time-based words like 'latest' in product documentation.",
+          "Severity": "suggestion",
+          "Match": "latest",
+          "Line": 110
+        }
+      ],
+      "jev": [],
+      "jevModel": "jev-1.13.0",
+      "jevUsage": {
+        "input_tokens": 12524,
+        "output_tokens": 2587
+      }
+    },
+    {
+      "file": "src/content/docs/advanced/sandbox.mdx",
+      "vale": [
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            21,
+            23
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 3
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            21,
+            23
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 6
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "aren't"
+            ]
+          },
+          "Span": [
+            31,
+            37
+          ],
+          "Check": "Google.Contractions",
+          "Description": "",
+          "Link": "https://developers.google.com/style/contractions",
+          "Message": "Use 'aren't' instead of 'are not'.",
+          "Severity": "suggestion",
+          "Match": "are not",
+          "Line": 8
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            111,
+            119
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is hidden').",
+          "Severity": "suggestion",
+          "Match": "is hidden",
+          "Line": 14
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            35,
+            45
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('are blocked').",
+          "Severity": "suggestion",
+          "Match": "are blocked",
+          "Line": 16
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            174,
+            182
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is denied').",
+          "Severity": "suggestion",
+          "Match": "is denied",
+          "Line": 16
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            63,
+            72
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('are passed').",
+          "Severity": "suggestion",
+          "Match": "are passed",
+          "Line": 18
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            26,
+            37
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('be installed').",
+          "Severity": "suggestion",
+          "Match": "be installed",
+          "Line": 22
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            157,
+            170
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('is constrained').",
+          "Severity": "suggestion",
+          "Match": "is constrained",
+          "Line": 60
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            17,
+            27
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('be combined').",
+          "Severity": "suggestion",
+          "Match": "be combined",
+          "Line": 83
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            40,
+            49
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('are passed').",
+          "Severity": "suggestion",
+          "Match": "are passed",
+          "Line": 121
+        },
+        {
+          "Action": {
+            "Name": "",
+            "Params": null
+          },
+          "Span": [
+            86,
+            98
+          ],
+          "Check": "Google.Passive",
+          "Description": "",
+          "Link": "https://developers.google.com/style/voice",
+          "Message": "In general, use active voice instead of passive voice ('are forwarded').",
+          "Severity": "suggestion",
+          "Match": "are forwarded",
+          "Line": 121
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            4,
+            6
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 173
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            4,
+            6
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 174
+        },
+        {
+          "Action": {
+            "Name": "replace",
+            "Params": [
+              "command-line tool"
+            ]
+          },
+          "Span": [
+            4,
+            6
+          ],
+          "Check": "Google.WordList",
+          "Description": "",
+          "Link": "https://developers.google.com/style/word-list",
+          "Message": "Use 'command-line tool' instead of 'CLI'.",
+          "Severity": "warning",
+          "Match": "CLI",
+          "Line": 175
+        }
+      ],
+      "jev": [],
+      "jevModel": "jev-1.13.0",
+      "jevUsage": {
+        "input_tokens": 12121,
+        "output_tokens": 2534
+      }
+    }
+  ]
+}

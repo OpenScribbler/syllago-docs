@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllago style enforcement experiment</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f7f3e8; --panel:#fffdf7; --ink:#29251f; --muted:#6d665c; --line:#d7cfbf; --green:#18794e; --amber:#9a6700; --red:#b42318; --blue:#175cd3; }
+    * { box-sizing:border-box }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.55 ui-sans-serif,system-ui,sans-serif }
+    main { width:min(1120px,calc(100% - 32px)); margin:0 auto; padding:48px 0 72px }
+    h1,h2,h3 { line-height:1.15; letter-spacing:-.025em }
+    h1 { font-size:clamp(2.2rem,6vw,4.4rem); max-width:850px; margin:.2em 0 }
+    h2 { margin-top:2.1em; font-size:1.7rem }
+    h3 { margin-bottom:.25rem }
+    p { max-width:76ch }
+    .eyebrow { color:var(--blue); font-weight:750; letter-spacing:.08em; text-transform:uppercase; font-size:.78rem }
+    .lede { color:var(--muted); font-size:1.18rem }
+    .verdict { border-left:5px solid var(--amber); padding:18px 22px; background:var(--panel); border-radius:0 12px 12px 0; margin:28px 0 }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:26px 0 }
+    .card,.proposal { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px }
+    .metric { font-size:2rem; font-weight:800; display:block }
+    .label { color:var(--muted); font-size:.86rem }
+    .good { color:var(--green) } .caution { color:var(--amber) } .bad { color:var(--red) }
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px }
+    table { width:100%; border-collapse:collapse; min-width:680px; background:var(--panel) }
+    th,td { padding:11px 13px; border-bottom:1px solid var(--line); text-align:left }
+    th { font-size:.78rem; text-transform:uppercase; color:var(--muted) }
+    tr:last-child td { border-bottom:0 }
+    code { font: .9em ui-monospace,SFMono-Regular,Consolas,monospace; background:color-mix(in srgb,var(--line) 45%,transparent); padding:.12em .35em; border-radius:4px }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; padding:14px; border-radius:8px; background:#1f2430; color:#f4f0e6; font-size:.82rem }
+    .pill { display:inline-block; border-radius:999px; padding:3px 9px; font-size:.76rem; font-weight:750; background:color-mix(in srgb,var(--green) 14%,transparent); color:var(--green) }
+    .pill.reject { background:color-mix(in srgb,var(--red) 12%,transparent); color:var(--red) }
+    a { color:var(--blue) }
+    footer { color:var(--muted); margin-top:48px; border-top:1px solid var(--line); padding-top:18px }
+    @media (max-width:760px) { main { width:min(100% - 22px,1120px); padding-top:28px } .grid { grid-template-columns:repeat(2,1fr) } .card { padding:14px } }
+    @media (prefers-color-scheme:dark) { :root { --bg:#171713; --panel:#211f1a; --ink:#eee9dc; --muted:#aaa294; --line:#474238; --green:#53b985; --amber:#e5ad3d; --red:#ff7b72; --blue:#78a9ff } }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Syllago docs · Vale + Jev · 17 September 2026</div>
+  <h1>A promising architecture, but Jev has not earned a broad rollout yet.</h1>
+  <p class="lede">Vale efficiently shrank a deterministic backlog. Jev performed well on a small synthetic fixture set, then surfaced no candidates on three real pages while consuming 44,347 tokens. The right next move is a larger, author-labeled real-doc corpus—not automatic rewriting.</p>
+
+  <div class="verdict"><strong>Decision: continue as a bounded research spike.</strong> The queue-and-patch workflow is useful. The present semantic rules need better real-world recall evidence and a cheaper request shape before they belong in CI.</div>
+
+  <div class="grid">
+    <div class="card"><span class="metric good">96.7%</span><span class="label">three-way accuracy on 30 labeled fixtures</span></div>
+    <div class="card"><span class="metric good">−508</span><span class="label">Vale findings after 3 scoped rule decisions</span></div>
+    <div class="card"><span class="metric caution">0</span><span class="label">Jev candidates across 3 real pages</span></div>
+    <div class="card"><span class="metric caution">44,347</span><span class="label">Jev tokens for fixture + page trials</span></div>
+  </div>
+
+  <h2>1. Calibrate five semantic rules</h2>
+  <p>The corpus has six cases per rule: two violations, two compliant examples, and two not-applicable examples. It is deliberately small and easy, so these numbers are directional and likely overfit.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>Choice accuracy</th><th>Flag threshold</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead>
+    <tbody>
+      <tr><td>Actor clarity</td><td>100%</td><td>.85</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+      <tr><td>Contextual jargon</td><td>100%</td><td>.75</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+      <tr><td>Paragraph focus</td><td>100%</td><td>.80</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+      <tr><td>Critical information first</td><td>100%</td><td>.75</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+      <tr><td>Descriptive heading</td><td>83.3%</td><td>.85</td><td>1.00</td><td class="bad">.50</td><td>.667</td></tr>
+    </tbody>
+  </table></div>
+  <p>The heading rule missed <code>Details</code> but caught <code>More information</code>. Its review threshold is therefore lower (<code>.40</code>) while its flag threshold remains strict.</p>
+
+  <h2>2. Make three Vale policy decisions</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>Baseline</th><th>Decision</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr><td>Google.EmDash</td><td>204</td><td>Disable</td><td>Syllago intentionally uses spaced em dashes.</td></tr>
+      <tr><td>Google.Parens</td><td>191</td><td>Disable</td><td>The package's broad warning is not actionable for these docs.</td></tr>
+      <tr><td>Google.Acronyms</td><td>113</td><td>Disable</td><td>Project vocabulary needs targeted handling instead.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The complete corpus moves from <strong>818</strong> findings (216 errors, 117 warnings, 485 suggestions) to <strong>310</strong> (12 errors, 117 warnings, 181 suggestions). This is the clearest immediate win: codify conscious exceptions before asking an LLM to edit anything.</p>
+
+  <h2>3. Build a per-page queue</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Page</th><th>Vale</th><th>Jev flag/review</th><th>Jev tokens</th></tr></thead>
+    <tbody>
+      <tr><td>Why syllago</td><td>8</td><td>0</td><td>14,581</td></tr>
+      <tr><td>Quick Start</td><td>8</td><td>0</td><td>15,111</td></tr>
+      <tr><td>Sandbox</td><td>15</td><td>0</td><td>14,655</td></tr>
+    </tbody>
+  </table></div>
+  <p>Jev's zero is not automatically bad—the pages may be clean—but it prevents us from estimating real-page precision or recall. A manual look found a plausible paragraph-focus edit scored only <code>.37</code>, below the <code>.50</code> review threshold. That is evidence to label real examples before tuning further.</p>
+
+  <h2>4. Test the editing handoff with only three decisions</h2>
+  <section class="proposal"><span class="pill">Accept</span><h3>Add a serial comma</h3><pre>- **space** toggles a selection and **enter** confirms.
++ **space** toggles a selection, and **enter** confirms.</pre><p>A safe, deterministic Vale fix.</p></section>
+  <section class="proposal"><span class="pill">Review</span><h3>Split one dense procedure paragraph</h3><p>A human inspection of a Jev near miss suggests separating interaction steps from the resulting config and optional shortcut. This is useful editorial work, but the calibrated queue failed to surface it.</p></section>
+  <section class="proposal"><span class="pill reject">Reject</span><h3>Do not rewrite product names containing “CLI”</h3><p><code>Copilot CLI</code> is a name, and CLI is accepted audience vocabulary. Add a targeted vocabulary exception; do not accept Google.WordList blindly.</p></section>
+
+  <h2>What this says about value</h2>
+  <p><strong>Vale should remain the first pass.</strong> It is fast, transparent, and excellent for mechanical rules. <strong>Jev is most promising as a second-pass classifier</strong> for a small set of carefully defined semantic questions, with evidence and confidence attached—not as a style-guide ingest or autonomous rewriter.</p>
+  <p>Before investing further, label roughly 20–30 naturally occurring paragraphs per rule, include hard near-boundary cases, and measure recall at a fixed precision target. Also reduce payload cost by sending only eligible units per rule or testing a two-stage candidate filter. If Jev cannot surface useful real findings at tolerable cost, stop; the combined queue still remains useful with Vale alone.</p>
+
+  <h2>Artifacts</h2>
+  <ul>
+    <li><a href="2026-09-17-style-triage.md">Human-readable per-page queue</a> and <a href="2026-09-17-style-triage.json">machine-readable queue</a></li>
+    <li><a href="2026-09-17-jev-style-eval.json">Labeled Jev evaluation data</a></li>
+    <li><a href="2026-09-17-style-patch-proposals.md">Three scoped patch decisions</a></li>
+    <li><a href="2026-09-17-google-style-trial.html">Initial Google Vale trial</a></li>
+  </ul>
+  <footer>Generated from a bounded experiment. No proposed documentation edits were applied automatically.</footer>
+</main>
+</body>
+</html>
