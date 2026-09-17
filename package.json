@@ -13,6 +13,7 @@
     "sync:providers": "bun scripts/sync-providers.ts",
     "lint:cli-refs": "bun scripts/lint-cli-refs.ts",
     "lint:vale": "vale src/content",
+    "style:jev": "bun scripts/jev-style-demo.ts",
     "postinstall": "node scripts/patch-starlight-llms-txt.js",
     "prebuild": "bun scripts/sync-capabilities.ts && bun scripts/sync-commands.ts && bun scripts/sync-errors.ts && bun scripts/sync-providers.ts && bun scripts/sync-telemetry.ts",
     "build": "astro build",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",
+    "@typesafe-ai/sdk": "^0.6.0",
     "unist-util-visit": "^5.1.0",
     "vitest": "^4.1.10"
   }
