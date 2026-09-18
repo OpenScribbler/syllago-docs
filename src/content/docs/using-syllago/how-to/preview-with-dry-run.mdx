@@ -1,0 +1,43 @@
+---
+title: Preview changes with --dry-run
+description: See exactly what a syllago command would write, change, or delete — before it does.
+---
+
+Every syllago command that writes to disk supports `--dry-run`: run it and syllago prints what *would* happen, then exits without touching anything. It's the fastest way to build trust in a CLI that edits your AI tool configs.
+
+## Where it's supported
+
+| Command | What the dry run shows |
+|---------|------------------------|
+| [`syllago add`](/using-syllago/cli-reference/add/) | What would be imported into your library |
+| [`syllago install`](/using-syllago/cli-reference/install/) | Files/symlinks that would be created in the provider (also accepts `-n`) |
+| [`syllago refresh`](/using-syllago/cli-reference/refresh/) | Installed items that would be updated from registries |
+| [`syllago remove`](/using-syllago/cli-reference/remove/) | What would be deleted from your library |
+| [`syllago uninstall`](/using-syllago/cli-reference/uninstall/) | What would be removed from the provider's location |
+| [`syllago sync-install`](/using-syllago/cli-reference/sync-install/) | The combined registry-sync-then-install plan |
+
+[`syllago loadout apply`](/using-syllago/cli-reference/loadout-apply/) goes one step further: **preview is its default**. Running it with no flags never modifies anything; you opt into changes with `--try` or `--keep`.
+
+## Dry run vs. real run
+
+```bash
+# Preview: prints the plan, writes nothing
+syllago install typescript --to cursor --dry-run
+
+# Real: creates the symlink in Cursor's rules directory
+syllago install typescript --to cursor
+```
+
+The dry-run output lists the same target paths and conversions as the real run — the only difference is that nothing is written. If the plan looks wrong (wrong provider directory, unexpected format conversion, an item you didn't mean to touch), you've lost nothing.
+
+## When to use it
+
+- **Before your first use of any command** — cheap way to learn what it actually does
+- **Before anything destructive** — always before `remove` and `uninstall`
+- **Before bulk operations** — `--all`, `--to-all`, and `refresh --all` fan out; preview the fan-out first
+- **When a provider's directory layout matters** — confirm where files will land before writing there
+
+## Related
+
+- [Quick Start](/getting-started/quick-start/) — the flows these commands belong to
+- [Keep rules in sync](/using-syllago/how-to/keep-rules-in-sync/) — where dry runs fit the maintenance workflow

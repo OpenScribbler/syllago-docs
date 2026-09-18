@@ -1,0 +1,72 @@
+---
+title: Keep rules in sync across multiple AI tools
+description: Edit a rule once and have the change reach every AI tool you use — and know what breaks that guarantee.
+---
+
+"Single source of truth" is syllago's core promise. This guide covers the ongoing workflow: where to make edits, how they propagate, and what silently breaks the sync if you're not careful.
+
+## How the sync model works
+
+When you run `syllago install`, the default method is a **symlink**: the file in the provider's directory points back at the canonical copy in your library (`~/.syllago/content/`). Edit the library copy and every symlinked install sees the change immediately — there is no regenerate or re-sync step.
+
+The exceptions: hooks and MCP configs are **merged into the provider's settings file** rather than linked, and anything installed with `--method copy` is a standalone snapshot. Those don't auto-propagate (see [What breaks sync](#what-breaks-sync) below).
+
+## Make edits in one place: the library
+
+The canonical copy of each item lives in your library. That's where edits go:
+
+```bash
+# Find the item
+syllago list --type rules
+
+# See where it lives and what's in it
+syllago inspect rules/typescript
+```
+
+Then edit the content file under `~/.syllago/content/rules/typescript/` with your editor of choice. Every provider with a symlinked install picks the change up instantly.
+
+Editing the file in a provider directory (say, `.cursor/rules/typescript.mdc`) is the wrong direction — see below.
+
+## Install to every tool you use
+
+Adding a new rule, or a new provider? Install from the library outward:
+
+```bash
+# One provider at a time
+syllago install typescript --to claude-code
+syllago install typescript --to cursor
+
+# Or every detected provider at once
+syllago install typescript --to-all
+
+# Or everything of one type, everywhere
+syllago install --type rules --to-all
+```
+
+Re-running `install` is safe: syllago tracks what's installed where and asks (or takes your `--on-clean` / `--on-modified` preference) when something already exists.
+
+## What breaks sync
+
+- **`--method copy`.** A copy is frozen at install time. Use it deliberately (e.g., a machine that can't resolve symlinks), and remember those installs need re-running after edits.
+- **Manual edits in provider directories.** Editing the provider-side file breaks the "library is canonical" assumption — with a symlink your edit actually lands in the library (fine, if surprising); with a copy it diverges silently. syllago detects stale install records and offers to reconcile (`--on-modified drop-record|append-fresh|keep`).
+- **Hooks and MCP configs.** These are merged into provider settings files, not symlinked. After editing one in your library, re-run `syllago install` for it.
+- **Registry items you don't refresh.** Content installed from a registry updates when *you* choose: `syllago registry sync` pulls the registry, then [`syllago refresh --all`](/using-syllago/cli-reference/refresh/) updates installed items that have newer versions (add `--dry-run` to preview).
+
+## Check what's installed where
+
+```bash
+# Everything syllago knows about, grouped by type
+syllago list
+
+# One item's full metadata, including install state
+syllago inspect rules/typescript
+
+# What would update from registries, without changing anything
+syllago refresh --all --dry-run
+```
+
+## Related
+
+- [Library](/using-syllago/collections/library/) — the canonical store and its layout
+- [`syllago install`](/using-syllago/cli-reference/install/) — install methods and reconciliation flags
+- [Format Conversion](/using-syllago/format-conversion/) — what happens to an item on its way into each provider

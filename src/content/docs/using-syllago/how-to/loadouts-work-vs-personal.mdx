@@ -1,0 +1,65 @@
+---
+title: Create loadouts for work vs. personal setups
+description: Use loadouts to switch your AI tools between a strict work configuration and a relaxed personal one.
+---
+
+Say your day job requires strict security rules — no external network calls in generated code, mandatory review comments, conservative dependency policies — but on personal projects you want a looser, experimental setup. A [loadout](/using-syllago/collections/loadouts/) is a named bundle of items you apply or revert as a unit, which makes "switch modes" a single command.
+
+## What you need
+
+- syllago [installed](/getting-started/installation/) and initialized (`syllago init`)
+- The rules for both setups already in your [library](/using-syllago/collections/library/) (import them with `syllago add` if they aren't)
+
+## 1. Create the work loadout
+
+```bash
+syllago loadout create
+```
+
+Loadout creation is interactive: it walks you through naming the loadout (call it `work`) and selecting which library items belong to it — your security rules, the compliance skill, the team MCP config.
+
+## 2. Create the personal loadout
+
+Run the same command again and build a `personal` loadout from your experimental rules and side-project skills:
+
+```bash
+syllago loadout create
+```
+
+## 3. Preview before switching
+
+`loadout apply` is **safe by default** — with no flags it only previews what would change:
+
+```bash
+syllago loadout apply work
+```
+
+Read the plan. Nothing has been modified yet.
+
+## 4. Switch between them
+
+Two ways to actually apply, depending on how committed you are:
+
+```bash
+# Temporary: reverts automatically when the session ends
+syllago loadout apply personal --try
+
+# Permanent: stays until you remove or replace it
+syllago loadout apply work --keep
+```
+
+`--try` is ideal for the "I'm doing an hour of side-project work" case; `--keep` for the Monday-morning switch back. Add `--to <provider>` to target a specific provider instead of the one the loadout declares.
+
+## 5. Check what's active
+
+```bash
+syllago loadout status
+```
+
+This tells you which loadout is currently applied — worth a glance before an AI session where the difference matters. `syllago loadout list` shows everything available, and `syllago loadout remove` undoes a `--keep`.
+
+## Related
+
+- [Loadouts](/using-syllago/collections/loadouts/) — the concept and how loadouts relate to your library
+- [`syllago loadout apply`](/using-syllago/cli-reference/loadout-apply/) — full flag reference
+- [Team Setup](/advanced/team-setup/) — loadouts as a team-onboarding tool
