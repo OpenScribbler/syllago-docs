@@ -1,0 +1,25 @@
+{
+  "id": "skills-skill_bundled_resources",
+  "key": "skill_bundled_resources",
+  "contentType": "skills",
+  "description": "Whether the skill directory may contain arbitrary co-located files (scripts, templates, configs, checklists) beyond SKILL.md that the agent can access when the skill is invoked. Enables multi-file skill bundles without converting supporting files into separate skills or rules.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "Arbitrary files (scripts, templates, configs) co-located alongside SKILL.md in the skill directory; agent reads them by relative path when the skill is invoked."
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "Optional docs/, templates/, scripts/ subdirectories under SKILL.md are loaded on demand when the skill is invoked."
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "Skill directories may include scripts/, references/, and assets/ subdirectories that SKILL.md references via relative paths."
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Arbitrary additional files alongside SKILL.md (scripts, checklists, templates) in the skill directory; all are loaded when the skill is invoked."
+    }
+  }
+}
