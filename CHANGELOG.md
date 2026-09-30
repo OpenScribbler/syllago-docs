@@ -18,6 +18,7 @@ All notable changes to the syllago documentation site.
 
 ### Fixed
 - `src/content/docs/moat/index.mdx`, `src/content/docs/moat/registry-add-signing-identity.mdx`, `src/content/docs/moat/trust-tiers.mdx` — removed links to and mentions of a syllago ADR that no longer exists; the `Unknown` label and exit-code deviations now link to the sections that explain them, and the revocation table no longer points to a "Spec Alignment" section that this page does not have.
+- `src/content/docs/errors/index.mdx`, `moat-003.mdx`, `moat-006.mdx`, `moat-008.mdx`, `moat-009.mdx` — regenerated from syllago main, which dropped its references to a syllago ADR that no longer exists; the error pages now describe the behavior directly.
 
 ### Synced (syllago v0.14.0)
 - Cosmetic regen: 22 files (data-quality timestamps, reference page version stamps).
