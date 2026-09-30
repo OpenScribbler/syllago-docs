@@ -3,7 +3,7 @@ title: Preview changes with --dry-run
 description: See exactly what a syllago command would write, change, or delete — before it does.
 ---
 
-Every syllago command that writes to disk supports `--dry-run`: run it and syllago prints what *would* happen, then exits without touching anything. It's the fastest way to build trust in a CLI that edits your AI tool configs.
+The syllago commands that change your library or your provider files support `--dry-run`: run it and syllago prints what *would* happen, then exits without touching anything. It's the fastest way to build trust in a CLI that edits your AI tool configs.
 
 ## Where it's supported
 
@@ -11,7 +11,6 @@ Every syllago command that writes to disk supports `--dry-run`: run it and sylla
 |---------|------------------------|
 | [`syllago add`](/using-syllago/cli-reference/add/) | What would be imported into your library |
 | [`syllago install`](/using-syllago/cli-reference/install/) | Files/symlinks that would be created in the provider (also accepts `-n`) |
-| [`syllago refresh`](/using-syllago/cli-reference/refresh/) | Installed items that would be updated from registries |
 | [`syllago remove`](/using-syllago/cli-reference/remove/) | What would be deleted from your library |
 | [`syllago uninstall`](/using-syllago/cli-reference/uninstall/) | What would be removed from the provider's location |
 | [`syllago sync-install`](/using-syllago/cli-reference/sync-install/) | The combined registry-sync-then-install plan |
@@ -34,7 +33,7 @@ The dry-run output lists the same target paths and conversions as the real run �
 
 - **Before your first use of any command** — cheap way to learn what it actually does
 - **Before anything destructive** — always before `remove` and `uninstall`
-- **Before bulk operations** — `--all`, `--to-all`, and `refresh --all` fan out; preview the fan-out first
+- **Before bulk operations** — `--all` and `--to-all` fan out; preview the fan-out first
 - **When a provider's directory layout matters** — confirm where files will land before writing there
 
 ## Related

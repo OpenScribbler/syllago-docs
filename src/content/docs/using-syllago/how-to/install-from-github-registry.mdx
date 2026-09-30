@@ -13,7 +13,7 @@ A few places to look:
 - **GitHub search** — search for `syllago registry`; a syllago registry is just a git repo following syllago's [content structure](/using-syllago/collections/registries/).
 - **Community links** — teams and authors typically share their registry URL directly in a README or docs page, like any other repo.
 
-Any public repo URL you can `git clone`, you can add.
+You can add any public repo URL you can `git clone`. The meta-registry is on syllago's bundled allowlist. Any other registry needs `--moat` or a pinned signing identity, as [Registry Signing Identity](/moat/registry-add-signing-identity/) explains.
 
 ## 2. Add it
 
@@ -47,7 +47,7 @@ This clones (or pulls) the registry locally. Syncing never touches your library 
 # Everything, across all your registries
 syllago registry items
 
-# Just one registry, just one content type
+# Just one registry (the `meta` alias from step 2), just one content type
 syllago registry items meta --type rules
 ```
 
@@ -62,10 +62,11 @@ syllago resolves the item from your registries, converts it for the target provi
 ## Keeping registry content up to date
 
 ```bash
-syllago registry sync          # pull the latest registry content
-syllago refresh --all --dry-run  # see which installed items have updates
-syllago refresh --all          # apply them
+syllago registry sync                       # pull the latest registry content
+syllago install some-rule --to claude-code  # install the newer version
 ```
+
+To sync and install registry content in one step, run [`syllago sync-install --to claude-code --source registry`](/using-syllago/cli-reference/sync-install/).
 
 ## Related
 
