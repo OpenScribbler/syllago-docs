@@ -11,7 +11,7 @@ Syllago uses a hub-and-spoke model. Content in your library is stored in syllago
 Source Provider → syllago canonical format → Target Provider
 ```
 
-When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to windsurf`, syllago reads the canonical content, then converts it to the target provider's native format — translating fields, metadata, tool names, and content syntax automatically.
+When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to devin`, syllago reads the canonical content, then converts it to the target provider's native format — translating fields, metadata, tool names, and content syntax automatically.
 
 ### The three conversion fates
 
@@ -38,7 +38,7 @@ Every field and feature in a provider's native format has one of three fates dur
 
 | Field | Warning |
 |---|---|
-| Windsurf `trigger: manual` | "rule will only activate when explicitly requested" |
+| Devin Desktop `trigger: manual` | "rule will only activate when explicitly requested" |
 | Roo Code mode-based globs | "Roo Code uses mode-based scoping, not glob scoping" |
 | Zed rules with globs | "Zed does not support glob-scoped rules" |
 | MCP `autoApprove` on unsupported provider | "dropped autoApprove" |
@@ -79,7 +79,7 @@ Argument placeholder syntax is actively translated between providers:
 
 Lossy translations generate warnings:
 - **VS Code Copilot named variables** (`${input:firstName}`) collapse to `$ARGUMENTS` during canonicalization — warning: "named → positional, lossy"
-- **Providers without placeholder support** (Windsurf, Cline) receive literal text describing the expected arguments, plus a warning
+- **Providers without placeholder support** (Devin Desktop, Cline) receive literal text describing the expected arguments, plus a warning
 
 ## What gets preserved
 
@@ -132,7 +132,7 @@ syllago convert my-skill --to cursor --json
 | Skills | Most providers | Metadata rendering varies by provider capability |
 | Agents | Most providers | Codex uses TOML format, Kiro uses Markdown with YAML frontmatter (auto-converted) |
 | MCP configs | Every provider | Zed uses `context_servers` key (handled automatically) |
-| Hooks | Many providers | Claude Code, Gemini CLI, Copilot CLI, Cursor, Windsurf, Codex, Cline, Kiro |
+| Hooks | Many providers | Claude Code, Gemini CLI, Copilot CLI, Cursor, Devin Desktop, Codex, Cline, Kiro |
 | Commands | Many providers | Claude Code, Gemini CLI, Cursor, Copilot CLI, Codex, OpenCode |
 | Loadouts | Multi-provider (Claude Code default) | Use `--to <provider>` to target other providers |
 
@@ -172,7 +172,7 @@ For hooks specifically, syllago uses the [Hook Interchange Format](/reference/ho
 syllago convert my-skill --to gemini-cli
 
 # Save to a file
-syllago convert my-rule --to windsurf --output ./windsurf-rule.md
+syllago convert my-rule --to devin --output ./devin-rule.md
 
 # JSON output with portability warnings
 syllago convert my-skill --to cursor --json

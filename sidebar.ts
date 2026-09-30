@@ -25,7 +25,7 @@ export const sidebar: SidebarItem[] = [
         items: [
           { label: 'Claude Code rules into Cursor', slug: 'using-syllago/how-to/claude-code-rules-to-cursor' },
           { label: 'Cursor rules into Claude Code', slug: 'using-syllago/how-to/cursor-rules-to-claude-code' },
-          { label: 'Windsurf rules into Cline', slug: 'using-syllago/how-to/windsurf-rules-to-cline' },
+          { label: 'Devin Desktop rules into Cline', slug: 'using-syllago/how-to/windsurf-rules-to-cline' },
           { label: 'Keep rules in sync', slug: 'using-syllago/how-to/keep-rules-in-sync' },
           { label: 'Install a community skill', slug: 'using-syllago/how-to/install-community-skill' },
           { label: 'Install from a GitHub registry', slug: 'using-syllago/how-to/install-from-github-registry' },
