@@ -84,7 +84,7 @@ A registry-source revocation is the registry operator stating that the content i
 
 A publisher-source revocation is the publisher's own advisory. Operators running an interactive install see the reason and confirm with `Y/n`; pipelines without a TTY exit with code `12` so the failure is unambiguous in CI.
 
-Revocation reasons are drawn from a closed set: `malicious`, `compromised`, `deprecated`, `policy_violation`.
+The spec defines four revocation reasons: `malicious`, `compromised`, `deprecated`, and `policy_violation`. The reason is informational. The revocation's source decides whether syllago blocks or warns. The spec also expects clients to accept reason values outside those four. Syllago doesn't yet: it rejects a registry manifest whose revocation list carries any other reason.
 
 ## Private-repo prompt
 
