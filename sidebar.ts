@@ -30,7 +30,10 @@ export const sidebar: SidebarItem[] = [
       {
         label: 'CLI Reference',
         collapsed: true,
-        items: cliSidebarItems as SidebarItem[],
+        items: [
+          ...(cliSidebarItems as SidebarItem[]),
+          { label: 'capmon (moved)', slug: 'reference/capability-data' },
+        ].sort((a, b) => (a as { label: string }).label.localeCompare((b as { label: string }).label)),
       },
       {
         label: 'Content Types',

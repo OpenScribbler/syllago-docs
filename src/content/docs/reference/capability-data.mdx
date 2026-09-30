@@ -1,0 +1,20 @@
+---
+title: Capability data
+description: Where syllago's provider capability data comes from, now that capmon is a standalone tool.
+---
+
+Syllago's capability data records which content types each AI coding tool supports and how each provider represents them. The provider pages and the capability matrices on this site come from that data.
+
+## Where the data lives
+
+[capmon](https://github.com/OpenScribbler/capmon) owns the capability data and the pipeline that keeps it current. capmon watches each provider's upstream documentation for drift and repairs its own data when sources move.
+
+capmon publishes the data as the Capability Feed at [openscribbler.github.io/capmon](https://openscribbler.github.io/capmon/). The feed index lists the live contract version, and each version's `index.json` names every data file with its SHA-256 hash.
+
+## How syllago gets it
+
+Syllago mirrors the feed once a day. Before it writes anything, the mirror job verifies the feed's provenance and each file's hash, and stops if either check fails or the feed has gone stale. The mirrored copy lands in `docs/provider-capabilities/` in the [syllago repo](https://github.com/OpenScribbler/syllago) through a pull request, so every data change goes through the repo's normal checks before a release ships it.
+
+## Running capmon
+
+Syllago v0.14.0 moved the capmon command tree out of the syllago CLI. The same subcommands and flags now belong to the standalone `capmon` binary. For build steps and usage, see the [capmon README](https://github.com/OpenScribbler/capmon#usage).
