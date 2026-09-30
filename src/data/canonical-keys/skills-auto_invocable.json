@@ -1,0 +1,29 @@
+{
+  "id": "skills-auto_invocable",
+  "key": "auto_invocable",
+  "contentType": "skills",
+  "description": "Whether the provider supports automatic model-driven skill invocation — the model selects and activates a skill without explicit user syntax. Implementations vary: description-field semantic matching, explicit keyword arrays, and boolean flags are all equivalent mechanisms for the same concept. Note: a description field paired with an opt-out disable_model_invocation flag is functionally equivalent to an explicit auto_invocable boolean — both express that the skill participates in automatic activation unless suppressed.",
+  "type": "bool",
+  "providers": {
+    "amp": {
+      "supported": true,
+      "mechanism": "Model auto-selects skill by matching user request against frontmatter name and description fields; no explicit opt-out mechanism is documented."
+    },
+    "cline": {
+      "supported": true,
+      "mechanism": "Cline auto-invokes skills by matching user message against the description frontmatter field via the use_skill tool; no explicit @-mention syntax exists."
+    },
+    "kiro": {
+      "supported": true,
+      "mechanism": "Keywords array in POWER.md frontmatter (key: keywords); Kiro activates the power when any listed keyword is mentioned in conversation."
+    },
+    "pi": {
+      "supported": true,
+      "mechanism": "Skill name and description are injected into the system prompt as XML; the agent loads matching SKILL.md bodies on demand. Skills with disable-model-invocation: true are excluded from system prompt injection."
+    },
+    "windsurf": {
+      "supported": true,
+      "mechanism": "Cascade auto-invokes a skill when the user's request semantically matches its description frontmatter field."
+    }
+  }
+}

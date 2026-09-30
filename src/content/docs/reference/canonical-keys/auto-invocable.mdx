@@ -1,0 +1,25 @@
+---
+title: auto_invocable
+description: Whether the provider supports automatic model-driven skill invocation — the model selects and activates a skill without explicit user syntax
+---
+
+{/* AUTO-GENERATED — do not edit. Source: capabilities.json via sync-capabilities.ts */}
+
+import MetaBox from '../../../../components/MetaBox.astro';
+import CanonicalSupportTable from '../../../../components/CanonicalSupportTable.astro';
+
+<MetaBox
+  lastChangedAt="2026-05-06T14:00:00Z"
+  sourceCount={19}
+  providerSupportCount={5}
+  totalProviders={15}
+  issueUrl="https://github.com/OpenScribbler/syllago/issues/new?title=%5Bcapmon%5D%20Incorrect%20capability%20data%3A%20skills%2Fauto_invocable&body=**Canonical%20key%3A**%20%60auto_invocable%60%0A**Content%20type%3A**%20%60skills%60%0A**Data%20generated%3A**%202026-07-09%0A%0A**What%20is%20incorrect%3A**%0A%0A%3C!--%20Describe%20the%20incorrect%20data%20and%20provide%20a%20source%20URL%20if%20available%20--%3E&labels=capmon"
+/>
+
+Whether the provider supports automatic model-driven skill invocation — the model selects and activates a skill without explicit user syntax. Implementations vary: description-field semantic matching, explicit keyword arrays, and boolean flags are all equivalent mechanisms for the same concept. Note: a description field paired with an opt-out disable_model_invocation flag is functionally equivalent to an explicit auto_invocable boolean — both express that the skill participates in automatic activation unless suppressed.
+
+**Type:** `bool`  **Content type:** `skills`
+
+## Provider Support
+
+<CanonicalSupportTable keyName="auto_invocable" contentType="skills" />
