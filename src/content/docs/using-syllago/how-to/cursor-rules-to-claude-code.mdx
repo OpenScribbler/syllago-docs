@@ -48,10 +48,10 @@ By default this is a **symlink**, so later edits to the rule in your library rea
 
 ## 5. Verify it worked
 
-Claude Code reads rules from `CLAUDE.md` and `.claude/rules/` in a project (and `~/.claude/rules/` globally). Check the install landed:
+Claude Code reads rules from `CLAUDE.md` and `.claude/rules/` in a project (and `~/.claude/rules/` globally). Syllago installs rules to the global directory, so check the install landed there:
 
 ```bash
-ls .claude/rules/
+ls ~/.claude/rules/
 ```
 
 Start a Claude Code session and the rule is part of its context.

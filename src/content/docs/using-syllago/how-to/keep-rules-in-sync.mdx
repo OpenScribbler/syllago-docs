@@ -50,7 +50,7 @@ Re-running `install` is safe: syllago tracks what's installed where and asks (or
 - **`--method copy`.** A copy is frozen at install time. Use it deliberately (e.g., a machine that can't resolve symlinks), and remember those installs need re-running after edits.
 - **Manual edits in provider directories.** Editing the provider-side file breaks the "library is canonical" assumption — with a symlink your edit actually lands in the library (fine, if surprising); with a copy it diverges silently. syllago detects stale install records and offers to reconcile (`--on-modified drop-record|append-fresh|keep`).
 - **Hooks and MCP configs.** These are merged into provider settings files, not symlinked. After editing one in your library, re-run `syllago install` for it.
-- **Registry items you don't reinstall.** Content installed from a registry updates when *you* choose: [`syllago registry sync`](/using-syllago/cli-reference/registry-sync/) pulls the registry, then re-running `syllago install` for an item installs its newer version. [`syllago sync-install`](/using-syllago/cli-reference/sync-install/) does both in one step (add `--dry-run` to preview the install).
+- **Registry items you don't reinstall.** Content installed from a registry updates when *you* choose: [`syllago registry sync`](/using-syllago/cli-reference/registry-sync/) pulls the registry, then re-running `syllago install` for an item installs its newer version. `syllago sync-install --source registry --to <provider>` does both in one step (add `--dry-run` to preview the install). See [`sync-install`](/using-syllago/cli-reference/sync-install/).
 
 ## Check what's installed where
 

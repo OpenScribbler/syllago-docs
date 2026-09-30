@@ -49,7 +49,7 @@ syllago registry add https://github.com/your-org/syllago-registry.git
 syllago registry sync
 ```
 
-`syllago registry list` on the old machine tells you what you had. A registry outside syllago's bundled allowlist also needs the `--moat` or `--signing-identity` flag you added it with. See [Registry Signing Identity](/moat/registry-add-signing-identity/).
+`syllago registry list` on the old machine tells you what you had. A registry outside syllago's bundled allowlist also needs the `--moat` or signing flags you added it with. For a GitHub-hosted registry, that means `--signing-identity` plus `--signing-repository-id` and `--signing-repository-owner-id`. See [Registry Signing Identity](/moat/registry-add-signing-identity/).
 
 ## 5. Reinstall content to your providers
 
