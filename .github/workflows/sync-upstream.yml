@@ -64,12 +64,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bun run sync
 
+      - name: Stage sync output
+        run: git add -A
+
       - name: Detect drift
         id: drift
         env:
           DISPATCH_TAG: ${{ github.event.client_payload.tag }}
         run: |
-          if git diff --quiet src/; then
+          if git diff --staged --quiet src/; then
             TAG="${DISPATCH_TAG:-latest}"
             echo "## Sync status: in sync with syllago $TAG" >> "$GITHUB_STEP_SUMMARY"
             echo "drift=false" >> "$GITHUB_OUTPUT"
