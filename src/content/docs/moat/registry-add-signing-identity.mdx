@@ -7,7 +7,7 @@ import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
 Syllago's Model for Origin Attestation and Trust (MOAT) implementation verifies every registry manifest against a pinned cryptographic identity before content transitions into your library. The identity is pinned at registry-add time — not at every verify — so an attacker who later gains control of the registry's repository or CI workflow cannot silently swap the source of your content.
 
-This page covers the operator workflow for `syllago registry add` and the three ways to pin an identity. The protocol detail is captured in an Architecture Decision Record (ADR) — see [ADR 0007 in the syllago repo](https://github.com/OpenScribbler/syllago/blob/main/docs/adr/0007-moat-slice-1.md).
+This page covers the operator workflow for `syllago registry add` and the three ways to pin an identity.
 
 ## Why pinning matters
 
@@ -145,4 +145,4 @@ If you operate a public registry and want bundled inclusion so users can add you
 - The full signing identity (workflow path + ref).
 - A link to at least one published manifest signed with that identity.
 
-Allowlist inclusion is reviewed against the same ADR 0007 criteria that apply to ad-hoc pinning — the goal is to reduce friction for well-known registries, not to shortcut the trust model.
+Allowlist inclusion is reviewed against the same criteria that apply to ad-hoc pinning — the goal is to reduce friction for well-known registries, not to shortcut the trust model.

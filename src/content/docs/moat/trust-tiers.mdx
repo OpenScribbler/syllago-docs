@@ -11,7 +11,7 @@ This page documents how syllago computes the tier, what badges an operator sees,
 
 ## The three MOAT tiers
 
-MOAT v0.6.x defines three normative tiers based on which fields a manifest entry carries:
+MOAT v0.7.1 defines three normative tiers based on which fields a manifest entry carries:
 
 | Tier            | Required fields                                                    | Meaning                                                                 |
 |-----------------|--------------------------------------------------------------------|-------------------------------------------------------------------------|
@@ -73,11 +73,11 @@ The syllago TUI interface exposes a reusable **Trust Inspector** modal that rend
 
 ## Revocation: Two-tier contract
 
-MOAT lets a manifest carry revocations from either the **registry** or the **publisher**. Syllago treats the two sources differently because they mean different things. The behavior is specified in the project's Architecture Decision Record (ADR) 0007:
+MOAT lets a manifest carry revocations from either the **registry** or the **publisher**. Syllago treats the two sources differently because they mean different things:
 
 | Source      | Install gate         | Exit code (non-interactive) | Recovery                                                  |
 |-------------|----------------------|------------------------------|-----------------------------------------------------------|
-| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent (ADR 0007 G-15 — see Spec Alignment below). Choose an alternative item. |
+| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent. Choose an alternative item. |
 | `publisher` | Warn + prompt `Y/n`  | `12` (non-interactive only)  | Interactive acknowledgement, scoped to one install call.  |
 
 A registry-source revocation is the registry operator stating that the content is no longer trustworthy — malicious, compromised, deprecated, or policy-violating. Syllago refuses the install outright; there is no prompt.

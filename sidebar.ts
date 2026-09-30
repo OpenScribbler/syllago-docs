@@ -37,7 +37,10 @@ export const sidebar: SidebarItem[] = [
       {
         label: 'CLI Reference',
         collapsed: true,
-        items: cliSidebarItems as SidebarItem[],
+        items: [
+          ...(cliSidebarItems as SidebarItem[]),
+          { label: 'capmon (moved)', slug: 'reference/capability-data' },
+        ].sort((a, b) => (a as { label: string }).label.localeCompare((b as { label: string }).label)),
       },
       {
         label: 'Content Types',
@@ -329,6 +332,7 @@ export const sidebar: SidebarItem[] = [
             label: 'Skills',
             collapsed: true,
             items: [
+              { label: 'auto_invocable', slug: 'reference/canonical-keys/auto-invocable' },
               { label: 'canonical_filename', slug: 'reference/canonical-keys/canonical-filename' },
               { label: 'compatibility', slug: 'reference/canonical-keys/compatibility' },
               { label: 'custom_filename', slug: 'reference/canonical-keys/custom-filename' },
@@ -340,6 +344,7 @@ export const sidebar: SidebarItem[] = [
               { label: 'metadata_map', slug: 'reference/canonical-keys/metadata-map' },
               { label: 'project_scope', slug: 'reference/canonical-keys/project-scope' },
               { label: 'shared_scope', slug: 'reference/canonical-keys/shared-scope' },
+              { label: 'skill_bundled_resources', slug: 'reference/canonical-keys/skill-bundled-resources' },
               { label: 'user_invocable', slug: 'reference/canonical-keys/user-invocable' },
               { label: 'version', slug: 'reference/canonical-keys/version' },
             ],

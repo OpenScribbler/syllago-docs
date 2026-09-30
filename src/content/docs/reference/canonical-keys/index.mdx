@@ -69,6 +69,7 @@ See [format conversion](/using-syllago/format-conversion/) for how keys translat
 
 | Key | Description |
 |-----|-------------|
+| [`auto_invocable`](/reference/canonical-keys/auto-invocable/) | Whether the provider supports automatic model-driven skill invocation — the model selects and activates a skill without explicit user syntax |
 | [`canonical_filename`](/reference/canonical-keys/canonical-filename/) | The required or conventional filename for this skill type |
 | [`compatibility`](/reference/canonical-keys/compatibility/) | Provider compatibility constraints — which AI tool versions or providers this skill is compatible with |
 | [`custom_filename`](/reference/canonical-keys/custom-filename/) | Whether the provider supports custom filenames (beyond the canonical filename convention) |
@@ -80,5 +81,6 @@ See [format conversion](/using-syllago/format-conversion/) for how keys translat
 | [`metadata_map`](/reference/canonical-keys/metadata-map/) | Arbitrary key-value metadata attached to the skill |
 | [`project_scope`](/reference/canonical-keys/project-scope/) | Whether the skill can be installed at project scope (applies to current project only, typically committed to version control) |
 | [`shared_scope`](/reference/canonical-keys/shared-scope/) | Whether the skill can be installed at shared/enterprise scope (applies to all users in an organization or shared environment) |
+| [`skill_bundled_resources`](/reference/canonical-keys/skill-bundled-resources/) | Whether the skill directory may contain arbitrary co-located files (scripts, templates, configs, checklists) beyond SKILL |
 | [`user_invocable`](/reference/canonical-keys/user-invocable/) | When false, the skill is hidden from user-facing menus (e |
 | [`version`](/reference/canonical-keys/version/) | Semantic version string for the skill |

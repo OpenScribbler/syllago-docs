@@ -1,0 +1,222 @@
+[
+  {
+    "id": "actor-violation-1",
+    "rule": "actor_clarity",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "After the configuration is loaded, it is validated and then sent to it before it is stored."
+  },
+  {
+    "id": "actor-violation-2",
+    "rule": "actor_clarity",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "When the hook returns, it is applied before it is passed to the provider."
+  },
+  {
+    "id": "actor-compliant-1",
+    "rule": "actor_clarity",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "Syllago validates the file and then sends the validated configuration to Cursor."
+  },
+  {
+    "id": "actor-compliant-2",
+    "rule": "actor_clarity",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "The file is saved after validation. The identity of the saving process does not affect this result."
+  },
+  {
+    "id": "actor-na-1",
+    "rule": "actor_clarity",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "Registry privacy, trust boundaries, and package metadata."
+  },
+  {
+    "id": "actor-na-2",
+    "rule": "actor_clarity",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "A registry with fifteen providers and three trust levels."
+  },
+
+  {
+    "id": "jargon-violation-1",
+    "rule": "contextual_jargon",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "Frobnicate the quux through the ZORB layer before activating transmogrification."
+  },
+  {
+    "id": "jargon-violation-2",
+    "rule": "contextual_jargon",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "Use the break-glass swim lane to reduce the blast radius of the rollout."
+  },
+  {
+    "id": "jargon-compliant-1",
+    "rule": "contextual_jargon",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "Model Context Protocol (MCP) servers expose tools and resources to AI coding clients."
+  },
+  {
+    "id": "jargon-compliant-2",
+    "rule": "contextual_jargon",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "Run `syllago compat`; the compatibility command reports features that cannot be translated."
+  },
+  {
+    "id": "jargon-na-1",
+    "rule": "contextual_jargon",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "Choose a directory and continue to the next step."
+  },
+  {
+    "id": "jargon-na-2",
+    "rule": "contextual_jargon",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "The next section contains three examples."
+  },
+
+  {
+    "id": "focus-violation-1",
+    "rule": "single_idea",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "The registry stores packages for a team. The terminal uses a dark theme. Release tags identify versions."
+  },
+  {
+    "id": "focus-violation-2",
+    "rule": "single_idea",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "Install the package with Bun. Syllago was named after a flock of birds. Production registries should require signatures."
+  },
+  {
+    "id": "focus-compliant-1",
+    "rule": "single_idea",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "A loadout groups related packages. Applying the loadout installs every package in the group, and removing it reverses those installations."
+  },
+  {
+    "id": "focus-compliant-2",
+    "rule": "single_idea",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "The compatibility command checks each target provider. It reports supported fields, translated fields, and information that would be lost."
+  },
+  {
+    "id": "focus-na-1",
+    "rule": "single_idea",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "Run the command."
+  },
+  {
+    "id": "focus-na-2",
+    "rule": "single_idea",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "Syllago installs packages."
+  },
+
+  {
+    "id": "critical-violation-1",
+    "rule": "critical_information_first",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "The update command downloads metadata and prints a concise summary. Before running it, back up your only unpublished registry because the command can overwrite it."
+  },
+  {
+    "id": "critical-violation-2",
+    "rule": "critical_information_first",
+    "expected": "violation",
+    "type": "paragraph",
+    "text": "This option makes installation faster and uses fewer network requests. It permanently deletes the previous package version, so save a copy first."
+  },
+  {
+    "id": "critical-compliant-1",
+    "rule": "critical_information_first",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "Back up your unpublished registry before running the update command because the command can overwrite it. The command then downloads metadata and prints a summary."
+  },
+  {
+    "id": "critical-compliant-2",
+    "rule": "critical_information_first",
+    "expected": "compliant",
+    "type": "paragraph",
+    "text": "Install Bubblewrap before enabling the sandbox. After installation, `syllago sandbox check` verifies the dependency."
+  },
+  {
+    "id": "critical-na-1",
+    "rule": "critical_information_first",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "The status command prints the active registry and installed package count."
+  },
+  {
+    "id": "critical-na-2",
+    "rule": "critical_information_first",
+    "expected": "not_applicable",
+    "type": "paragraph",
+    "text": "Registries use Git tags to identify released package versions."
+  },
+
+  {
+    "id": "heading-violation-1",
+    "rule": "descriptive_heading",
+    "expected": "violation",
+    "type": "heading",
+    "text": "More information",
+    "followingText": "Install the registry by running `syllago registry add` with its Git URL."
+  },
+  {
+    "id": "heading-violation-2",
+    "rule": "descriptive_heading",
+    "expected": "violation",
+    "type": "heading",
+    "text": "Details",
+    "followingText": "Require signed commits before sharing packages from a production registry."
+  },
+  {
+    "id": "heading-compliant-1",
+    "rule": "descriptive_heading",
+    "expected": "compliant",
+    "type": "heading",
+    "text": "Install Bubblewrap on Linux",
+    "followingText": "Use your distribution's package manager to install Bubblewrap and Socat."
+  },
+  {
+    "id": "heading-compliant-2",
+    "rule": "descriptive_heading",
+    "expected": "compliant",
+    "type": "heading",
+    "text": "Choose a registry scope",
+    "followingText": "Use a project registry for one repository or a global registry for all projects."
+  },
+  {
+    "id": "heading-na-1",
+    "rule": "descriptive_heading",
+    "expected": "not_applicable",
+    "type": "heading",
+    "text": "Install packages",
+    "followingText": ""
+  },
+  {
+    "id": "heading-na-2",
+    "rule": "descriptive_heading",
+    "expected": "not_applicable",
+    "type": "heading",
+    "text": "Registry security",
+    "followingText": ""
+  }
+]

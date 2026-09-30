@@ -96,8 +96,8 @@ Every MOAT failure mode maps to a stable error code with documented remediation.
 
 ## Spec alignment
 
-Syllago tracks MOAT **v0.6.x Draft**. The spec is pre-1.0; syllago follows it as it evolves, and signing-profile changes on existing registries may trigger a re-approval prompt (exit `11`) when a registry operator rotates their identity — which is the protocol working as designed.
+Syllago tracks MOAT **v0.7.1 Draft**. The spec is pre-1.0; syllago follows it as it evolves, and signing-profile changes on existing registries may trigger a re-approval prompt (exit `11`) when a registry operator rotates their identity — which is the protocol working as designed.
 
 <Aside type="note">
-Syllago's implementation stays intentionally close to the spec. Where syllago adds its own concept — like the catalog-layer `Unknown` label for non-MOAT content, or the closed-set exit-code band `10`–`13` for non-interactive failures — the deviation is documented and the reasoning recorded as an Architecture Decision Record (ADR) — see [ADR 0007](https://github.com/OpenScribbler/syllago/blob/main/docs/adr/0007-moat-slice-1.md).
+Syllago's implementation stays intentionally close to the spec. Where syllago adds its own concept — like the catalog-layer [`Unknown` label](/moat/trust-tiers/#the-unknown-presentation-label) for non-MOAT content, or the closed-set [exit-code band](#registry-sync-and-non-interactive-exit-codes) `10`–`13` for non-interactive failures — the linked section explains the deviation.
 </Aside>

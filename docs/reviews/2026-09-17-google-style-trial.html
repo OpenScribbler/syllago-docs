@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllago Google style trial — Vale and Jev</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f2f0e5;
+      --surface: #fffcf0;
+      --surface-2: #e6e4d9;
+      --text: #100f0f;
+      --muted: #6f6e69;
+      --border: #cecdc3;
+      --blue: #205ea6;
+      --green: #66800b;
+      --orange: #bc5215;
+      --red: #af3029;
+      --purple: #5e409d;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #100f0f;
+        --surface: #1c1b1a;
+        --surface-2: #282726;
+        --text: #cecdc3;
+        --muted: #878580;
+        --border: #403e3c;
+        --blue: #4385be;
+        --green: #879a39;
+        --orange: #da702c;
+        --red: #d14d41;
+        --purple: #8b7ec8;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 80px; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -0.025em; }
+    h1 { max-width: 820px; margin: 12px 0 16px; font-size: clamp(2.35rem, 6vw, 4.8rem); }
+    h2 { margin: 0 0 18px; font-size: clamp(1.5rem, 3vw, 2.15rem); }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 76ch; }
+    a { color: var(--blue); }
+    code { padding: 0.1em 0.35em; border-radius: 4px; background: var(--surface-2); }
+    .eyebrow { color: var(--orange); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+    .lede { max-width: 760px; margin-bottom: 34px; color: var(--muted); font-size: 1.18rem; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid color-mix(in srgb, var(--orange), transparent 55%);
+      border-radius: 999px;
+      color: var(--orange);
+      background: color-mix(in srgb, var(--orange), transparent 90%);
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+    .status::before { width: 8px; height: 8px; border-radius: 50%; background: currentColor; content: ""; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 28px 0 64px; }
+    .card, .panel { border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+    .card { padding: 22px; }
+    .card .number { display: block; font-size: 2.15rem; font-weight: 800; letter-spacing: -0.04em; }
+    .card .label { color: var(--muted); font-size: 0.85rem; }
+    .card.error .number { color: var(--red); }
+    .card.semantic .number { color: var(--purple); }
+    .card.pages .number { color: var(--green); }
+    section { margin: 0 0 62px; scroll-margin-top: 20px; }
+    .section-intro { margin-top: -8px; margin-bottom: 24px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 18px; }
+    .panel { padding: 24px; }
+    .bar-row { display: grid; grid-template-columns: 150px 1fr 42px; gap: 12px; align-items: center; margin: 13px 0; }
+    .bar-label { overflow: hidden; font: 0.82rem ui-monospace, SFMono-Regular, Consolas, monospace; text-overflow: ellipsis; }
+    .track { height: 10px; overflow: hidden; border-radius: 999px; background: var(--surface-2); }
+    .bar { height: 100%; border-radius: inherit; background: var(--blue); }
+    .bar.warning { background: var(--orange); }
+    .bar.suggestion { background: var(--purple); }
+    .bar-count { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+    .callout { padding: 18px 20px; border-left: 4px solid var(--orange); border-radius: 0 10px 10px 0; background: color-mix(in srgb, var(--orange), transparent 92%); }
+    .callout strong { color: var(--orange); }
+    table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); background: var(--surface); }
+    th, td { padding: 13px 15px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { color: var(--muted); background: var(--surface-2); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    .pill { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 0.73rem; font-weight: 750; }
+    .pill.flag { color: var(--red); background: color-mix(in srgb, var(--red), transparent 88%); }
+    .pill.review { color: var(--orange); background: color-mix(in srgb, var(--orange), transparent 88%); }
+    .pill.clear { color: var(--green); background: color-mix(in srgb, var(--green), transparent 88%); }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: flow; }
+    .flow article { position: relative; min-height: 165px; padding: 22px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+    .flow article::before { counter-increment: flow; content: counter(flow); display: grid; width: 28px; height: 28px; margin-bottom: 18px; place-items: center; border-radius: 50%; color: var(--surface); background: var(--blue); font-size: 0.78rem; font-weight: 800; }
+    .flow p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .meta { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.82rem; }
+    @media (max-width: 820px) {
+      .cards, .flow { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      main { width: min(100% - 20px, 1120px); padding-top: 30px; }
+      .cards, .flow { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 120px 1fr 36px; gap: 8px; }
+      table { display: block; max-width: 100%; overflow-x: auto; }
+      th, td { padding: 10px; }
+    }
+    @media print {
+      :root { --bg: white; --surface: white; --surface-2: #f3f3f3; --text: black; --muted: #555; --border: #ccc; }
+      main { width: 100%; padding: 20px; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <span class="status">Experimental, non-blocking</span>
+    <p class="eyebrow">Syllago documentation · 17 September 2026</p>
+    <h1>Google style trial with Vale and Jev</h1>
+    <p class="lede">A first look at turning a broad editorial guide into an actionable queue: deterministic findings from Vale, semantic judgments from Jev, and narrowly scoped work for an editing LLM.</p>
+
+    <div class="cards" aria-label="Trial summary">
+      <div class="card"><span class="number">818</span><span class="label">Vale findings</span></div>
+      <div class="card error"><span class="number">216</span><span class="label">Vale errors</span></div>
+      <div class="card semantic"><span class="number">5</span><span class="label">Jev semantic rules</span></div>
+      <div class="card pages"><span class="number">4</span><span class="label">Real pages sampled</span></div>
+    </div>
+
+    <section>
+      <h2>What the baseline says</h2>
+      <p class="section-intro">The Google Vale package provides broad coverage immediately, but its output is not yet a usable editing queue.</p>
+      <div class="grid">
+        <div class="panel">
+          <h3>Highest-volume Vale rules</h3>
+          <div class="bar-row"><span class="bar-label">Google.EmDash</span><span class="track"><span class="bar warning" style="display:block;width:100%"></span></span><span class="bar-count">204</span></div>
+          <div class="bar-row"><span class="bar-label">Google.Parens</span><span class="track"><span class="bar suggestion" style="display:block;width:94%"></span></span><span class="bar-count">191</span></div>
+          <div class="bar-row"><span class="bar-label">Google.Acronyms</span><span class="track"><span class="bar suggestion" style="display:block;width:55%"></span></span><span class="bar-count">113</span></div>
+          <div class="bar-row"><span class="bar-label">Google.Passive</span><span class="track"><span class="bar suggestion" style="display:block;width:50%"></span></span><span class="bar-count">102</span></div>
+          <div class="bar-row"><span class="bar-label">Google.WordList</span><span class="track"><span class="bar" style="display:block;width:30%"></span></span><span class="bar-count">62</span></div>
+          <div class="bar-row"><span class="bar-label">Google.Contractions</span><span class="track"><span class="bar suggestion" style="display:block;width:20%"></span></span><span class="bar-count">40</span></div>
+        </div>
+        <div class="panel">
+          <h3>Finding severity</h3>
+          <p><strong style="color:var(--red)">216 errors</strong>, 117 warnings, and 485 suggestions.</p>
+          <div class="callout">
+            <strong>Interpretation</strong>
+            <p>204 spaced-em-dash findings reflect a house-style conflict, not 204 broken passages. Parenthetical and passive-voice rules intentionally over-select text for editorial review. Syllago needs overrides and vocabulary before this can drive fixes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The semantic layer</h2>
+      <p class="section-intro">Jev receives one narrow Choice question per applicable unit and returns <code>violation</code>, <code>compliant</code>, or <code>not_applicable</code> with probabilities.</p>
+      <table>
+        <thead><tr><th>Rule</th><th>Scope</th><th>What Vale cannot decide reliably</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><code>actor_clarity</code></td><td>Paragraph</td><td>Whether a passive or indirect construction actually obscures an actor the reader needs.</td><td><a href="https://developers.google.com/style/voice">Active voice</a></td></tr>
+          <tr><td><code>contextual_jargon</code></td><td>Paragraph</td><td>Whether an unlisted term is unfamiliar to this audience and lacks useful context.</td><td><a href="https://developers.google.com/style/jargon">Jargon</a></td></tr>
+          <tr><td><code>single_idea</code></td><td>Paragraph</td><td>Whether several sentences develop one idea or combine unrelated subjects.</td><td><a href="https://developers.google.com/style/paragraph-structure">Paragraphs</a></td></tr>
+          <tr><td><code>critical_information_first</code></td><td>Paragraph</td><td>Whether a prerequisite, warning, or limitation is buried behind supporting detail.</td><td><a href="https://developers.google.com/style/paragraph-structure#put_critical_information_first">Information order</a></td></tr>
+          <tr><td><code>descriptive_heading</code></td><td>Heading + prose</td><td>Whether the heading helps a scanning reader predict the content that follows.</td><td><a href="https://developers.google.com/style/headings">Headings</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Trial results</h2>
+      <div class="grid">
+        <div class="panel">
+          <h3>Real Syllago pages</h3>
+          <p><span class="pill clear">0 findings</span></p>
+          <p>After parser fixes, the first 12 paragraphs from each of four pages produced no findings at the trial thresholds:</p>
+          <ul>
+            <li><code>why-syllago.mdx</code></li>
+            <li><code>quick-start.mdx</code></li>
+            <li><code>installation.mdx</code></li>
+            <li><code>advanced/sandbox.mdx</code></li>
+          </ul>
+          <p>This is a smoke test, not evidence of complete compliance.</p>
+        </div>
+        <div class="panel">
+          <h3>Deliberately bad fixture</h3>
+          <table>
+            <thead><tr><th>Signal</th><th>Probability</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Unclear actor</td><td>0.97</td><td><span class="pill flag">Flag</span></td></tr>
+              <tr><td>Invented jargon</td><td>0.97</td><td><span class="pill flag">Flag</span></td></tr>
+              <tr><td>Unrelated ideas</td><td>0.95</td><td><span class="pill flag">Flag</span></td></tr>
+              <tr><td>Buried warning</td><td>0.92</td><td><span class="pill flag">Flag</span></td></tr>
+              <tr><td>Generic heading</td><td>0.72</td><td><span class="pill review">Review</span></td></tr>
+              <tr><td>Known false positive</td><td>0.77</td><td><span class="pill review">Review</span></td></tr>
+            </tbody>
+          </table>
+          <p>The false positive is below the 0.85 flag threshold. Review candidates begin at 0.50.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Two harness bugs caught</h2>
+      <p class="section-intro">Both early “style findings” were caused by segmentation, not writing. The model was judging the input it received correctly.</p>
+      <div class="grid">
+        <div class="callout"><strong>Merged list items</strong><p>Three numbered items were initially treated as one paragraph, so Jev flagged it for containing multiple ideas. List items are now independent units.</p></div>
+        <div class="callout"><strong>Code comment as heading</strong><p><code># Arch</code> inside a shell block was initially treated as a document heading. Heading extraction now honors fenced code, comments, and frontmatter.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Path to an editing queue</h2>
+      <div class="flow">
+        <article><h3>Normalize</h3><p>Parse MDX into headings, paragraphs, list items, links, and procedures while excluding generated content and code.</p></article>
+        <article><h3>Evaluate</h3><p>Run Vale for exact rules and Jev only for the semantic rules relevant to each unit.</p></article>
+        <article><h3>Prioritize</h3><p>Group by page, remove project exceptions, and order high-confidence violations ahead of review candidates.</p></article>
+        <article><h3>Edit and verify</h3><p>Give an LLM one page and its rule-linked queue, request minimal diffs, then rerun every applicable check.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recommended next experiment</h2>
+      <div class="panel">
+        <ol>
+          <li>Label compliant, violating, and near-miss passages for each of the five Jev rules.</li>
+          <li>Measure precision and recall per rule; do not use one global threshold without evidence.</li>
+          <li>Decide which Google Vale preferences Syllago adopts, overrides, or disables.</li>
+          <li>Generate one combined JSON and Markdown report grouped by page.</li>
+          <li>Only then ask an editing LLM to propose small, rule-scoped patches.</li>
+        </ol>
+      </div>
+    </section>
+
+    <p class="meta">Generated for the Syllago style-guide prototype. Google Vale package: v0.7.1. Jev model observed during the trial: jev-1.13.0. Full notes: <a href="2026-09-17-google-style-trial.md">Markdown baseline</a>.</p>
+  </main>
+</body>
+</html>
