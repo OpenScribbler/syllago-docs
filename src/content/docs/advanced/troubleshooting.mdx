@@ -43,6 +43,28 @@ syllago add --from claude-code --dry-run
    ```
 3. Run [`syllago providers`](/using-syllago/cli-reference/providers/) to see all supported providers.
 
+### Windsurf renamed to Devin Desktop
+
+In syllago releases after v0.14.0, the Windsurf provider is Devin Desktop, with the slug `devin`. The old slug still works as an alias, whether you type it in a command or set it in your config. Syllago prints one warning for each old slug in use:
+
+```text
+warning: provider "windsurf" was renamed to "devin"; use "devin" instead
+```
+
+Replace `windsurf` with `devin` in your commands and config to stop the warning.
+
+Global skills now install to `~/.config/devin/skills/`. Skills already under `~/.codeium/windsurf/skills/` still show as installed, and you can still uninstall them. Every other Devin Desktop path stays the same, including `.windsurfrules`, `.windsurf/rules/`, `.windsurf/skills/`, `.windsurf/workflows/`, and `~/.codeium/windsurf/`.
+
+The first time the new version runs, syllago migrates your library once. Each `<type>/windsurf/` folder moves to `<type>/devin/`, and a link at the old path keeps existing references working. Syllago repoints the provider links and install records that used the old folder, and replaces `windsurf` with `devin` in your metadata and loadout files. It prints one notice line:
+
+```text
+notice: migrated library content to renamed provider slugs: rules/windsurf -> rules/devin; 3 metadata and loadout files updated
+```
+
+If your library already has both a `windsurf` folder and a `devin` folder for the same content type, syllago moves nothing and prints a warning that names both paths. Move the items from the `windsurf` folder into the `devin` folder, then delete the `windsurf` folder.
+
+Syllago doesn't touch `windsurf/` folders in projects or registry clones. It reads them as `devin` content.
+
 ---
 
 ### Content not appearing after add

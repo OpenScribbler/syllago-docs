@@ -5,7 +5,7 @@ description: How syllago manages hooks across providers.
 
 Hooks are event-driven automation scripts triggered by AI tool lifecycle events. They let you run custom logic when specific events occur — before or after a tool call, on session start, on file change, and so on.
 
-Supported by Claude Code, Gemini CLI, Copilot CLI, Cursor, Windsurf, Codex, Cline, and Kiro.
+Supported by Claude Code, Gemini CLI, Copilot CLI, Cursor, Devin Desktop, Codex, Cline, and Kiro.
 
 ## Canonical format
 
@@ -67,7 +67,7 @@ Hooks use matchers to target specific tools or events:
 | Gemini CLI | Full | Unique events: `before_model`, `after_model`, `before_tool_selection` |
 | Copilot CLI | Full | Conservative safety design |
 | Cursor | Yes | JSON merge into `.cursor/settings.json` |
-| Windsurf | Yes | JSON merge |
+| Devin Desktop | Yes | JSON merge |
 | Codex | Yes | JSON hooks in `.codex/hooks.json` |
 | Cline | Yes | File-based executables in `.clinerules/hooks/` |
 | Kiro | Yes | Embedded in agent JSON files |

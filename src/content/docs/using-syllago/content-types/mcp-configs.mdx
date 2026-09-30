@@ -35,7 +35,7 @@ Each server entry supports:
 - **`command`** -- the executable to launch the MCP server
 - **`args`** -- command-line arguments passed to the server process
 - **`env`** -- environment variables available to the server at runtime
-- **`disabledTools`** -- list of tools to disable on this server (supported by Kiro, Windsurf, Roo Code)
+- **`disabledTools`** -- list of tools to disable on this server (supported by Kiro, Devin Desktop, Roo Code)
 
 ### `disabledTools`
 
@@ -53,7 +53,7 @@ The `disabledTools` field lets you selectively disable specific tools from an MC
 }
 ```
 
-This field round-trips through Kiro, Windsurf, and Roo Code. Other providers drop it with a portability warning during conversion.
+This field round-trips through Kiro, Devin Desktop, and Roo Code. Other providers drop it with a portability warning during conversion.
 
 ## Provider support
 
@@ -67,7 +67,7 @@ MCP configs are supported by every provider:
 | Copilot CLI | Yes | `.copilot/mcp-config.json` |
 | Codex | Yes | JSON merge |
 | Kiro | Yes | `.kiro/settings/mcp.json` |
-| Windsurf | Yes | JSON merge |
+| Devin Desktop | Yes | JSON merge |
 | Zed | Yes | Uses `context_servers` key |
 | Cline | Yes | VS Code globalStorage |
 | Roo Code | Yes | `.roo/mcp.json` |
