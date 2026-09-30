@@ -77,7 +77,7 @@ MOAT lets a manifest carry revocations from either the **registry** or the **pub
 
 | Source      | Install gate         | Exit code (non-interactive) | Recovery                                                  |
 |-------------|----------------------|------------------------------|-----------------------------------------------------------|
-| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent (see [Spec alignment](/moat/#spec-alignment)). Choose an alternative item. |
+| `registry`  | Hard-block           | *(structured error, exit 1)* | Permanent. Choose an alternative item. |
 | `publisher` | Warn + prompt `Y/n`  | `12` (non-interactive only)  | Interactive acknowledgement, scoped to one install call.  |
 
 A registry-source revocation is the registry operator stating that the content is no longer trustworthy — malicious, compromised, deprecated, or policy-violating. Syllago refuses the install outright; there is no prompt.
