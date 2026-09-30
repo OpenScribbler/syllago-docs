@@ -11,7 +11,7 @@ Syllago uses a hub-and-spoke model. Content in your library is stored in syllago
 Source Provider → syllago canonical format → Target Provider
 ```
 
-When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to devin`, syllago reads the canonical content, then converts it to the target provider's native format — translating fields, metadata, tool names, and content syntax automatically.
+When you run `syllago install my-skill --to cursor` or `syllago convert my-rule --to kiro`, syllago reads the canonical content, then converts it to the target provider's native format — translating fields, metadata, tool names, and content syntax automatically.
 
 ### The three conversion fates
 
@@ -172,7 +172,7 @@ For hooks specifically, syllago uses the [Hook Interchange Format](/reference/ho
 syllago convert my-skill --to gemini-cli
 
 # Save to a file
-syllago convert my-rule --to devin --output ./devin-rule.md
+syllago convert my-rule --to kiro --output ./kiro-rule.md
 
 # JSON output with portability warnings
 syllago convert my-skill --to cursor --json

@@ -1,6 +1,6 @@
-term: Windsurf
+term: Devin Desktop
 slug: windsurf
-definition: Codeium's AI-native IDE with agentic flow capabilities. Supports rules, skills, agents, MCP configs, hooks, and commands in syllago.
+definition: AI-native IDE with agentic flow capabilities, formerly named Windsurf. Supports rules, skills, agents, MCP configs, hooks, and commands in syllago.
 category: provider
 link: /using-syllago/providers/windsurf/
 related:

@@ -11,7 +11,7 @@ const base = '';
     <title>syllago | The content manager for AI coding tools</title>
     <meta
       name="description"
-      content="Convert, sync, and manage your AI tool configs across Claude Code, Cursor, Windsurf, Copilot, and 7 more providers."
+      content="Convert, sync, and manage your AI tool configs across Claude Code, Cursor, Devin Desktop, Copilot, and 7 more providers."
     />
     <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
     <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
@@ -623,7 +623,7 @@ const base = '';
         <div class="feature">
           <h3>Every major AI tool, one workflow</h3>
           <p>
-            One command configures Claude Code, Cursor, Windsurf, Copilot, and
+            One command configures Claude Code, Cursor, Devin Desktop, Copilot, and
             more. No manual copying between formats.
           </p>
         </div>
@@ -696,10 +696,10 @@ const base = '';
             <img class="logo-light" src={`${base}/provider-logos/cursor-black-icon.svg`} alt="Cursor" width="32" height="32" loading="lazy" />
             <span>Cursor</span>
           </div>
-          <div class="provider-logo" title="Windsurf">
-            <img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="Windsurf" width="32" height="32" loading="lazy" />
-            <img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="Windsurf" width="32" height="32" loading="lazy" />
-            <span>Windsurf</span>
+          <div class="provider-logo" title="Devin Desktop">
+            <img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="Devin Desktop" width="32" height="32" loading="lazy" />
+            <img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="Devin Desktop" width="32" height="32" loading="lazy" />
+            <span>Devin Desktop</span>
           </div>
           <div class="provider-logo" title="Copilot CLI">
             <img class="logo-dark" src={`${base}/provider-logos/copilot-white-icon.svg`} alt="Copilot CLI" width="32" height="32" loading="lazy" />
@@ -751,7 +751,7 @@ const base = '';
         <div class="carousel-slide" aria-hidden="true">
           <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/claude-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/claude-black-icon.svg`} alt="" width="32" height="32" /><span>Claude Code</span></div>
           <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/cursor-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/cursor-black-icon.svg`} alt="" width="32" height="32" /><span>Cursor</span></div>
-          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="" width="32" height="32" /><span>Windsurf</span></div>
+          <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/windsurf-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/windsurf-black-icon.svg`} alt="" width="32" height="32" /><span>Devin Desktop</span></div>
           <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/copilot-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/copilot-black-icon.svg`} alt="" width="32" height="32" /><span>Copilot CLI</span></div>
           <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/gemini-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/gemini-black-icon.svg`} alt="" width="32" height="32" /><span>Gemini CLI</span></div>
           <div class="provider-logo"><img class="logo-dark" src={`${base}/provider-logos/codex-white-icon.svg`} alt="" width="32" height="32" /><img class="logo-light" src={`${base}/provider-logos/codex-black-icon.svg`} alt="" width="32" height="32" /><span>Codex</span></div>
@@ -773,7 +773,7 @@ const base = '';
           <p>
             Set up your rules, skills, and agents once. Syllago converts them to
             each provider's native format automatically: a Claude Code skill becomes a
-            Kiro steering file, a Cursor rule becomes a Windsurf rule.
+            Kiro steering file, a Cursor rule becomes a Devin Desktop rule.
           </p>
           <p class="dd-audience">For developers exploring AI coding tools.</p>
         </div>
@@ -783,7 +783,7 @@ syllago add rules --from claude-code
 
 <span class="dd-comment"># Install to any other provider</span>
 syllago install my-rule --to cursor
-syllago install my-rule --to windsurf
+syllago install my-rule --to kiro
 syllago install my-rule --to gemini-cli</code></pre>
         </div>
       </div>
