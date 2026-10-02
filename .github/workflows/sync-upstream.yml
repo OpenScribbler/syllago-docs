@@ -4,7 +4,7 @@ on:
   repository_dispatch:
     types: [syllago-release]
   schedule:
-    - cron: '0 14 * * 1'  # Monday 14:00 UTC
+    - cron: '0 14 * * *'  # Daily 14:00 UTC
   workflow_dispatch:
 
 permissions:
