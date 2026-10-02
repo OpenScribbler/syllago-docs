@@ -24,6 +24,10 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No license frontmatter field observed in Roo Code skill examples"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Not currently a frontmatter field. The docs list only name, description, and disable-model-invocation, and state further Agent Skills spec fields are planned 'in the near future'."
     }
   }
 }

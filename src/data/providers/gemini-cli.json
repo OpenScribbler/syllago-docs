@@ -12,7 +12,7 @@
       "fileFormat": "md",
       "installMethod": "filesystem",
       "installPath": "{home}/.gemini/agents",
-      "symlinkSupport": true,
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.gemini/agents"
       ],

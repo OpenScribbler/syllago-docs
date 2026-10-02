@@ -27,6 +27,7 @@ modifying anything. Use --try or --keep to actually apply the loadout.
 | `--base-dir` | `string` | — | No | Override base directory for content installation |
 | `--keep` | `bool` | — | No | Apply permanently |
 | `--method` | `string` | `symlink` | No | Install method: symlink (default) or copy |
+| `--skip-unsupported` | `bool` | — | No | Skip hooks whose events the target provider does not support instead of failing |
 | `--to` | `string` | — | No | Target provider (overrides manifest provider; defaults to claude-code if unset) |
 | `--try` | `bool` | — | No | Apply temporarily; auto-revert on session end |
 

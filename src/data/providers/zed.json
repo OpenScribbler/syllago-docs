@@ -45,8 +45,19 @@
       ]
     },
     "skills": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "md",
+      "installMethod": "filesystem",
+      "installPath": "{home}/.agents/skills",
+      "symlinkSupport": true,
+      "discoveryPaths": [
+        "{project}/.agents/skills"
+      ],
+      "frontmatterFields": [
+        "name",
+        "description",
+        "disable-model-invocation"
+      ]
     }
   }
 }

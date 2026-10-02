@@ -516,7 +516,7 @@ function generateIndexPage(
     'A **provider** is an AI coding tool that syllago can read from and write to. Each provider has its own configuration format, file locations, and set of supported content types. syllago handles the differences so you can share configuration between them.',
     "",
     ":::note",
-    "Syllago's next release renames the Windsurf provider to Devin Desktop, with the slug `devin`. Until that release, the generated provider pages below still say Windsurf, and syllago v0.14.0 accepts only `windsurf`. See [Windsurf renamed to Devin Desktop](/advanced/troubleshooting/#windsurf-renamed-to-devin-desktop).",
+    "Syllago v0.15.0 renamed the Windsurf provider to Devin Desktop, with the slug `devin`. Syllago v0.14.0 and earlier accept only `windsurf`. See [Windsurf renamed to Devin Desktop](/advanced/troubleshooting/#windsurf-renamed-to-devin-desktop).",
     ":::",
     "",
     "## Checking available providers",

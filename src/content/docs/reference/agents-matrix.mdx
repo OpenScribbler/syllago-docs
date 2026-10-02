@@ -13,15 +13,16 @@ How each provider stores and installs agents.
 
 | Provider | Format | Install Method | Symlink |
 |----------|--------|---------------|:-------:|
-| [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
-| [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
-| [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
-| [Codex](/using-syllago/providers/codex/) | TOML | Symlink | Yes |
-| [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
-| [Roo Code](/using-syllago/providers/roo-code/) | YAML | Project scope | Yes |
-| [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
-| [Kiro](/using-syllago/providers/kiro/) | Markdown | Symlink | Yes |
-| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Symlink | Yes |
+| [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | No |
+| [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | No |
+| [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | No |
+| [Devin Desktop](/using-syllago/providers/devin/) | Markdown | Symlink | No |
+| [Codex](/using-syllago/providers/codex/) | TOML | Symlink | No |
+| [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | No |
+| [Roo Code](/using-syllago/providers/roo-code/) | YAML | Project scope | No |
+| [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | No |
+| [Kiro](/using-syllago/providers/kiro/) | Markdown | Symlink | No |
+| [Factory Droid](/using-syllago/providers/factory-droid/) | Markdown | Symlink | No |
 
 ## Discovery Paths
 
@@ -32,7 +33,8 @@ Where each provider looks for agents files. Paths with `~/` are relative to the 
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude/agents` | `~/.claude/agents` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/agents` | `~/.gemini/agents` |
 | [Cursor](/using-syllago/providers/cursor/) | `.cursor/agents`, `AGENTS.md` | `~/.cursor/agents` |
-| [Codex](/using-syllago/providers/codex/) | `.codex/agents` | `~/.codex` |
+| [Devin Desktop](/using-syllago/providers/devin/) | `.devin/agents`, `.agents/agents` | `~/.config/devin/agents` |
+| [Codex](/using-syllago/providers/codex/) | `.codex/agents` | `~/.codex/agents` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/agents`, `.github/agents`, `.claude/agents` | `~/.github/agents` |
 | [Roo Code](/using-syllago/providers/roo-code/) | — | — |
 | [OpenCode](/using-syllago/providers/opencode/) | `.opencode/agents` | `~/.config/opencode/agents` |
@@ -43,47 +45,49 @@ Where each provider looks for agents files. Paths with `~/` are relative to the 
 
 Which frontmatter fields each provider recognizes in agents files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Codex | Copilot CLI | Roo Code | OpenCode | Kiro | Factory Droid |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `allowedTools` | — | — | — | — | — | — | — | ✓ | — |
-| `background` | ✓ | — | — | — | — | — | — | — | — |
-| `color` | ✓ | — | — | — | — | — | ✓ | — | — |
-| `customInstructions` | — | — | — | — | — | ✓ | — | — | — |
-| `description` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
-| `disallowedTools` | ✓ | — | — | — | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — | — | — | — |
-| `groups` | — | — | — | — | — | ✓ | — | — | — |
-| `hooks` | ✓ | — | — | — | — | — | — | ✓ | — |
-| `includeMcpJson` | — | — | — | — | — | — | — | ✓ | — |
-| `includePowers` | — | — | — | — | — | — | — | ✓ | — |
-| `is_background` | — | — | ✓ | — | — | — | — | — | — |
-| `isolation` | ✓ | — | — | — | — | — | — | — | — |
-| `keyboardShortcut` | — | — | — | — | — | — | — | ✓ | — |
-| `kind` | ✓ | ✓ | — | — | — | — | — | — | — |
-| `maxTurns` | ✓ | — | — | — | — | — | — | — | — |
-| `max_turns` | — | ✓ | — | — | — | — | — | — | — |
-| `mcp-servers` | — | — | — | — | ✓ | — | — | — | — |
-| `mcpServers` | ✓ | — | — | — | — | — | — | ✓ | — |
-| `memory` | ✓ | — | — | — | — | — | — | — | — |
-| `model` | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
-| `name` | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `permissionMode` | ✓ | — | — | — | — | — | — | — | — |
-| `readonly` | — | — | ✓ | — | — | — | — | — | — |
-| `resources` | — | — | — | — | — | — | — | ✓ | — |
-| `roleDefinition` | — | — | — | — | — | ✓ | — | — | — |
-| `skills` | ✓ | — | — | — | — | — | — | — | — |
-| `slug` | — | — | — | — | — | ✓ | — | — | — |
-| `steps` | — | — | — | — | — | — | ✓ | — | — |
-| `target` | — | — | — | — | ✓ | — | — | — | — |
-| `temperature` | ✓ | ✓ | — | — | — | — | ✓ | — | — |
-| `timeout_mins` | ✓ | ✓ | — | — | — | — | — | — | — |
-| `toolAliases` | — | — | — | — | — | — | — | ✓ | — |
-| `tools` | ✓ | ✓ | — | — | ✓ | — | ✓ | ✓ | ✓ |
-| `toolsSettings` | — | — | — | — | — | — | — | ✓ | — |
-| `welcomeMessage` | — | — | — | — | — | — | — | ✓ | — |
-| `whenToUse` | — | — | — | — | — | ✓ | — | — | — |
+| Field | Claude Code | Gemini CLI | Cursor | Devin Desktop | Codex | Copilot CLI | Roo Code | OpenCode | Kiro | Factory Droid |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `allowed-tools` | — | — | — | ✓ | — | — | — | — | — | — |
+| `allowedTools` | — | — | — | — | — | — | — | — | ✓ | — |
+| `background` | ✓ | — | — | — | — | — | — | — | — | — |
+| `color` | ✓ | — | — | — | — | — | — | ✓ | — | — |
+| `customInstructions` | — | — | — | — | — | — | ✓ | — | — | — |
+| `description` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
+| `disallowedTools` | ✓ | — | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — | — |
+| `groups` | — | — | — | — | — | — | ✓ | — | — | — |
+| `hooks` | ✓ | — | — | — | — | — | — | — | ✓ | — |
+| `includeMcpJson` | — | — | — | — | — | — | — | — | ✓ | — |
+| `includePowers` | — | — | — | — | — | — | — | — | ✓ | — |
+| `is_background` | — | — | ✓ | — | — | — | — | — | — | — |
+| `isolation` | ✓ | — | — | — | — | — | — | — | — | — |
+| `keyboardShortcut` | — | — | — | — | — | — | — | — | ✓ | — |
+| `kind` | ✓ | ✓ | — | — | — | — | — | — | — | — |
+| `max-nesting` | — | — | — | ✓ | — | — | — | — | — | — |
+| `maxTurns` | ✓ | — | — | — | — | — | — | — | — | — |
+| `max_turns` | — | ✓ | — | — | — | — | — | — | — | — |
+| `mcp-servers` | — | — | — | — | — | ✓ | — | — | — | — |
+| `mcpServers` | ✓ | — | — | — | — | — | — | — | ✓ | — |
+| `memory` | ✓ | — | — | — | — | — | — | — | — | — |
+| `model` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
+| `name` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `permissionMode` | ✓ | — | — | — | — | — | — | — | — | — |
+| `readonly` | — | — | ✓ | — | — | — | — | — | — | — |
+| `resources` | — | — | — | — | — | — | — | — | ✓ | — |
+| `roleDefinition` | — | — | — | — | — | — | ✓ | — | — | — |
+| `skills` | ✓ | — | — | — | — | — | — | — | — | — |
+| `slug` | — | — | — | — | — | — | ✓ | — | — | — |
+| `steps` | — | — | — | — | — | — | — | ✓ | — | — |
+| `target` | — | — | — | — | — | ✓ | — | — | — | — |
+| `temperature` | ✓ | ✓ | — | — | — | — | — | ✓ | — | — |
+| `timeout_mins` | ✓ | ✓ | — | — | — | — | — | — | — | — |
+| `toolAliases` | — | — | — | — | — | — | — | — | ✓ | — |
+| `tools` | ✓ | ✓ | — | ✓ | — | ✓ | — | ✓ | ✓ | ✓ |
+| `toolsSettings` | — | — | — | — | — | — | — | — | ✓ | — |
+| `welcomeMessage` | — | — | — | — | — | — | — | — | ✓ | — |
+| `whenToUse` | — | — | — | — | — | — | ✓ | — | — | — |
 
-**Not supported by:** [Windsurf](/using-syllago/providers/windsurf/), [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Amp](/using-syllago/providers/amp/), [Pi](/using-syllago/providers/pi/), [Crush](/using-syllago/providers/crush/).
+**Not supported by:** [Zed](/using-syllago/providers/zed/), [Cline](/using-syllago/providers/cline/), [Amp](/using-syllago/providers/amp/), [Pi](/using-syllago/providers/pi/), [Crush](/using-syllago/providers/crush/).
 
 ## See Also
 
@@ -91,4 +95,4 @@ Which frontmatter fields each provider recognizes in agents files. A checkmark m
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.14.0 on 2026-07-09.*
+*Generated from syllago 0.15.0 on 2026-10-02.*

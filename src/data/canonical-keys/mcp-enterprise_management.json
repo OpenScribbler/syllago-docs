@@ -33,6 +33,10 @@
       "supported": false,
       "mechanism": "Cursor does not document organization-level managed MCP policy controls beyond the general hook and rule enterprise scopes."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "enterprise_whitelist_and_registry: Devin Desktop supports organization-level MCP server allowlists and enterprise registries"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "only user-level (~/.factory/mcp.json) and project-level (.factory/mcp.json) configuration scopes documented; no organization/enterprise admin layer"
@@ -52,10 +56,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No organization-level MCP management documented"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries"
     },
     "zed": {
       "supported": false,

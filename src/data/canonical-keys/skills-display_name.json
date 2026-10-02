@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required); matches the skill directory name per the Agent Skills convention."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: name (optional, defaults to directory name)"
@@ -57,9 +61,9 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: name (required); identifies the skill and typically matches the directory name"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: name (required). Must be lowercase letters, numbers, and hyphens only (e.g., deploy-to-staging, code-review). Used in UI listings and for @-mentions."
+      "mechanism": "yaml frontmatter key: name (required). Lowercase letters, numbers, and hyphens only; 1-64 characters; no leading/trailing or consecutive hyphens. Should match the skill's folder name and doubles as the skill identifier; skills with invalid names fail to load."
     }
   }
 }

@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "When disable-model-invocation is true, the skill becomes an explicit slash command invocable by the user rather than auto-invoked by the model."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Explicit @mention by skill name in Cascade input (e.g., @deploy-to-production). Always available regardless of auto-invocation eligibility."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: user-invocable (optional bool, default: true)"
@@ -53,9 +57,9 @@
       "supported": false,
       "mechanism": "No user-invocation flag observed — skills are auto-loaded based on description matching"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "Explicit @mention by skill name in Cascade input (e.g., @deploy-to-production). Always available regardless of auto-invocation eligibility."
+      "mechanism": "All installed skills are user-invocable: type / in the message editor and select a skill by name, or @skill to pick one from the completion menu. Both inject the skill's instructions as context (shown as a clickable crease button). disable-model-invocation: true removes only the model's autonomous invocation, leaving the skill user-invocable."
     }
   }
 }

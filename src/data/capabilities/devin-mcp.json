@@ -1,6 +1,6 @@
 {
-  "id": "windsurf-mcp",
-  "provider": "windsurf",
+  "id": "devin-mcp",
+  "provider": "devin",
   "contentType": "mcp",
   "status": "supported",
   "lastChangedAt": "2026-05-06T13:00:00Z",
@@ -14,27 +14,27 @@
   "canonicalMappings": {
     "auto_approve": {
       "supported": false,
-      "mechanism": "Windsurf does not support pre-configured auto-approval for specific MCP tools"
+      "mechanism": "Devin Desktop does not support pre-configured auto-approval for specific MCP tools"
     },
     "enterprise_management": {
       "supported": true,
-      "mechanism": "enterprise_whitelist_and_registry: Windsurf supports organization-level MCP server allowlists and enterprise registries"
+      "mechanism": "enterprise_whitelist_and_registry: Devin Desktop supports organization-level MCP server allowlists and enterprise registries"
     },
     "env_var_expansion": {
       "supported": true,
-      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
+      "mechanism": "config_interpolation: Devin Desktop MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
     },
     "marketplace": {
       "supported": true,
-      "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
+      "mechanism": "mcp_marketplace: Devin Desktop has an in-IDE MCP server discovery and one-click installation experience"
     },
     "oauth_support": {
       "supported": true,
-      "mechanism": "Windsurf supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
+      "mechanism": "Devin Desktop supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
     },
     "resource_referencing": {
       "supported": false,
-      "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
+      "mechanism": "Devin Desktop does not document @-mention or equivalent access to MCP resources"
     },
     "tool_filtering": {
       "supported": true,
@@ -42,7 +42,7 @@
     },
     "transport_types": {
       "supported": true,
-      "mechanism": "three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports"
+      "mechanism": "three_transport_types: Devin Desktop supports stdio, SSE, and HTTP/streamable-HTTP transports"
     }
   },
   "providerExtensions": [
@@ -73,7 +73,7 @@
     {
       "id": "enterprise_whitelist_and_registry",
       "name": "Enterprise MCP whitelist and custom registry",
-      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs. Multiple registry URLs are supported; Windsurf takes the union of all registries.",
+      "summary": "Team admins can whitelist approved MCP servers (regex matching) and replace the default marketplace with custom MCP registry URLs. Multiple registry URLs are supported; Devin Desktop takes the union of all registries.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md#admin-controls-teams-enterprises",
       "required": null,
       "conversion": "not-portable"
@@ -89,7 +89,7 @@
     {
       "id": "oauth_per_transport",
       "name": "OAuth support for all transport types",
-      "summary": "Windsurf supports OAuth authentication for MCP servers across all three transport types (stdio, Streamable HTTP, SSE), enabling authenticated remote server connections.",
+      "summary": "Devin Desktop supports OAuth authentication for MCP servers across all three transport types (stdio, Streamable HTTP, SSE), enabling authenticated remote server connections.",
       "source_ref": "https://docs.windsurf.com/windsurf/cascade/mcp.md",
       "required": null,
       "conversion": "translated"

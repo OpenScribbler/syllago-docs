@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "Two scopes: project (.cursor/agents/) and user-global (~/.cursor/agents/)."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Project scope at .devin/agents/ and .agents/agents/; user scope at ~/.config/devin/agents/ (Windows %APPDATA%\\devin\\agents\\)."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "project (.factory/droids/) overrides personal (~/.factory/droids/) on name collision — reverse of skills precedence; top-level files only, no recursion"

@@ -162,6 +162,10 @@
     ]
   },
   {
+    "label": "pin",
+    "slug": "using-syllago/cli-reference/pin"
+  },
+  {
     "label": "providers",
     "slug": "using-syllago/cli-reference/providers"
   },
@@ -194,6 +198,10 @@
         "slug": "using-syllago/cli-reference/registry-remove"
       },
       {
+        "label": "status",
+        "slug": "using-syllago/cli-reference/registry-status"
+      },
+      {
         "label": "sync",
         "slug": "using-syllago/cli-reference/registry-sync"
       }
@@ -202,6 +210,10 @@
   {
     "label": "remove",
     "slug": "using-syllago/cli-reference/remove"
+  },
+  {
+    "label": "rollback",
+    "slug": "using-syllago/cli-reference/rollback"
   },
   {
     "label": "sandbox",
@@ -298,6 +310,10 @@
   {
     "label": "uninstall",
     "slug": "using-syllago/cli-reference/uninstall"
+  },
+  {
+    "label": "unpin",
+    "slug": "using-syllago/cli-reference/unpin"
   },
   {
     "label": "update",

@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Four activation modes documented: Always (alwaysApply: true injects rule into every prompt), Apply to Specific Files (globs frontmatter matches edited files via glob syntax), Apply Intelligently (description frontmatter lets the Agent determine relevance), and Apply Manually (no frontmatter triggers, referenced explicitly with @ruleName)."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle)"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid rule files load unconditionally; no conditional or model-decision activation documented"
@@ -56,10 +60,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "mode_partitioned_activation: rule files in mode-specific directories (.roo/rules-<mode-slug>/) activate only when that mode is active; files in .roo/rules/ activate for all modes"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "activation_modes extension: always (unconditional), conditional (glob patterns), model (AI decides), manual (explicit toggle)"
     },
     "zed": {
       "supported": false,

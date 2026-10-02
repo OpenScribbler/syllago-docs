@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Users can configure permanent permissions through permissions.json files so that specific MCP tools do not require per-invocation approval; auto-run functionality can also be enabled globally."
     },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop does not support pre-configured auto-approval for specific MCP tools"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "no auto-approve / always-allow field documented in Configuration Schema"
@@ -48,10 +52,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "always_allow_list: alwaysAllow tool names bypass confirmation prompts for that server"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf does not support pre-configured auto-approval for specific MCP tools"
     },
     "zed": {
       "supported": true,

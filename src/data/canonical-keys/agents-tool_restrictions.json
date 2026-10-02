@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "readonly frontmatter flag restricts an agent to read-only tools; fine-grained per-tool allow/deny lists are not documented."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "allowed-tools frontmatter list (alias tools) restricts the tools a subagent can use, by Devin tool name (read, edit, write, grep, glob, exec, mcp__server__tool). ask_user_question is always withheld from subagents."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "tools field accepts a category string (read-only, edit, execute, web, mcp), an explicit array of tool IDs ([\"Read\", \"Edit\", \"Execute\"], case-sensitive), or omission for all tools; TodoWrite is automatically included for all droids"

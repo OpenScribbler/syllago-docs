@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "SKILL.md (required, fixed name per Agent Skills convention)."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Fixed filename SKILL.md required in each skill directory. All scopes (workspace, global, system) use this same convention."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "SKILL.md (fixed, required filename within the skill directory)"
@@ -57,9 +61,9 @@
       "supported": true,
       "mechanism": "SKILL.md (required, fixed name per Agent Skills standard)"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "Fixed filename SKILL.md required in each skill directory. All scopes (workspace, global, system) use this same convention."
+      "mechanism": "SKILL.md is the required fixed filename inside each skill folder (starts with YAML frontmatter, followed by Markdown instructions)."
     }
   }
 }

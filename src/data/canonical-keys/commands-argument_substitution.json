@@ -21,6 +21,10 @@
       "supported": false,
       "mechanism": "built-in slash commands accept literal positional arguments (e.g. /add-dir PATH, /skills info SKILL-NAME) but Copilot CLI does not document a user-authored custom-command mechanism with template-substitution syntax (no $ARGUMENTS, $1/$2, or {{args}} interpolation)"
     },
+    "devin": {
+      "supported": false,
+      "mechanism": "Cascade Workflows are plain Markdown prompt templates; no `{{args}}` or equivalent placeholder syntax is documented for user-provided arguments"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "$ARGUMENTS substitution in Markdown-type commands expands to text typed after the command name; argument-hint frontmatter field provides autocomplete usage hint; executable commands receive arguments as positional shell parameters"
@@ -40,10 +44,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "argument-hint frontmatter field documents expected arguments; user-supplied arguments are appended to the command body at invocation time"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Cascade Workflows are plain Markdown prompt templates; no `{{args}}` or equivalent placeholder syntax is documented for user-provided arguments"
     }
   }
 }

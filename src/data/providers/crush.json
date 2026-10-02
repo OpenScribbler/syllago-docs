@@ -16,8 +16,24 @@
       "symlinkSupport": false
     },
     "hooks": {
-      "supported": false,
-      "symlinkSupport": false
+      "supported": true,
+      "fileFormat": "json",
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
+      "discoveryPaths": [
+        "{project}/crush.json"
+      ],
+      "hookEvents": [
+        {
+          "canonical": "before_tool_execute",
+          "nativeName": "PreToolUse",
+          "category": "tool"
+        }
+      ],
+      "hookTypes": [
+        "command"
+      ],
+      "configLocation": "crush.json"
     },
     "loadouts": {
       "supported": false,

@@ -16,9 +16,10 @@ How each provider stores and installs skills.
 | [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
 | [Cursor](/using-syllago/providers/cursor/) | Markdown | Symlink | Yes |
-| [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
+| [Devin Desktop](/using-syllago/providers/devin/) | Markdown | Symlink | Yes |
 | [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
+| [Zed](/using-syllago/providers/zed/) | Markdown | Symlink | Yes |
 | [Cline](/using-syllago/providers/cline/) | Markdown | Symlink | Yes |
 | [Roo Code](/using-syllago/providers/roo-code/) | Markdown | Symlink | Yes |
 | [OpenCode](/using-syllago/providers/opencode/) | Markdown | Symlink | Yes |
@@ -37,9 +38,10 @@ Where each provider looks for skills files. Paths with `~/` are relative to the 
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude/skills` | `~/.claude/skills` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/skills`, `.agents/skills` | `~/.gemini/skills` |
 | [Cursor](/using-syllago/providers/cursor/) | `.cursor/skills` | `~/.cursor/skills` |
-| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/skills`, `.agents/skills` | `~/.codeium/windsurf/skills` |
+| [Devin Desktop](/using-syllago/providers/devin/) | `.windsurf/skills`, `.agents/skills` | `~/.config/devin/skills` |
 | [Codex](/using-syllago/providers/codex/) | `.agents/skills` | `~/.agents/skills` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.github/skills` | `~/.github/skills` |
+| [Zed](/using-syllago/providers/zed/) | `.agents/skills` | `~/.agents/skills` |
 | [Cline](/using-syllago/providers/cline/) | `.cline/skills`, `.clinerules/skills`, `.claude/skills`, `~/.cline/skills` | `~/.cline/skills` |
 | [Roo Code](/using-syllago/providers/roo-code/) | `.roo/skills`, `.agents/skills` | `~/.roo/skills` |
 | [OpenCode](/using-syllago/providers/opencode/) | `.opencode/skills`, `.agents/skills` | `~/.config/opencode/skills` |
@@ -53,25 +55,23 @@ Where each provider looks for skills files. Paths with `~/` are relative to the 
 
 Which frontmatter fields each provider recognizes in skills files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Pi | Crush |
-|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `agent` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `argument-hint` | ✓ | — | — | — | — | ✓ | — | — | — | — | — | — | — | — |
-| `compatibility` | ✓ | — | ✓ | — | — | — | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
-| `context` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `description` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `disable-model-invocation` | ✓ | — | ✓ | — | — | ✓ | — | — | — | — | — | — | — | — |
-| `disallowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `effort` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `hooks` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `license` | ✓ | — | ✓ | — | — | ✓ | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
-| `metadata` | ✓ | — | ✓ | — | — | — | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
-| `model` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — |
-| `name` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `user-invocable` | ✓ | — | — | — | — | ✓ | — | — | — | — | — | — | — | — |
-
-**Not supported by:** [Zed](/using-syllago/providers/zed/).
+| Field | Claude Code | Gemini CLI | Cursor | Devin Desktop | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Pi | Crush |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `agent` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `argument-hint` | ✓ | — | — | — | — | ✓ | — | — | — | — | — | — | — | — | — |
+| `compatibility` | ✓ | — | ✓ | — | — | — | — | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
+| `context` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `description` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `disable-model-invocation` | ✓ | — | ✓ | — | — | ✓ | ✓ | — | — | — | — | — | — | — | — |
+| `disallowed-tools` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `effort` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `hooks` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `license` | ✓ | — | ✓ | — | — | ✓ | — | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
+| `metadata` | ✓ | — | ✓ | — | — | — | — | — | — | ✓ | ✓ | — | ✓ | ✓ | ✓ |
+| `model` | ✓ | — | — | — | — | — | — | — | — | — | — | — | — | — | — |
+| `name` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `user-invocable` | ✓ | — | — | — | — | ✓ | — | — | — | — | — | — | — | — | — |
 
 ## See Also
 
@@ -79,4 +79,4 @@ Which frontmatter fields each provider recognizes in skills files. A checkmark m
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.14.0 on 2026-07-09.*
+*Generated from syllago 0.15.0 on 2026-10-02.*

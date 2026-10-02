@@ -4,5 +4,10 @@
   "contentType": "skills",
   "description": "Semantic version string for the skill. Used for update detection and compatibility checks.",
   "type": "string",
-  "providers": {}
+  "providers": {
+    "zed": {
+      "supported": false,
+      "mechanism": "Not currently a frontmatter field (only name, description, disable-model-invocation are recognized today; further Agent Skills spec fields are planned)."
+    }
+  }
 }

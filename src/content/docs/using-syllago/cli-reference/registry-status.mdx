@@ -1,27 +1,18 @@
 ---
-title: "syllago registry sync"
-description: "Pull latest content from one or all registries"
+title: "syllago registry status"
+description: "Show upstream registry changes without syncing"
 ---
 
 ## Synopsis
 
 ```
-syllago registry sync [name] [flags]
+syllago registry status [name]
 ```
 
 ## Description
 
-Runs git pull on registry clones to fetch the latest content.
-
-Sync updates the local clone only — it does not modify your library or
-installed provider content. Use "syllago registry items" to see what changed,
-and "syllago install" to activate updated content.
-
-## Options
-
-| Flag | Type | Default | Required | Description |
-|------|------|---------|----------|-------------|
-| `--yes` | `bool` | — | No | Auto-accept TOFU (trust-on-first-use) for MOAT registries with no pinned signing profile |
+Fetches registry metadata and reports what "registry sync" would pull
+without moving git checkouts or persisting MOAT trust/cache state.
 
 ## Global Options
 
@@ -35,11 +26,11 @@ and "syllago install" to activate updated content.
 ## Examples
 
 ```bash
-  # Sync all registries
-  syllago registry sync
+  # Check all registries
+  syllago registry status
 
-  # Sync a specific registry
-  syllago registry sync my-rules
+  # Check a specific registry
+  syllago registry status my-rules
 ```
 
 ## See Also
@@ -50,7 +41,7 @@ and "syllago install" to activate updated content.
 - [syllago registry items](/using-syllago/cli-reference/registry-items/)
 - [syllago registry list](/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/using-syllago/cli-reference/registry-remove/)
-- [syllago registry status](/using-syllago/cli-reference/registry-status/)
+- [syllago registry sync](/using-syllago/cli-reference/registry-sync/)
 
 ---
 

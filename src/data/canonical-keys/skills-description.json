@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when to use it."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "yaml frontmatter key: description (recommended, not required)"
@@ -57,9 +61,9 @@
       "supported": true,
       "mechanism": "yaml frontmatter key: description (required); documents what the skill does and when Roo should load it"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "yaml frontmatter key: description (required). Brief explanation shown to the model to help it decide when to auto-invoke the skill. Key field for automatic invocation matching."
+      "mechanism": "yaml frontmatter key: description (required). States what the skill does and when to use it; the agent uses it to decide when to auto-invoke. Keep under 1024 bytes — longer descriptions still load but surface a warning."
     }
   }
 }

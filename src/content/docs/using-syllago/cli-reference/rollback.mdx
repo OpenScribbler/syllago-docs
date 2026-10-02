@@ -1,0 +1,50 @@
+---
+title: "syllago rollback"
+description: "Restore the previous installed library version"
+---
+
+## Synopsis
+
+```
+syllago rollback <name> [flags]
+```
+
+## Description
+
+Restores a registry-sourced library item to its one-step rollback point.
+
+Rollback is available after an update replaces an installed item. It works for
+pinned items because rollback is an explicit user action.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--dry-run` | `bool` | — | No | Show what would happen without making changes |
+| `--type` | `string` | — | No | Disambiguate when name exists in multiple types |
+
+## Global Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--json` | `bool` | — | No | Output in JSON format |
+| `--no-color` | `bool` | — | No | Disable color output |
+| `-q`, `--quiet` | `bool` | — | No | Suppress non-essential output |
+| `-v`, `--verbose` | `bool` | — | No | Verbose output |
+
+## Examples
+
+```bash
+  # Roll back a skill to the previous version
+  syllago rollback my-skill
+
+  # Disambiguate by type
+  syllago rollback shared-context --type skills
+
+  # Preview the rollback source without changing files
+  syllago rollback my-skill --dry-run
+```
+
+---
+
+<small>[Source](https://github.com/OpenScribbler/syllago/blob/main/cli/cmd/syllago/rollback.go)</small>

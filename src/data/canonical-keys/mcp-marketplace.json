@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Cursor ships an in-IDE MCP Marketplace for discovering and installing community MCP servers with one-click installation."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "mcp_marketplace: Devin Desktop has an in-IDE MCP server discovery and one-click installation experience"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "Quick Start: Add from Registry via /mcp command — 40+ pre-configured servers (Figma, Linear, Sentry, Notion, Supabase, Stripe, Vercel, Playwright, HubSpot, MongoDB) organized into categories"
@@ -48,10 +52,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No in-app MCP marketplace documented"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "mcp_marketplace: Windsurf has an in-IDE MCP server discovery and one-click installation experience"
     },
     "zed": {
       "supported": true,

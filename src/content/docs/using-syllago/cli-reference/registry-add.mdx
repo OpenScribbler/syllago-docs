@@ -9,17 +9,27 @@ description: "Add a git registry"
 syllago registry add <git-url> [flags]
 ```
 
+## Description
+
+Registers a git repository as a content registry.
+
+By default, only the registry URL and name are saved to config — no network
+request is made. Run "registry sync" to fetch content when ready.
+
+Use --sync to clone immediately (original behaviour).
+
 ## Options
 
 | Flag | Type | Default | Required | Description |
 |------|------|---------|----------|-------------|
 | `--moat` | `bool` | — | No | Add as a MOAT-signed registry (required when URL is not in the bundled allowlist and no --signing-identity is passed) |
 | `--name` | `string` | — | No | Override the registry name (default: derived from URL) |
-| `--ref` | `string` | — | No | Branch, tag, or commit to checkout (default: repo default branch) |
+| `--ref` | `string` | — | No | Branch, tag, or commit to checkout (default: repo default branch). Tag and commit refs pin the registry: sync fetches but never moves the checkout. |
 | `--signing-identity` | `string` | — | No | Workflow subject SAN (e.g. https://github.com/OWNER/REPO/.github/workflows/moat.yml@refs/heads/main) — implies --moat |
 | `--signing-issuer` | `string` | — | No | OIDC issuer URL (default: GitHub Actions issuer) |
 | `--signing-repository-id` | `string` | — | No | GitHub numeric repository ID (required for GitHub Actions issuer) |
 | `--signing-repository-owner-id` | `string` | — | No | GitHub numeric repository-owner ID (required for GitHub Actions issuer) |
+| `--sync` | `bool` | — | No | Clone and sync immediately after registering (default: register only, sync later with 'registry sync') |
 | `--yes` | `bool` | — | No | Auto-accept TOFU during the chained post-add sync (required for MOAT registries that self-declare via registry.yaml without an allowlist match) |
 
 ## Global Options
@@ -34,10 +44,13 @@ syllago registry add <git-url> [flags]
 ## Examples
 
 ```bash
-  # Add a registry by URL
+  # Register a registry (no clone — run 'registry sync' to fetch content)
   syllago registry add https://github.com/team/rules.git
 
-  # Add with a custom name
+  # Register and clone immediately
+  syllago registry add https://github.com/team/rules.git --sync
+
+  # Register with a custom name
   syllago registry add https://github.com/team/rules.git --name team-rules
 
   # Pin to a specific branch
@@ -51,6 +64,7 @@ syllago registry add <git-url> [flags]
 - [syllago registry items](/using-syllago/cli-reference/registry-items/)
 - [syllago registry list](/using-syllago/cli-reference/registry-list/)
 - [syllago registry remove](/using-syllago/cli-reference/registry-remove/)
+- [syllago registry status](/using-syllago/cli-reference/registry-status/)
 - [syllago registry sync](/using-syllago/cli-reference/registry-sync/)
 
 ---

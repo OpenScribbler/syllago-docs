@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": false,
-      "mechanism": "Hooks are synchronous; each fires before the tool executes and must complete within the configured timeout."
+      "mechanism": "Matching hooks run in parallel with each other, but the tool call waits for all of them to finish (or time out) before proceeding — there is no fire-and-forget mode. A hook that exceeds its timeout is treated as a non-blocking error (\"no opinion\") and the tool call proceeds."
     },
     "cursor": {
       "supported": false,
       "mechanism": "Hooks run synchronously; no async/background flag documented."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks run synchronously; post_cascade_response and post_cascade_response_with_transcript fire asynchronously after the response but hooks themselves do not execute fire-and-forget"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": false,
       "mechanism": "Pi extension handlers are awaited synchronously in registration order; no fire-and-forget async execution documented"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks run synchronously; post_cascade_response and post_cascade_response_with_transcript fire asynchronously after the response but hooks themselves do not execute fire-and-forget"
     }
   }
 }

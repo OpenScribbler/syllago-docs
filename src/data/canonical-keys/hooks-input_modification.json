@@ -26,12 +26,16 @@
       "mechanism": "Copilot CLI hooks cannot modify tool input before execution"
     },
     "crush": {
-      "supported": false,
-      "mechanism": "Hooks receive tool context on stdin and can return context to the agent, but modifying tool input parameters is not documented."
+      "supported": true,
+      "mechanism": "The exit-0 JSON envelope may include updated_input: a shallow-merge patch against tool_input. Included keys overwrite matching keys; omitted keys are preserved; nested objects are replaced wholesale. Patches from multiple hooks shallow-merge sequentially in config order (later hooks win on colliding keys) and are ignored if the final decision is deny or halt. Implemented as UpdatedInput in internal/hooks/hooks.go."
     },
     "cursor": {
       "supported": false,
       "mechanism": "Cursor hooks are not documented to rewrite tool input before execution."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks cannot modify tool input arguments before execution"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": true,
       "mechanism": "tool_call handlers mutate event.input in place to modify tool arguments before execution; later handlers see prior mutations"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks cannot modify tool input arguments before execution"
     }
   }
 }

@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Cursor documents AGENTS.md as an officially supported alternative to .cursor/rules/*.mdc — a plain markdown file without frontmatter metadata that is recognized and loaded alongside project rules."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "agents_md_auto_scoping: Devin Desktop reads both AGENTS.md and agents.md (case-insensitive) files from other providers and applies them with workspace-aware scoping"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "agents_md_format: Factory Droid reads AGENTS.md files in the shared multi-provider format"
@@ -56,10 +60,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "legacy_clinerules_fallback: Roo Code reads .clinerules/ as a backward-compatibility fallback when native .roo/rules/ is absent"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "agents_md_auto_scoping: Windsurf reads both AGENTS.md and agents.md (case-insensitive) files from other providers and applies them with workspace-aware scoping"
     },
     "zed": {
       "supported": true,

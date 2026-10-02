@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Cursor documents three MCP transports: stdio for local processes managed by Cursor, sse for Server-Sent Events (local or remote, multi-user), and streamable-http for HTTP-based servers (local or remote, multi-user) with OAuth authentication support."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "three_transport_types: Devin Desktop supports stdio, SSE, and HTTP/streamable-HTTP transports"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "two transports documented: http (remote cloud endpoints, droid mcp add <name> <url> --type http) and stdio (local processes, droid mcp add <name> '<command>' [--env KEY=VALUE...])"
@@ -52,10 +56,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "transport_types: stdio, sse, and streamable-http are supported and selected via the type field on each server entry"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "three_transport_types: Windsurf supports stdio, SSE, and HTTP/streamable-HTTP transports"
     },
     "zed": {
       "supported": true,

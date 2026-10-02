@@ -33,6 +33,10 @@
       "supported": false,
       "mechanism": "Cursor does not document an AI-generated auto-memory system distinct from user-authored rules."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "auto_generated_memories: Devin Desktop AI generates persistent memories stored in ~/.codeium/windsurf/memories/ as rule-like files"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "Factory Droid does not have an AI-generated auto-memory system"
@@ -56,10 +60,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No auto-append or persistent memory command documented for rule content"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "auto_generated_memories: Windsurf AI generates persistent memories stored in ~/.codeium/windsurf/memories/ as rule-like files"
     },
     "zed": {
       "supported": false,
