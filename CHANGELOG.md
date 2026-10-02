@@ -2,6 +2,11 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-10-02
+
+### Synced (syllago vnull)
+- Material: src/content/docs/reference/telemetry.mdx
+
 ## 2026-10-01
 
 ### Changed
