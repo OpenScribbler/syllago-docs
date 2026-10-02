@@ -33,6 +33,10 @@
       "supported": false,
       "mechanism": ""
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "OS-specific system path deployed by enterprise IT; read-only for end users. macOS: /Library/Application Support/Windsurf/skills/<skill-name>/; Linux/WSL: /etc/windsurf/skills/<skill-name>/; Windows: C:\\ProgramData\\Windsurf\\skills\\<skill-name>\\."
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": ""
@@ -53,9 +57,9 @@
       "supported": true,
       "mechanism": ".agents/skills/<slug>/SKILL.md cross-provider convention directory read alongside .roo/skills/"
     },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "OS-specific system path deployed by enterprise IT; read-only for end users. macOS: /Library/Application Support/Windsurf/skills/<skill-name>/; Linux/WSL: /etc/windsurf/skills/<skill-name>/; Windows: C:\\ProgramData\\Windsurf\\skills\\<skill-name>\\."
+    "zed": {
+      "supported": false,
+      "mechanism": "Zed loads skills from exactly two locations (global ~/.agents/skills/ and project-local <worktree>/.agents/skills/); no organization/enterprise scope is documented, and 'No remote registry' — Zed does not discover or load skills from remote locations at runtime."
     }
   }
 }

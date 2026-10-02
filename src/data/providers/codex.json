@@ -11,8 +11,8 @@
       "supported": true,
       "fileFormat": "toml",
       "installMethod": "filesystem",
-      "installPath": "{home}/.codex",
-      "symlinkSupport": true,
+      "installPath": "{home}/.codex/agents",
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.codex/agents"
       ]

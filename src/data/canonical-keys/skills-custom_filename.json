@@ -48,6 +48,10 @@
     "roo-code": {
       "supported": false,
       "mechanism": "Filename is fixed as SKILL.md — no alternate filenames observed"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "The skill file name is fixed as SKILL.md; only the containing folder name varies (and serves as the skill identifier). No custom filename is supported."
     }
   }
 }

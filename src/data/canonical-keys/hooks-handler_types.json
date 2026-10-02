@@ -26,12 +26,16 @@
       "mechanism": "Copilot CLI hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
     },
     "crush": {
-      "supported": true,
-      "mechanism": "Hooks are shell commands (command field in HookConfig). Each hook fires a subprocess with the tool context passed on stdin."
+      "supported": false,
+      "mechanism": "Crush hooks are shell commands only (command field in HookConfig) — no HTTP, LLM prompt, or agent handler types. Commands run through Crush's embedded POSIX shell (mvdan.cc/sh): inline commands and shebang-less scripts execute in-process; scripts with a #! shebang dispatch to the named interpreter via os/exec, so hook scripts can be written in any language. The contract is identical on macOS, Linux, and Windows."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Two handler types documented: command (shell scripts communicating over stdio via JSON) and prompt (LLM-evaluated natural language conditions for policy enforcement without custom scripting)."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
     },
     "factory-droid": {
       "supported": false,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": true,
       "mechanism": "pi_extension_typescript_native: Pi hooks support TypeScript/native extension handler type beyond shell commands"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks execute shell commands only; no HTTP, LLM prompt, or agent handler types documented"
     }
   }
 }

@@ -24,6 +24,10 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No compatibility frontmatter field observed in Roo Code skill examples"
+    },
+    "zed": {
+      "supported": false,
+      "mechanism": "Not currently a frontmatter field (only name, description, disable-model-invocation are recognized today; further Agent Skills spec fields are planned)."
     }
   }
 }

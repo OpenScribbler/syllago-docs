@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "MCP resources (structured data sources) are documented as a supported protocol capability alongside tools, prompts, roots, elicitation, and Apps."
     },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop does not document @-mention or equivalent access to MCP resources"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "no @-mention or resource referencing syntax for MCP resources documented"
@@ -48,10 +52,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "MCP resource referencing is not documented as a first-class feature in Roo Code"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf does not document @-mention or equivalent access to MCP resources"
     },
     "zed": {
       "supported": false,

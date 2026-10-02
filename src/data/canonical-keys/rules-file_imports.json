@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "MDC rule bodies may reference other files via @path syntax that inlines the referenced file into the rule context."
     },
+    "devin": {
+      "supported": false,
+      "mechanism": "No @-import or file inclusion syntax documented for Devin Desktop rule files"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "No file import syntax documented for Factory Droid rule files"
@@ -56,10 +60,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No import directive syntax documented — rule files are loaded as plain markdown bodies"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "No @-import or file inclusion syntax documented for Windsurf rule files"
     },
     "zed": {
       "supported": false,

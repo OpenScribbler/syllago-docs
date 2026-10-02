@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "Hook subprocess exit code controls tool execution: exit code 2 blocks the tool call (deny). Other exit codes allow it. The hook may also return a JSON decision field with values allow, deny, or none."
+      "mechanism": "Exit code 2 blocks the tool call (stderr becomes the deny reason); exit 49 halts the whole turn; other non-zero exit codes are non-blocking errors and the tool call proceeds. On exit 0, stdout is parsed as a JSON envelope whose decision field may be allow, deny, or null. allow is affirmative pre-approval (skips the permission prompt); null/omitted means no opinion. Across multiple hooks, deny > allow > null, composed in config order."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Exit codes drive decisions: exit code 2 blocks the action, exit code 0 allows it to proceed; JSON on stdout can also return structured decision fields."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks are observational by default; pre-hooks can block via exit code 2 but cannot allow or modify the triggering action"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": true,
       "mechanism": "tool_call handlers return { block: true, reason? } to prevent tool execution; tool_call errors also block the tool (fail-safe behavior)"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks are observational by default; pre-hooks can block via exit code 2 but cannot allow or modify the triggering action"
     }
   }
 }

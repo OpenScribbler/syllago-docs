@@ -52,6 +52,10 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No disable-model-invocation frontmatter field observed"
+    },
+    "zed": {
+      "supported": true,
+      "mechanism": "yaml frontmatter key: disable-model-invocation (optional bool, default false). When true the skill is hidden from the agent's autonomous catalog but stays invocable by the user via slash command or @-mention — useful for deploy/release procedures you do not want the agent triggering."
     }
   }
 }

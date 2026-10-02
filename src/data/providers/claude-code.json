@@ -12,7 +12,7 @@
       "fileFormat": "md",
       "installMethod": "filesystem",
       "installPath": "{home}/.claude/agents",
-      "symlinkSupport": true,
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.claude/agents"
       ],

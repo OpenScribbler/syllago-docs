@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Remote servers using the streamable-http transport support OAuth authentication; static client credentials can be used instead of dynamic registration. The documentation explicitly notes OAuth as a streamable-http capability."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Devin Desktop supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "OAuth authentication supported for HTTP servers; tokens stored globally in system keyring rather than per-project; managed via /mcp interactive manager"
@@ -52,10 +56,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "No OAuth 2.0 authentication flow documented for Roo Code MCP servers"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "Windsurf supports OAuth for each transport type (stdio, Streamable HTTP, and SSE) for remote MCP server authentication"
     },
     "zed": {
       "supported": true,

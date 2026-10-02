@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "HookConfig has a matcher field: a regex pattern tested against the tool name. An empty matcher matches all tools."
+      "mechanism": "HookConfig has an optional matcher field: a regex tested against the tool name (e.g. bash, edit, mcp_github_create_pull_request). Omitted or empty matcher matches all tools."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Hook entries accept a matcher string that filters which tool or event fires the hook (for example a specific shell command or tool name)."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks fire on all events of their configured type; no per-tool or regex matching documented"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": false,
       "mechanism": "Pi hooks fire on configured lifecycle events; no per-tool name filtering at the subscription level — tool discrimination is done in handler code"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks fire on all events of their configured type; no per-tool or regex matching documented"
     }
   }
 }

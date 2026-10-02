@@ -2,6 +2,19 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-10-01
+
+### Changed
+- `src/content/docs/advanced/troubleshooting.mdx` — the "Windsurf renamed to Devin Desktop" section now names v0.15.0 as the release that made the change, and adds that agents install to `~/.config/devin/agents/` and that hooks, which earlier releases refused to install, merge into `~/.config/devin/config.json` (`%APPDATA%\devin\config.json` on Windows).
+- `scripts/sync-providers.ts` — the providers index note now says v0.15.0 renamed the provider to Devin Desktop with the slug `devin`, that v0.14.0 and earlier accept only `windsurf`, and links to the troubleshooting section.
+- `src/content/docs/using-syllago/how-to/windsurf-rules-to-cline.mdx` — the version note now says the `devin` slug needs v0.15.0 or later, and the provider link points to the new Devin Desktop rules page.
+- `src/content/glossary/windsurf.yaml` renamed to `devin.yaml`, with the `devin` slug and a link to the Devin Desktop provider page; the Cursor term's related list follows.
+
+### Synced (syllago v0.15.0)
+- The generated provider pages, sidebar, capability data, and data-quality files move from Windsurf to Devin Desktop (`/using-syllago/providers/devin/`). The old `/using-syllago/providers/windsurf/` pages are gone.
+- The hook-events matrix uses Devin Desktop's current event names and gains a Crush column; Crush also gains a Hooks provider page.
+- The CLI reference, canonical-key pages, feature matrices, and telemetry page regenerate against v0.15.0.
+
 ## 2026-09-30
 
 ### Added

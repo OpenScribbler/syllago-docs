@@ -16,7 +16,7 @@ How each provider stores and installs mcp configs.
 | [Claude Code](/using-syllago/providers/claude-code/) | JSON | JSON merge | No |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | JSON | JSON merge | No |
 | [Cursor](/using-syllago/providers/cursor/) | JSON | JSON merge | No |
-| [Windsurf](/using-syllago/providers/windsurf/) | JSON | JSON merge | No |
+| [Devin Desktop](/using-syllago/providers/devin/) | JSON | JSON merge | No |
 | [Codex](/using-syllago/providers/codex/) | TOML | JSON merge | No |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | JSON | JSON merge | No |
 | [Zed](/using-syllago/providers/zed/) | JSON | JSON merge | No |
@@ -37,7 +37,7 @@ Where each provider looks for mcp configs files. Paths with `~/` are relative to
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude.json`, `.mcp.json` | — |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/settings.json` | — |
 | [Cursor](/using-syllago/providers/cursor/) | `.cursor/mcp.json` | — |
-| [Windsurf](/using-syllago/providers/windsurf/) | — | — |
+| [Devin Desktop](/using-syllago/providers/devin/) | — | — |
 | [Codex](/using-syllago/providers/codex/) | — | — |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/mcp-config.json` | — |
 | [Zed](/using-syllago/providers/zed/) | — | — |
@@ -56,7 +56,7 @@ Where each provider looks for mcp configs files. Paths with `~/` are relative to
 | [Claude Code](/using-syllago/providers/claude-code/) | `.mcp.json` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/settings.json` |
 | [Cursor](/using-syllago/providers/cursor/) | `.cursor/mcp.json` |
-| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/mcp_config.json` |
+| [Devin Desktop](/using-syllago/providers/devin/) | `.windsurf/mcp_config.json` |
 | [Codex](/using-syllago/providers/codex/) | `.codex/config.toml` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/mcp-config.json` |
 | [Zed](/using-syllago/providers/zed/) | `~/.config/zed/settings.json` |
@@ -72,7 +72,7 @@ Where each provider looks for mcp configs files. Paths with `~/` are relative to
 
 Which MCP transports each provider supports for communicating with tool servers.
 
-| Transport | Claude Code | Gemini CLI | Cursor | Windsurf | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Crush |
+| Transport | Claude Code | Gemini CLI | Cursor | Devin Desktop | Codex | Copilot CLI | Zed | Cline | Roo Code | OpenCode | Kiro | Amp | Factory Droid | Crush |
 |-----------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | `http` | — | — | — | — | — | — | — | — | — | — | — | — | ✓ | ✓ |
 | `sse` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | ✓ | ✓ | — | ✓ | ✓ | — | ✓ |
@@ -87,4 +87,4 @@ Which MCP transports each provider supports for communicating with tool servers.
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.14.0 on 2026-07-09.*
+*Generated from syllago 0.15.0 on 2026-10-02.*

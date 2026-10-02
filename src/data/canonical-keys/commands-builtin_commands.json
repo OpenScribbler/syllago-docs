@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "60+ built-in slash commands documented in the 'Slash commands in the interactive interface' table of the CLI command reference, including: /add-dir, /agent, /ask, /allow-all, /changelog, /chronicle, /clear, /compact, /context, /copy, /cwd, /delegate, /diff, /downgrade, /env, /exit, /experimental, /feedback, /fleet, /help, /ide, /init, /instructions, /keep-alive, /list-dirs, /login, /logout, /lsp, /mcp, /model, /plan, /plugin, /pr, /remote, /rename, /research, /reset-allowed-tools, /restart, /resume, /review, /session, /share, /skills, /statusline, /tasks, /terminal-setup, /theme, /undo, /update, /usage, /user, /version. The 'Command-line commands' table covers top-level copilot subcommands (copilot, copilot completion, copilot help, copilot init, copilot login, copilot mcp, copilot plugin, copilot update, copilot version).\n"
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Cascade exposes its own built-in chat slash commands (e.g. for conversation control) independently of user-authored Workflows; the `/<workflow-name>` namespace is reserved for user files"
+    },
     "factory-droid": {
       "supported": false,
       "mechanism": "no built-in slash commands documented; Factory commands are user-defined Markdown templates or executable scripts"
@@ -40,10 +44,6 @@
     "roo-code": {
       "supported": false,
       "mechanism": "Roo Code commands are user-defined Markdown files in .roo/commands/ — no user-overridable built-in slash-command layer documented"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "Cascade exposes its own built-in chat slash commands (e.g. for conversation control) independently of user-authored Workflows; the `/<workflow-name>` namespace is reserved for user files"
     }
   }
 }

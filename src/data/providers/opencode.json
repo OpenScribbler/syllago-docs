@@ -12,7 +12,7 @@
       "fileFormat": "md",
       "installMethod": "filesystem",
       "installPath": "{home}/.config/opencode/agents",
-      "symlinkSupport": true,
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.opencode/agents"
       ],

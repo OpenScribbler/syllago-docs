@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "Server configuration supports variable interpolation using ${env:NAME} for environment variables, ${userHome} for the user's home directory, and ${workspaceFolder} for the workspace root — not limited to env blocks alone."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "config_interpolation: Devin Desktop MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "stdio server add command accepts --env KEY=VALUE flags; env field documented in configuration schema for stdio servers"
@@ -52,10 +56,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "env_variable_expansion: server env blocks accept environment variables so secrets can be referenced from the shell environment"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "config_interpolation: Windsurf MCP configuration supports ${env:VAR_NAME} and ${file:/path} interpolation for environment variables and file contents"
     },
     "zed": {
       "supported": false,

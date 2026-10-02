@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "Hooks receive a JSON object on stdin containing tool name and parameters. The hook subprocess may return a JSON object with decision (allow/deny/none) and optional context fields."
+      "mechanism": "Stdin provides a JSON payload: event, session_id, cwd, plus tool_name and tool_input (the raw JSON the model sent) for PreToolUse. On exit 0 stdout is parsed as a JSON output envelope: version (defaults to 1), decision, halt, reason, context, updated_input. Simple hooks can skip JSON entirely and use CRUSH_* environment variables plus exit codes."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Command hooks receive event data as JSON on stdin and may return structured JSON on stdout to signal decisions and supply output fields."
+    },
+    "devin": {
+      "supported": true,
+      "mechanism": "json_stdin_context: Devin Desktop hooks receive event context as JSON on stdin"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": false,
       "mechanism": "Pi hooks communicate via TypeScript extension API; no JSON stdin/stdout protocol for shell hooks"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "json_stdin_context: Windsurf hooks receive event context as JSON on stdin"
     }
   }
 }

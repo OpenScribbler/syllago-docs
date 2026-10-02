@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "Since Cursor 2.5, subagents can launch child subagents to create a tree of coordinated work. Nested launches require Task tool access and can be restricted by hooks or tool policies."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "max-nesting frontmatter field lets a custom subagent spawn its own subagents up to that depth; nesting is disabled by default."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "droids exposed as subagent_type targets for Task tool delegation; /droids menu (I key) imports Claude Code .claude/agents/*.md to droid format with field mapping and model family translation"

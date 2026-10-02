@@ -8,7 +8,7 @@ description: The AI coding tools syllago integrates with, their supported conten
 A **provider** is an AI coding tool that syllago can read from and write to. Each provider has its own configuration format, file locations, and set of supported content types. syllago handles the differences so you can share configuration between them.
 
 :::note
-Syllago's next release renames the Windsurf provider to Devin Desktop, with the slug `devin`. Until that release, the generated provider pages below still say Windsurf, and syllago v0.14.0 accepts only `windsurf`. See [Windsurf renamed to Devin Desktop](/advanced/troubleshooting/#windsurf-renamed-to-devin-desktop).
+Syllago v0.15.0 renamed the Windsurf provider to Devin Desktop, with the slug `devin`. Syllago v0.14.0 and earlier accept only `windsurf`. See [Windsurf renamed to Devin Desktop](/advanced/troubleshooting/#windsurf-renamed-to-devin-desktop).
 :::
 
 ## Checking available providers
@@ -28,10 +28,10 @@ Not every provider supports every content type. The matrix below shows what each
 | [Claude Code](/using-syllago/providers/claude-code/) | `claude-code` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 24 | stdio, sse, streamable-http |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `gemini-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 11 | stdio, sse |
 | [Cursor](/using-syllago/providers/cursor/) | `cursor` | ✅ | ✅ | ✅ | ✅ | ✅ | — | 14 | stdio, sse, streamable-http |
-| [Windsurf](/using-syllago/providers/windsurf/) | `windsurf` | ✅ | ✅ | — | ✅ | ✅ | ✅ | 6 | stdio, sse |
+| [Devin Desktop](/using-syllago/providers/devin/) | `devin` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 8 | stdio, sse |
 | [Codex](/using-syllago/providers/codex/) | `codex` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | stdio |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `copilot-cli` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 9 | stdio, sse |
-| [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | — | — | ✅ | — | — | — | stdio |
+| [Zed](/using-syllago/providers/zed/) | `zed` | ✅ | ✅ | — | ✅ | — | — | — | stdio |
 | [Cline](/using-syllago/providers/cline/) | `cline` | ✅ | ✅ | — | ✅ | ✅ | ✅ | — | stdio, sse, streamable-http |
 | [Roo Code](/using-syllago/providers/roo-code/) | `roo-code` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio, sse, streamable-http |
 | [OpenCode](/using-syllago/providers/opencode/) | `opencode` | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | stdio |
@@ -39,7 +39,7 @@ Not every provider supports every content type. The matrix below shows what each
 | [Amp](/using-syllago/providers/amp/) | `amp` | ✅ | ✅ | — | ✅ | ✅ | — | — | stdio, sse |
 | [Factory Droid](/using-syllago/providers/factory-droid/) | `factory-droid` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | 9 | stdio, http |
 | [Pi](/using-syllago/providers/pi/) | `pi` | ✅ | ✅ | — | — | ✅ | ✅ | 15 | — |
-| [Crush](/using-syllago/providers/crush/) | `crush` | ✅ | ✅ | — | ✅ | — | — | — | stdio, http, sse |
+| [Crush](/using-syllago/providers/crush/) | `crush` | ✅ | ✅ | — | ✅ | ✅ | — | 1 | stdio, http, sse |
 
 Every provider supports rules. Beyond that, support varies based on what each tool's configuration format can express.
 
@@ -61,4 +61,4 @@ syllago install my-rule --to gemini-cli
 
 If the source and target providers use different configuration formats, syllago converts automatically. See [Format Conversion](/using-syllago/format-conversion/) for details.
 
-*Generated from syllago 0.14.0 on 2026-07-09.*
+*Generated from syllago 0.15.0 on 2026-10-02.*

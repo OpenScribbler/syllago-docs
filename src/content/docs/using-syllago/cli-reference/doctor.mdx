@@ -6,7 +6,7 @@ description: "Check your syllago setup for problems"
 ## Synopsis
 
 ```
-syllago doctor
+syllago doctor [flags]
 ```
 
 ## Description
@@ -16,6 +16,13 @@ installed content integrity, and registry configuration.
 
 Each check reports [ok], [warn], or [err]. Exit code is 0 if all checks
 pass, 1 if there are warnings, 2 if there are errors.
+
+## Options
+
+| Flag | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| `--fix` | `bool` | — | No | Repair broken provider links and backfill missing install records |
+| `-f`, `--force` | `bool` | — | No | Skip confirmation prompt |
 
 ## Global Options
 

@@ -33,6 +33,10 @@
       "supported": false,
       "mechanism": "Cursor does not document per-server tool allowlists or blocklists for MCP servers."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "tool_limit_100: individual MCP tools can be toggled on or off per server via the Cascade panel UI; disabled tools are tracked in a disabledTools array separate from whitelist matching"
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "per-server tool disable via disabledTools field in Configuration Schema"
@@ -52,10 +56,6 @@
     "roo-code": {
       "supported": true,
       "mechanism": "per_server_tool_filtering: alwaysAllow and disabledTools arrays on each server entry filter which MCP tools are exposed and which bypass confirmation"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "tool_limit_100: individual MCP tools can be toggled on or off per server via the Cascade panel UI; disabled tools are tracked in a disabledTools array separate from whitelist matching"
     },
     "zed": {
       "supported": true,

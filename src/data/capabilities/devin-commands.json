@@ -1,6 +1,6 @@
 {
-  "id": "windsurf-commands",
-  "provider": "windsurf",
+  "id": "devin-commands",
+  "provider": "devin",
   "contentType": "commands",
   "status": "supported",
   "lastChangedAt": "2026-05-06T13:00:00Z",

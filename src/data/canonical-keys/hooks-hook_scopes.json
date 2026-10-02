@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "Hooks are configured in crush.json under the hooks key, which applies at the project or user-global config level (same config file scope as MCP and other settings)."
+      "mechanism": "Hooks can be configured in crush.json (or .crush.json) at both the user-global (~/.config/crush/crush.json) and project level, with project-level hooks taking precedence. Global-config commands must use absolute paths or inline commands; relative paths resolve against the working directory."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Four scopes documented in priority order: Enterprise (system-wide MDM-managed), Team (cloud-distributed for Enterprise plans), Project (.cursor/hooks/ in the repository), and User (global personal configuration at ~/.cursor/hooks/)."
+    },
+    "devin": {
+      "supported": true,
+      "mechanism": "three_config_scopes: global (user-wide), workspace, and managed/enterprise hook configuration scopes"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": true,
       "mechanism": "Extensions load from global scope (~/.pi/agent/extensions/) and project-local scope (.pi/extensions/); both scopes are auto-discovered and can be combined"
-    },
-    "windsurf": {
-      "supported": true,
-      "mechanism": "three_config_scopes: global (user-wide), workspace, and managed/enterprise hook configuration scopes"
     }
   }
 }

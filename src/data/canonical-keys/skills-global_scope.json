@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": "~/.agents/skills/<name>/SKILL.md and ~/.cursor/skills/<name>/SKILL.md for user-level scope; both paths are documented."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Skill directory at ~/.codeium/windsurf/skills/<skill-name>/. Available in all workspaces on the user's machine; not committed to version control. Also discovered at ~/.agents/skills/<skill-name>/ and (if Claude Code config reading is enabled) ~/.claude/skills/<skill-name>/."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "~/.factory/skills/<skill-name>/SKILL.md"
@@ -57,9 +61,9 @@
       "supported": true,
       "mechanism": "~/.roo/skills/<slug>/SKILL.md"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "Skill directory at ~/.codeium/windsurf/skills/<skill-name>/. Available in all workspaces on the user's machine; not committed to version control. Also discovered at ~/.agents/skills/<skill-name>/ and (if Claude Code config reading is enabled) ~/.claude/skills/<skill-name>/."
+      "mechanism": "Global skills live in ~/.agents/skills/<name>/SKILL.md and apply to every project. The agent can read global skill resources even though they are outside the current project."
     }
   }
 }

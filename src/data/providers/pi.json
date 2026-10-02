@@ -24,9 +24,8 @@
     "hooks": {
       "supported": true,
       "fileFormat": "ts",
-      "installMethod": "filesystem",
-      "installPath": "{home}/.pi/agent/extensions",
-      "symlinkSupport": true,
+      "installMethod": "json-merge",
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.pi/extensions"
       ],

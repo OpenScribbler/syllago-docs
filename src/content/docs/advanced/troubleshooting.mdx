@@ -45,7 +45,7 @@ syllago add --from claude-code --dry-run
 
 ### Windsurf renamed to Devin Desktop
 
-In syllago releases after v0.14.0, the Windsurf provider is Devin Desktop, with the slug `devin`. The old slug still works as an alias, whether you type it in a command or set it in your config. Syllago prints one warning for each old slug in use:
+Starting in syllago v0.15.0, the Windsurf provider is Devin Desktop, with the slug `devin`. The old slug still works as an alias, whether you type it in a command or set it in your config. Syllago prints one warning for each old slug in use:
 
 ```text
 warning: provider "windsurf" was renamed to "devin"; use "devin" instead
@@ -53,7 +53,7 @@ warning: provider "windsurf" was renamed to "devin"; use "devin" instead
 
 Replace `windsurf` with `devin` in your commands and config to stop the warning.
 
-Global skills now install to `~/.config/devin/skills/`. Skills already under `~/.codeium/windsurf/skills/` still show as installed, and you can still uninstall them. Every other Devin Desktop path stays the same, including `.windsurfrules`, `.windsurf/rules/`, `.windsurf/skills/`, `.windsurf/workflows/`, and `~/.codeium/windsurf/`.
+Global skills now install to `~/.config/devin/skills/`. Skills already under `~/.codeium/windsurf/skills/` still show as installed, and you can still uninstall them. Agents install to `~/.config/devin/agents/`, and hooks, which earlier releases refused to install, merge into `~/.config/devin/config.json` (`%APPDATA%\devin\config.json` on Windows). Every other Devin Desktop path stays the same, including `.windsurfrules`, `.windsurf/rules/`, `.windsurf/skills/`, `.windsurf/workflows/`, and `~/.codeium/windsurf/`.
 
 The first time the new version runs, syllago migrates your library once. Each `<type>/windsurf/` folder moves to `<type>/devin/`, and a link at the old path keeps existing references working. Syllago repoints the provider links and install records that used the old folder, and replaces `windsurf` with `devin` in your metadata and loadout files. It prints one notice line:
 

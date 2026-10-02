@@ -11,7 +11,7 @@
       "supported": true,
       "fileFormat": "yaml",
       "installMethod": "project-scope",
-      "symlinkSupport": true,
+      "symlinkSupport": false,
       "frontmatterFields": [
         "slug",
         "name",

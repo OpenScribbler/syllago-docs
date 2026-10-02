@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "Markdown files with YAML frontmatter in .cursor/agents/ (project) or ~/.cursor/agents/ (user); the frontmatter declares name, description, model, readonly, and is_background, and the Markdown body becomes the agent's system prompt."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Markdown file with YAML frontmatter (name, description, model, allowed-tools, max-nesting) followed by the subagent's system prompt, as agents/<name>.md or agents/<name>/AGENT.md (AGENTS.md, agent.md, agents.md also accepted)."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": ".md files in .factory/droids/ (project) or ~/.factory/droids/ (personal); single-file with YAML frontmatter (name, description, model, reasoningEffort, tools) and system prompt body"

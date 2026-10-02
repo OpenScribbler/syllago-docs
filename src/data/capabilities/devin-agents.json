@@ -1,0 +1,65 @@
+{
+  "id": "devin-agents",
+  "provider": "devin",
+  "contentType": "agents",
+  "status": "supported",
+  "lastChangedAt": "2026-05-06T13:00:00Z",
+  "sources": [
+    {
+      "uri": "https://docs.devin.ai/cli/subagents.md",
+      "type": "documentation",
+      "fetched_at": "2026-09-30T00:00:00Z"
+    }
+  ],
+  "canonicalMappings": {
+    "agent_scopes": {
+      "supported": true,
+      "mechanism": "Project scope at .devin/agents/ and .agents/agents/; user scope at ~/.config/devin/agents/ (Windows %APPDATA%\\devin\\agents\\)."
+    },
+    "definition_format": {
+      "supported": true,
+      "mechanism": "Markdown file with YAML frontmatter (name, description, model, allowed-tools, max-nesting) followed by the subagent's system prompt, as agents/<name>.md or agents/<name>/AGENT.md (AGENTS.md, agent.md, agents.md also accepted)."
+    },
+    "invocation_patterns": {
+      "supported": true,
+      "mechanism": "The agent picks a profile by its description when spawning a subagent; the user can ask for a profile by name. Subagents run in the foreground or background."
+    },
+    "model_selection": {
+      "supported": true,
+      "mechanism": "model frontmatter field overrides the subagent model; the default is the router-selected subagent model, not the parent's.",
+      "provider_field": "model"
+    },
+    "per_agent_mcp": {
+      "supported": false,
+      "mechanism": "No per-agent MCP server configuration is documented in the custom subagent frontmatter."
+    },
+    "subagent_spawning": {
+      "supported": true,
+      "mechanism": "max-nesting frontmatter field lets a custom subagent spawn its own subagents up to that depth; nesting is disabled by default."
+    },
+    "tool_restrictions": {
+      "supported": true,
+      "mechanism": "allowed-tools frontmatter list (alias tools) restricts the tools a subagent can use, by Devin tool name (read, edit, write, grep, glob, exec, mcp__server__tool). ask_user_question is always withheld from subagents.",
+      "provider_field": "allowed-tools"
+    }
+  },
+  "providerExtensions": [
+    {
+      "id": "max_nesting",
+      "name": "max-nesting frontmatter field",
+      "summary": "max-nesting sets how deep a custom subagent may spawn child subagents. The canonical agent format has no equivalent, so syllago drops it on import.",
+      "source_ref": "https://docs.devin.ai/cli/subagents.md",
+      "required": null,
+      "provider_field": "max-nesting",
+      "conversion": "dropped"
+    },
+    {
+      "id": "directory_layout",
+      "name": "Directory-form agent definitions",
+      "summary": "An agent can be a directory agents/<name>/AGENT.md instead of a flat agents/<name>.md file; the directory name becomes the profile identifier.",
+      "source_ref": "https://docs.devin.ai/cli/subagents.md",
+      "required": null,
+      "conversion": "preserved"
+    }
+  ]
+}

@@ -33,6 +33,10 @@
       "supported": true,
       "mechanism": ".cursor/skills/<name>/SKILL.md for Cursor-native project scope; .agents/skills/<name>/SKILL.md is also recognized via the cross-provider Agent Skills convention."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Skill directory at .windsurf/skills/<skill-name>/. Committed with the repo; current workspace only. For cross-agent compatibility, also discovered at .agents/skills/<skill-name>/ and (if Claude Code config reading is enabled) .claude/skills/<skill-name>/."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "<repo>/.factory/skills/<skill-name>/SKILL.md"
@@ -57,9 +61,9 @@
       "supported": true,
       "mechanism": ".roo/skills/<slug>/SKILL.md"
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "Skill directory at .windsurf/skills/<skill-name>/. Committed with the repo; current workspace only. For cross-agent compatibility, also discovered at .agents/skills/<skill-name>/ and (if Claude Code config reading is enabled) .claude/skills/<skill-name>/."
+      "mechanism": "Project-local skills live in <worktree>/.agents/skills/<name>/SKILL.md and apply only to the current project. They load only from trusted worktrees — skills from a freshly cloned or untrusted project are excluded from the catalog and slash commands until trust is granted."
     }
   }
 }

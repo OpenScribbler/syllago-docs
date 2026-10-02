@@ -139,6 +139,7 @@ export const sidebar: SidebarItem[] = [
             items: [
               { label: 'Overview', link: '/using-syllago/providers/crush/' },
               { label: 'Skills', link: '/using-syllago/providers/crush/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/crush/hooks/' },
               { label: 'Rules', link: '/using-syllago/providers/crush/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/crush/mcp/' },
             ],
@@ -153,6 +154,19 @@ export const sidebar: SidebarItem[] = [
               { label: 'Rules', link: '/using-syllago/providers/cursor/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/cursor/mcp/' },
               { label: 'Agents', link: '/using-syllago/providers/cursor/agents/' },
+            ],
+          },
+          {
+            label: 'Devin Desktop',
+            collapsed: true,
+            items: [
+              { label: 'Overview', link: '/using-syllago/providers/devin/' },
+              { label: 'Skills', link: '/using-syllago/providers/devin/skills/' },
+              { label: 'Hooks', link: '/using-syllago/providers/devin/hooks/' },
+              { label: 'Rules', link: '/using-syllago/providers/devin/rules/' },
+              { label: 'MCP Configs', link: '/using-syllago/providers/devin/mcp/' },
+              { label: 'Commands', link: '/using-syllago/providers/devin/commands/' },
+              { label: 'Agents', link: '/using-syllago/providers/devin/agents/' },
             ],
           },
           {
@@ -229,22 +243,11 @@ export const sidebar: SidebarItem[] = [
             ],
           },
           {
-            label: 'Windsurf',
-            collapsed: true,
-            items: [
-              { label: 'Overview', link: '/using-syllago/providers/windsurf/' },
-              { label: 'Skills', link: '/using-syllago/providers/windsurf/skills/' },
-              { label: 'Hooks', link: '/using-syllago/providers/windsurf/hooks/' },
-              { label: 'Rules', link: '/using-syllago/providers/windsurf/rules/' },
-              { label: 'MCP Configs', link: '/using-syllago/providers/windsurf/mcp/' },
-              { label: 'Commands', link: '/using-syllago/providers/windsurf/commands/' },
-            ],
-          },
-          {
             label: 'Zed',
             collapsed: true,
             items: [
               { label: 'Overview', link: '/using-syllago/providers/zed/' },
+              { label: 'Skills', link: '/using-syllago/providers/zed/skills/' },
               { label: 'Rules', link: '/using-syllago/providers/zed/rules/' },
               { label: 'MCP Configs', link: '/using-syllago/providers/zed/mcp/' },
             ],

@@ -21,6 +21,10 @@
       "supported": true,
       "mechanism": "Custom agents are invoked through the Cursor IDE agent picker; background-enabled agents can also run concurrently via the background agents UI. Subagents can be spawned by other agents for parallel execution workstreams."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "The agent picks a profile by its description when spawning a subagent; the user can ask for a profile by name. Subagents run in the foreground or background."
+    },
     "factory-droid": {
       "supported": true,
       "mechanism": "exposed as subagent_type targets for the Task tool; primary assistant delegates mid-session; droids enabled by default with live progress streaming in UI"

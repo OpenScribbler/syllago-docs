@@ -15,7 +15,7 @@ How each provider stores and installs commands.
 |----------|--------|---------------|:-------:|
 | [Claude Code](/using-syllago/providers/claude-code/) | Markdown | Symlink | Yes |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | Markdown | Symlink | Yes |
-| [Windsurf](/using-syllago/providers/windsurf/) | Markdown | Symlink | Yes |
+| [Devin Desktop](/using-syllago/providers/devin/) | Markdown | Symlink | Yes |
 | [Codex](/using-syllago/providers/codex/) | Markdown | Symlink | Yes |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | Markdown | Symlink | Yes |
 | [Cline](/using-syllago/providers/cline/) | Markdown | Symlink | Yes |
@@ -32,7 +32,7 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 |----------|----------------|-------------------|
 | [Claude Code](/using-syllago/providers/claude-code/) | `.claude/commands` | `~/.claude/commands` |
 | [Gemini CLI](/using-syllago/providers/gemini-cli/) | `.gemini/commands` | `~/.gemini/commands` |
-| [Windsurf](/using-syllago/providers/windsurf/) | `.windsurf/workflows`, `~/.codeium/windsurf/global_workflows` | `~/.codeium/windsurf/global_workflows` |
+| [Devin Desktop](/using-syllago/providers/devin/) | `.windsurf/workflows`, `~/.codeium/windsurf/global_workflows` | `~/.codeium/windsurf/global_workflows` |
 | [Codex](/using-syllago/providers/codex/) | `.codex/commands` | `~/.codex` |
 | [Copilot CLI](/using-syllago/providers/copilot-cli/) | `.copilot/commands` | `~/.copilot/commands` |
 | [Cline](/using-syllago/providers/cline/) | `.clinerules/workflows`, `~/Documents/Cline/Workflows` | `~/Documents/Cline/Workflows` |
@@ -45,7 +45,7 @@ Where each provider looks for commands files. Paths with `~/` are relative to th
 
 Which frontmatter fields each provider recognizes in commands files. A checkmark means the provider parses and uses that field during conversion.
 
-| Field | Claude Code | Gemini CLI | Windsurf | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Factory Droid | Pi |
+| Field | Claude Code | Gemini CLI | Devin Desktop | Codex | Copilot CLI | Cline | Roo Code | OpenCode | Factory Droid | Pi |
 |-------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | `agent` | ✓ | — | — | — | ✓ | — | — | ✓ | — | — |
 | `allowed-tools` | ✓ | — | — | — | — | — | — | — | — | — |
@@ -69,4 +69,4 @@ Which frontmatter fields each provider recognizes in commands files. A checkmark
 - [Providers Overview](/using-syllago/providers/)
 - [Compare Providers](/reference/compare-providers/)
 
-*Generated from syllago 0.14.0 on 2026-07-09.*
+*Generated from syllago 0.15.0 on 2026-10-02.*

@@ -13,6 +13,10 @@
       "supported": true,
       "mechanism": "Cline auto-invokes skills by matching user message against the description frontmatter field via the use_skill tool; no explicit @-mention syntax exists."
     },
+    "devin": {
+      "supported": true,
+      "mechanism": "Cascade auto-invokes a skill when the user's request semantically matches its description frontmatter field."
+    },
     "kiro": {
       "supported": true,
       "mechanism": "Keywords array in POWER.md frontmatter (key: keywords); Kiro activates the power when any listed keyword is mentioned in conversation."
@@ -21,9 +25,9 @@
       "supported": true,
       "mechanism": "Skill name and description are injected into the system prompt as XML; the agent loads matching SKILL.md bodies on demand. Skills with disable-model-invocation: true are excluded from system prompt injection."
     },
-    "windsurf": {
+    "zed": {
       "supported": true,
-      "mechanism": "Cascade auto-invokes a skill when the user's request semantically matches its description frontmatter field."
+      "mechanism": "By default the agent picks up skills autonomously: it sees a catalog of every installed skill (name + description) in its system prompt and calls the skill tool when a task matches a skill's description. Semantic description matching, opt-out via disable-model-invocation — functionally the canonical auto_invocable capability."
     }
   }
 }

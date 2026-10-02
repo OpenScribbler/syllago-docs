@@ -12,7 +12,7 @@
       "fileFormat": "md",
       "installMethod": "filesystem",
       "installPath": "{home}/.factory/droids",
-      "symlinkSupport": true,
+      "symlinkSupport": false,
       "discoveryPaths": [
         "{project}/.factory/droids"
       ],

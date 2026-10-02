@@ -27,11 +27,15 @@
     },
     "crush": {
       "supported": true,
-      "mechanism": "The hook JSON response may include an optional context field; this content is injected into the agent context for the current turn."
+      "mechanism": "The output envelope's context field accepts a string or an array of strings, appended to what the model sees for the current turn. Across multiple hooks, context values concatenate in config order; empty entries are dropped."
     },
     "cursor": {
       "supported": true,
       "mechanism": "Hooks can inject context at session initialization via the sessionStart event, enabling custom context to be added to the agent's active session at startup."
+    },
+    "devin": {
+      "supported": false,
+      "mechanism": "Devin Desktop hooks cannot inject context into the agent's active session"
     },
     "factory-droid": {
       "supported": true,
@@ -48,10 +52,6 @@
     "pi": {
       "supported": true,
       "mechanism": "before_agent_start handlers return { message: { customType, content, display } } to inject a persistent message stored in session and sent to LLM; context handlers return { messages } to modify the message array before each LLM call"
-    },
-    "windsurf": {
-      "supported": false,
-      "mechanism": "Windsurf hooks cannot inject context into the agent's active session"
     }
   }
 }
