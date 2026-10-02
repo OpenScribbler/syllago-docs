@@ -102,6 +102,16 @@ if (shouldGenerateD2()) {
 
 export default defineConfig({
   site: 'https://syllago.dev',
+  // syllago v0.15.0 renamed the Windsurf provider to Devin Desktop.
+  redirects: {
+    '/using-syllago/providers/windsurf/': '/using-syllago/providers/devin/',
+    ...Object.fromEntries(
+      ['skills', 'hooks', 'rules', 'mcp', 'commands', 'agents'].map((ct) => [
+        `/using-syllago/providers/windsurf/${ct}/`,
+        `/using-syllago/providers/devin/${ct}/`,
+      ])
+    ),
+  },
   integrations,
   markdown: {
     remarkPlugins: [remarkWrapTables],
