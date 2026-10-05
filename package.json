@@ -29,7 +29,7 @@
     "@astrojs/starlight": "^0.42.2",
     "astro": "^7.3.3",
     "astro-d2": "^0.13.1",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.5",
     "starlight-heading-badges": "^0.8.0",
     "starlight-image-zoom": "^0.16.0",
     "starlight-links-validator": "^0.26.0",
