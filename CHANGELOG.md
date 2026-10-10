@@ -2,6 +2,11 @@
 
 All notable changes to the syllago documentation site.
 
+## 2026-10-10
+
+### Synced (syllago vnull)
+- Material: src/content/docs/errors/index.mdx, src/content/docs/errors/system-003.mdx
+
 ## 2026-10-01
 
 ### Changed
